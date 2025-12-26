@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/sidebar";
 import { MobileNavBar } from "@/components/layout/mobile-navbar";
+import { PreferencesProvider } from "@/components/context/preferences-provider";
 
 interface BannerContent {
   left?: React.ReactNode;
@@ -43,32 +44,34 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthProvider>
-      <BannerTrailingContext.Provider value={{ setContent: setContentMemo }}>
-        <main className="w-screen h-screen">
-          <SidebarProvider>
-            <TopBanner
-              leading={
-                <div className="flex items-center gap-2">
-                  <SidebarTrigger className="hidden md:inline-flex" />
+      <PreferencesProvider>
+        <BannerTrailingContext.Provider value={{ setContent: setContentMemo }}>
+          <main className="w-screen h-screen">
+            <SidebarProvider>
+              <TopBanner
+                leading={
+                  <div className="flex items-center gap-2">
+                    <SidebarTrigger className="hidden md:inline-flex" />
+                  </div>
+                }
+                content={content}
+                className="fixed top-0 left-0 right-0 z-30"
+              />
+
+              <div className="pt-12 flex w-full">
+                <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
+                <div className="flex-1 ml-0 h-calc(100vh-3rem)">
+                  <SidebarInset className="overflow-auto mobile-bottom-spacing">
+                    {children}
+                  </SidebarInset>
                 </div>
-              }
-              content={content}
-              className="fixed top-0 left-0 right-0 z-30"
-            />
-
-            <div className="pt-12 flex w-full">
-              <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
-              <div className="flex-1 ml-0 h-calc(100vh-3rem)">
-                <SidebarInset className="overflow-auto mobile-bottom-spacing">
-                  {children}
-                </SidebarInset>
               </div>
-            </div>
 
-            <MobileNavBar />
-          </SidebarProvider>
-        </main>
-      </BannerTrailingContext.Provider>
+              <MobileNavBar />
+            </SidebarProvider>
+          </main>
+        </BannerTrailingContext.Provider>
+      </PreferencesProvider>
     </AuthProvider>
   );
 }

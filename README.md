@@ -10,9 +10,9 @@
 
 #### General
 
-- [ ] Context: User preferences
-- [ ] Layout: Sidebar & Mobile navigation bar
-- [ ] Layout: App banner
+- [x] Context: User preferences
+- [x] Layout: Sidebar & Mobile navigation bar
+- [x] Layout: App banner
 
 #### Flights & Simulator Sessions _(rename this page)_
 
