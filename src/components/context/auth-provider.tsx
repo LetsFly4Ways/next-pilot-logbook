@@ -1,7 +1,12 @@
-// providers/auth-provider.tsx
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { createSupabaseClient } from "@/lib/supabase/client/client";
@@ -18,10 +23,17 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const supabase = createSupabaseClient();
+
+  const refreshUser = useCallback(async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUser(user);
+  }, [supabase]);
 
   useEffect(() => {
     // Initial user fetch
@@ -46,8 +58,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     });
 
-    return () => subscription.unsubscribe();
-  }, [router, supabase]);
+    // Listen for custom profile update events
+    const onProfileUpdated = () => {
+      refreshUser();
+    };
+    window.addEventListener("user-profile-updated", onProfileUpdated);
+
+    return () => {
+      subscription.unsubscribe();
+      window.removeEventListener("user-profile-updated", onProfileUpdated);
+    };
+  }, [router, supabase, refreshUser]);
   return (
     <AuthContext.Provider value={{ user, loading }}>
       {children}

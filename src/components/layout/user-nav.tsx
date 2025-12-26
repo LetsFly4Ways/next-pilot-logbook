@@ -1,5 +1,8 @@
 "use client";
 
+import { logout } from "@/actions/auth/logout";
+import { useAuth } from "@/components/context/auth-provider";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,13 +20,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { useAuth } from "@/components//context/auth-provider";
-
 import { User, Settings, LogOut } from "lucide-react";
-import { logout } from "@/actions/auth/logout";
 
 export function UserNav() {
-  const { user } = useAuth();
+  const { user } = useAuth(); // No need for refreshUser anymore
 
   // If no user is found, returns null -- button disappears for split second on loading
   // if (!user) return null;

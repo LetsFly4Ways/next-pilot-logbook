@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>Hellow</div>;
+  return <div>This is an empty test page.</div>;
 }
