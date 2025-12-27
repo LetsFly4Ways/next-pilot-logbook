@@ -119,25 +119,38 @@ export function SSOButtons({ onError }: SSOButtonsProps) {
     return null;
   }
 
+  const count = enabledProviders.length;
+
   return (
-    <div className="w-full items-center">
-      <div className="flex flex-col w-full items-center gap-2">
+    <div className="w-full">
+      <div className="flex w-full items-center gap-2">
         {enabledProviders.map((provider) => {
           const config = PROVIDER_CONFIGS[provider];
+          const label =
+            count === 1
+              ? `Continue with ${config.name}`
+              : count === 2
+              ? config.name
+              : "";
 
           return (
             <Button
               key={provider}
-              className={`w-full cursor-pointer ${config.bgColor} ${config.textColor} ${config.borderColor}`}
+              className={`flex-1 min-w-0 cursor-pointer ${config.bgColor} ${config.textColor} ${config.borderColor}`}
               variant="outline"
               size="lg"
               onClick={() => handleSSOLogin(provider)}
+              aria-label={label || `Login with ${config.name}`}
             >
-              <div>{config.icon}</div>
+              <div className="flex items-center justify-center">
+                <div className="shrink-0">{config.icon}</div>
 
-              <span className="text-sm font-semibold ms-2">
-                Continue with {config.name}
-              </span>
+                {label ? (
+                  <span className="text-sm font-semibold ms-2 truncate">
+                    {label}
+                  </span>
+                ) : null}
+              </div>
             </Button>
           );
         })}

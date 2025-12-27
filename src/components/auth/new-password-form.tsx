@@ -89,7 +89,7 @@ export function NewPasswordForm() {
             className={`w-full font-semibold cursor-pointer transition-colors ${
               isSuccess
                 ? "opacity-100 bg-green-500 text-white hover:bg-green-600"
-                : "bg-accent text-white hover:bg-secondary-hover hover:text-muted-foreground"
+                : "bg-accent text-white hover:bg-accent/80"
             }`}
             size="lg"
           >

@@ -53,81 +53,81 @@
   /* Fixed */
   --radius: 0.625rem;
 
-  --color-dark: #0C101C;
-  --color-medium: #171E32;
-  --color-light: #242F50;
-  --icon-accent: #FBFBFB;
+  --color-dark: #0c101c;
+  --color-medium: #171e32;
+  --color-light: #242f50;
+  --icon-accent: #fbfbfb;
 
   /* Common */
   --background: #fbfbfd;
   /* Used in: layout.tsx, AppTopBanner, many overlays, forms, dialogs, navigation, footer, landing features, etc. */
-  --foreground: #24242C;
+  --foreground: #24242c;
   /* Used in: layout.tsx, body, text, etc. */
-  --top: #18181B;
+  --top: #18181b;
   /* Top banner, Used in: AppTopBanner */
   --card: #fbfbfd;
   /* Used in: Card, login-form, etc. */
-  --card-foreground: #24242C;
+  --card-foreground: #24242c;
   /* Used in: Card, login-form, etc. */
-  --popover: #FFFFFF;
+  --popover: #ffffff;
   /* Used in: dropdown-menu, select, etc. */
-  --popover-foreground: #24242C;
+  --popover-foreground: #24242c;
   /* Used in: dropdown-menu, select, etc. */
-  --primary: #18181B;
+  --primary: #18181b;
   /* Used in: Button, Badge, Switch, Checkbox, Crew/CrewForm, Fleet/FleetForm, etc. */
-  --primary-foreground: #FFFFFF;
+  --primary-foreground: #ffffff;
   /* Used in: Button, Badge, Switch, Checkbox, Crew/CrewForm, Fleet/FleetForm, etc. */
-  --secondary: #24242C;
+  --secondary: #24242c;
   /* Used in: Button, Badge, Home page, etc. */
-  --secondary-hover: rgb(12, 17, 33);
+  --secondary-hover: #0c1121;
   /* Used in: Button, Home page, etc. */
-  --secondary-foreground: #161E2D;
+  --secondary-foreground: #161e2d;
   /* Used in: Home page, flight list timings */
   --muted: #e9eaed;
   /* Used in: Tabs, Table, Avatar, etc. */
-  --muted-foreground: #8E8E93;
+  --muted-foreground: #8e8e93;
   /* Used in: Tabs, Table, login-form, etc. */
-  --accent: #dfdfe3;
+  --accent: #3b9aff;
   /* Skeleton loading, Button, Badge, Dialog, etc. */
-  --accent-foreground: #363642;
+  --accent-foreground: #2d2d44;
   /* Used in: Button, Badge, Dialog, etc. */
-  --destructive: #DA3633;
+  --destructive: #da3633;
   /* Used in: Button, Badge, Alert, FormError, etc. */
   --border: #cfcfcf;
   /* Border color, Used in: Separator, Table, Input, etc. */
-  --input: #EAEAEB;
+  --input: #eaeaeb;
   /* Used in: Input, Checkbox, Switch, etc. */
-  --ring: #B4B4B8;
+  --ring: #b4b4b8;
   /* Used in: focus/outline for many components */
 
   /* Form */
-  --form: #f2f2F7;
+  --form: #f2f2f7;
   /* Used in: PositionedGroup, forms */
-  --form-foreground: #24242C;
+  --form-foreground: #24242c;
   /* Used in: PositionedGroup, forms */
   --form-border: #cfcfcf;
   /* Used in: PositionedGroup border */
 
   /* Charts */
-  --chart-1: #E65100;
+  --chart-1: #e65100;
   /* No direct usage found */
-  --chart-2: #0288D1;
+  --chart-2: #0288d1;
   /* No direct usage found */
-  --chart-3: #1A237E;
+  --chart-3: #1a237e;
   /* No direct usage found */
-  --chart-4: #FF6D00;
+  --chart-4: #ff6d00;
   /* No direct usage found */
-  --chart-5: #F4511E;
+  --chart-5: #f4511e;
   /* No direct usage found */
 
   /* Sidebar */
-  --sidebar: #f2f2F7;
+  --sidebar: #f2f2f7;
   /* Sidebar background, Used in: Sidebar, MobileNavOverlay, etc. */
-  --sidebar-foreground: #24242C;
+  --sidebar-foreground: #24242c;
   /* Sidebar text color, Used in: Sidebar, MobileNavOverlay, etc. */
   --sidebar-primary: #363642;
   /* Used in: Sidebar, nav-user, etc. */
-  --sidebar-primary-foreground: #FBFBFB;
+  --sidebar-primary-foreground: #fbfbfb;
   /* Logo emblem, nav-user, etc. */
   --sidebar-accent: #ffffff;
   /* sidebar active tab background, Used in: Sidebar, nav-user, etc. */
@@ -142,53 +142,52 @@
 .dark {
   /* Common */
   --background: #000000;
-  --foreground: #FBFBFB;
-  --top: #1C1C1E;
-  --card: #1C1C1E;
-  --card-foreground: #FBFBFB;
+  --foreground: #fbfbfb;
+  --top: #1c1c1e;
+  --card: #1c1c1e;
+  --card-foreground: #fbfbfb;
   --popover: #363642;
-  --popover-foreground: #FBFBFB;
-  --primary: #EAEAEB;
+  --popover-foreground: #fbfbfb;
+  --primary: #eaeaeb;
   --primary-foreground: #dddddd;
   --secondary: #464650;
   --secondary-hover: #363642;
-  --secondary-foreground: #FBFBFB;
+  --secondary-foreground: #fbfbfb;
   --muted: #464650;
-  --muted-foreground: #B4B4B8;
-  --accent: #4d4b4d;
-  --accent-foreground: #646567;
-  --destructive: #FF453A;
-  --border: #3C3C3F;
-  --input: #FFFFFF26;
-  --ring: #8E8E93;
+  --muted-foreground: #b4b4b8;
+  --accent: #3b9aff;
+  --accent-foreground: #fafafa;
+  --destructive: #ff453a;
+  --border: #3c3c3f;
+  --input: #ffffff26;
+  --ring: #8e8e93;
 
   /* Charts */
-  --chart-1: #7C4DFF;
-  --chart-2: #00B0FF;
-  --chart-3: #F4511E;
-  --chart-4: #D500F9;
-  --chart-5: #FF3D00;
+  --chart-1: #7c4dff;
+  --chart-2: #00b0ff;
+  --chart-3: #f4511e;
+  --chart-4: #d500f9;
+  --chart-5: #ff3d00;
 
   /* Form */
-  --form: #1C1C1E;
-  --form-foreground: #FBFBFB;
-  --form-border: #3C3C3F;
-
+  --form: #1c1c1e;
+  --form-foreground: #fbfbfb;
+  --form-border: #3c3c3f;
 
   /* Sidebar */
-  --sidebar: #1C1C1E;
+  --sidebar: #1c1c1e;
   /* Sidebar background */
-  --sidebar-foreground: #FBFBFB;
+  --sidebar-foreground: #fbfbfb;
   /* Sidebar text color */
   --sidebar-primary: #363642;
-  --sidebar-primary-foreground: #0C101C;
+  --sidebar-primary-foreground: #0c101c;
   /* Logo emblem */
   --sidebar-accent: #666667;
   /* sidebar active and hover tab */
-  --sidebar-accent-foreground: #FBFBFB;
+  --sidebar-accent-foreground: #fbfbfb;
   /* sidebar active tab text */
-  --sidebar-border: #3C3C3F;
-  --sidebar-ring: #8E8E93;
+  --sidebar-border: #3c3c3f;
+  --sidebar-ring: #8e8e93;
 }
 
 .container {

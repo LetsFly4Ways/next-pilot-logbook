@@ -95,7 +95,7 @@ export function RegisterForm() {
           <Button
             disabled={isPending}
             type="submit"
-            className="w-full bg-accent text-white hover:bg-secondary-hover hover:text-muted-foreground font-semibold cursor-pointer"
+            className="w-full bg-accent text-white hover:bg-accent/80 font-semibold cursor-pointer"
             size="lg"
           >
             {isPending ? <Spinner /> : "Create Account"}

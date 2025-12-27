@@ -52,7 +52,7 @@ export const CardWrapper = ({
       </CardFooter>
       {showTerms && (
         <CardFooter>
-          <p className="px-8 text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground">
             By continuing, you agree to our{" "}
             <Link
               href="/terms"
