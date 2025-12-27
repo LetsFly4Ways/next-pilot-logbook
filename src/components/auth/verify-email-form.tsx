@@ -23,6 +23,13 @@ export function VerifyEmailForm() {
   // cooldown in seconds: initial 30s before first send, 60s between sends
   const [cooldown, setCooldown] = useState<number>(30);
 
+  // Initialize error state based on email presence
+  if (!email && !error) {
+    setError("No email found.");
+  } else if (email && error === "No email found") {
+    setError("");
+  }
+
   useEffect(() => {
     if (cooldown <= 0) return;
     const id = setInterval(() => {
@@ -32,6 +39,10 @@ export function VerifyEmailForm() {
   }, [cooldown]);
 
   const handleResendEmail = () => {
+    if (!email) {
+      setError("No email found");
+      return;
+    }
     if (cooldown > 0) return;
     setError("");
 
@@ -61,8 +72,9 @@ export function VerifyEmailForm() {
     >
       <div className="flex flex-col gap-6">
         <p className="text-justify">
-          We&#39;ve sent you an email with a verification link to <b>{email}</b>
-          . Please check your inbox and click the link to verify your account.
+          We&#39;ve sent you an email with a verification link to{" "}
+          <b>{email || "your email"}</b>. Please check your inbox and click the
+          link to verify your account.
         </p>
 
         <p className="text-justify">

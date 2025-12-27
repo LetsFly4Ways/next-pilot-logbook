@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { NewPasswordForm } from "@/components/auth/new-password-form";
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default function NewPasswordPage() {
   return (
     <div className="mx-auto flex w-full flex-col justify-center sm:w-112.5">
-      <NewPasswordForm />
+      <Suspense>
+        <NewPasswordForm />
+      </Suspense>
     </div>
   );
 }
