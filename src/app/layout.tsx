@@ -41,9 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} h-screen overflow-hidden antialiased`}
-      >
+      <body className={`${inter.className} overflow-x-hidden antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme={settings.themeToggleEnabled ? "system" : "light"}

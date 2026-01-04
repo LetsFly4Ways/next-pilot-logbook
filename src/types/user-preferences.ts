@@ -31,10 +31,10 @@ export const UserPreferencesContentSchema = z.object({
 
 // Schema for the entire user_preferences table row
 export const UserPreferencesRowSchema = z.object({
-  user_id: z.string().uuid(),
+  user_id: z.uuid(),
   preferences: UserPreferencesContentSchema,
-  created_at: z.string().datetime().optional(),
-  updated_at: z.string().datetime().optional(),
+  created_at: z.iso.datetime().optional(),
+  updated_at: z.iso.datetime().optional(),
 });
 
 // Type exports
