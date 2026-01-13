@@ -1,5 +1,3 @@
-"use server";
-
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -23,12 +21,7 @@ import {
 
 import { Star } from "lucide-react";
 
-export default async function AirportPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+export default async function AirportPage({ id }: { id: string }) {
   const icao = id.toUpperCase();
 
   // Fetch airport data

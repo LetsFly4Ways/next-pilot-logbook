@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useCallback, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useCallback,
+  useState,
+  Suspense,
+} from "react";
 
 import { AuthProvider } from "@/components/context/auth-provider";
 
@@ -59,7 +65,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               />
 
               <div className="pt-12 flex w-full">
-                <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
+                <Suspense fallback={<div className="w-64" />}>
+                  <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
+                </Suspense>
                 <div className="flex-1 ml-0 h-calc(100vh-3rem)">
                   <SidebarInset className="overflow-auto mobile-bottom-spacing">
                     {children}
@@ -67,7 +75,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
 
-              <MobileNavBar />
+              <Suspense fallback={null}>
+                <MobileNavBar />
+              </Suspense>
             </SidebarProvider>
           </main>
         </BannerTrailingContext.Provider>
