@@ -82,10 +82,28 @@ export async function getPreferences() {
     const validated = UserPreferencesContentSchema.safeParse(data.preferences);
 
     if (!validated.success) {
+      // If validation fails, merge with defaults to recover
+      const defaults = getDefaultPreferences();
+      const merged = deepMerge(defaults, data.preferences || {});
+      const recovered = UserPreferencesContentSchema.safeParse(merged);
+
+      if (recovered.success) {
+        // Save the recovered preferences back to the database
+        await supabase
+          .from("user_preferences")
+          .update({ preferences: recovered.data })
+          .eq("user_id", user.id);
+
+        return {
+          success: true,
+          preferences: recovered.data,
+        };
+      }
+
+      // If recovery also fails, return defaults
       return {
-        success: false,
-        error: "Invalid preferences data",
-        preferences: null,
+        success: true,
+        preferences: defaults,
       };
     }
 
@@ -124,12 +142,90 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
       .single();
 
     // Get default preferences
-    const defaultPreferences = UserPreferencesContentSchema.parse({});
+    const defaultPreferences = getDefaultPreferences();
 
-    // Parse current preferences or use defaults
-    const current = currentPrefs?.preferences
-      ? UserPreferencesContentSchema.parse(currentPrefs.preferences)
-      : defaultPreferences;
+    // Parse current preferences or use defaults (with error recovery)
+    let current = defaultPreferences;
+    if (currentPrefs?.preferences) {
+      const parsed = UserPreferencesContentSchema.safeParse(
+        currentPrefs.preferences
+      );
+      if (parsed.success) {
+        current = parsed.data;
+      } else {
+        // If current preferences are invalid, merge with defaults to recover
+        current = deepMerge(defaultPreferences, currentPrefs.preferences || {});
+        // Validate the recovered preferences
+        const recovered = UserPreferencesContentSchema.safeParse(current);
+        if (!recovered.success) {
+          // If recovery fails, just use defaults
+          current = defaultPreferences;
+        } else {
+          current = recovered.data;
+        }
+      }
+    }
+
+    // Validate nested objects in updates before merging
+    // This ensures we catch invalid values early and provides better error messages
+    if (updates.airports) {
+      const airportsSchema = UserPreferencesContentSchema.shape.airports;
+      const airportsValidation = airportsSchema.safeParse(updates.airports);
+      if (!airportsValidation.success) {
+        return {
+          success: false,
+          error: `Invalid airports preferences: ${JSON.stringify(
+            airportsValidation.error.issues
+          )}`,
+        };
+      }
+      // Use validated value for merge
+      updates.airports = airportsValidation.data;
+    }
+
+    if (updates.logging) {
+      const loggingSchema = UserPreferencesContentSchema.shape.logging;
+      const loggingValidation = loggingSchema.safeParse(updates.logging);
+      if (!loggingValidation.success) {
+        return {
+          success: false,
+          error: `Invalid logging preferences: ${JSON.stringify(
+            loggingValidation.error.issues
+          )}`,
+        };
+      }
+      updates.logging = loggingValidation.data;
+    }
+
+    if (updates.fleet) {
+      const fleetSchema = UserPreferencesContentSchema.shape.fleet;
+      const fleetValidation = fleetSchema.safeParse(updates.fleet);
+      if (!fleetValidation.success) {
+        return {
+          success: false,
+          error: `Invalid fleet preferences: ${JSON.stringify(
+            fleetValidation.error.issues
+          )}`,
+        };
+      }
+      updates.fleet = fleetValidation.data;
+    }
+
+    if (updates.nameDisplay !== undefined) {
+      const nameDisplaySchema = UserPreferencesContentSchema.shape.nameDisplay;
+      const nameDisplayValidation = nameDisplaySchema.safeParse(
+        updates.nameDisplay
+      );
+      if (!nameDisplayValidation.success) {
+        return {
+          success: false,
+          error: `Invalid nameDisplay preference: ${JSON.stringify(
+            nameDisplayValidation.error.issues
+          )}`,
+        };
+      }
+      updates.nameDisplay = nameDisplayValidation.data;
+    }
 
     // Deep merge with new preferences
     const updatedPreferences = deepMerge(current, updates);

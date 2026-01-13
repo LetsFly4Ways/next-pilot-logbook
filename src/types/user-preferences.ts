@@ -25,6 +25,7 @@ export const UserPreferencesContentSchema = z.object({
   }),
   airports: z.object({
     sorting: z.enum(["country", "icao", "iata", "favourites"]),
+    distanceUnit: z.enum(["m", "ft"]),
   }),
   nameDisplay: z.enum(["first-last", "last-first"]),
 });
@@ -59,6 +60,7 @@ export function getDefaultPreferences(): UserPreferences {
     },
     airports: {
       sorting: "icao",
+      distanceUnit: "m",
     },
     nameDisplay: "first-last",
   };
