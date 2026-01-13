@@ -1,130 +1,191 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-import { useRouter } from "next/navigation";
-
 import { Airport } from "@/types/airports";
-import { getAirportByIcao } from "@/actions/pages/airports/fetch";
+
+import { decimalToSexagesimal } from "geolib";
+import { formatInTimeZone } from "date-fns-tz";
+
+import { LiveTimeDisplay } from "@/components/pages/airports/live-time-display";
 import {
-  AirportVisit,
-  getAirportVisits,
-} from "@/actions/pages/airports/airport-visits";
-
-import { PageHeader } from "@/components/layout/page-header";
-import AirportDetails from "@/components/pages/airports/details";
+  SunTimes,
+  SunTimesSkeleton,
+} from "@/components/pages/airports/sun-times";
 import {
-  PositionedGroup,
-  PositionedItem,
-} from "@/components/ui/positioned-group";
-import { ErrorAlert } from "@/components/pages/airports/error-alert";
+  AirportRunways,
+  AirportRunwaysSkeleton,
+} from "@/components/pages/airports/airport-runway";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import { ChevronRight } from "lucide-react";
+import { Clock, Earth, Mountain } from "lucide-react";
+import { TbWorldLatitude, TbWorldLongitude } from "react-icons/tb";
 
-export default function AirportInfoPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const [airport, setAirport] = useState<Airport | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [icaoCode, setIcaoCode] = useState<string>("");
-  const [visits, setVisits] = useState<AirportVisit | null>(null);
-  const router = useRouter();
+interface AirportInfoProps {
+  airport: Airport;
+}
 
-  useEffect(() => {
-    const loadAirport = async () => {
-      try {
-        setLoading(true);
+type Direction = "N" | "S" | "E" | "W";
 
-        // Await params to get the ICAO code
-        const resolvedParams = await params;
-        const icao = resolvedParams.id.toUpperCase(); // Ensure uppercase
-        setIcaoCode(icao);
+function formatCoordinate(decimal: number, isLongitude: boolean): string {
+  const dms: string = decimalToSexagesimal(decimal);
+  const rounded = dms.replace(/(\d+\.\d+)"/, (match, seconds) => {
+    return `${Math.round(parseFloat(seconds))}"`;
+  });
 
-        // Fetch airport data and visits data in parallel
-        const [airportData, visitsData] = await Promise.all([
-          getAirportByIcao(icao),
-          getAirportVisits(icao),
-        ]);
+  const direction: Direction = isLongitude
+    ? decimal >= 0
+      ? "E"
+      : "W"
+    : decimal >= 0
+    ? "N"
+    : "S";
+  return `${rounded} ${direction}`;
+}
 
-        // TEMPORARY
-        console.log(visitsData);
+export function AirportInfo({ airport }: AirportInfoProps) {
+  const lonDMS = formatCoordinate(airport.lon || 0, true);
+  const latDMS = formatCoordinate(airport.lat || 0, false);
 
-        setAirport(airportData as Airport | null);
-        setVisits(visitsData);
-      } catch (error) {
-        console.error("Error fetching airport:", error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadAirport();
-  }, [params]);
+  const date = new Date();
+  const utcOffset = formatInTimeZone(date, airport.tz, "X");
+  // const currentUtcTime = formatInTimeZone(date, "UTC", "HH:mm");
 
   return (
-    <div className="flex flex-col">
-      <PageHeader
-        title={airport?.name || icaoCode}
-        backHref="/app/airports"
-        showBackButton={true}
-        isTopLevelPage={false}
-      />
-      <div className="p-4 space-y-4">
-        {/* Errors Alert display */}
-        {error && (
-          <ErrorAlert
-            title="Looks like we have an error."
-            message={<p>{error}</p>}
-          />
-        )}
-
-        {/* Airport Information */}
-        <AirportDetails airport={airport} loading={loading} />
-
-        {/* Visits */}
-        <div>
-          <PositionedGroup>
-            <PositionedItem
-              position="first"
-              className="p-3 flex items-center justify-between cursor-pointer"
-              onClick={() =>
-                router.push(`/app/airports/${icaoCode}/departures`)
-              }
-            >
-              <span className="text-sm font-medium text-foreground">
-                Departures
-              </span>
-              <div className="flex space-x-2 items-center">
-                <span className="text-sm text-muted-foreground">
-                  {visits?.departures || 0}
-                </span>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
-              </div>
-            </PositionedItem>
-            <PositionedItem
-              position="last"
-              className="p-3 flex items-center justify-between cursor-pointer"
-              onClick={() => router.push(`/app/airports/${icaoCode}/arrivals`)}
-            >
-              <span className="text-sm font-medium text-foreground">
-                Arrivals
-              </span>
-              <div className="flex space-x-2 items-center">
-                <span className="text-sm text-muted-foreground">
-                  {visits?.arrivals || 0}
-                </span>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
-              </div>
-            </PositionedItem>
-          </PositionedGroup>
+    <div className="border-y divide-y">
+      {/* Row 1: Time */}
+      <div className="grid grid-cols-2 gap-4 py-4">
+        <div className="flex items-center gap-3">
+          <Clock className="h-6 w-6 text-muted-foreground" />
+          <div>
+            <div className="text-xs text-muted-foreground">World Time</div>
+            <div className="text-sm font-medium">
+              <LiveTimeDisplay timezone="UTC" /> UTC
+            </div>
+          </div>
         </div>
-        {/* Footer */}
-        {/* In case of incorrect information bla bla bla */}
+        <div className="flex items-center gap-3">
+          <div className="h-6 w-6 rounded-full border-2 border-muted-foreground flex items-center justify-center">
+            <div className="text-xs font-medium text-muted-foreground">
+              {utcOffset.replace(/^([+-])0/, "$1")}
+            </div>
+          </div>
+          <div>
+            <div className="text-xs text-muted-foreground">Local Time</div>
+            <div className="text-sm font-medium">
+              <LiveTimeDisplay timezone={airport.tz} /> LT
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Row 2: Timezone & Elevation */}
+      <div className="grid grid-cols-2 gap-4 py-4">
+        <div className="flex items-center gap-3">
+          <Earth className="h-6 w-6 text-muted-foreground" />
+          <div>
+            <div className="text-xs text-muted-foreground">Timezone</div>
+            <div className="text-sm font-medium">
+              {airport.tz || "Unknown"} (UTC{utcOffset})
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Mountain className="h-6 w-6 text-muted-foreground" />
+          <div>
+            <div className="text-xs text-muted-foreground">Elevation</div>
+            <div className="text-sm font-medium">
+              {airport.elevation || "Unknown"} ft
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 3: Coordinates */}
+      <div className="grid grid-cols-2 gap-4 py-4">
+        <div className="flex items-center gap-3">
+          <TbWorldLatitude className="h-6 w-6 text-muted-foreground" />
+          <div>
+            <div className="text-xs text-muted-foreground">Latitude</div>
+            <div className="text-sm font-medium">{latDMS}</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <TbWorldLongitude className="h-6 w-6 text-muted-foreground" />
+          <div>
+            <div className="text-xs text-muted-foreground">Longitude</div>
+            <div className="text-sm font-medium">{lonDMS}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 4 & 5: Sun Times */}
+      <SunTimes lat={airport.lat} lon={airport.lon} timezone={airport.tz} />
+
+      {/* Row 6: Runways */}
+      <AirportRunways runways={airport.runways} />
+    </div>
+  );
+}
+
+export function AirportInfoSkeleton() {
+  return (
+    <div className="border-y divide-y">
+      {/* Row 1 */}
+      <div className="grid grid-cols-2 gap-4 py-4">
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-6 w-6 rounded" />
+          <div className="space-y-1">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-6 w-6 rounded" />
+          <div className="space-y-1">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2 */}
+      <div className="grid grid-cols-2 gap-4 py-4">
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-6 w-6 rounded" />
+          <div className="space-y-1">
+            <Skeleton className="h-3 w-16" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-6 w-6 rounded" />
+          <div className="space-y-1">
+            <Skeleton className="h-3 w-16" />
+            <Skeleton className="h-4 w-20" />
+          </div>
+        </div>
+      </div>
+
+      {/* Row 3 */}
+      <div className="grid grid-cols-2 gap-4 py-4">
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-6 w-6 rounded" />
+          <div className="space-y-1">
+            <Skeleton className="h-3 w-16" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-6 w-6 rounded" />
+          <div className="space-y-1">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+      </div>
+
+      {/* Row 4 & 5 */}
+      <SunTimesSkeleton />
+
+      {/* Row 6 */}
+      <AirportRunwaysSkeleton />
     </div>
   );
 }

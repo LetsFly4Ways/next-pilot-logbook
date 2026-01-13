@@ -184,7 +184,7 @@ export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
               </div>
             </div>
           ) : error ? (
-            <ErrorContainer title={"Error Loading Airports"} message={error} />
+            <ErrorContainer title={"Error Loading airports"} message={error} />
           ) : airports.length === 0 && searchQuery ? (
             <div className="text-center py-12 text-muted-foreground">
               <p>No airports found matching &quot;{searchQuery}&quot;</p>

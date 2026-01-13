@@ -1,4 +1,4 @@
-import AirportInfoPage from "@/components/pages/airports/airport-info";
+import AirportPage from "@/components/pages/airports/airport";
 
 import type { Metadata } from "next";
 
@@ -7,4 +7,4 @@ export const metadata: Metadata = {
   description: "Browse and search airports",
 };
 
-export default AirportInfoPage;
+export default AirportPage;

@@ -1,4 +1,4 @@
-import AirportsPage from "@/components/pages/airports/airports-page";
+import AirportsPage from "@/components/pages/airports/airports";
 
 export const metadata = {
   title: "Airports",
