@@ -35,27 +35,78 @@ export function AirportRunways({ runways }: AirportRunwaysProps) {
     runwayPairs.get(pairKey)!.push(runway);
   });
 
+  function runwayNumber(ident: string): number {
+    return parseInt(ident.slice(0, 2), 10);
+  }
+
+  const suffixOrder: Record<string, number> = {
+    L: 0,
+    C: 1,
+    R: 2,
+    "": 1, // no suffix behaves like center
+  };
+
+  function suffixRank(ident: string): number {
+    const suffix = ident.match(/[LRC]$/)?.[0] ?? "";
+    return suffixOrder[suffix] ?? 99;
+  }
+
+  function flipSuffix(s?: string) {
+    if (s === "L") return "R";
+    if (s === "R") return "L";
+    return s ?? "";
+  }
+
+  function reciprocalIdent(ident: string) {
+    const num = runwayNumber(ident);
+    const suffix = ident.match(/[LRC]$/)?.[0];
+    const recipNum = ((num + 18) % 36 || 36).toString().padStart(2, "0");
+    return recipNum + flipSuffix(suffix);
+  }
+
   return (
     <div className="border-y py-4">
       <div className="flex flex-col items-center justify-center space-y-4">
-        {Array.from(runwayPairs.values()).map((pair) => {
-          const [runway1, runway2] = pair;
-          // Use the first runway's data, but show both designators
-          const leading = runway1.ident;
-          const trailing = runway2?.ident || getReciprocalIdent(runway1.ident);
+        {Array.from(runwayPairs.values()).flatMap((runways) => {
+          const used = new Set<string>();
+          const pairs: [Runway, Runway | undefined][] = [];
 
-          return (
-            <RunwayElement
-              key={`${leading}-${trailing}`}
-              designatorLeading={leading}
-              designatorTrailing={trailing}
-              width={parseInt(runway1.width_ft) || null}
-              length={parseInt(runway1.length_ft) || null}
-              surfaceType={runway1.surface || null}
-              unit="ft"
-              lighted={runway1.lighted}
-            />
-          );
+          for (const r of runways) {
+            if (used.has(r.ident)) continue;
+
+            const recipId = reciprocalIdent(r.ident);
+            const reciprocal = runways.find((x) => x.ident === recipId);
+
+            used.add(r.ident);
+            if (reciprocal) used.add(reciprocal.ident);
+
+            // Ensure left = lower runway number
+            const [left, right] =
+              runwayNumber(r.ident) <= runwayNumber(reciprocal?.ident ?? "99")
+                ? [r, reciprocal]
+                : [reciprocal!, r];
+
+            pairs.push([left, right]);
+          }
+
+          return pairs
+            .sort(
+              ([leftA], [leftB]) =>
+                suffixRank(leftA.ident) - suffixRank(leftB.ident)
+            )
+            .map(([left, right]) => (
+              <RunwayElement
+                key={`${left.ident}-${right?.ident}`}
+                designatorLeading={left.ident}
+                designatorTrailing={
+                  right?.ident ?? getReciprocalIdent(left.ident)
+                }
+                width={parseInt(left.width_ft) || null}
+                length={parseInt(left.length_ft) || null}
+                surfaceType={left.surface || null}
+                lighted={left.lighted}
+              />
+            ));
         })}
       </div>
     </div>

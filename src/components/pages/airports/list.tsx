@@ -13,7 +13,7 @@ import AirportListItem, {
   AirportItemSkeleton,
 } from "@/components/pages/airports/list-item";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ErrorContainer } from "@/components/error-container";
+import { ErrorContainer } from "@/components/ui/error-container";
 
 interface GroupedAirports {
   [key: string]: Airport[];

@@ -10,8 +10,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   return {
-    title: id,
-    description: `All you need to know about ${id}.`,
+    title: id.toUpperCase(),
+    description: `All you need to know about ${id.toUpperCase()}.`,
   };
 }
 
