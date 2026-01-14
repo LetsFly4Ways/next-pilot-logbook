@@ -27,7 +27,10 @@ const PositionedItem = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("relative text-form-foreground h-12", className)}
+      className={cn(
+        "relative text-form-foreground hover:bg-muted/50 transition-colors h-12",
+        className
+      )}
       {...props}
     />
   );

@@ -227,10 +227,8 @@ export function AirportsList({
 
               {!hasMore && paginatedAirports.length > 0 && (
                 <div className="text-center py-4 text-muted-foreground">
-                  <p>
-                    You&apos;ve reached the end! All {filteredAirports.length}{" "}
-                    airports loaded.
-                  </p>
+                  <p>You&apos;ve reached the end!</p>
+                  <p>All {filteredAirports.length} airports loaded.</p>
                 </div>
               )}
             </>
