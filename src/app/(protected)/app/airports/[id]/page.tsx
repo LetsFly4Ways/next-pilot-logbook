@@ -1,12 +1,19 @@
 import { Suspense } from "react";
-import AirportPage from "@/components/pages/airports/airport";
-
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Airports",
-  description: "Browse and search airports",
-};
+import AirportPage from "@/components/pages/airports/airport";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  return {
+    title: id,
+    description: `All you need to know about ${id}.`,
+  };
+}
 
 async function AirportPageWrapper({
   params,
