@@ -8,7 +8,7 @@ interface AirportHeaderProps {
 
 export function AirportHeader({ airport }: AirportHeaderProps) {
   return (
-    <div className="space-y-3 px-2">
+    <div className="space-y-2 px-2">
       <div className="w-full flex justify-between items-start">
         <div className="flex space-x-2 text-2xl font-semibold">
           <h2>{airport.icao}</h2>
@@ -19,7 +19,6 @@ export function AirportHeader({ airport }: AirportHeaderProps) {
             </>
           )}
         </div>
-        {/* Future: Add favorite icon here */}
       </div>
 
       <div>

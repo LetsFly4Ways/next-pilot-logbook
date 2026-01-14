@@ -7,6 +7,12 @@ import { getAirportVisits } from "@/actions/pages/airports/fetch-visits";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/layout/page-header";
 import {
+  Map,
+  MapMarker,
+  MarkerContent,
+  MarkerTooltip,
+} from "@/components/ui/map";
+import {
   AirportHeader,
   AirportHeaderSkeleton,
 } from "@/components/pages/airports/airport-header";
@@ -19,7 +25,7 @@ import {
   AirportVisitsLinksSkeleton,
 } from "@/components/pages/airports/airport-visits-links";
 
-import { Star } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 
 export default async function AirportPage({ id }: { id: string }) {
   const icao = id.toUpperCase();
@@ -52,6 +58,21 @@ export default async function AirportPage({ id }: { id: string }) {
       />
 
       <div className="p-6 space-y-4">
+        <div className="h-80 md:h-100 w-full rounded-lg overflow-hidden">
+          <Map center={[airport.lon, airport.lat]} zoom={13}>
+            <MapMarker
+              key={airport.icao}
+              longitude={airport.lon}
+              latitude={airport.lat}
+            >
+              <MarkerContent>
+                <MapPin />
+              </MarkerContent>
+              <MarkerTooltip>{airport.icao}</MarkerTooltip>
+            </MapMarker>
+          </Map>
+        </div>
+
         {/* Header Section */}
         <Suspense fallback={<AirportHeaderSkeleton />}>
           <AirportHeader airport={airport} />

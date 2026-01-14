@@ -45,7 +45,6 @@ export function AirportInfo({ airport }: AirportInfoProps) {
 
   const date = new Date();
   const utcOffset = formatInTimeZone(date, airport.tz, "X");
-  // const currentUtcTime = formatInTimeZone(date, "UTC", "HH:mm");
 
   return (
     <div className="border-y divide-y">
