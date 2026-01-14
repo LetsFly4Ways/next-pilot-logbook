@@ -51,7 +51,11 @@ export default async function AirportPage({ id }: { id: string }) {
         showBackButton
         isTopLevelPage={false}
         actionButton={
-          <Button variant="ghost" size="icon">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+          >
             <Star />
           </Button>
         }

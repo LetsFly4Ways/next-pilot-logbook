@@ -62,8 +62,8 @@ export default function AirportsPage() {
                 </div>
                 <Button
                   variant="ghost"
-                  // size="icon"
-                  className="h-8 w-8 hover:bg-secondary-foreground/10 cursor-pointer"
+                  size="icon"
+                  className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
                   onClick={() => {
                     setShowSearch(false);
                     setSearchQuery("");
@@ -77,7 +77,7 @@ export default function AirportsPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 hover:bg-secondary-foreground/10 cursor-pointer"
+                  className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
                   onClick={() => setShowSearch(true)}
                 >
                   <Search className="h-4 w-4" />
@@ -89,7 +89,7 @@ export default function AirportsPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 hover:bg-secondary-foreground/10 cursor-pointer"
+                      className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
                     >
                       <ListFilter className="h-4 w-4" />
                     </Button>
