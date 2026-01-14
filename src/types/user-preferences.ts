@@ -25,16 +25,17 @@ export const UserPreferencesContentSchema = z.object({
   }),
   airports: z.object({
     sorting: z.enum(["country", "icao", "iata", "favourites"]),
+    distanceUnit: z.enum(["m", "ft"]),
   }),
   nameDisplay: z.enum(["first-last", "last-first"]),
 });
 
 // Schema for the entire user_preferences table row
 export const UserPreferencesRowSchema = z.object({
-  user_id: z.string().uuid(),
+  user_id: z.uuid(),
   preferences: UserPreferencesContentSchema,
-  created_at: z.string().datetime().optional(),
-  updated_at: z.string().datetime().optional(),
+  created_at: z.iso.datetime().optional(),
+  updated_at: z.iso.datetime().optional(),
 });
 
 // Type exports
@@ -59,6 +60,7 @@ export function getDefaultPreferences(): UserPreferences {
     },
     airports: {
       sorting: "icao",
+      distanceUnit: "m",
     },
     nameDisplay: "first-last",
   };
