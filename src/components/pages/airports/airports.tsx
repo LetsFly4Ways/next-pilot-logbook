@@ -26,6 +26,7 @@ export default function AirportsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortBy>("country");
   const [showSearch, setShowSearch] = useState(false);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   return (
     <div className="flex flex-col">
@@ -133,7 +134,10 @@ export default function AirportsPage() {
                     {/* Future: Add filter options */}
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                      <DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem
+                        checked={showFavoritesOnly}
+                        onCheckedChange={setShowFavoritesOnly}
+                      >
                         Favourites
                       </DropdownMenuCheckboxItem>
                     </DropdownMenuGroup>
@@ -144,7 +148,11 @@ export default function AirportsPage() {
           </div>
         }
       />
-      <AirportsList searchQuery={searchQuery} sortBy={sortBy} />
+      <AirportsList
+        searchQuery={searchQuery}
+        sortBy={sortBy}
+        showFavoritesOnly={showFavoritesOnly}
+      />
     </div>
   );
 }

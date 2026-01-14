@@ -3,9 +3,10 @@ import { Suspense } from "react";
 
 import { getAirportByIcao } from "@/actions/pages/airports/fetch";
 import { getAirportVisits } from "@/actions/pages/airports/fetch-visits";
+import { isAirportFavorited } from "@/actions/pages/airports/favorites";
 
-import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/layout/page-header";
+import { FavoriteButton } from "@/components/pages/airports/favorite-button";
 import {
   Map,
   MapMarker,
@@ -25,13 +26,16 @@ import {
   AirportVisitsLinksSkeleton,
 } from "@/components/pages/airports/airport-visits-links";
 
-import { MapPin, Star } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 export default async function AirportPage({ id }: { id: string }) {
   const icao = id.toUpperCase();
 
-  // Fetch airport data
-  const airportResult = await getAirportByIcao(icao);
+  // Fetch airport data and favorite status in parallel
+  const [airportResult, isFavorited] = await Promise.all([
+    getAirportByIcao(icao),
+    isAirportFavorited(icao),
+  ]);
 
   // Handle errors
   if (!airportResult.success) {
@@ -51,13 +55,10 @@ export default async function AirportPage({ id }: { id: string }) {
         showBackButton
         isTopLevelPage={false}
         actionButton={
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
-          >
-            <Star />
-          </Button>
+          <FavoriteButton
+            icao={airport.icao}
+            initialIsFavorited={isFavorited}
+          />
         }
       />
 

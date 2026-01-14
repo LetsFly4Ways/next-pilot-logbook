@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Airport, SortBy } from "@/types/airports";
 
 import { searchAndSortAirports } from "@/actions/pages/airports/fetch";
+import { getFavoriteAirports } from "@/actions/pages/airports/favorites";
 
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 
@@ -14,6 +15,11 @@ import AirportListItem, {
 } from "@/components/pages/airports/list-item";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorContainer } from "@/components/ui/error-container";
+import {
+  PositionedGroup,
+  PositionedItem,
+} from "@/components/ui/positioned-group";
+import { ChevronRight, Star } from "lucide-react";
 
 interface GroupedAirports {
   [key: string]: Airport[];
@@ -24,102 +30,72 @@ const ITEMS_PER_PAGE = 50;
 interface AirportsListProps {
   searchQuery: string;
   sortBy: SortBy;
+  showFavoritesOnly: boolean;
 }
 
-export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
+export function AirportsList({
+  searchQuery,
+  sortBy,
+  showFavoritesOnly,
+}: AirportsListProps) {
   const [airports, setAirports] = useState<Airport[]>([]);
+  const [favoriteIcaos, setFavoriteIcaos] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
-  // Load airports data with search and sort
+  // Fetch airports and favorites
   useEffect(() => {
-    let isCancelled = false;
-
-    const loadAirports = async () => {
+    const fetchData = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const result = await searchAndSortAirports(searchQuery, sortBy);
+        // Fetch airports and favorites in parallel
+        const [airportsResult, favorites] = await Promise.all([
+          searchAndSortAirports(searchQuery, sortBy),
+          getFavoriteAirports(),
+        ]);
 
-        if (isCancelled) return;
-
-        if (!result.success) {
-          setError(result.error);
-          setAirports([]);
-          // setDisplayAirports([]);
+        if (!airportsResult.success) {
+          setError(airportsResult.error || "Failed to load airports");
           return;
         }
 
-        // Update both states together to prevent showing stale data
-        setAirports(result.data);
-        // setDisplayAirports(result.data);
+        setAirports(airportsResult.data);
+        setFavoriteIcaos(favorites);
       } catch (err) {
-        if (isCancelled) return;
-
-        console.error("Failed to load airports:", err);
-        setError(
-          err instanceof Error ? err.message : "An unexpected error occurred"
-        );
-        setAirports([]);
-        // setDisplayAirports([]);
+        console.error("Error fetching data:", err);
+        setError("An error occurred while loading airports");
       } finally {
-        if (!isCancelled) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
-    loadAirports();
-
-    return () => {
-      isCancelled = true;
-    };
+    fetchData();
   }, [searchQuery, sortBy]);
 
-  // Calculate available letters for navigation
-  const availableLetters = useMemo(() => {
-    const letters = new Set<string>();
-    airports.forEach((airport) => {
-      let firstChar = "";
-      switch (sortBy) {
-        case "country":
-          firstChar = airport.countryName?.charAt(0).toUpperCase() || "N";
-          break;
-        case "icao":
-          firstChar = airport.icao?.charAt(0).toUpperCase() || "N";
-          break;
-        case "iata":
-          firstChar = airport.iata?.charAt(0).toUpperCase() || "N";
-          break;
-      }
-      if (firstChar) letters.add(firstChar);
-    });
-    return Array.from(letters).sort();
-  }, [airports, sortBy]);
-
-  // Scroll to letter in list
-  const scrollToLetter = useCallback((letter: string) => {
-    if (letter === "•") return;
-
-    const element = document.getElementById(`section-${letter}`);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Filter airports based on favorites
+  const filteredAirports = useMemo(() => {
+    if (!showFavoritesOnly) {
+      return airports;
     }
-  }, []);
+    return airports.filter((airport) =>
+      favoriteIcaos.includes(airport.icao.toUpperCase())
+    );
+  }, [airports, showFavoritesOnly, favoriteIcaos]);
 
   // Paginated airports
   const paginatedAirports = useMemo(() => {
     const endIndex = currentPage * ITEMS_PER_PAGE;
-    return airports.slice(0, endIndex);
-  }, [airports, currentPage]);
+    return filteredAirports.slice(0, endIndex);
+  }, [filteredAirports, currentPage]);
 
   // Check if more items available
   const hasMore = useMemo(() => {
     const endIndex = currentPage * ITEMS_PER_PAGE;
-    return endIndex < airports.length;
-  }, [currentPage, airports]);
+    return endIndex < filteredAirports.length;
+  }, [currentPage, filteredAirports]);
 
   // Load more handler
   const loadMore = useCallback(() => {
@@ -135,10 +111,10 @@ export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
     threshold: 0.1,
   });
 
-  // Reset page when search or sort changes
+  // Reset page when search, sort, or filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, sortBy]);
+  }, [searchQuery, sortBy, showFavoritesOnly]);
 
   // Group airports for display
   const groupedAirports = useMemo(() => {
@@ -166,30 +142,39 @@ export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
     }, {});
   }, [paginatedAirports, sortBy]);
 
+  const isFavorite = (icao: string) => favoriteIcaos.includes(icao);
+
   return (
-    <div className="p-4">
+    <div className="p-4 md:p-6">
       <div className="flex">
         <div className="flex-1 space-y-4">
           {loading ? (
             <div className="space-y-4">
-              <div className="space-y-4">
-                <div className="sticky top-0 py-2 z-10">
-                  <Skeleton className="h-8 w-64 rounded-sm" />
+              <div className="space-y-2">
+                <div className="sticky top-0 z-10">
+                  <Skeleton className="h-6 w-48 rounded-sm" />
                 </div>
-                <div className="divide-y border-b">
+                <PositionedGroup>
                   {Array.from({ length: 10 }).map((_, index) => (
                     <AirportItemSkeleton key={index} />
                   ))}
-                </div>
+                </PositionedGroup>
               </div>
             </div>
           ) : error ? (
             <ErrorContainer title={"Error Loading airports"} message={error} />
-          ) : airports.length === 0 && searchQuery ? (
+          ) : filteredAirports.length === 0 && showFavoritesOnly ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>No favourite airports yet</p>
+              <p className="text-sm mt-2">
+                Star airports to add them to your favourites
+              </p>
+            </div>
+          ) : filteredAirports.length === 0 && searchQuery ? (
             <div className="text-center py-12 text-muted-foreground">
               <p>No airports found matching &quot;{searchQuery}&quot;</p>
             </div>
-          ) : airports.length === 0 ? (
+          ) : filteredAirports.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <p>No airports available</p>
             </div>
@@ -200,12 +185,12 @@ export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
                   const firstLetter = groupKey.charAt(0).toUpperCase();
 
                   return (
-                    <div key={groupKey} className="space-y-4">
+                    <div key={groupKey} className="space-y-2">
                       <div
                         id={`section-${firstLetter}`}
-                        className="sticky top-0 py-2 z-10 bg-background"
+                        className="sticky top-0 z-10 bg-background"
                       >
-                        <h2 className="text-2xl font-semibold flex items-center">
+                        <h2 className="text-xl font-semibold flex items-center">
                           {groupKey}
                           <Badge className="ml-3" variant="basic">
                             {groupedAirports.length}
@@ -213,14 +198,15 @@ export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
                         </h2>
                       </div>
 
-                      <div className="divide-y border-b">
+                      <PositionedGroup>
                         {groupedAirports.map((airport) => (
                           <AirportListItem
                             key={airport.icao}
                             airport={airport}
+                            isFavorite={isFavorite(airport.icao)}
                           />
                         ))}
-                      </div>
+                      </PositionedGroup>
                     </div>
                   );
                 }
@@ -228,20 +214,22 @@ export function AirportsList({ searchQuery, sortBy }: AirportsListProps) {
 
               {/* Sentinel element for infinite scroll */}
               {hasMore && (
-                <div ref={sentinelRef} className="py-8">
+                <div ref={sentinelRef} className="py-4">
                   <div className="space-y-3">
-                    {Array.from({ length: 3 }).map((_, i) => (
-                      <AirportItemSkeleton key={i} />
-                    ))}
+                    <PositionedGroup>
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <AirportItemSkeleton key={i} />
+                      ))}
+                    </PositionedGroup>
                   </div>
                 </div>
               )}
 
               {!hasMore && paginatedAirports.length > 0 && (
-                <div className="text-center py-8 text-muted-foreground">
+                <div className="text-center py-4 text-muted-foreground">
                   <p>
-                    You&apos;ve reached the end! All {airports.length} airports
-                    loaded.
+                    You&apos;ve reached the end! All {filteredAirports.length}{" "}
+                    airports loaded.
                   </p>
                 </div>
               )}
