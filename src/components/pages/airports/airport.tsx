@@ -27,6 +27,7 @@ import {
 } from "@/components/pages/airports/airport-visits-links";
 
 import { MapPin } from "lucide-react";
+import Link from "next/link";
 
 export default async function AirportPage({ id }: { id: string }) {
   const icao = id.toUpperCase();
@@ -92,6 +93,19 @@ export default async function AirportPage({ id }: { id: string }) {
         <Suspense fallback={<AirportVisitsLinksSkeleton />}>
           <AirportVisitsLinks icao={icao} visitsPromise={visitsPromise} />
         </Suspense>
+
+        <div className="w-full flex justify-center">
+          <span className="text-sm text-muted-foreground">
+            Found a mistake?{" "}
+            <Link
+              target="_blank"
+              href={`https://github.com/LetsFly4Ways/next-pilot-logbook/issues/new?template=airport-data-issues.md&title=[AIRPORT]+${airport.icao}+airport+data+issue`}
+              className="underline"
+            >
+              Create a ticket!
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );
