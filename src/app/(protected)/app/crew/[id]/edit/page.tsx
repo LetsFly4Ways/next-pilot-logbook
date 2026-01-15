@@ -25,10 +25,12 @@ export default async function EditCrewPage({
           showBackButton
           isTopLevelPage={false}
         />
-        <ErrorContainer
-          title="Error loading crew member"
-          message={error || "No crew member found."}
-        />
+        <div className="p-6">
+          <ErrorContainer
+            title="Error loading crew member"
+            message={error || "No crew member found."}
+          />
+        </div>
       </div>
     );
   }

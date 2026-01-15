@@ -107,12 +107,15 @@ export default function CrewForm({ crew, isLoading }: CrewFormProps) {
     try {
       if (isEdit && crew) {
         await updateCrew(crew.id, data);
+        console.log("Updating...");
       } else {
         await createCrew(data);
+        console.log("Creating...");
         clearDraftCookie(); // Clear draft after successful creation
       }
+
+      console.log("Success, redirecting...");
       router.push("/app/crew");
-      router.refresh();
     } catch (error) {
       console.error(
         error instanceof Error ? error.message : "Something went wrong"
@@ -145,7 +148,6 @@ export default function CrewForm({ crew, isLoading }: CrewFormProps) {
     try {
       await deleteCrew(crew.id);
       router.push("/app/crew");
-      router.refresh();
     } catch (error) {
       console.error(
         error instanceof Error ? error.message : "Failed to delete crew member"

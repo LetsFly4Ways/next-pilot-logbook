@@ -84,7 +84,6 @@ export function CrewList({ searchQuery }: CrewListProps) {
           searchQuery,
           page,
           pageSize: ITEMS_PER_PAGE,
-          nameDisplay,
         });
 
         if (result.error) {
@@ -108,7 +107,7 @@ export function CrewList({ searchQuery }: CrewListProps) {
         setLoadingMore(false);
       }
     },
-    [searchQuery, nameDisplay]
+    [searchQuery]
   );
 
   // Debounced search handler
