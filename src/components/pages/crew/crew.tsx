@@ -10,7 +10,7 @@ import { CircleX, Plus, Search, X } from "lucide-react";
 import { CrewList } from "./list";
 import Link from "next/link";
 
-export default function CrewPage() {
+export default function CrewsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
 
