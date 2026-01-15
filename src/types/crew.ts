@@ -8,7 +8,7 @@ import { z } from "zod";
  * Crew form schema - used for creating/editing crew members
  */
 
-const CrewFormSchema = z.object({
+export const CrewFormSchema = z.object({
   first_name: z.string().min(1, "First Name is required."),
   last_name: z.string().min(1, "Last Name is required."),
   email: z.string().nullable().optional(),

@@ -20,6 +20,7 @@ import {
   Phone,
   Plane,
 } from "lucide-react";
+import Link from "next/link";
 
 interface CrewInfoPageProps {
   id: string;
@@ -66,10 +67,9 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
             variant="ghost"
             className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
           >
-            {/* <Link href="/app/crew/new">
-              <Plus className="h-4 w-4" />
-            </Link> */}
-            <span>Edit</span>
+            <Link href={`/app/crew/${id}/edit`}>
+              <span>Edit</span>
+            </Link>
           </Button>
         }
       />
