@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { CrewList } from "@/components/pages/crew/list";
 
 import { CircleX, Plus, Search, X } from "lucide-react";
-import { CrewList } from "./list";
-import Link from "next/link";
 
 export default function CrewsPage() {
   const [searchQuery, setSearchQuery] = useState("");

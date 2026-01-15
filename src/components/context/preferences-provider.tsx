@@ -7,6 +7,7 @@ import {
   ReactNode,
   useContext,
   useCallback,
+  useMemo,
 } from "react";
 import {
   getDefaultPreferences,
@@ -121,7 +122,10 @@ export function PreferencesProvider({
   initialPreferences,
 }: PreferencesProviderProps) {
   // Get defaults from Zod schema
-  const defaultPreferences = getDefaultPreferences();
+  const defaultPreferences = useMemo(
+    () => getDefaultPreferences(),
+    []
+  );
 
   // Always use initialPreferences or defaults for initial state to avoid hydration mismatch
   const [preferences, setPreferences] = useState<UserPreferences>(
@@ -209,101 +213,114 @@ export function PreferencesProvider({
   //   }, [initialPreferences, preferences]);
 
   // Get a specific preference
-  const getPreference = <K extends keyof UserPreferences>(
-    key: K
-  ): UserPreferences[K] => {
-    return preferences[key];
-  };
+  const getPreference = useCallback(
+    <K extends keyof UserPreferences>(key: K): UserPreferences[K] => {
+      return preferences[key];
+    },
+    [preferences]
+  );
 
   // Update a single preference
-  const updatePreference = async <K extends keyof UserPreferences>(
-    key: K,
-    value: UserPreferences[K]
-  ) => {
-    // Optimistic update
-    const previousPreferences = preferences;
-    const newPreferences: UserPreferences = {
-      ...preferences,
-      [key]: value,
-    };
-
-    setPreferences(newPreferences);
-    // Update cookie immediately for instant persistence
-    savePreferencesToCookie(newPreferences);
-
-    try {
-      const result = await updatePrefsAction({
+  const updatePreference = useCallback(
+    async <K extends keyof UserPreferences>(
+      key: K,
+      value: UserPreferences[K]
+    ) => {
+      // Optimistic update
+      const previousPreferences = preferences;
+      const newPreferences: UserPreferences = {
+        ...preferences,
         [key]: value,
-      } as Partial<UserPreferences>);
+      };
 
-      if (!result.success) {
-        // Revert on error
-        setPreferences(previousPreferences);
-        savePreferencesToCookie(previousPreferences);
-        throw new Error(result.error || "Failed to update preference");
-      }
+      setPreferences(newPreferences);
+      // Update cookie immediately for instant persistence
+      savePreferencesToCookie(newPreferences);
 
-      // Update with server response
-      if (result.preferences) {
-        const validated = UserPreferencesContentSchema.parse(
-          result.preferences
-        );
-        setPreferences(validated);
-        savePreferencesToCookie(validated);
+      try {
+        const result = await updatePrefsAction({
+          [key]: value,
+        } as Partial<UserPreferences>);
+
+        if (!result.success) {
+          // Revert on error
+          setPreferences(previousPreferences);
+          savePreferencesToCookie(previousPreferences);
+          throw new Error(result.error || "Failed to update preference");
+        }
+
+        // Update with server response
+        if (result.preferences) {
+          const validated = UserPreferencesContentSchema.parse(
+            result.preferences
+          );
+          setPreferences(validated);
+          savePreferencesToCookie(validated);
+        }
+      } catch (error) {
+        console.error("Failed to update preference:", error);
+        throw error;
       }
-    } catch (error) {
-      console.error("Failed to update preference:", error);
-      throw error;
-    }
-  };
+    }, [preferences]);
 
   // Update multiple preferences
-  const updatePreferencesFunc = async (prefs: Partial<UserPreferences>) => {
-    // Optimistic update with deep merge for nested objects
-    const previousPreferences = preferences;
+  const updatePreferencesFunc = useCallback(
+    async (prefs: Partial<UserPreferences>) => {
+      // Optimistic update with deep merge for nested objects
+      const previousPreferences = preferences;
 
-    // Deep merge for nested updates
-    const newPreferences = deepMergePreferences(preferences, prefs);
+      // Deep merge for nested updates
+      const newPreferences = deepMergePreferences(preferences, prefs);
 
-    setPreferences(newPreferences);
-    // Update cookie immediately for instant persistence
-    savePreferencesToCookie(newPreferences);
+      setPreferences(newPreferences);
+      // Update cookie immediately for instant persistence
+      savePreferencesToCookie(newPreferences);
 
-    try {
-      const result = await updatePrefsAction(prefs);
+      try {
+        const result = await updatePrefsAction(prefs);
 
-      if (!result.success) {
-        // Revert on error
-        setPreferences(previousPreferences);
-        savePreferencesToCookie(previousPreferences);
-        throw new Error(result.error || "Failed to update preferences");
+        if (!result.success) {
+          // Revert on error
+          setPreferences(previousPreferences);
+          savePreferencesToCookie(previousPreferences);
+          throw new Error(result.error || "Failed to update preferences");
+        }
+
+        // Update with server response
+        if (result.preferences) {
+          const validated = UserPreferencesContentSchema.parse(
+            result.preferences
+          );
+          setPreferences(validated);
+          savePreferencesToCookie(validated);
+        }
+      } catch (error) {
+        console.error("Failed to update preferences:", error);
+        throw error;
       }
+    }, [preferences]);
 
-      // Update with server response
-      if (result.preferences) {
-        const validated = UserPreferencesContentSchema.parse(
-          result.preferences
-        );
-        setPreferences(validated);
-        savePreferencesToCookie(validated);
-      }
-    } catch (error) {
-      console.error("Failed to update preferences:", error);
-      throw error;
-    }
-  };
+  const contextValue = useMemo(
+    () => ({
+      preferences,
+      getPreference,
+      updatePreference,
+      updatePreferences: updatePreferencesFunc,
+      refreshPreferences,
+      isLoading,
+    }),
+    [
+      preferences,
+      getPreference,
+      updatePreference,
+      updatePreferencesFunc,
+      refreshPreferences,
+      isLoading,
+    ]
+  );
 
   return (
-    <PreferencesContext.Provider
-      value={{
-        preferences,
-        getPreference,
-        updatePreference,
-        updatePreferences: updatePreferencesFunc,
-        refreshPreferences,
-        isLoading,
-      }}
-    >
+    <PreferencesContext.Provider value={contextValue}>
       {children}
     </PreferencesContext.Provider>
   );
