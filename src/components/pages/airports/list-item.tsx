@@ -20,7 +20,7 @@ export default function AirportListItem({
 
   return (
     <PositionedItem
-      className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full"
+      className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer"
       onClick={() => router.push(`/app/airports/${airport.icao}`)}
     >
       {/* LEFT COLUMN */}

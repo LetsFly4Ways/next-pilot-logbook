@@ -15,11 +15,7 @@ import AirportListItem, {
 } from "@/components/pages/airports/list-item";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorContainer } from "@/components/ui/error-container";
-import {
-  PositionedGroup,
-  PositionedItem,
-} from "@/components/ui/positioned-group";
-import { ChevronRight, Star } from "lucide-react";
+import { PositionedGroup } from "@/components/ui/positioned-group";
 
 interface GroupedAirports {
   [key: string]: Airport[];
@@ -149,17 +145,15 @@ export function AirportsList({
       <div className="flex">
         <div className="flex-1 space-y-4">
           {loading ? (
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <div className="sticky top-0 z-10">
-                  <Skeleton className="h-6 w-48 rounded-sm" />
-                </div>
-                <PositionedGroup>
-                  {Array.from({ length: 10 }).map((_, index) => (
-                    <AirportItemSkeleton key={index} />
-                  ))}
-                </PositionedGroup>
+            <div className="space-y-2">
+              <div className="sticky top-0 z-10">
+                <Skeleton className="h-6 w-48 rounded-sm" />
               </div>
+              <PositionedGroup>
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <AirportItemSkeleton key={index} />
+                ))}
+              </PositionedGroup>
             </div>
           ) : error ? (
             <ErrorContainer title={"Error Loading airports"} message={error} />

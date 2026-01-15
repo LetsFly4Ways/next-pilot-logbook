@@ -36,7 +36,7 @@ export default function AirportsPage() {
         showBackButton={false}
         isTopLevelPage={true}
         actionButton={
-          <div className="">
+          <div>
             {/* Search Button/Input */}
             {showSearch ? (
               <div className="relative flex items-center gap-2">
