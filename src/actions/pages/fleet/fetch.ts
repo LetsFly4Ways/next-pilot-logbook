@@ -87,3 +87,45 @@ export async function fetchFleet({
     };
   }
 }
+
+export async function fetchAsset(
+  assetId: string
+): Promise<{ asset: Fleet | null; error?: string }> {
+  try {
+    const auth = await getAuthenticatedUser();
+
+    if (!auth) {
+      return {
+        asset: null,
+        error: "Authentication required",
+      };
+    }
+
+    const { supabase, user } = auth;
+
+    const { data, error } = await supabase
+      .from("fleet")
+      .select("*")
+      .eq("id", assetId)
+      .eq("user_id", user.id)
+      .single();
+
+    if (error) {
+      console.error("Error fetching crew member:", error);
+      return {
+        asset: null,
+        error: error.message,
+      };
+    }
+
+    return {
+      asset: data as Fleet,
+    };
+  } catch (error) {
+    console.error("Unexpected error fetching crew member:", error);
+    return {
+      asset: null,
+      error: "An unexpected error occurred",
+    };
+  }
+}
