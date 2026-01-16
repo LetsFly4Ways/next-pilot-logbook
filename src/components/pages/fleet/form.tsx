@@ -252,6 +252,7 @@ export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
                   isLoading={isLoading}
                   onOpenDialog={() => router.push("/app/fleet/type-select")}
                   placeholder="Select"
+                  required
                 />
                 <TextField<FleetForm> name="model" label="Model" isLoading={isLoading} />
                 <TextField<FleetForm> name="manufacturer" label="Manufacturer" isLoading={isLoading} />
