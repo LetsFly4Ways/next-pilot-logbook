@@ -22,7 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
-import { SelectField, SwitchField, TextareaField, TextField } from "@/components/ui/form-field-types";
+import { DialogSelectField, SelectField, SwitchField, TextareaField, TextField } from "@/components/ui/form-field-types";
 import { clearSelectedAircraft, readSelectedAircraft } from "@/components/pages/fleet/type-select/selected-aircraft-type";
 
 import { ChevronRight } from "lucide-react";
@@ -246,27 +246,13 @@ export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
               </h3>
 
               <PositionedGroup>
-                <FormField
-                  control={form.control}
-                  name={"type"}
-                  render={({ field }) => (
-                    <Field>
-                      <PositionedItem
-                        role="button"
-                        className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50"
-                        onClick={() => router.push('/app/fleet/type-select')}>
-                        <span className="text-sm font-medium w-36">Type
-                          <span className="text-destructive ml-1">*</span>
-                        </span>
-                        <div className="flex items-center gap-2 mr-2">
-                          <span className="text-sm text-right truncate">{field.value || (<span className="text-muted-foreground">Select</span>)}</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-                        </div>
-                      </PositionedItem>
-                    </Field>
-                  )}
+                <DialogSelectField<FleetForm>
+                  name="type"
+                  label="Type"
+                  isLoading={isLoading}
+                  onOpenDialog={() => router.push("/app/fleet/type-select")}
+                  placeholder="Select"
                 />
-
                 <TextField<FleetForm> name="model" label="Model" isLoading={isLoading} />
                 <TextField<FleetForm> name="manufacturer" label="Manufacturer" isLoading={isLoading} />
                 <SelectField<FleetForm> name="category" label="Category" options={categoryOptions} isLoading={isLoading} required />
