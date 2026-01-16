@@ -199,123 +199,121 @@ export default function CrewForm({ crew, isLoading }: CrewFormProps) {
   };
 
   return (
-    <>
-      <div className="flex flex-col">
-        <PageHeader
-          title={isEdit ? "Edit Crew Member" : "New Crew Member"}
-          backHref="/app/crew"
-          showBackButton={true}
-          isTopLevelPage={false}
-          actionButton={
-            isLoading ? (
-              <Skeleton className="h-10 w-20" />
-            ) : (
-              <Button
-                variant="ghost"
-                onClick={form.handleSubmit(onSubmit)}
-                className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? <Spinner /> : "Save"}
-              </Button>
-            )
-          }
-        />
+    <div className="flex flex-col">
+      <PageHeader
+        title={isEdit ? "Edit Crew Member" : "New Crew Member"}
+        backHref="/app/crew"
+        showBackButton={true}
+        isTopLevelPage={false}
+        actionButton={
+          isLoading ? (
+            <Skeleton className="h-10 w-20" />
+          ) : (
+            <Button
+              variant="ghost"
+              onClick={form.handleSubmit(onSubmit)}
+              className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? <Spinner /> : "Save"}
+            </Button>
+          )
+        }
+      />
 
-        <div className="p-6">
-          <FormProvider {...form}>
-            <form onChange={handleDraftSave} className="space-y-8">
-              {/* Basic Information */}
-              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-                NAME
-              </h3>
-              <PositionedGroup>
-                {renderFormField("first_name", "First Name", "text")}
-                {renderFormField("last_name", "Last Name", "text")}
-              </PositionedGroup>
+      <div className="p-6">
+        <FormProvider {...form}>
+          <form onChange={handleDraftSave} className="space-y-8">
+            {/* Basic Information */}
+            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+              Name
+            </h3>
+            <PositionedGroup>
+              {renderFormField("first_name", "First Name", "text")}
+              {renderFormField("last_name", "Last Name", "text")}
+            </PositionedGroup>
 
-              {/* Contact Information */}
-              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-                Contact Information
-              </h3>
-              <PositionedGroup>
-                {renderFormField("email", "Email", "email")}
-                {renderFormField("phone", "Phone", "tel")}
-              </PositionedGroup>
+            {/* Contact Information */}
+            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+              Contact Information
+            </h3>
+            <PositionedGroup>
+              {renderFormField("email", "Email", "email")}
+              {renderFormField("phone", "Phone", "tel")}
+            </PositionedGroup>
 
-              {/* Professional Information */}
-              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-                Professional Information
-              </h3>
-              <PositionedGroup>
-                {renderFormField("license_number", "License Number", "text")}
-                {renderFormField("company", "Company", "text")}
-                {renderFormField("company_id", "Company ID", "text")}
-                {renderFormField("address", "Address", "text")}
-              </PositionedGroup>
+            {/* Professional Information */}
+            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+              Professional Information
+            </h3>
+            <PositionedGroup>
+              {renderFormField("license_number", "License Number", "text")}
+              {renderFormField("company", "Company", "text")}
+              {renderFormField("company_id", "Company ID", "text")}
+              {renderFormField("address", "Address", "text")}
+            </PositionedGroup>
 
-              {/* Notes */}
-              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-                Notes
-              </h3>
-              <PositionedGroup>
-                {isLoading ? (
-                  <PositionedItem className="py-2">
-                    <Skeleton className="h-24 w-full" />
-                  </PositionedItem>
-                ) : (
-                  <FormField
-                    control={form.control}
-                    name="note"
-                    render={({ field }) => (
-                      <Field>
-                        <PositionedItem className="p-3 flex items-center justify-between w-full h-fit">
-                          <span className="text-sm font-medium w-36">Note</span>
-                          <div className="w-full ml-10 flex flex-col gap-1">
-                            <AutosizeTextarea
-                              {...field}
-                              value={field.value || ""}
-                              rows={2}
-                              className="min-h-6 p-0 font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none"
-                            />
-                          </div>
-                        </PositionedItem>
-                      </Field>
-                    )}
-                  />
-                )}
-              </PositionedGroup>
-
-              {/* Action Buttons */}
-              {!isEdit && !isLoading && (
-                <PositionedGroup>
-                  <PositionedItem
-                    className="p-3 flex items-center justify-start cursor-pointer"
-                    onClick={resetForm}
-                  >
-                    <span className="text-sm font-medium text-blue-500">
-                      Reset
-                    </span>
-                  </PositionedItem>
-                </PositionedGroup>
+            {/* Notes */}
+            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+              Notes
+            </h3>
+            <PositionedGroup>
+              {isLoading ? (
+                <PositionedItem className="py-2">
+                  <Skeleton className="h-24 w-full" />
+                </PositionedItem>
+              ) : (
+                <FormField
+                  control={form.control}
+                  name="note"
+                  render={({ field }) => (
+                    <Field>
+                      <PositionedItem className="p-3 flex items-center justify-between w-full h-fit">
+                        <span className="text-sm font-medium w-36">Note</span>
+                        <div className="w-full ml-10 flex flex-col gap-1">
+                          <AutosizeTextarea
+                            {...field}
+                            value={field.value || ""}
+                            rows={2}
+                            className="min-h-6 p-0 font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none"
+                          />
+                        </div>
+                      </PositionedItem>
+                    </Field>
+                  )}
+                />
               )}
+            </PositionedGroup>
 
-              {isEdit && !isLoading && (
-                <PositionedGroup>
-                  <PositionedItem
-                    className="p-3 flex items-center justify-start cursor-pointer"
-                    onClick={handleDelete}
-                  >
-                    <span className="text-sm font-medium text-red-500">
-                      Delete
-                    </span>
-                  </PositionedItem>
-                </PositionedGroup>
-              )}
-            </form>
-          </FormProvider>
-        </div>
+            {/* Action Buttons */}
+            {!isEdit && !isLoading && (
+              <PositionedGroup>
+                <PositionedItem
+                  className="p-3 flex items-center justify-start cursor-pointer"
+                  onClick={resetForm}
+                >
+                  <span className="text-sm font-medium text-blue-500">
+                    Reset
+                  </span>
+                </PositionedItem>
+              </PositionedGroup>
+            )}
+
+            {isEdit && !isLoading && (
+              <PositionedGroup>
+                <PositionedItem
+                  className="p-3 flex items-center justify-start cursor-pointer"
+                  onClick={handleDelete}
+                >
+                  <span className="text-sm font-medium text-red-500">
+                    Delete
+                  </span>
+                </PositionedItem>
+              </PositionedGroup>
+            )}
+          </form>
+        </FormProvider>
       </div>
-    </>
+    </div>
   );
 }
