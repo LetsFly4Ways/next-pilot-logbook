@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import type { SimulatorSession } from "@/types/logs";
 import { Fleet } from "@/types/fleet";
 
+import { formatDate, formatTime } from "@/lib/date-utils";
+
 import { PositionedItem } from "@/components/ui/positioned-group";
 
 import { ChevronRight } from "lucide-react";
@@ -17,30 +19,10 @@ interface SimulatorListItemProps {
 export function SimulatorListItem({ session, simulator }: SimulatorListItemProps) {
   const router = useRouter();
 
-  const date = new Date(session.date);
-
-  // Format time from duration in minutes → "0h 0m"
-  const formatTime = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-
-    return `${hours}h ${mins}m`;
-  };
-
-  // Format date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
   return (
     <PositionedItem
       className="px-4 py-3 h-fit grid grid-cols-[1fr_auto] items-center gap-4 w-full cursor-pointer hover:bg-muted/50 transition-colors"
-      onClick={() => router.push(`/app/logs/${session.id}`)}
+      onClick={() => router.push(`/app/logs/simulator/${session.id}`)}
     >
       {/* Line color based on type */}
       <div
@@ -51,7 +33,7 @@ export function SimulatorListItem({ session, simulator }: SimulatorListItemProps
       <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-1 items-start">
         {/* ROW 1: Date */}
         <div className="text-sm text-muted-foreground">
-          {formatDate(date.toISOString())}
+          {formatDate(session.date)}
         </div>
 
         {/* ROW 2: Simulator */}

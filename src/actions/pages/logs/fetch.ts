@@ -167,3 +167,71 @@ export async function fetchLogs({
 		};
 	}
 }
+
+/**
+ * Fetch a single log entry (flight or simulator session) by ID
+ */
+export async function fetchLog(
+	logId: string,
+): Promise<{ log: Log | null; error?: string }> {
+	try {
+		const auth = await getAuthenticatedUser();
+
+		if (!auth) {
+			return {
+				log: null,
+				error: "Authentication required",
+			};
+		}
+
+		const { supabase, user } = auth;
+
+		// Try fetching as flight first
+		const { data: flightData, error: flightError } = await supabase
+			.from("flights")
+			.select("*")
+			.eq("id", logId)
+			.eq("user_id", user.id)
+			.single();
+
+		if (flightData) {
+			return {
+				log: { ...flightData, _type: "flight" as const },
+			};
+		}
+
+		// If not a flight, try simulator session
+		const { data: simData, error: simError } = await supabase
+			.from("simulator_sessions")
+			.select("*")
+			.eq("id", logId)
+			.eq("user_id", user.id)
+			.single();
+
+		if (simData) {
+			return {
+				log: { ...simData, _type: "simulator" as const },
+			};
+		}
+
+		if (flightError || simError) {
+			console.error("Error fetching log entry:", flightError || simError);
+			return {
+				log: null,
+				error: (flightError || simError)?.message || "Log entry not found",
+			};
+		}
+
+		// Not found in either table
+		return {
+			log: null,
+			error: "Log entry not found",
+		};
+	} catch (error) {
+		console.error("Unexpected error fetching log:", error);
+		return {
+			log: null,
+			error: "An unexpected error occurred",
+		};
+	}
+}

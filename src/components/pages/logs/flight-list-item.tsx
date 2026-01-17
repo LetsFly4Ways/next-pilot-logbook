@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import type { Flight } from "@/types/logs";
 import { Fleet } from "@/types/fleet";
 
+import { formatDate, formatTime } from "@/lib/date-utils";
+
 import { PositionedItem } from "@/components/ui/positioned-group";
 
 import { ChevronRight } from "lucide-react";
@@ -17,30 +19,10 @@ interface FlightListItemProps {
 export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
   const router = useRouter();
 
-  const date = new Date(flight.date);
-
-  // Format time from duration in minutes → "0h 0m"
-  const formatTime = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-
-    return `${hours}h ${mins}m`;
-  };
-
-  // Format date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
   return (
     <PositionedItem
       className="px-4 py-3 h-fit grid grid-cols-[1fr_auto] items-center gap-4 w-full cursor-pointer hover:bg-muted/50 transition-colors"
-      onClick={() => router.push(`/app/logs/${flight.id}`)}
+      onClick={() => router.push(`/app/logs/flight/${flight.id}`)}
     >
       {/* Line color based on type */}
       <div
@@ -52,7 +34,7 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
         {/* ROW 1: Date & Flight Number */}
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">
-            {formatDate(date.toISOString())}
+            {formatDate(flight.date)}
           </span>
           {flight.flight_number && (
             <span className="text-sm font-medium">
