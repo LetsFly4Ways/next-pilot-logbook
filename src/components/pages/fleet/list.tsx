@@ -168,7 +168,7 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
   // Error state
   if (error) {
     return (
-      <ErrorContainer title="Error Loading Crew Members" message={error} />
+      <ErrorContainer title="Error Loading Fleet" message={error} />
     );
   }
 
@@ -178,8 +178,8 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
       <div className="flex justify-center text-center py-12 text-muted-foreground w-full">
         <p className="w-2/3">
           {searchQuery
-            ? `No crew members found matching "${searchQuery}".`
-            : "No crew members found. You can create them by clicking on the plus icon in the top right corner."}
+            ? `No fleet asset found matching "${searchQuery}".`
+            : "No fleet found. You can create them by clicking on the plus icon in the top right corner."}
         </p>
       </div>
     );

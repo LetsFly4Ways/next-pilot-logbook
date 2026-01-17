@@ -7,7 +7,6 @@ import { z } from "zod";
 /**
  * Crew form schema - used for creating/editing crew members
  */
-
 export const CrewFormSchema = z.object({
   first_name: z.string().min(1, "First Name is required."),
   last_name: z.string().min(1, "Last Name is required."),

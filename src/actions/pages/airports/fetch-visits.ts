@@ -1,7 +1,7 @@
 "use server";
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
-import { Log } from "@/types/flight";
+import { Log } from "@/types/logs";
 
 export interface AirportVisit {
   departures: number;

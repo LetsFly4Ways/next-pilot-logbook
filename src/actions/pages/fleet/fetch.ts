@@ -47,7 +47,7 @@ export async function fetchFleet({
 		// Add search filter if provided
 		if (searchQuery.trim()) {
 			query = query.or(
-				`registration.ilike.%${searchQuery}%,type.ilike.%${searchQuery}%,model.ilike.%${searchQuery}%,category.ilike.%${searchQuery}%,manufacturer.ilike.%${searchQuery}%,operator.ilike.%${searchQuery}%`
+				`registration.ilike.%${searchQuery}%,type.ilike.%${searchQuery}%,model.ilike.%${searchQuery}%,category.ilike.%${searchQuery}%,manufacturer.ilike.%${searchQuery}%,operator.ilike.%${searchQuery}%`,
 			);
 		}
 
@@ -89,7 +89,7 @@ export async function fetchFleet({
 }
 
 export async function fetchAsset(
-	assetId: string
+	assetId: string,
 ): Promise<{ asset: Fleet | null; error?: string }> {
 	try {
 		const auth = await getAuthenticatedUser();
@@ -128,4 +128,30 @@ export async function fetchAsset(
 			error: "An unexpected error occurred",
 		};
 	}
+}
+
+export async function fetchAssetsByIds(
+	ids: string[],
+): Promise<{ assets: Fleet[]; error?: string }> {
+	if (!ids.length) return { assets: [] };
+
+	const auth = await getAuthenticatedUser();
+	if (!auth) {
+		return { assets: [], error: "Authentication required" };
+	}
+
+	const { supabase, user } = auth;
+
+	const { data, error } = await supabase
+		.from("fleet")
+		.select("*")
+		.eq("user_id", user.id)
+		.in("id", ids);
+
+	if (error) {
+		console.error(error);
+		return { assets: [], error: error.message };
+	}
+
+	return { assets: data as Fleet[] };
 }
