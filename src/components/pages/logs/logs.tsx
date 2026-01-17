@@ -7,13 +7,19 @@ import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-import { CircleX, Plus, Search, X } from "lucide-react";
 import { LogList } from "./list";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+import { ChevronsUpDown, CircleX, ListFilter, Plus, Search, X } from "lucide-react";
 
 export default function LogsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [filters, setFilters] = useState({
+    showFlights: true,
+    showSimulators: true,
+  });
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
   return (
     <div className="flex flex-col">
@@ -65,7 +71,7 @@ export default function LogsPage() {
             </Button>
 
             {/* Filter Dropdown */}
-            {/* <DropdownMenu>
+            <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
@@ -76,42 +82,37 @@ export default function LogsPage() {
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md"
-                align="end"
-                sideOffset={12}
-              >
-                <DropdownMenuGroup>
-                  <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+              <DropdownMenuContent className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md" align="end" sideOffset={12}>
+                <DropdownMenuLabel>Show logs</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuCheckboxItem
+                  checked={filters.showFlights}
+                  onSelect={() =>
+                    setFilters((prev) => ({ ...prev, showFlights: !prev.showFlights }))
+                  }
+                >
+                  Flights
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={filters.showSimulators}
+                  onSelect={() =>
+                    setFilters((prev) => ({ ...prev, showSimulators: !prev.showSimulators }))
+                  }
+                >
+                  Simulators
+                </DropdownMenuCheckboxItem>
 
-                  <DropdownMenuSeparator />
+                <DropdownMenuSeparator />
 
-                  <DropdownMenuRadioGroup
-                    value={groupBy}
-                    onValueChange={handleGroupChange}
-                  >
-                    <DropdownMenuRadioItem
-                      value="type"
-                      className="hover:bg-primary-foreground/60"
-                    >
-                      Type
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem
-                      value="operator"
-                      className="hover:bg-primary-foreground/60"
-                    >
-                      Operator
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem
-                      value="icaoType"
-                      className="hover:bg-primary-foreground/60"
-                    >
-                      Aircraft Type
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuGroup>
+                <DropdownMenuLabel>Sort by date</DropdownMenuLabel>
+                <DropdownMenuItem
+                  onSelect={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                >
+                  <ChevronsUpDown className="h-4 w-4" />
+                  {sortOrder === "asc" ? "Oldest first" : "Newest first"}
+                </DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu> */}
+            </DropdownMenu>
 
             <Button
               variant="ghost"
@@ -126,7 +127,7 @@ export default function LogsPage() {
       } />
 
       <div className="p-4 md:p-6">
-        <LogList searchQuery={searchQuery} />
+        <LogList searchQuery={searchQuery} filters={filters} sortOrder={sortOrder} />
       </div>
     </div>
   )

@@ -76,7 +76,7 @@ export function SimulatorListItem({ session, simulator }: SimulatorListItemProps
       </div>
 
       {/* TRAILING COLUMN */}
-      <div className="shrink-0 grid grid-rows-3 grid-cols-[auto_auto] items-center gap-x-3">
+      <div className="shrink-0 grid grid-rows-[auto_auto] grid-cols-[auto_auto] items-center gap-x-3">
         {/* Row 1 — empty spacer to align with leading row 1 */}
         {/* <div className="col-start-1 row-start-1" /> */}
         <div className="col-start-1 row-start-1 text-sm text-muted-foreground text-right">
@@ -92,7 +92,9 @@ export function SimulatorListItem({ session, simulator }: SimulatorListItemProps
         </div>
 
         {/* Row 3 — empty spacer to align with leading row 3 */}
-        <div className="col-start-1 row-start-3" />
+        {session.duty_start && session.duty_end && (
+          <div className="col-start-1 row-start-3" />
+        )}
 
         {/* Chevron — vertically centered across all rows */}
         <ChevronRight className="col-start-2 row-span-3 w-5 h-5 text-muted-foreground self-center" />

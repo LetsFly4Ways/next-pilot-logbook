@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { fetchAssetsByIds } from "@/actions/pages/fleet/fetch";
 import { fetchLogs } from "@/actions/pages/logs/fetch";
@@ -40,11 +40,15 @@ function groupLogsByMonth(logs: Log[]): Record<string, Log[]> {
 
 interface LogListProps {
   searchQuery: string;
+  filters: {
+    showFlights: boolean;
+    showSimulators: boolean;
+  };
+  sortOrder: "asc" | "desc";
 }
 
-export function LogList({ searchQuery }: LogListProps) {
+export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
   const [logs, setLogs] = useState<Log[]>([]);
-  const [groupedLogs, setGroupedLogs] = useState<Record<string, Log[]>>({});
   const [fleetMap, setFleetMap] = useState<Record<string, Fleet>>({});
 
   const [loading, setLoading] = useState(true);
@@ -95,11 +99,25 @@ export function LogList({ searchQuery }: LogListProps) {
     [searchQuery]
   );
 
+  const filteredAndSortedLogs = useMemo(() => {
+    return logs
+      .filter((log) => {
+        if (log._type === "flight" && !filters.showFlights) return false;
+        if (log._type === "simulator" && !filters.showSimulators) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+      });
+  }, [logs, filters.showFlights, filters.showSimulators, sortOrder]);
+
   useEffect(() => {
     async function loadFleet() {
       const ids = Array.from(
         new Set(
-          logs
+          filteredAndSortedLogs
             .map((f) => f.aircraft_id)
             .filter(Boolean)
         )
@@ -118,7 +136,7 @@ export function LogList({ searchQuery }: LogListProps) {
     }
 
     loadFleet();
-  }, [logs]);
+  }, [filteredAndSortedLogs]);
 
   // Debounced search handler
   const debouncedLoad = useDebouncedCallback(() => {
@@ -135,9 +153,10 @@ export function LogList({ searchQuery }: LogListProps) {
   }, [searchQuery, loadLogs, debouncedLoad]);
 
   // Group logs whenever the logs array changes
-  useEffect(() => {
-    setGroupedLogs(groupLogsByMonth(logs));
-  }, [logs]);
+  const groupedLogs = useMemo(
+    () => groupLogsByMonth(filteredAndSortedLogs),
+    [filteredAndSortedLogs]
+  );
 
   // Load more handler for infinite scroll
   const handleLoadMore = useCallback(() => {
