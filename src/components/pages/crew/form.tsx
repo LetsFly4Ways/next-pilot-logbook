@@ -23,12 +23,10 @@ import {
   PositionedItem,
 } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Field } from "@/components/ui/field";
-import { FormField } from "@/components/ui/form-field";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
+import { TextareaField, TextField } from "@/components/ui/form-field-types";
 
 const emptyValues: CrewForm = {
   first_name: "",
@@ -155,48 +153,48 @@ export default function CrewForm({ crew, isLoading }: CrewFormProps) {
     }
   };
 
-  const renderFormField = (
-    name: keyof CrewForm,
-    label: string,
-    type: string = "text"
-  ) => {
-    if (isLoading) {
-      return (
-        <PositionedItem key={name} className="py-2">
-          <Skeleton className="h-12 w-full" />
-        </PositionedItem>
-      );
-    }
+  // const renderFormField = (
+  //   name: keyof CrewForm,
+  //   label: string,
+  //   type: string = "text"
+  // ) => {
+  //   if (isLoading) {
+  //     return (
+  //       <PositionedItem key={name} className="py-2">
+  //         <Skeleton className="h-12 w-full" />
+  //       </PositionedItem>
+  //     );
+  //   }
 
-    const isRequired = name === "first_name" || name === "last_name";
+  //   const isRequired = name === "first_name" || name === "last_name";
 
-    return (
-      <FormField
-        key={name}
-        control={form.control}
-        name={name}
-        render={({ field }) => (
-          <Field>
-            <PositionedItem className="p-3 flex items-center justify-between">
-              <span className="text-sm font-medium w-36">
-                {label}
-                {isRequired && <span className="text-destructive ml-1">*</span>}
-              </span>
-              <div className="w-full ml-10 flex flex-col gap-1">
-                <input
-                  {...field}
-                  type={type}
-                  value={field.value ?? ""}
-                  required={isRequired}
-                  className="w-full h-fit p-0 rounded-md border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right"
-                />
-              </div>
-            </PositionedItem>
-          </Field>
-        )}
-      />
-    );
-  };
+  //   return (
+  //     <FormField
+  //       key={name}
+  //       control={form.control}
+  //       name={name}
+  //       render={({ field }) => (
+  //         <Field>
+  //           <PositionedItem className="p-3 flex items-center justify-between">
+  //             <span className="text-sm font-medium w-36">
+  //               {label}
+  //               {isRequired && <span className="text-destructive ml-1">*</span>}
+  //             </span>
+  //             <div className="w-full ml-10 flex flex-col gap-1">
+  //               <input
+  //                 {...field}
+  //                 type={type}
+  //                 value={field.value ?? ""}
+  //                 required={isRequired}
+  //                 className="w-full h-fit p-0 rounded-md border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right"
+  //               />
+  //             </div>
+  //           </PositionedItem>
+  //         </Field>
+  //       )}
+  //     />
+  //   );
+  // };
 
   return (
     <div className="flex flex-col">
@@ -225,65 +223,51 @@ export default function CrewForm({ crew, isLoading }: CrewFormProps) {
         <FormProvider {...form}>
           <form onChange={handleDraftSave} className="space-y-8">
             {/* Basic Information */}
-            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-              Name
-            </h3>
-            <PositionedGroup>
-              {renderFormField("first_name", "First Name", "text")}
-              {renderFormField("last_name", "Last Name", "text")}
-            </PositionedGroup>
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                Name
+              </h3>
+              <PositionedGroup>
+                <TextField<CrewForm> name="first_name" label="First Name" isLoading={isLoading} required />
+                <TextField<CrewForm> name="last_name" label="Last Name" isLoading={isLoading} required />
+              </PositionedGroup>
+            </div>
 
             {/* Contact Information */}
-            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-              Contact Information
-            </h3>
-            <PositionedGroup>
-              {renderFormField("email", "Email", "email")}
-              {renderFormField("phone", "Phone", "tel")}
-            </PositionedGroup>
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                Contact Information
+              </h3>
+              <PositionedGroup>
+                <TextField<CrewForm> name="email" label="Email" isLoading={isLoading} />
+                <TextField<CrewForm> name="phone" label="Phone" isLoading={isLoading} />
+              </PositionedGroup>
+            </div>
 
             {/* Professional Information */}
-            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-              Professional Information
-            </h3>
-            <PositionedGroup>
-              {renderFormField("license_number", "License Number", "text")}
-              {renderFormField("company", "Company", "text")}
-              {renderFormField("company_id", "Company ID", "text")}
-              {renderFormField("address", "Address", "text")}
-            </PositionedGroup>
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                Professional Information
+              </h3>
+              <PositionedGroup>
+                <TextField<CrewForm> name="license_number" label="License Number" isLoading={isLoading} />
+                <TextField<CrewForm> name="company" label="Company" isLoading={isLoading} />
+                <TextField<CrewForm> name="company_id" label="Company ID" isLoading={isLoading} />
+                <TextField<CrewForm> name="address" label="Address" isLoading={isLoading} />
+              </PositionedGroup>
+            </div>
 
-            {/* Notes */}
-            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-              Notes
-            </h3>
-            <PositionedGroup>
-              {isLoading ? (
-                <PositionedItem className="py-2">
-                  <Skeleton className="h-24 w-full" />
-                </PositionedItem>
-              ) : (
-                <FormField
-                  control={form.control}
-                  name="note"
-                  render={({ field }) => (
-                    <Field>
-                      <PositionedItem className="p-3 flex items-center justify-between w-full h-fit">
-                        <span className="text-sm font-medium w-36">Note</span>
-                        <div className="w-full ml-10 flex flex-col gap-1">
-                          <AutosizeTextarea
-                            {...field}
-                            value={field.value || ""}
-                            rows={2}
-                            className="min-h-6 p-0 font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none"
-                          />
-                        </div>
-                      </PositionedItem>
-                    </Field>
-                  )}
-                />
-              )}
-            </PositionedGroup>
+            {/* Notes Information */}
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                Additional Information
+              </h3>
+
+              <PositionedGroup>
+                <TextareaField<CrewForm> name="note" label="Note" isLoading={isLoading} />
+              </PositionedGroup>
+            </div>
+
 
             {/* Action Buttons */}
             {!isEdit && !isLoading && (
