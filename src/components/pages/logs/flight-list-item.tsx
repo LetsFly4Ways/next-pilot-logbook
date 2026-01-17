@@ -74,7 +74,7 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
 
         {/* Row 2 — duration */}
         <div className="col-start-1 row-start-2 text-right">
-          {formatTime(flight.total_block_minutes)}
+          {formatTime(flight.total_block_minutes, "HH:mm", { showZero: true })}
         </div>
 
         {/* Row 3 — empty spacer to align with leading row 3 */}

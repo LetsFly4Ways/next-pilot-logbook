@@ -70,7 +70,7 @@ export function SimulatorListItem({ session, simulator }: SimulatorListItemProps
 
         {/* Row 2 — duration */}
         <div className="col-start-1 row-start-2 text-right">
-          {formatTime(session.session_minutes)}
+          {formatTime(session.session_minutes, "HH:mm", { showZero: true })}
         </div>
 
         {/* Row 3 — empty spacer to align with leading row 3 */}

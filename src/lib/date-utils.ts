@@ -8,6 +8,12 @@ export type TimeFormat =
 	| "HH.mm" // 12.45
 	| "decimal"; // 12.75
 
+export type FormatTimeOptions = {
+	showZero?: boolean; // default false
+	suffix?: boolean; // adds "h" in compact modes
+	verbose?: boolean; // forces "Xh Ym"
+};
+
 /**
  * Format time with various display options
  *
@@ -17,86 +23,91 @@ export type TimeFormat =
  * @returns Formatted time string
  */
 export function formatTime(
-	input: number | Date | null | undefined,
+	input: number | Date | string | null | undefined,
 	format: TimeFormat = "HH:mm",
-	showZero: boolean = false,
+	options: FormatTimeOptions = {},
 ): string {
-	// Handle null/undefined
-	if (input === null || input === undefined) {
-		return showZero ? "00:00" : "--:--";
+	const { showZero = false, suffix = false, verbose = false } = options;
+
+	if (input === null || input === undefined || input === "") {
+		return showZero ? zeroValue(format) : placeholder(format);
 	}
 
-	let totalMinutes: number;
-
-	// Convert input to minutes
-	if (input instanceof Date) {
-		totalMinutes = input.getHours() * 60 + input.getMinutes();
-	} else {
-		totalMinutes = input;
+	// ISO time string: "HH:mm" or "HH:mm:ss"
+	if (typeof input === "string") {
+		return input.slice(0, 5);
 	}
 
-	// Handle zero values
+	// Convert to minutes
+	const totalMinutes =
+		input instanceof Date ? input.getHours() * 60 + input.getMinutes() : input;
+
 	if (totalMinutes === 0) {
-		if (format === "HHhmm") return showZero ? "0h 0m" : "--";
-		if (format === "decimal") return showZero ? "0.00" : "--";
-		return showZero ? "00:00" : "--:--";
+		const zero = showZero ? zeroValue(format) : placeholder(format);
+		return suffix && format === "HH:mm" ? `${zero}h` : zero;
 	}
 
 	const hours = Math.floor(totalMinutes / 60);
 	const minutes = totalMinutes % 60;
-	const seconds = Math.floor((totalMinutes % 1) * 60); // For fractional minutes
+	const seconds = Math.round((totalMinutes % 1) * 60);
+
+	// Force verbose duration output
+	if (verbose) {
+		return minutes === 0 ? `${hours}h` : `${hours}h ${minutes}m`;
+	}
+
+	let result: string;
 
 	switch (format) {
 		case "HH:mm":
-			return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+			result = `${pad(hours)}:${pad(minutes)}`;
+			break;
 
 		case "HHhmm":
-			if (minutes === 0) return `${hours}h`;
-			return `${hours}h ${minutes}m`;
+			result = minutes === 0 ? `${hours}h` : `${hours}h ${minutes}m`;
+			break;
 
 		case "HH:mm:ss":
-			return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+			result = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+			break;
 
 		case "HH.mm":
-			return `${hours.toString().padStart(2, "0")}.${minutes.toString().padStart(2, "0")}`;
+			result = `${pad(hours)}.${pad(minutes)}`;
+			break;
 
 		case "decimal":
-			return (totalMinutes / 60).toFixed(2);
+			result = (totalMinutes / 60).toFixed(2);
+			break;
+	}
 
+	if (suffix && format === "HH:mm") {
+		return `${result}h`;
+	}
+
+	return result;
+}
+
+/* helpers */
+
+function pad(v: number): string {
+	return v.toString().padStart(2, "0");
+}
+
+function placeholder(format: TimeFormat): string {
+	return format === "decimal" ? "--" : "--:--";
+}
+
+function zeroValue(format: TimeFormat): string {
+	switch (format) {
+		case "HHhmm":
+			return "0h 0m";
+		case "decimal":
+			return "0.00";
+		case "HH:mm:ss":
+			return "00:00:00";
 		default:
-			return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+			return "00:00";
 	}
-}
-
-/**
- * Format time with "h" suffix (legacy compatibility)
- * Example: "12:45h" or "12h 45m"
- */
-export function formatTimeWithSuffix(
-	minutes: number | null | undefined,
-	format: "compact" | "verbose" = "compact",
-): string {
-	if (minutes === null || minutes === undefined || minutes === 0) {
-		return format === "compact" ? "0:00h" : "0h 0m";
-	}
-
-	const hours = Math.floor(minutes / 60);
-	const mins = minutes % 60;
-
-	if (format === "compact") {
-		return `${hours}:${mins.toString().padStart(2, "0")}h`;
-	} else {
-		if (mins === 0) return `${hours}h`;
-		return `${hours}h ${mins}m`;
-	}
-}
-
-/**
- * Format ISO time string to HH:MM
- */
-export function formatTimeString(time: string | null | undefined): string {
-	if (!time) return "--:--";
-	return time.slice(0, 5);
 }
 
 /**
