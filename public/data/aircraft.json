@@ -1,0 +1,7058 @@
+[
+	{
+		"Manufacturer": "Aero Commander",
+		"Type": "AC50",
+		"Model": "Shrike Commander 500B",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Aero Commander",
+		"Type": "AC50",
+		"Model": "Shrike Commander 500S",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Aeropilot",
+		"Type": "ZZZZ",
+		"Model": "Legend 600",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "AgustaWestland",
+		"Type": "A109",
+		"Model": "AW109S Trekker",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "AgustaWestland",
+		"Type": "A139",
+		"Model": "AW139",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "AgustaWestland",
+		"Type": "A169",
+		"Model": "AW169",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "AgustaWestland",
+		"Type": "A189",
+		"Model": "AW189",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A310",
+		"Model": "A310-304",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A318",
+		"Model": "A318-112",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A319",
+		"Model": "A319-112",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A319",
+		"Model": "A319-115",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A319",
+		"Model": "A319-132",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A19N",
+		"Model": "A319-153N",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A320",
+		"Model": "A320-211",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A320",
+		"Model": "A320-212",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A320",
+		"Model": "A320-214",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A320",
+		"Model": "A320-231",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A320",
+		"Model": "A320-232",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A20N",
+		"Model": "A320-251N",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A21N",
+		"Model": "A321-252",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A332",
+		"Model": "A330-202",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A333",
+		"Model": "A330-343",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A342",
+		"Model": "A340-212",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A343",
+		"Model": "A340-312",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A343",
+		"Model": "A340-313E",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus",
+		"Type": "A345",
+		"Model": "A340-541",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus Helicopters",
+		"Type": "AS50",
+		"Model": "AS350 B3",
+		"EngineCount": 1,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus Helicopters",
+		"Type": "EC35",
+		"Model": "EC135 P2+",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus Helicopters",
+		"Type": "EC55",
+		"Model": "EC155 B1",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus Helicopters",
+		"Type": "EC45",
+		"Model": "H145 D2",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Airbus Helicopters",
+		"Type": "EC45",
+		"Model": "H145 D3",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Airplane Factory",
+		"Type": "SLG4",
+		"Model": "Sling 4 TSi",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Air Tractor",
+		"Type": "AT8T",
+		"Model": "AT-802F",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "American Champion",
+		"Type": "BL8",
+		"Model": "Xtreme Decathlon 8KCAB",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Antonov",
+		"Type": "AN26",
+		"Model": "AN-26B",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Aquila",
+		"Type": "A210",
+		"Model": "A210",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Aquila",
+		"Type": "A210",
+		"Model": "A211",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Aquila",
+		"Type": "A210",
+		"Model": "A212",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT43",
+		"Model": "ATR 42-300",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT43",
+		"Model": "ATR 42-320",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT45",
+		"Model": "ATR-42-500",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT46",
+		"Model": "ATR-42-600",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT72",
+		"Model": "ATR 72-202",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT73",
+		"Model": "ATR 72-212",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT75",
+		"Model": "ATR 72-212A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ATR",
+		"Type": "AT76",
+		"Model": "ATR 72-212A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B190",
+		"Model": "1900C",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B190",
+		"Model": "1900D",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B190",
+		"Model": "1900D Custom",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE99",
+		"Model": "99 Airliner",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE24",
+		"Model": "A23-24 Musketeer Super III",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE19",
+		"Model": "B19 Musketeer",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE58",
+		"Model": "Baron 58",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE58",
+		"Model": "Baron 58A",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B58T",
+		"Model": "Baron 58P",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B58T",
+		"Model": "Baron 58TC",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE55",
+		"Model": "Baron 95-55/A55",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE55",
+		"Model": "Baron 95-B55",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE55",
+		"Model": "Baron 95-B55 Colemill President II STC",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE55",
+		"Model": "Baron 95-C55",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE55",
+		"Model": "Baron D55",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE55",
+		"Model": "Baron E55",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE58",
+		"Model": "Baron G58",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE40",
+		"Model": "Beechjet 400",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE40",
+		"Model": "Beechjet 400A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza 35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE36",
+		"Model": "Bonanza 36/A36",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza A35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE36",
+		"Model": "Bonanza A36",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BT36",
+		"Model": "Bonanza A36TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE36",
+		"Model": "Bonanza A36 Turbonormalized",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza B35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BT36",
+		"Model": "Bonanza B36TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza C35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza D35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Bonanza E33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Bonanza E33A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza E35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Bonanza F33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Bonanza F33A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Bonanza F33A Turbonormalized",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza F35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Bonanza G33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza G35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE36",
+		"Model": "Bonanza G36",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza H35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza H35 GWI STC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza J35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza K35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza M35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza N35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza P35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza S35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35A-TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35B",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35B-TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35B Turbonormalized",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE35",
+		"Model": "Bonanza V35-TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B190",
+		"Model": "C-12J",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "C-12S",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "C-12U Huron",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE99",
+		"Model": "C99 Commuter",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Debonair 35-33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Debonair 35-A33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Debonair 35-B33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Debonair 35-C33",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE33",
+		"Model": "Debonair 35-C33A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE76",
+		"Model": "Duchess 76",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE60",
+		"Model": "Duke 60",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE60",
+		"Model": "Duke B60",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE60",
+		"Model": "Grand Duke 60 STC",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "King Air 250 Halo Conversion",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "King Air 350ER/360ER",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "King Air 360HW",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE10",
+		"Model": "King Air A100",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE10",
+		"Model": "King Air B100",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air B90",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90A Raisbeck -21",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90GT",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90GTi",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90GTi Raisbeck Epic -135A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90GT Raisbeck Epic -135A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air C90GTx",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air E90",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9L",
+		"Model": "King Air E90 Raisbeck Epic -28",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE9T",
+		"Model": "King Air F90",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "King Air Halo 275 Conversion",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE24",
+		"Model": "Sierra C24R",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE77",
+		"Model": "Skipper 77",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE23",
+		"Model": "Sundowner C23",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air 200",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air 200C",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air 200C ",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air 200C Halo 250",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air 200 Raisbeck",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air 200 Raisbeck -41",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE30",
+		"Model": "Super King Air 300",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200 Blackhawk -61",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200C",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200/C Blackhawk -52",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200CGT",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200GT",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200GT/CGT",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200GT Halo 275 Conversion",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200 Halo",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200 Raisbeck Epic -42",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200 Raisbeck Epic -52",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200 Raisbeck Epic -61",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE20",
+		"Model": "Super King Air B200 Raisbeck Gold",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "Super King Air B300",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "Super King Air B300 350/360",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "Super King Air B300 Blackhawk",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "B350",
+		"Model": "Super King Air B300C 350/360",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE95",
+		"Model": "Travel Air D95A",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Beechcraft",
+		"Type": "BE56",
+		"Model": "Turbo Baron 56TC",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Bell",
+		"Type": "B407",
+		"Model": "407",
+		"EngineCount": 1,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Bellanca",
+		"Type": "CH7A",
+		"Model": "Citabria 7ECA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Bellanca",
+		"Type": "CH7B",
+		"Model": "Citabria 7GCAA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Bellanca",
+		"Type": "CH7B",
+		"Model": "Citabria 7GCBC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Bellanca",
+		"Type": "CH7B",
+		"Model": "Citabria 7KCAB",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Bellanca",
+		"Type": "BL17",
+		"Model": "Super Viking 300A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B703",
+		"Model": "707-320B",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B722",
+		"Model": "727-200",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B722",
+		"Model": "727-227",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B732",
+		"Model": "737-200Adv",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B733",
+		"Model": "737-300",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B733",
+		"Model": "737-300W",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B734",
+		"Model": "737-400",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B735",
+		"Model": "737-500",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B737",
+		"Model": "737-700",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B737",
+		"Model": "737-700IGW",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B737",
+		"Model": "737-700NG BBJ",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B737",
+		"Model": "737-700SSW",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B738",
+		"Model": "737-800",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B738",
+		"Model": "737-800NG",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B738",
+		"Model": "737-800SSW",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B738",
+		"Model": "737-800W",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B38M",
+		"Model": "737-8 MAX",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B739",
+		"Model": "737-900ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B39M",
+		"Model": "737-9 MAX",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B742",
+		"Model": "747-200F",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B744",
+		"Model": "747-400",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B744",
+		"Model": "747-400F",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B748",
+		"Model": "747-8",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B74S",
+		"Model": "747SP",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B752",
+		"Model": "757-200",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B752",
+		"Model": "757-200W",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B752",
+		"Model": "757-225",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B762",
+		"Model": "767-200",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B762",
+		"Model": "767-200ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B763",
+		"Model": "767-300",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B763",
+		"Model": "767-300ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B763",
+		"Model": "767-300W",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B772",
+		"Model": "777-200",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B772",
+		"Model": "777-200ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B77L",
+		"Model": "777-200LR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B772",
+		"Model": "777-212ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B77W",
+		"Model": "777-300ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B78X",
+		"Model": "787-10",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B788",
+		"Model": "787-8",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "B789",
+		"Model": "787-9",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "MD81",
+		"Model": "MD-81",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Boeing",
+		"Type": "MD82",
+		"Model": "MD-82",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL30",
+		"Model": "Challenger 300",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL35",
+		"Model": "Challenger 350",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL35",
+		"Model": "Challenger 3500",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 600",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 601-1A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 601-3A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 601-3R",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 604",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 605",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL60",
+		"Model": "Challenger 650",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CRJ2",
+		"Model": "Challenger 850",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CL2T",
+		"Model": "CL-415",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CRJ2",
+		"Model": "CRJ 200",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CRJ2",
+		"Model": "CRJ 200LR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "CRJ9",
+		"Model": "CRJ 900",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "DH8A",
+		"Model": "DHC-8-100 Model 102",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "DH8A",
+		"Model": "DHC-8-100 Model 103",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "DH8A",
+		"Model": "DHC-8-100 Model 106",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "DH8B",
+		"Model": "DHC-8-202",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "DH8C",
+		"Model": "DHC-8-300 Series",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "DH8D",
+		"Model": "DHC-8-400",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GL5T",
+		"Model": "Global 5000 87.7k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GL5T",
+		"Model": "Global 5000 88.7k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GL5T",
+		"Model": "Global 5000 89.7k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GL5T",
+		"Model": "Global 5000 92.5k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GL5T",
+		"Model": "Global 5500 92.5k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global 6000 98k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global 6000 99.5k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global 6500",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GL7T",
+		"Model": "Global 7500",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global Express 93.5k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global Express 95k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global Express 96k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global Express 98k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global Express XRS 98k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier",
+		"Type": "GLEX",
+		"Model": "Global Express XRS 99.5k",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ31",
+		"Model": "Learjet 31",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ31",
+		"Model": "Learjet 31A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ35",
+		"Model": "Learjet 35/35A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ35",
+		"Model": "Learjet 35A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ35",
+		"Model": "Learjet 36A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ40",
+		"Model": "Learjet 40 Code B",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ40",
+		"Model": "Learjet 40 Code C",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ40",
+		"Model": "Learjet 40XR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ45",
+		"Model": "Learjet 45",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ45",
+		"Model": "Learjet 45XR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ55",
+		"Model": "Learjet 55",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ55",
+		"Model": "Learjet 55B",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ55",
+		"Model": "Learjet 55C",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ60",
+		"Model": "Learjet 60",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ60",
+		"Model": "Learjet 60XR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ70",
+		"Model": "Learjet 70",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Bombardier Learjet",
+		"Type": "LJ75",
+		"Model": "Learjet 75",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Breezer",
+		"Type": "BREZ",
+		"Model": "B600 LSA Elegance",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "British Aerospace",
+		"Type": "B463",
+		"Model": "146-300",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "British Aerospace",
+		"Type": "RJ1H",
+		"Model": "Avro RJ100",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "British Aerospace",
+		"Type": "RJ70",
+		"Model": "Avro RJ70",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "British Aerospace",
+		"Type": "RJ85",
+		"Model": "Avro RJ85",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "British Aerospace",
+		"Type": "JS32",
+		"Model": "Jetstream 3200 Super 31",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "British Aerospace",
+		"Type": "JS41",
+		"Model": "Jetstream 41",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Britten-Norman",
+		"Type": "BN2P",
+		"Model": "BN-2A-26 Islander",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Britten-Norman",
+		"Type": "BN2P",
+		"Model": "BN-2B-26 Islander",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Britten-Norman",
+		"Type": "BN2T",
+		"Model": "BN-2T Turbine Islander",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "BRM Aero",
+		"Type": "BR23",
+		"Model": "Bristell B23",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "BRM Aero",
+		"Type": "BR23",
+		"Model": "Bristell B23-915",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "BRM Aero",
+		"Type": "NG5",
+		"Model": "Bristell LSA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "BRM Aero",
+		"Type": "NG5",
+		"Model": "Bristell S-LSA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "CASA",
+		"Type": "C212",
+		"Model": "C-212-200 Aviocar",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C120",
+		"Model": "120",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C140",
+		"Model": "140",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C140",
+		"Model": "140A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150D Standard",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150F Commuter",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150G Standard",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150H Standard",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150J Standard",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150K Standard",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150L Standard",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C150",
+		"Model": "150M Commuter",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C152",
+		"Model": "152",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C162",
+		"Model": "162 Skycatcher",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170A Landplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170A Seaplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170A Skiplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170B Landplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170B Seaplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170 Landplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C170",
+		"Model": "170 Seaplane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172B Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172C Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172E Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172F/G/H/I/K/L/M",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172F Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172G Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172H Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172I,K,L Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172I Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172K Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172L Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172M Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172N Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172N Superhawk Penn Yan",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172P Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172P Superhawk Penn Yan",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172Q Cutlass",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172R",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C72R",
+		"Model": "172RG Cutlass RG",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172R Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172 Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172 Skyhawk Air Plains STC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "172S Skyhawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C175",
+		"Model": "175 Skylark",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C177",
+		"Model": "177B Cardinal",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C177",
+		"Model": "177 Cardinal",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C77R",
+		"Model": "177RG Cardinal",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C180",
+		"Model": "180H Skywagon",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C180",
+		"Model": "180J Skywagon",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C180",
+		"Model": "180J Skywagon Floatplane SA649NW",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C180",
+		"Model": "180K Skywagon",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182A Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182B Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182C Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182E Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182G Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182H Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182J Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182K Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182L Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182M Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182N Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182P Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182Q Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182R Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182S Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C182",
+		"Model": "182T Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C185",
+		"Model": "185E Skywagon",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C185",
+		"Model": "185E Skywagon Floats",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C185",
+		"Model": "185F Skywagon",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C205",
+		"Model": "205",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C206",
+		"Model": "206H NAV III Stationair",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Caravan Pod APE III",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Cargo Caravan Pod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Cargo Caravan Pod APE II",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan EX No Pod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan EX No Pod APE II",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan EX No Pod APE III",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan EX Pod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan EX Pod APE II",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan EX Pod APE III",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan No Pod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan No Pod APE II",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan No Pod APE III",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan No Pod Blackhawk",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan Pod Blackhawk",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan Wipaire",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208B Grand Caravan Wipaire GWI",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan Cargo Pod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan No Pod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan No Pod APE II GWI",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan No Pod APE III",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan No Pod Blackhawk",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan No Pod Wipaire",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan Pod APE",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan Pod APE II GWI",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan Pod APE III",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan Pod APE STOL GWI",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Caravan Wipaire",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Supervan 900",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C208",
+		"Model": "208 Supervan 900 APE II",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C210",
+		"Model": "210B Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C210",
+		"Model": "210 Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C210",
+		"Model": "210D Centurion ",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C210",
+		"Model": "210L Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C210",
+		"Model": "210M Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C210",
+		"Model": "210N Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "310G",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "310J",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "310L",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "310P",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "310Q",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "310R",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C337",
+		"Model": "337 Skymaster",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C340",
+		"Model": "340A",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C340",
+		"Model": "340A Micro VG",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C340",
+		"Model": "340A RAM IV",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "COL3",
+		"Model": "350 Corvalis",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "COL4",
+		"Model": "400 Corvalis TT",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C402",
+		"Model": "402C Businessliner",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C408",
+		"Model": "408 SkyCourier",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C414",
+		"Model": "414A",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C414",
+		"Model": "414 Chancellor",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C421",
+		"Model": "421B Golden Eagle",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C421",
+		"Model": "421C Golden Eagle",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C421",
+		"Model": "421C Micro VG System",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C425",
+		"Model": "425 Conquest I",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C425",
+		"Model": "425 Conquest I XP",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C441",
+		"Model": "441 Conquest II",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C441",
+		"Model": "441 Conquest II STC SA5682NM",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C441",
+		"Model": "441 Conquest II STC SA5682NM and SA00487SE",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C441",
+		"Model": "441 Conquest II STC SA5682NM and SA2194NM",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C500",
+		"Model": "500 Citation I",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C501",
+		"Model": "501 Citation I-SP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C510",
+		"Model": "510 Citation Mustang",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25A",
+		"Model": "525A Citation CJ2",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25A",
+		"Model": "525A Citation CJ2+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25A",
+		"Model": "525A Citation CJ2 Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25A",
+		"Model": "525A Citation CJ2+ Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25B",
+		"Model": "525B Citation CJ3",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25B",
+		"Model": "525B Citation CJ3+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25B",
+		"Model": "525B Citation CJ3 Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25B",
+		"Model": "525B Citation CJ3+ Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25C",
+		"Model": "525C Citation CJ4",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C525",
+		"Model": "525 Citation CJ1",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C525",
+		"Model": "525 Citation CJ1+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C525",
+		"Model": "525 Citation CJ1 Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C525",
+		"Model": "525 Citation CJ1+ Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C525",
+		"Model": "525 CitationJet",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C525",
+		"Model": "525 CitationJet Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25M",
+		"Model": "525 Citation M2",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C25M",
+		"Model": "525 Citation M2 Tamarack Active Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C55B",
+		"Model": "550 Citation Bravo",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C550",
+		"Model": "550 Citation II",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C550",
+		"Model": "550 Citation II GWI STC",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C551",
+		"Model": "551 Citation IISP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "560 Citation Encore",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "560 Citation Encore+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C56X",
+		"Model": "560 Citation Excel",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C56X",
+		"Model": "560 Citation Excel ",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "560 Citation Ultra",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "560 Citation V",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C56X",
+		"Model": "560 Citation XLS",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C56X",
+		"Model": "560 Citation XLS+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C56X",
+		"Model": "560 Citation XLS GEN 2",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C650",
+		"Model": "650 Citation III",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C650",
+		"Model": "650 Citation VI",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C650",
+		"Model": "650 Citation VII",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C68A",
+		"Model": "680A Citation Latitude",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C680",
+		"Model": "680 Citation Sovereign",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C680",
+		"Model": "680 Citation Sovereign+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C680",
+		"Model": "680 Citation Sovereign Winglet",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C700",
+		"Model": "700 Citation Longitude",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C750",
+		"Model": "750 Citation X",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C750",
+		"Model": "750 Citation X+",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C206",
+		"Model": "P206A Super Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "P210",
+		"Model": "P210N Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C10T",
+		"Model": "P210N Silver Eagle O&N Mod",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "P210",
+		"Model": "P210R Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C337",
+		"Model": "P337H Skymaster",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C172",
+		"Model": "R172K Hawk XP",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C82R",
+		"Model": "R182 Skylane RG",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C550",
+		"Model": "S550 Citation S/II",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C82S",
+		"Model": "T182T Turbo Skylane",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T206",
+		"Model": "T206H Alamo Aerospace STC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T206",
+		"Model": "T206H Flint Aero STC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T206",
+		"Model": "T206H Stationair",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T206",
+		"Model": "T206H Stationair TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T210",
+		"Model": "T210K/L/M/N Atlantic Aero STC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T210",
+		"Model": "T210L",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T210",
+		"Model": "T210M Turbo Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T210",
+		"Model": "T210N Turbo Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "T210",
+		"Model": "T210R Turbo Centurion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C240",
+		"Model": "T240",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C240",
+		"Model": "T240 TTx",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C303",
+		"Model": "T303 Crusader",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "T310Q",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C310",
+		"Model": "T310R",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C82T",
+		"Model": "TR182 Turbo Skylane RG",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C206",
+		"Model": "U206G Stationair",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "UC-35A/C",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "UC-35B",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft",
+		"Type": "C560",
+		"Model": "UC-35D",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cessna Aircraft ",
+		"Type": "T206",
+		"Model": "TU206G",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SF50",
+		"Model": "SF50 Vision G1",
+		"EngineCount": 1,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SF50",
+		"Model": "SF50 Vision G2",
+		"EngineCount": 1,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SF50",
+		"Model": "SF50 Vision G2+",
+		"EngineCount": 1,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR20",
+		"Model": "SR20",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR20",
+		"Model": "SR20 G7",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G1",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G2",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G3",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G3 TN",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G5",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G6",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "SR22",
+		"Model": "SR22 G7",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "S22T",
+		"Model": "SR22T G3",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "S22T",
+		"Model": "SR22T G5",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "S22T",
+		"Model": "SR22T G6",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cirrus Aircraft",
+		"Type": "S22T",
+		"Model": "SR22T G7",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Convair",
+		"Type": "CVLT",
+		"Model": "CV-580 Airtanker",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Cub Crafters",
+		"Type": "PA18",
+		"Model": "Carbon Cub FX-3",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cub Crafters",
+		"Type": "PA11",
+		"Model": "Carbon Cub SS CC11-160",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cub Crafters",
+		"Type": "PA11",
+		"Model": "CC11-160 Carbon Cub SS",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Cub Crafters",
+		"Type": "PA18",
+		"Model": "CC18-180 Top Cub",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Czech Sport Aircraft",
+		"Type": "CRUZ",
+		"Model": "SportCruiser",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "K100",
+		"Model": "Kodiak 100",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "K900",
+		"Model": "Kodiak 900",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM7",
+		"Model": "TBM 700 A",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM7",
+		"Model": "TBM 700 B",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM7",
+		"Model": "TBM 700 C1",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM7",
+		"Model": "TBM 700 C2",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM8",
+		"Model": "TBM 850",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM8",
+		"Model": "TBM 850 G1000",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM9",
+		"Model": "TBM 900",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM9",
+		"Model": "TBM 910",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM9",
+		"Model": "TBM 930",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM9",
+		"Model": "TBM 940",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Daher Socata",
+		"Type": "TBM9",
+		"Model": "TBM 960",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA10",
+		"Model": "Falcon 10",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000DX",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000DX Winglets",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000EX",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000EX EASy",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000LX",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000LXS",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F2TH",
+		"Model": "Falcon 2000S",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA20",
+		"Model": "Falcon 20-F5",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA20",
+		"Model": "Falcon 20 Series C",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA20",
+		"Model": "Falcon 20 Series D",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA20",
+		"Model": "Falcon 20 Series E",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA50",
+		"Model": "Falcon 50",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA50",
+		"Model": "Falcon 50EX",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA6X",
+		"Model": "Falcon 6X",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA7X",
+		"Model": "Falcon 7X",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "FA8X",
+		"Model": "Falcon 8X",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F900",
+		"Model": "Falcon 900B",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F900",
+		"Model": "Falcon 900C",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F900",
+		"Model": "Falcon 900DX EASy",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F900",
+		"Model": "Falcon 900EX",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F900",
+		"Model": "Falcon 900EX EASy",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Dassault Aviation",
+		"Type": "F900",
+		"Model": "Falcon 900LX",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "De Havilland",
+		"Type": "DH82",
+		"Model": "DH82 Tiger Moth",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "De Havilland",
+		"Type": "DHC6",
+		"Model": "DHC-6-300 Twin Otter",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "De Havilland",
+		"Type": "DHC7",
+		"Model": "DHC-7 Dash 7",
+		"EngineCount": 4,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "De Havilland",
+		"Type": "DHC7",
+		"Model": "DHC-7 Model 150",
+		"EngineCount": 4,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DV20",
+		"Model": "DA20-100 Katana",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DV20",
+		"Model": "DA20 A1 Katana",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DV20",
+		"Model": "DA20-C1 Evolution",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DV20",
+		"Model": "DA20i Katana",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA40",
+		"Model": "DA40-180 Diamond Star",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA40",
+		"Model": "DA40 D",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA40",
+		"Model": "DA40 F",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA40",
+		"Model": "DA40 NG",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA40",
+		"Model": "DA40 XLS",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA42",
+		"Model": "DA42 L360",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA42",
+		"Model": "DA42 NG",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA42",
+		"Model": "DA42 TDI",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA42",
+		"Model": "DA42 Twin Star",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA42",
+		"Model": "DA42-VI",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA50",
+		"Model": "DA50",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Diamond Aircraft",
+		"Type": "DA62",
+		"Model": "DA62",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Dornier",
+		"Type": "D228",
+		"Model": "228 Cargo",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Dornier",
+		"Type": "D228",
+		"Model": "228NG",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Dornier",
+		"Type": "D228",
+		"Model": "228 Pax",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Dornier",
+		"Type": "D328",
+		"Model": "328-100",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Douglas",
+		"Type": "DC87",
+		"Model": "DC-8-73",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Eclipse Aviation",
+		"Type": "EA50",
+		"Model": "EA500/EA550",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E110",
+		"Model": "Bandeirante 110 P1/P2",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E120",
+		"Model": "Brasilia 120 ER",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E120",
+		"Model": "Brasilia 120 RT",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E121",
+		"Model": "EMB-121 Xingu 1",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E135",
+		"Model": "EMB-135ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E135",
+		"Model": "EMB-135LR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E135",
+		"Model": "EMB-140LR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E145",
+		"Model": "EMB-145EP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E145",
+		"Model": "EMB-145LR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E145",
+		"Model": "EMB-145LU",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E145",
+		"Model": "EMB-145MP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E45X",
+		"Model": "EMB-145XR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E75L",
+		"Model": "EMB-175LR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E75L",
+		"Model": "EMB-175STD",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E190",
+		"Model": "EMB 190-100",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E190",
+		"Model": "EMB 190-100 IGW",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E190",
+		"Model": "EMB 190AR",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E170",
+		"Model": "ERJ-170-100",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E545",
+		"Model": "Legacy 450",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E550",
+		"Model": "Legacy 500",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E35L",
+		"Model": "Legacy 600",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E35L",
+		"Model": "Legacy 650",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E190",
+		"Model": "Lineage 1000",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E50P",
+		"Model": "Phenom 100",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E50P",
+		"Model": "Phenom 100E",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E50P",
+		"Model": "Phenom 100EV",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E55P",
+		"Model": "Phenom 300",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E55P",
+		"Model": "Phenom 300E",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E545",
+		"Model": "Praetor 500",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Embraer",
+		"Type": "E550",
+		"Model": "Praetor 600",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Epic Aircraft",
+		"Type": "EPIC",
+		"Model": "E1000",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Evektor",
+		"Type": "EVSS",
+		"Model": "SportStar",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Extra",
+		"Type": "E300",
+		"Model": "300L",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Extra",
+		"Type": "E400",
+		"Model": "EA-400",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Extra",
+		"Type": "E500",
+		"Model": "EA 500",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Fairchild Dornier",
+		"Type": "J328",
+		"Model": "328-310ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Fairchild Swearingen",
+		"Type": "SW4",
+		"Model": "Metro III SA227",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Fairchild Swearingen",
+		"Type": "SW4",
+		"Model": "SA226-AT Merlin",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Fairchild Swearingen",
+		"Type": "SW3",
+		"Model": "SA226-T Merlin IIIA",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Fairchild Swearingen",
+		"Type": "SW4",
+		"Model": "SA227 C-26",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Fokker",
+		"Type": "F100",
+		"Model": "100",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Fokker",
+		"Type": "F70",
+		"Model": "70",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Fokker",
+		"Type": "F50",
+		"Model": "Fokker 50 Freighter",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "ForeFlight",
+		"Type": "C172",
+		"Model": "172I QA Testing",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Game Composites",
+		"Type": "GB1",
+		"Model": "GB-1 Gamebird",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "GippsAero",
+		"Type": "GA8",
+		"Model": "GA-8 Airvan",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "GippsAero",
+		"Type": "GA8",
+		"Model": "GA8-TC 320",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Gogetair",
+		"Type": "ONE",
+		"Model": "G750",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grob",
+		"Type": "G115",
+		"Model": "G 115 A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grob",
+		"Type": "G115",
+		"Model": "G 115C",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grob",
+		"Type": "G115",
+		"Model": "G-115EG",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grob",
+		"Type": "G120",
+		"Model": "G 120A-1",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grob",
+		"Type": "G12T",
+		"Model": "G 120TP-A",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grumman",
+		"Type": "GA7",
+		"Model": "GA-7 Cougar",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grumman American",
+		"Type": "AA1",
+		"Model": "AA-1C Lynx",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grumman American",
+		"Type": "AA1",
+		"Model": "AA-1 Yankee",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grumman American",
+		"Type": "AA5",
+		"Model": "AA5A Cheetah",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grumman American",
+		"Type": "AA5",
+		"Model": "AA-5B Tiger",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Grumman American",
+		"Type": "AA5",
+		"Model": "AA-5 Traveler",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF3",
+		"Model": "C-20A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF3",
+		"Model": "C-20B",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF3",
+		"Model": "C-20C",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF3",
+		"Model": "C-20D",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF3",
+		"Model": "C-20E",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "C-20F",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "C-20G",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "C-20H",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "C-20J",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "ASTR",
+		"Model": "G100",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "G150",
+		"Model": "G150",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GALX",
+		"Model": "G200",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "G280",
+		"Model": "G280",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "G300",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "G350",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "G400",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "G450",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GA5C",
+		"Model": "G500 (G-VII)",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF5",
+		"Model": "G500 (GV-SP)",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF5",
+		"Model": "G550 (GV-SP)",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GA6C",
+		"Model": "G600",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF6",
+		"Model": "G650",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF6",
+		"Model": "G650ER",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GA7C",
+		"Model": "G700",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF3",
+		"Model": "G-III",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "GIV",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF4",
+		"Model": "GIV-SP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "GLF5",
+		"Model": "G-V",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Gulfstream Aerospace",
+		"Type": "AC95",
+		"Model": "Turbo Commander 1000",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "BE40",
+		"Model": "400XP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "HA4T",
+		"Model": "Hawker 4000",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "H25B",
+		"Model": "Hawker 750",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "H25B",
+		"Model": "Hawker 800A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "H25B",
+		"Model": "Hawker 800B",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "H25B",
+		"Model": "Hawker 800XP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "H25B",
+		"Model": "Hawker 850XP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Beechcraft",
+		"Type": "H25B",
+		"Model": "Hawker 900XP",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Hawker Siddeley",
+		"Type": "H25B",
+		"Model": "HS-125-700B",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Honda Aircraft Company",
+		"Type": "HDJT",
+		"Model": "HA-420 HondaJet",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Honda Aircraft Company",
+		"Type": "HDJT",
+		"Model": "HA-420 HondaJet APMG",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Honda Aircraft Company",
+		"Type": "HDJT",
+		"Model": "HA-420 HondaJet Elite",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Honda Aircraft Company",
+		"Type": "HDJT",
+		"Model": "HA-420 HondaJet Elite II",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Honda Aircraft Company",
+		"Type": "HDJT",
+		"Model": "HA-420 HondaJet Elite S",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Icon",
+		"Type": "A5",
+		"Model": "A5",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Ilyushin",
+		"Type": "IL76",
+		"Model": "IL-76TD",
+		"EngineCount": 4,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Israel Aircraft Industries",
+		"Type": "ASTR",
+		"Model": "1125 Westwind Astra",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Israel Aircraft Industries",
+		"Type": "WW24",
+		"Model": "Westwind 1124",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Israel Aircraft Industries",
+		"Type": "WW24",
+		"Model": "Westwind II 1124A",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "JMB Aircraft",
+		"Type": "VL3 ",
+		"Model": "VL3 916 Evolution",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Junkers",
+		"Type": "F13",
+		"Model": "F-13 Replica",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Lancair",
+		"Type": "COL3",
+		"Model": "Columbia 300",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Lancair",
+		"Type": "COL4",
+		"Model": "Columbia 400",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Lancair",
+		"Type": "EVOT",
+		"Model": "Evolution",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Let Kunovice",
+		"Type": "L410",
+		"Model": "L-410 ",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Let Kunovice",
+		"Type": "L410",
+		"Model": "L-410NG",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Let Kunovice",
+		"Type": "L410",
+		"Model": "L-410 UVP-E20",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Let Kunovice",
+		"Type": "L410",
+		"Model": "L-410 UVP-LW",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Liberty Aerospace",
+		"Type": "XL2",
+		"Model": "XL-2",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Lockheed",
+		"Type": "C130",
+		"Model": "L-100-30 Hercules",
+		"EngineCount": 4,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "McDonnell Douglas",
+		"Type": "DC10",
+		"Model": "MD10-30F",
+		"EngineCount": 3,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "McDonnell-Douglas",
+		"Type": "DC3",
+		"Model": "DC-3",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "McDonnell-Douglas",
+		"Type": "DC3T",
+		"Model": "DC3-TP67",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "McDonnell-Douglas",
+		"Type": "MD87",
+		"Model": "MD-87",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Mitsubishi",
+		"Type": "MU2",
+		"Model": "MU-2B-20 Solitaire",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mitsubishi",
+		"Type": "MU2",
+		"Model": "MU-2B-40 Solitaire",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mitsubishi",
+		"Type": "MU2",
+		"Model": "MU-2B-60 Marquise",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20B",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20C Ranger",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20E Super 21",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20F Executive",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20G Statesman",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20J 201",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20J 205",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20K/231",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20K 252 Rocket",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20K 252 TSE",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20K Encore",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20M Bravo",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M-20R Ovation",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20R Ovation 2 GX",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M-20S Eagle",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20TN Acclaim Type S",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20TN Acclaim Type S 310HP",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20P",
+		"Model": "M20U Ovation Ultra",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Mooney",
+		"Type": "M20T",
+		"Model": "M20V Acclaim Ultra",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Morane-Saulnier",
+		"Type": "MS76",
+		"Model": "MS.760B Paris II",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Navion",
+		"Type": "RANG",
+		"Model": "Rangemaster H",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Nextant Aerospace",
+		"Type": "BE40",
+		"Model": "Nextant 400XT",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Pacific Aerospace",
+		"Type": "P750",
+		"Model": "PAC 750XL",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piaggio Aero",
+		"Type": "P180",
+		"Model": "P180 Avanti",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piaggio Aero",
+		"Type": "P180",
+		"Model": "P180 Avanti Evo",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piaggio Aero",
+		"Type": "P180",
+		"Model": "P180 Avanti II",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC12",
+		"Model": "PC-12/45",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC12",
+		"Model": "PC-12/47",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC12",
+		"Model": "PC-12/47E",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC12",
+		"Model": "PC-12 NGX",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC12",
+		"Model": "PC-12 PRO",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC24",
+		"Model": "PC-24",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Pilatus Aircraft",
+		"Type": "PC24",
+		"Model": "PC-24 GWI",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Piper",
+		"Type": "P28A",
+		"Model": "Cherokee",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P46T",
+		"Model": "JetProp DL",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P46T",
+		"Model": "JetProp DLX",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA14",
+		"Model": "PA-14 Family Cruiser",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA18",
+		"Model": "PA-18-150 Super Cub",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA18",
+		"Model": "PA-18-95 Super Cub",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA22",
+		"Model": "PA-22-108 Colt",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA22",
+		"Model": "PA-22-150 Tri-Pacer",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA22",
+		"Model": "PA-22-160 Tri-Pacer",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA23",
+		"Model": "PA-23-150 Apache",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA27",
+		"Model": "PA-23-250 Aztec C",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA27",
+		"Model": "PA-23-250 Aztec D",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA27",
+		"Model": "PA-23-250 Aztec E",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA27",
+		"Model": "PA-23-250 Aztec F",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA27",
+		"Model": "PA-23-250 Aztec F Turbo",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA27",
+		"Model": "PA-23-250 Turbo Aztec E",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-180 Comanche",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-250 Comanche",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-250 Comanche 3000lbs MTOW STC SA4-1235",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-260B Comanche B",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-260C Comanche C",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-260 Comanche",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA24",
+		"Model": "PA-24-400 Comanche",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-140 Cherokee Cruiser",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-151 Cherokee Warrior",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-161 Warrior II",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-161 Warrior III",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-180 Cherokee",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-180 Cherokee Challenger",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-181 Archer II",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-181 Archer III",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "PA-28-181 Archer III DLX",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28B",
+		"Model": "PA-28-201T Turbo Dakota",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28B",
+		"Model": "PA-28-235 Pathfinder",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28B",
+		"Model": "PA-28-236 Dakota",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28R",
+		"Model": "PA-28R-180 Cherokee Arrow",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28R",
+		"Model": "PA-28R-200 Arrow II",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28R",
+		"Model": "PA-28R-201 Arrow",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28S",
+		"Model": "PA-28R-201T Cherokee Turbo Arrow III",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28T",
+		"Model": "PA-28RT-201 Arrow IV",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28U",
+		"Model": "PA-28RT-201T Turbo Arrow IV",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA30",
+		"Model": "PA-30 Turbo Twin Comanche",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA30",
+		"Model": "PA-30 Twin Comanche",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31-325 Navajo CR GWI",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31-350 Navajo Chieftain",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31-350 Super Chieftain I",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31-350 Super Chieftain II",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31 Navajo",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31P-350 Mojave",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA31",
+		"Model": "PA-31P Navajo",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PAY1",
+		"Model": "PA-31T1 Cheyenne IA",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PAY2",
+		"Model": "PA-31T2 Cheyenne II XL",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PAY2",
+		"Model": "PA-31T Cheyenne",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA32",
+		"Model": "PA-32-260 Cherokee Six B",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA32",
+		"Model": "PA-32-260 Cherokee Six E",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA32",
+		"Model": "PA-32-300 Cherokee Six 300",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA32",
+		"Model": "PA-32-301 Saratoga",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA32",
+		"Model": "PA-32-301T Turbo Saratoga",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P32R",
+		"Model": "PA-32R-300 Cherokee Lance",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P32R",
+		"Model": "PA-32R-301 Saratoga II HP",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P32R",
+		"Model": "PA-32R-301T Saratoga II TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P32R",
+		"Model": "PA-32R-301T Turbo Saratoga SP",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P32T",
+		"Model": "PA-32RT-300 Lance II",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P32T",
+		"Model": "PA-32RT-300T Turbo Lance II",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA34",
+		"Model": "PA-34-200 Seneca I",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA34",
+		"Model": "PA-34-200T Seneca II",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA34",
+		"Model": "PA-34-220T Seneca III",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA34",
+		"Model": "PA-34-220T Seneca IV",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA34",
+		"Model": "PA-34-220T Seneca V",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA38",
+		"Model": "PA-38-112 Tomahawk",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PAY4",
+		"Model": "PA-42-1000 Cheyenne IV",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PAY3",
+		"Model": "PA-42-720 Cheyenne III",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PAY3",
+		"Model": "PA-42-720R Cheyenne IIIA",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA44",
+		"Model": "PA-44-180 Seminole",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA44",
+		"Model": "PA-44-180T Seminole Turbo",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA46",
+		"Model": "PA-46-310P Malibu",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA46",
+		"Model": "PA-46-350P Malibu Mirage",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P46T",
+		"Model": "PA-46-500TP Malibu Meridian",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "M600",
+		"Model": "PA-46-600TP M600",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "M600",
+		"Model": "PA-46-701TP M700 Fury",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "M700",
+		"Model": "PA-46-701TP M700 Fury",
+		"EngineCount": 1,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "PA46",
+		"Model": "PA-46R-350T Malibu Matrix",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "AEST",
+		"Model": "PA-60-600A Aerostar",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "AEST",
+		"Model": "PA-60-602P Aerostar",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "AEST",
+		"Model": "PA-60-700P Aerostar",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "AEST",
+		"Model": "PA-60-702P Aerostar",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Piper Aircraft",
+		"Type": "P28A",
+		"Model": "Pilot 100i",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pipistrel",
+		"Type": "PISI",
+		"Model": "Sinus MAX 600",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pipistrel",
+		"Type": "PIVI",
+		"Model": "Velis Club",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Pipistrel",
+		"Type": "PIVI",
+		"Model": "Virus SW 121",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "PZL Mielec",
+		"Type": "M28",
+		"Model": "M-28 Skytruck",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Raytheon Aircraft",
+		"Type": "H25C",
+		"Model": "Hawker 1000",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Raytheon Aircraft",
+		"Type": "PRM1",
+		"Model": "Premier I",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Reims",
+		"Type": "F406",
+		"Model": "F406 Caravan II",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Robin",
+		"Type": "DR40",
+		"Model": "DR400",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Robin",
+		"Type": "DR40",
+		"Model": "DR400-120",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Robin",
+		"Type": "DR40",
+		"Model": "DR401",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Robin ",
+		"Type": "DR40",
+		"Model": "DR400-160",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC90",
+		"Model": "690C Jetprop 840",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 112/112A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 112TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 112 TC-A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 114",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 114A",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 114B",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC11",
+		"Model": "Commander 114TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "AC90",
+		"Model": "Commander 690A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "SBR1",
+		"Model": "Sabreliner 60",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Rockwell",
+		"Type": "SBR1",
+		"Model": "Sabreliner 65",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Ruschmeyer",
+		"Type": "R90R",
+		"Model": "R-90-230RG",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Ryan Aeronautical Company",
+		"Type": "NAVI",
+		"Model": "Navion",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Ryan Aeronautical Company",
+		"Type": "NAVI",
+		"Model": "Navion L-17",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Saab",
+		"Type": "SB20",
+		"Model": "2000",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Saab",
+		"Type": "SF34",
+		"Model": "340B",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Saab-Fairchild",
+		"Type": "SF34",
+		"Model": "SF340A",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Scoda Aeronautica",
+		"Type": "PETR",
+		"Model": "Super Petrel LS",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Scoda Aeronautica",
+		"Type": "PETR",
+		"Model": "Super Petrel XP",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Short Brothers",
+		"Type": "SH36",
+		"Model": "SD3-60",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Short Brothers",
+		"Type": "SH36",
+		"Model": "SD3-60 -67R",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "SIAI Marchetti",
+		"Type": "F260",
+		"Model": "F260C",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "SIAI Marchetti",
+		"Type": "F260",
+		"Model": "SF260D",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sikorsky",
+		"Type": "S76",
+		"Model": "S-76C+",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sikorsky",
+		"Type": "S76",
+		"Model": "S-76D",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sikorsky",
+		"Type": "S92",
+		"Model": "S-92A Helibus",
+		"EngineCount": 2,
+		"EngineType": "Helicopter",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Sling Aircraft",
+		"Type": "SLG2",
+		"Model": "Sling 2 ",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sling Aircraft",
+		"Type": "SLG4",
+		"Model": "Sling 4",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sling Aircraft",
+		"Type": "SLG4",
+		"Model": "Sling 4 High Wing",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sling Aircraft",
+		"Type": "SLG2",
+		"Model": "Sling LSA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "RALL",
+		"Model": "MS-893 Rallye Commodore",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TOBA",
+		"Model": "TB-10 Tobago",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TOBA",
+		"Model": "TB-200 Tobago",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TB20",
+		"Model": "TB-20 GT",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TB20",
+		"Model": "TB-20 Trinidad",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TB21",
+		"Model": "TB-21 Trinidad TC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TAMP",
+		"Model": "TB-9 Sprint",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Socata",
+		"Type": "TAMP",
+		"Model": "TB-9 Tampico",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sonaca Aircraft",
+		"Type": "SLG2",
+		"Model": "S200",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Stinson",
+		"Type": "S108",
+		"Model": "Voyager 150 108-1",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Stormaircraft",
+		"Type": "STRM",
+		"Model": "Storm Century LSA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Sukhoi",
+		"Type": "SU95",
+		"Model": "Superjet 100",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Syberjet",
+		"Type": "SJ30",
+		"Model": "SJ30",
+		"EngineCount": 2,
+		"EngineType": "Jet",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tecnam",
+		"Type": "P06T",
+		"Model": "P2006T",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tecnam",
+		"Type": "P208",
+		"Model": "P2008 JC",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tecnam",
+		"Type": "TWEN",
+		"Model": "P2010",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tecnam",
+		"Type": "TWEN",
+		"Model": "P2010tdi",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tecnam",
+		"Type": "P212",
+		"Model": "P2012 Traveller",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tecnam",
+		"Type": "P850-12",
+		"Model": "P-Mentor",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Multi-Pilot"
+	},
+	{
+		"Manufacturer": "Tiger Aircraft",
+		"Type": "AA5",
+		"Model": "AG-5B",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Tomark",
+		"Type": "SD4",
+		"Model": "Viper SD-4 LSA",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Van's Aircraft",
+		"Type": "RV12",
+		"Model": "RV-12iS",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Vashon Aircraft",
+		"Type": "VR7",
+		"Model": "Ranger R7",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Viking Air",
+		"Type": "DHC6",
+		"Model": "DHC-6-400 Twin Otter",
+		"EngineCount": 2,
+		"EngineType": "Turboprop",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Vulcanair",
+		"Type": "P68",
+		"Model": "P68C",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Vulcanair",
+		"Type": "P68",
+		"Model": "P68 Observer 2",
+		"EngineCount": 2,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Vulcanair",
+		"Type": "OSCR",
+		"Model": "V1.0",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "WACO Classic",
+		"Type": "G2T1",
+		"Model": "Great Lakes Model 2T-1A-2",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	},
+	{
+		"Manufacturer": "Zlin Aircraft",
+		"Type": "Z42",
+		"Model": "Z 242 L",
+		"EngineCount": 1,
+		"EngineType": "Piston",
+		"Category": "Single-Pilot"
+	}
+]

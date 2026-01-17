@@ -1,67 +1,47 @@
 import Link from "next/link";
 
-import { fetchCrewMember } from "@/actions/pages/crew/fetch";
-import { getPreferences } from "@/actions/user-preferences";
+import { fetchAsset } from "@/actions/pages/fleet/fetch";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { ErrorContainer } from "@/components/ui/error-container";
-import {
-  PositionedGroup,
-  PositionedItem,
-} from "@/components/ui/positioned-group";
+import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import {
-  Building,
-  ChevronRight,
-  FileText,
-  IdCard,
-  Mail,
-  MapPin,
-  Phone,
-  Plane,
-} from "lucide-react";
+import { Building, ChevronRight, FileText, Notebook, Plane, Square } from "lucide-react";
+import { PiEngine, PiSeat } from "react-icons/pi";
 
-interface CrewInfoPageProps {
+interface AssetInfoPageProps {
   id: string;
 }
 
-export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
-  const { crew, error } = await fetchCrewMember(id);
-  const prefsResult = await getPreferences();
-  const nameDisplay = prefsResult.preferences?.nameDisplay || "first-last";
+export default async function AssetInfoPage({ id }: AssetInfoPageProps) {
+  const { asset, error } = await fetchAsset(id);
 
-  if (error || !crew) {
+  if (error || !asset) {
     return (
       <div>
         <PageHeader
-          title="Error Loading Crew Member"
-          backHref="/app/crew"
+          title="Error Loading Asset"
+          backHref="/app/fleet"
           showBackButton
           isTopLevelPage={false}
         />
 
         <ErrorContainer
-          title="Error Loading Crew Member"
-          message={error || "Crew Member not found"}
+          title="Error Loading Asset"
+          message={error || "Asset not found"}
         />
       </div>
     );
   }
 
-  // Format name based on preference
-  const fullName =
-    nameDisplay === "last-first"
-      ? `${crew.last_name}, ${crew.first_name}`.trim()
-      : `${crew.first_name} ${crew.last_name}`.trim();
-
   return (
     <div className="flex flex-col">
       <PageHeader
-        title={fullName}
-        backHref="/app/crew"
+        title={asset.registration}
+        backHref="/app/fleet"
         showBackButton
         isTopLevelPage={false}
         actionButton={
@@ -69,22 +49,21 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
             variant="ghost"
             className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
           >
-            <Link href={`/app/crew/${id}/edit`}>
+            <Link href={`/app/fleet/${id}/edit`}>
               <span>Edit</span>
             </Link>
           </Button>
         }
       />
-
       <div className="p-6">
         {/* Header Section */}
         <div className="grid grid-cols-1 gap-4">
           <div className="flex flex-col justify-center">
-            <div className="text-md md:text-xl font-bold">{fullName}</div>
-            {crew.company && (
-              <div className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
+            <div className="text-md md:text-xl font-bold">{asset.registration}</div>
+            {asset.operator && (
+              <div className="text-sm text-muted-foreground flex items-center gap-2 mt-1 capitalize">
                 <Building className="w-4 h-4" />
-                {crew.company || "-"}
+                {asset.operator || "-"}
               </div>
             )}
           </div>
@@ -92,92 +71,101 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
 
         <Separator className="w-full my-4" />
 
-        {/* Contact Information Section */}
+        {/* Aircraft/Simulator Specific Information Section */}
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Contact Information
+            {asset.is_simulator ? ("Simulator") : ("Aircraft")} Information
           </h3>
 
-          {crew.email && (
+          {asset.type && !asset.model && (
             <div className="p-3 flex items-center justify-between">
               <span className="text-sm font-semibold flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                Email
+                <Plane className="w-4 h-4" />
+                Type
               </span>
-              <a
-                href={`mailto:${crew.email}`}
-                className="text-sm text-primary hover:underline"
-              >
-                {crew.email}
-              </a>
+              {asset.type || "-"}
             </div>
           )}
 
-          {crew.phone && (
+          {asset.model && (
             <div className="p-3 flex items-center justify-between">
               <span className="text-sm font-semibold flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                Phone
+                <Plane className="w-4 h-4" />
+                Type
               </span>
-              <a
-                href={`tel:${crew.phone}`}
-                className="text-sm text-primary hover:underline"
-              >
-                {crew.phone}
-              </a>
+              {asset.model || "-"} {asset.type && (`(${asset.type})`)}
             </div>
           )}
 
-          {crew.address && (
-            <div className="p-3 flex items-start justify-between gap-4">
-              <span className="text-sm font-semibold flex items-center gap-2 shrink-0">
-                <MapPin className="w-4 h-4" />
-                Address
+          {asset.manufacturer && (
+            <div className="p-3 flex items-center justify-between capitalize">
+              <span className="text-sm font-semibold flex items-center gap-2">
+                <Building className="w-4 h-4" />
+                Manufacturer
               </span>
-              <span className="text-sm text-right wrap-break-word">
-                {crew.address}
-              </span>
+              {asset.manufacturer || "-"}
             </div>
           )}
 
-          {!crew.email && !crew.phone && !crew.address && (
+          {!asset.type && !asset.model && !asset.manufacturer && (
             <div className="p-3 text-sm text-muted-foreground text-center">
-              No contact information available
+              {`No ${asset.is_simulator ? "simulator" : "aircraft"} information available`}
             </div>
           )}
         </div>
 
         <Separator className="w-full my-4" />
 
-        {/* Professional Information Section */}
+        {/* Additional Information Section */}
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Professional Information
+            Additional Information
           </h3>
 
-          {crew.license_number && (
-            <div className="p-3 flex items-center justify-between">
+          {asset.category && (
+            <div className="p-3 flex items-center justify-between capitalize">
               <span className="text-sm font-semibold flex items-center gap-2">
-                <IdCard className="w-4 h-4" />
-                License Number
+                <Square className="w-4 h-4" />
+                Category
               </span>
-              <span className="text-sm">{crew.license_number}</span>
+              {asset.category || "-"}
             </div>
           )}
 
-          {crew.company_id && (
+          {asset.engine_count && !asset.engine_type && (
             <div className="p-3 flex items-center justify-between">
               <span className="text-sm font-semibold flex items-center gap-2">
-                <Building className="w-4 h-4" />
-                Company ID
+                <PiEngine className="w-4 h-4" />
+                Powerplant
               </span>
-              <span className="text-sm">{crew.company_id}</span>
+              {asset.engine_count || "-"}
             </div>
           )}
 
-          {!crew.license_number && !crew.company_id && (
+
+          {asset.engine_type && (
+            <div className="p-3 flex items-center justify-between capitalize">
+              <span className="text-sm font-semibold flex items-center gap-2">
+                <PiEngine className="w-4 h-4" />
+                Powerplant
+              </span>
+              {asset.engine_type || "-"} {asset.engine_count && (`(${asset.engine_count})`)}
+            </div>
+          )}
+
+          {asset.passenger_seats > 0 && (
+            <div className="p-3 flex items-center justify-between">
+              <span className="text-sm font-semibold flex items-center gap-2">
+                <PiSeat className="w-4 h-4" />
+                Passenger Seats
+              </span>
+              {asset.passenger_seats || "-"}
+            </div>
+          )}
+
+          {!asset.category && !asset.engine_count && !asset.engine_type && !asset.passenger_seats && (
             <div className="p-3 text-sm text-muted-foreground text-center">
-              No professional information available
+              {`No ${asset.is_simulator ? "simulator" : "aircraft"} information available`}
             </div>
           )}
         </div>
@@ -190,13 +178,23 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
             Notes
           </h3>
 
+          {asset.status && (
+            <div className="p-3 flex items-center justify-between capitalize">
+              <span className="text-sm font-semibold flex items-center gap-2">
+                <Notebook className="w-4 h-4" />
+                Status
+              </span>
+              {asset.status || "-"}
+            </div>
+          )}
+
           <div className="p-3 flex items-start justify-between gap-4">
             <span className="text-sm font-semibold flex items-center gap-2 shrink-0">
               <FileText className="w-4 h-4" />
               Note
             </span>
             <span className="text-sm text-right wrap-break-word whitespace-pre-wrap">
-              {crew.note || "-"}
+              {asset.note || "-"}
             </span>
           </div>
         </div>
@@ -206,7 +204,7 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
         {/* Common Flights */}
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Flights
+            {asset.is_simulator ? "Simulator Sessions" : "Flights"}
           </h3>
 
           <PositionedGroup>
@@ -217,7 +215,7 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
               <div className="flex items-center gap-2">
                 <Plane className="w-4 h-4" />
                 <span className="text-sm font-medium text-foreground">
-                  Flights
+                  {asset.is_simulator ? "Simulator Sessions" : "Flights"}
                 </span>
               </div>
 
@@ -242,7 +240,7 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
           <div className="p-3 flex items-center justify-between">
             <span className="text-sm font-semibold">Created</span>
             <span className="text-sm text-muted-foreground">
-              {new Date(crew.created_at).toLocaleDateString(undefined, {
+              {new Date(asset.created_at).toLocaleDateString(undefined, {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -253,7 +251,7 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
           <div className="p-3 flex items-center justify-between">
             <span className="text-sm font-semibold">Last Updated</span>
             <span className="text-sm text-muted-foreground">
-              {new Date(crew.updated_at).toLocaleDateString(undefined, {
+              {new Date(asset.updated_at).toLocaleDateString(undefined, {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -263,10 +261,10 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export function CrewInfoSkeleton() {
+export function AssetInfoSkeleton() {
   return (
     <div className="p-6">
       {/* Header Section */}
@@ -282,34 +280,26 @@ export function CrewInfoSkeleton() {
 
       <Separator className="w-full my-4" />
 
-      {/* Contact Information Section */}
+      {/* Aircraft/Simulator Specific Information Section */}
       <div>
         <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-          Contact Information
+          <Skeleton className="h-4 w-12" /> Information
         </h3>
 
         <div className="p-3 flex items-center justify-between">
           <span className="text-sm font-semibold flex items-center gap-2">
-            <Mail className="w-4 h-4" />
-            Email
+            <Plane className="w-4 h-4" />
+            Type
           </span>
           <Skeleton className="h-4 w-48" />
         </div>
 
-        <div className="p-3 flex items-center justify-between">
+        <div className="p-3 flex items-center justify-between capitalize">
           <span className="text-sm font-semibold flex items-center gap-2">
-            <Phone className="w-4 h-4" />
-            Phone
+            <Building className="w-4 h-4" />
+            Manufacturer
           </span>
-          <Skeleton className="h-4 w-32" />
-        </div>
-
-        <div className="p-3 flex items-start justify-between gap-4">
-          <span className="text-sm font-semibold flex items-center gap-2 shrink-0">
-            <MapPin className="w-4 h-4" />
-            Address
-          </span>
-          <Skeleton className="h-4 w-64" />
+          <Skeleton className="h-4 w-48" />
         </div>
       </div>
 
@@ -318,21 +308,29 @@ export function CrewInfoSkeleton() {
       {/* Professional Information Section */}
       <div>
         <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-          Professional Information
+          Additional Information
         </h3>
 
-        <div className="p-3 flex items-center justify-between">
+        <div className="p-3 flex items-center justify-between capitalize">
           <span className="text-sm font-semibold flex items-center gap-2">
-            <IdCard className="w-4 h-4" />
-            License Number
+            <Square className="w-4 h-4" />
+            Category
           </span>
-          <Skeleton className="h-4 w-40" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+
+        <div className="p-3 flex items-center justify-between capitalize">
+          <span className="text-sm font-semibold flex items-center gap-2">
+            <PiEngine className="w-4 h-4" />
+            Powerplant
+          </span>
+          <Skeleton className="h-4 w-32" />
         </div>
 
         <div className="p-3 flex items-center justify-between">
           <span className="text-sm font-semibold flex items-center gap-2">
-            <Building className="w-4 h-4" />
-            Company ID
+            <PiSeat className="w-4 h-4" />
+            Passenger Seats
           </span>
           <Skeleton className="h-4 w-32" />
         </div>
@@ -346,6 +344,15 @@ export function CrewInfoSkeleton() {
           Notes
         </h3>
 
+        <div className="p-3 flex items-center justify-between capitalize">
+          <span className="text-sm font-semibold flex items-center gap-2">
+            <Notebook className="w-4 h-4" />
+            Status
+          </span>
+          <Skeleton className="h-4 w-32" />
+
+        </div>
+
         <div className="p-3 flex items-start justify-between gap-4">
           <span className="text-sm font-semibold flex items-center gap-2 shrink-0">
             <FileText className="w-4 h-4" />
@@ -357,8 +364,6 @@ export function CrewInfoSkeleton() {
           </div>
         </div>
       </div>
-
-      <Separator className="w-full my-4" />
 
       {/* Common Flights */}
       <div>
@@ -406,5 +411,5 @@ export function CrewInfoSkeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }
