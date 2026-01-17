@@ -67,7 +67,7 @@ export function TextField<T extends FieldValues>({
                 placeholder={placeholder}
                 value={field.value ?? ""}
                 required={required}
-                className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right"
+                className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
                 onChange={(e) => {
                   const value =
                     type === "number"
@@ -160,37 +160,35 @@ export function SelectField<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <Field>
-          <PositionedItem className="p-3">
-            <div className="flex justify-between items-center w-full">
-              <span className="text-sm font-medium w-36">
-                {label}
-                {required && <span className="text-destructive ml-1">*</span>}
-              </span>
-              <div className="w-full ml-10 flex flex-col gap-1">
-                <div className="relative flex items-center justify-end">
-                  <select
-                    {...field}
-                    className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-8 py-1 border-none focus:ring-0 focus:border-none ${field.value && field.value !== ""
-                      ? "text-foreground"
-                      : "text-muted-foreground"
-                      }`}
-                    style={{ textAlignLast: "right" }}
-                    value={field.value ?? ""}
-                    onChange={(e) => field.onChange(e.target.value || undefined)}
-                  >
-                    <option value="" disabled>
-                      {placeholder}
-                    </option>
-                    {options.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronsUpDown className="absolute right-2 w-4 h-4 pointer-events-none text-muted-foreground" />
-                </div>
-              </div>
+          <PositionedItem className="p-3 flex items-center justify-between">
+            <span className="text-sm font-medium w-36">
+              {label}
+              {required && <span className="text-destructive ml-1">*</span>}
+            </span>
+            <div className="w-full ml-10 flex items-center justify-end ">
+              {/* <div className="relative flex items-center justify-end"> */}
+              <select
+                {...field}
+                className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-8 py-1 border-none focus:ring-0 focus:border-none ${field.value && field.value !== ""
+                  ? "text-foreground"
+                  : "text-muted-foreground"
+                  }`}
+                style={{ textAlignLast: "right" }}
+                value={field.value ?? ""}
+                onChange={(e) => field.onChange(e.target.value || undefined)}
+              >
+                <option value="" disabled>
+                  {placeholder}
+                </option>
+                {options.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronsUpDown className="absolute right-2 w-4 h-4 pointer-events-none text-muted-foreground" />
             </div>
+            {/* </div> */}
           </PositionedItem>
         </Field>
       )}

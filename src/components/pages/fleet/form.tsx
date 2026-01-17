@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { FleetFormSchema } from "@/types/fleet";
 import type { Fleet, FleetForm } from "@/types/fleet";
@@ -24,10 +24,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 import { DialogSelectField, SelectField, SwitchField, TextareaField, TextField } from "@/components/ui/form-field-types";
 import { clearSelectedAircraft, readSelectedAircraft } from "@/components/pages/fleet/type-select/selected-aircraft-type";
-
-import { ChevronRight } from "lucide-react";
-import { FormField } from "@/components/ui/form-field";
-import { Field } from "@/components/ui/field";
 
 const emptyValues: FleetForm = {
   registration: "",
@@ -72,6 +68,7 @@ interface FleetFormProps {
 
 export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const isEdit = !!fleet;
 
   const form = useForm<FleetForm>({
@@ -133,15 +130,20 @@ export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
     const selected = readSelectedAircraft();
     if (!selected) return;
 
-    form.setValue("type", selected.Type);
-    form.setValue("model", selected.Model);
-    form.setValue("manufacturer", selected.Manufacturer);
-    form.setValue("engine_count", selected.EngineCount);
-    form.setValue("engine_type", selected.EngineType);
-    form.setValue("category", selected.Category);
+    form.reset({
+      ...form.getValues(),
+
+      // authoritative overwrite
+      type: selected.Type ?? "",
+      model: selected.Model ?? "",
+      manufacturer: selected.Manufacturer ?? "",
+      engine_count: selected.EngineCount ?? 0,
+      engine_type: selected.EngineType ?? "",
+      category: selected.Category ?? "",
+    });
 
     clearSelectedAircraft();
-  }, [form]);
+  }, [pathname, form]);
 
   const onSubmit = async (data: FleetForm) => {
     try {
