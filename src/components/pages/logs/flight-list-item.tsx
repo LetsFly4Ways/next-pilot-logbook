@@ -33,8 +33,11 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
       <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-1 items-start">
         {/* ROW 1: Date & Flight Number */}
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">
-            {formatDate(flight.date)}
+          <span className="text-sm text-muted-foreground hidden sm:inline">
+            {formatDate(flight.date, "short")}
+          </span>
+          <span className="text-sm text-muted-foreground sm:hidden">
+            {formatDate(flight.date, "dateMonth")}
           </span>
           {flight.flight_number && (
             <span className="text-sm font-medium">
@@ -63,7 +66,7 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
       </div>
 
       {/* TRAILING COLUMN */}
-      <div className="shrink-0 grid grid-rows-3 grid-cols-[auto_auto] items-center gap-x-3">
+      <div className="shrink-0 grid grid-rows-3 grid-cols-[auto_auto] items-center gap-x-3 gap-y-1">
         {/* Row 1 — aircraft */}
         <div className="col-start-1 row-start-1 text-sm text-muted-foreground text-right">
           {aircraft?.registration && (

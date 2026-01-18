@@ -251,7 +251,7 @@ export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
 
 export function ListItemSkeleton() {
   return (
-    <PositionedItem className="px-4 py-3 grid grid-cols-[1fr_auto] items-center gap-4 w-full h-25">
+    <PositionedItem className="px-4 py-3 grid grid-cols-[1fr_auto] items-center gap-4 w-full h-26">
       {/* LEADING COLUMN — 3 ROWS */}
       <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-2 items-start">
         {/* Row 1 */}
