@@ -1,28 +1,17 @@
-import { getPreferences } from "@/actions/user-preferences";
-import { Separator } from "@/components/ui/separator";
-import { formatDate, formatTime } from "@/lib/date-utils";
-import { Flight } from "@/types/logs";
 import Link from "next/link";
 
-// ----------------- TEMPORARY -----------------
+import { fetchAndFormatCrewMember } from "@/actions/pages/crew/fetch";
+import { fetchAndFormatAircraft } from "@/actions/pages/fleet/fetch";
+import { getPreferences } from "@/actions/user-preferences";
 
-function formatMovement(day: number, night: number): string {
-  if (day === 0 && night === 0) return "0";
-  if (night === 0) return `${day} D`;
-  if (day === 0) return `${night} N`;
-  return `${day}D / ${night}N`;
-}
+import { formatDate, formatTime } from "@/lib/date-utils";
+import { ArrayToText, formatMovement, getSelectedFunction } from "@/lib/log-utils";
 
-// function getSelectedFunction(flight: Flight): string {
-//   if (flight.is_pic) return "PIC";
-//   if (flight.is_spic) return "SPIC";
-//   if (flight.is_picus) return "PICUS";
-//   if (flight.dual_time_minutes > 0) return "Dual";
-//   if (flight.instructor_time_minutes > 0) return "Instructor";
-//   return "Other";
-// }
+import { Flight } from "@/types/logs";
 
-// -------------------------------------------
+import { Separator } from "@/components/ui/separator";
+
+import { Check, X } from "lucide-react";
 
 interface FlightLogInfoProps {
   flight: Flight & { _type: "flight" };
@@ -37,6 +26,12 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
   const showScheduled = preferences?.logging?.fields?.scheduled ?? true;
   const showDuty = preferences?.logging?.fields?.duty ?? true;
   const showXC = preferences?.logging?.fields?.xc ?? true;
+  const showPassengers = preferences?.logging?.fields?.passengers ?? true;
+  const showFuel = preferences?.logging?.fields?.fuel ?? true;
+  const showApproaches = preferences?.logging?.fields?.approaches ?? true;
+  const showGoArounds = preferences?.logging?.fields?.go_arounds ?? true;
+  const showTraining = preferences?.logging?.fields?.training ?? true;
+  const nameFormat = preferences?.nameDisplay ?? "first-last";
 
   const timeRows = [
     "block",
@@ -49,6 +44,51 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
     "ifr",
     showXC ? "xc" : null,
   ].filter(Boolean);
+
+  const miscItems = [
+    {
+      key: "approaches",
+      show: showApproaches,
+      hasValue: flight.approaches && flight.approaches.length > 0,
+      label: "Approaches",
+      value: ArrayToText({ items: flight.approaches }),
+    },
+    {
+      key: "go_arounds",
+      show: showGoArounds,
+      hasValue: flight.go_arounds != null,
+      label: "Go-Arounds",
+      value: flight.go_arounds,
+    },
+    {
+      key: "passengers",
+      show: showPassengers,
+      hasValue: flight.passengers != null,
+      label: "Passengers",
+      value: flight.passengers,
+    },
+    {
+      key: "fuel",
+      show: showFuel,
+      hasValue: flight.fuel != null,
+      label: "Fuel",
+      value: flight.fuel,
+    },
+  ];
+
+  const visibleItems = miscItems.filter(item => item.show);
+  const hasAnyContent = visibleItems.some(item => item.hasValue);
+
+  const { aircraft } = await fetchAndFormatAircraft(flight.aircraft_id);
+
+  let crew: Awaited<
+    ReturnType<typeof fetchAndFormatCrewMember>
+  >["crew"] = null;
+
+  if (!flight.is_pic && flight.pic_id) {
+    const result = await fetchAndFormatCrewMember(flight.pic_id, nameFormat);
+    crew = result.crew;
+  }
 
   return (
     <div>
@@ -99,13 +139,14 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
           </div>
 
           {/* Aircraft */}
-          <Link
-            href={`/app/fleet/${flight.aircraft_id}`}
-            className="inline-flex items-center font-medium text-sm md:text-base hover:bg-muted rounded px-3 py-1 md:px-2"
-          >
-            {/* TEMPORARY */}
-            OO-SKX | DA40 D
-          </Link>
+          {aircraft && (
+            <Link
+              href={`/app/fleet/${flight.aircraft_id}`}
+              className="inline-flex items-center font-medium text-sm md:text-base hover:bg-muted rounded px-3 py-1 md:px-2"
+            >
+              {aircraft.displayName}
+            </Link>
+          )}
         </div>
 
         {/* RIGHT — Block time */}
@@ -148,8 +189,8 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
           <div className="text-2xl font-bold text-primary">
 
             {/* TEMPORARY */}
-            {/* {getSelectedFunction(flight)} */}
-            PIC
+            {getSelectedFunction(flight)}
+            {/* PIC */}
           </div>
           <div className="text-sm text-muted-foreground">Function</div>
         </div>
@@ -343,6 +384,9 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
       <Separator className="w-full my-4" />
 
       {/* Time Totals Section */}
+      <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+        Time Information
+      </h3>
       <div>
         {timeRows.map((row) => {
           switch (row) {
@@ -398,11 +442,121 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
 
       <Separator className="w-full my-4" />
 
-      {/* PIC */}
+      {/* Crew & Pilot flying */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+          Crew Information
+        </h3>
+        {/* Check if PIC is self <-> fetch PIC based on ID */}
+        {!flight.is_pic && crew ? (
+          <div className="p-3 pr-1 flex items-center justify-between">
+            <span className="text-sm font-semibold">Pilot In Command</span>
+            <span className="text-sm">
+              <Link
+                href={`/app/crew/${crew.id}`}
+                className="inline-flex items-center gap-2 font-medium text-sm hover:bg-muted rounded py-1 px-2"
+              >
+                <span>{crew.fullName}</span>
+
+                {crew.companyId && (
+                  <span className="text-xs px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                    {crew.companyId}
+                  </span>
+                )}
+              </Link>
+
+            </span>
+          </div>
+        ) : (
+          <div className="p-3 flex items-center justify-between">
+            <span className="text-sm font-semibold">Pilot In Command</span>
+            <span className="text-sm">
+              SELF
+            </span>
+          </div>
+        )}
+
+
+        {/* Pilot Flying */}
+        <div className="p-3 flex items-center justify-between">
+          <span className="text-sm font-semibold">Pilot Flying</span>
+          <span className="text-sm">
+            {flight.pilot_flying ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
+          </span>
+        </div>
+      </div>
+
+      <Separator className="w-full my-4" />
 
       {/* Miscellaneous Section */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+          Miscellaneous Information
+        </h3>
+
+        {hasAnyContent ? (
+          visibleItems.map(item => (
+            <div
+              key={item.key}
+              className="p-3 flex items-center justify-between"
+            >
+              <span className="text-sm font-semibold">
+                {item.label}
+              </span>
+              <span className="text-sm">
+                {item.hasValue ? item.value : "-"}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div className="p-3 text-sm text-muted-foreground text-center">
+            No miscellaneous information available
+          </div>
+        )}
+      </div>
+
+      <Separator className="w-full my-4" />
 
       {/* Remarks Section */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+          Notes
+        </h3>
+        <div className="p-3 flex items-center justify-between">
+          <span className="text-sm font-semibold">Remarks</span>
+          <span className="text-sm">{flight.remarks || "-"}</span>
+        </div>
+
+        {showTraining && (
+          <div className="p-3 flex items-center justify-between">
+            <span className="text-sm font-semibold">Training</span>
+            <span className="text-sm">{flight.training_description || "-"}</span>
+          </div>
+        )}
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Metadata Section */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+          Metadata
+        </h3>
+
+        <div className="p-3 flex items-center justify-between">
+          <span className="text-sm font-semibold">Created</span>
+          <span className="text-sm text-muted-foreground">
+            {formatDate(flight.created_at, "long")}
+          </span>
+        </div>
+
+        <div className="p-3 flex items-center justify-between">
+          <span className="text-sm font-semibold">Last Updated</span>
+          <span className="text-sm text-muted-foreground">
+            {formatDate(flight.updated_at, "long")}
+          </span>
+        </div>
+      </div>
     </div>
   )
 }

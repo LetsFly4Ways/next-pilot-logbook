@@ -130,6 +130,62 @@ export async function fetchAsset(
 	}
 }
 
+export interface FormattedAircraft {
+	id: string;
+	registration: string;
+	type: string;
+	displayName: string; // e.g. "OO-SKX · DA40 D"
+}
+
+export async function fetchAndFormatAircraft(assetId: string): Promise<{
+	aircraft: FormattedAircraft | null;
+	error?: string;
+}> {
+	try {
+		const auth = await getAuthenticatedUser();
+
+		if (!auth) {
+			return { aircraft: null, error: "Authentication required" };
+		}
+
+		const { supabase, user } = auth;
+
+		const { data, error } = await supabase
+			.from("fleet")
+			.select("*")
+			.eq("id", assetId)
+			.eq("user_id", user.id)
+			.single();
+
+		if (error || !data) {
+			console.error("Error fetching fleet asset:", error);
+			return {
+				aircraft: null,
+				error: error?.message ?? "Aircraft not found",
+			};
+		}
+
+		const asset = data as Fleet;
+
+		const formatted = {
+			id: asset.id,
+			registration: asset.registration,
+			type: [asset.manufacturer, asset.model, asset.type]
+				.filter(Boolean)
+				.join(" "),
+			displayName: `${asset.registration} ${(asset.model || asset.type) && `| ${asset.model || asset.type}`}`,
+		};
+
+		return { aircraft: formatted };
+	} catch (err) {
+		console.error("Unexpected error fetching aircraft:", err);
+		return {
+			aircraft: null,
+			error: "An unexpected error occurred",
+		};
+	}
+}
+
 export async function fetchAssetsByIds(
 	ids: string[],
 ): Promise<{ assets: Fleet[]; error?: string }> {

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { fetchCrewMember } from "@/actions/pages/crew/fetch";
 import { getPreferences } from "@/actions/user-preferences";
 
+import { formatDate } from "@/lib/date-utils";
+
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { ErrorContainer } from "@/components/ui/error-container";
@@ -242,22 +244,14 @@ export default async function CrewInfoPage({ id }: CrewInfoPageProps) {
           <div className="p-3 flex items-center justify-between">
             <span className="text-sm font-semibold">Created</span>
             <span className="text-sm text-muted-foreground">
-              {new Date(crew.created_at).toLocaleDateString(undefined, {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {formatDate(crew.created_at, "long")}
             </span>
           </div>
 
           <div className="p-3 flex items-center justify-between">
             <span className="text-sm font-semibold">Last Updated</span>
             <span className="text-sm text-muted-foreground">
-              {new Date(crew.updated_at).toLocaleDateString(undefined, {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {formatDate(crew.updated_at, "long")}
             </span>
           </div>
         </div>
