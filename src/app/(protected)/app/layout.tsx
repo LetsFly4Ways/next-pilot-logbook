@@ -69,7 +69,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
                 </Suspense>
                 <div className="flex-1 ml-0 h-calc(100vh-3rem)">
-                  <SidebarInset className="overflow-auto mobile-bottom-spacing">
+                  <SidebarInset className="flex h-full flex-col overflow-auto mobile-bottom-spacing">
                     {children}
                   </SidebarInset>
                 </div>

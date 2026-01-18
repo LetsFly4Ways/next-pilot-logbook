@@ -10,6 +10,7 @@ import { ArrayToText, formatMovement, getSelectedFunction } from "@/lib/log-util
 import { Flight } from "@/types/logs";
 
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { Check, X } from "lucide-react";
 
@@ -91,7 +92,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
   }
 
   return (
-    <div>
+    <div className="p-6">
       {/* Header */}
       <div className="relative grid gap-4 md:grid-cols-3 md:items-center">
         {/* LEFT — Date + Flight number */}
@@ -556,4 +557,169 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
       </div>
     </div>
   )
+}
+
+export function FlightLogInfoSkeleton() {
+  return (
+    <div className="p-6">
+      {/* Header Skeleton */}
+      <div className="relative grid gap-4 md:grid-cols-3 md:items-center">
+        {/* LEFT — Date + Flight number */}
+        <div className="flex flex-col gap-0.5 md:justify-center">
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-5 w-16 mt-1" />
+        </div>
+
+        {/* CENTER — Route + Aircraft */}
+        <div className="flex flex-col items-center justify-center gap-3">
+          {/* Route */}
+          <div className="inline-flex items-center gap-2 lg:gap-3">
+            {/* Departure */}
+            <div className="text-center">
+              <Skeleton className="h-8 w-16 mx-auto" />
+              <Skeleton className="h-3 w-12 mx-auto mt-1" />
+            </div>
+
+            <span className="text-xl font-bold md:font-semibold">»</span>
+
+            {/* Destination */}
+            <div className="text-center">
+              <Skeleton className="h-8 w-16 mx-auto" />
+              <Skeleton className="h-3 w-12 mx-auto mt-1" />
+            </div>
+          </div>
+
+          {/* Aircraft */}
+          <Skeleton className="h-6 w-32" />
+        </div>
+
+        {/* RIGHT — Block time */}
+        <div className="absolute right-0 top-0 md:static flex justify-end md:items-end">
+          <div className="text-right">
+            <Skeleton className="h-8 w-16" />
+            <Skeleton className="h-3 w-20 mt-1 md:hidden" />
+          </div>
+        </div>
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Statistics Section Skeleton */}
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="text-center">
+            <Skeleton className="h-8 w-12 mx-auto mb-2" />
+            <Skeleton className="h-3 w-16 mx-auto" />
+          </div>
+        ))}
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Times Table Skeleton */}
+      <div>
+        <div className="p-3 grid grid-cols-3 gap-x-4 items-center">
+          <div></div>
+          <Skeleton className="h-4 w-8 mx-auto" />
+          <Skeleton className="h-4 w-8 mx-auto" />
+        </div>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="p-3">
+            <div className="grid grid-cols-3 gap-x-4 items-center">
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-4 w-12 mx-auto" />
+              <Skeleton className="h-4 w-12 mx-auto" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Time Information Section Skeleton */}
+      <div>
+        <Skeleton className="h-4 w-32 mb-3" />
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="p-3">
+            <div className="flex justify-between items-center">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-16" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Crew Information Skeleton */}
+      <div>
+        <Skeleton className="h-4 w-32 mb-3" />
+        <div className="p-3">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-4 w-20" />
+          </div>
+        </div>
+        <div className="p-3">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-4" />
+          </div>
+        </div>
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Miscellaneous Section Skeleton */}
+      <div>
+        <Skeleton className="h-4 w-40 mb-3" />
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="p-3">
+            <div className="flex justify-between items-center">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-16" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Notes Section Skeleton */}
+      <div>
+        <Skeleton className="h-4 w-16 mb-3" />
+        <div className="p-3">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        <div className="p-3">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-4 w-40" />
+          </div>
+        </div>
+      </div>
+
+      <Separator className="w-full my-4" />
+
+      {/* Metadata Section Skeleton */}
+      <div>
+        <Skeleton className="h-4 w-20 mb-3" />
+        <div className="p-3">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        <div className="p-3">
+          <div className="flex justify-between items-center">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
