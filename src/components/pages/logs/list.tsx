@@ -176,8 +176,8 @@ export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
   if (loading) {
     return (
       <div className="space-y-2">
-        <div className="sticky top-0 z-10">
-          <Skeleton className="h-6 w-48 rounded-sm" />
+        <div className="sticky top-0 z-10 pt-2 pb-1">
+          <Skeleton className="h-8 w-48 rounded-sm" />
         </div>
         <PositionedGroup>
           {Array.from({ length: 10 }).map((_, index) => (
@@ -251,9 +251,9 @@ export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
 
 export function ListItemSkeleton() {
   return (
-    <PositionedItem className="px-4 py-3 grid grid-cols-[1fr_auto] items-center gap-4 w-full">
+    <PositionedItem className="px-4 py-3 grid grid-cols-[1fr_auto] items-center gap-4 w-full h-25">
       {/* LEADING COLUMN — 3 ROWS */}
-      <div className="min-w-0 ml-2 flex flex-col gap-1">
+      <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-2 items-start">
         {/* Row 1 */}
         <Skeleton className="h-4 w-36" />
 
@@ -265,18 +265,22 @@ export function ListItemSkeleton() {
       </div>
 
       {/* TRAILING COLUMN — mirrors real layout */}
-      <div className="shrink-0 grid grid-rows-3 grid-cols-[auto_auto] items-center gap-x-3">
+      <div className="shrink-0 grid grid-rows-3 grid-cols-[auto_auto] items-center gap-x-3 gap-y-2">
         {/* Row 1 — aircraft */}
-        <Skeleton className="h-3 w-28 justify-self-end" />
+        <div className="col-start-1 row-start-1 text-sm text-muted-foreground text-right">
+          <Skeleton className="h-4 w-28 justify-self-end" />
+        </div>
 
         {/* Row 2 — duration */}
-        <Skeleton className="h-4 w-16 justify-self-end" />
+        <div className="col-start-1 row-start-2 text-right">
+          <Skeleton className="h-5 w-16 justify-self-end" />
+        </div>
 
         {/* Row 3 — spacer */}
-        <div />
+        <div className="col-start-1 row-start-3" />
 
         {/* Chevron */}
-        <ChevronRight className="col-start-2 row-span-3 w-5 h-5 text-muted-foreground" />
+        <ChevronRight className="col-start-2 row-span-3 w-5 h-5 text-muted-foreground self-center" />
       </div>
     </PositionedItem>
   );
