@@ -92,6 +92,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
 
   return (
     <div>
+      {/* Header */}
       <div className="relative grid gap-4 md:grid-cols-3 md:items-center">
         {/* LEFT — Date + Flight number */}
         <div className="flex flex-col gap-0.5 md:justify-center">
@@ -108,7 +109,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
         {/* CENTER — Route + Aircraft */}
         <div className="flex flex-col items-center justify-center gap-3">
           {/* Route */}
-          <div className="inline-flex items-center gap-3">
+          <div className="inline-flex items-center gap-2 lg:gap-3">
             {/* Departure */}
             <div className="text-center">
               <div className="text-2xl md:text-2xl font-bold md:font-semibold">
@@ -169,7 +170,6 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
       <Separator className="w-full my-4" />
 
       {/* Statistics Section */}
-
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
         <div className="text-center">
           <div className="text-2xl font-bold text-primary">
@@ -187,10 +187,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
 
         <div className="text-center">
           <div className="text-2xl font-bold text-primary">
-
-            {/* TEMPORARY */}
             {getSelectedFunction(flight)}
-            {/* PIC */}
           </div>
           <div className="text-sm text-muted-foreground">Function</div>
         </div>

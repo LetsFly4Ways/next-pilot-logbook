@@ -1,14 +1,19 @@
+import { Suspense } from "react";
+import Link from "next/link";
+
 import { fetchLog } from "@/actions/pages/logs/fetch";
+
+import { Log } from "@/types/logs";
+
+import { formatDate } from "@/lib/date-utils";
+
+import FlightLogInfo from "@/components/pages/logs/flight-info";
+import SimulatorLogInfo from "@/components/pages/logs/simulator-info";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { ErrorContainer } from "@/components/ui/error-container";
-import { formatDate } from "@/lib/date-utils";
-import Link from "next/link";
-import FlightLogInfo from "./flight-info";
-import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
-import { Log } from "@/types/logs";
 
 interface LogPageProps {
   id: string;
@@ -73,8 +78,7 @@ async function LogContent({ log }: LogContentProps) {
   return log._type === "flight" ? (
     <FlightLogInfo flight={log} />
   ) : (
-    // <SimulatorView session={log} />
-    <></>
+    <SimulatorLogInfo session={log} />
   );
 }
 

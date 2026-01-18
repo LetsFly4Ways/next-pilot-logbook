@@ -108,7 +108,16 @@ export const FlightSchema = FlightFormSchema.extend({
  */
 export const SimulatorSessionFormSchema = BaseLogSchema.extend({
 	instructor_id: z.uuid(),
+	instructor_is_self: z.boolean().default(false),
 	session_minutes: z.number().int().min(0),
+}).superRefine((data, ctx) => {
+	if (!data.instructor_is_self && data.instructor_id === null) {
+		ctx.addIssue({
+			code: "custom",
+			path: ["instructor_id"],
+			message: "instructor_id is required when instructor_is_self is false",
+		});
+	}
 });
 
 /**
