@@ -1,10 +1,9 @@
 import { Suspense } from "react";
-
-import LogPage from "@/components/pages/logs/view";
-import CenterSpinner from "@/components/ui/center-spinner";
 import { Metadata } from "next";
-import { fetchLog } from "@/actions/pages/logs/fetch";
-import { formatDate } from "@/lib/date-utils";
+
+import FleetSelect from "@/components/pages/logs/select/fleet-select";
+import CenterSpinner from "@/components/ui/center-spinner";
+
 
 type Params = Promise<{
   id: string;
@@ -18,36 +17,37 @@ export async function generateMetadata({
 }: {
   params: Params;
 }): Promise<Metadata> {
-  const { id, type } = await params;
+  const { type } = await params;
 
-  if (!id) {
-    return {
-      title: "Log Not Found",
-      description: "The requested log could not be found.",
-    };
+  let title = "";
+  if (type === "flight") {
+    title = "Select Aircraft";
+  } else {
+    title = "Select Simulator";
   }
 
-  const { log } = await fetchLog(id);
-
-  if (!log) {
+  if (!type) {
     return {
-      title: "Log Not Found",
-      description: "The requested log could not be found.",
+      title: "Page Not Found",
+      description: "The requested page could not be found.",
     };
   }
 
   return {
-    title: formatDate(log.date),
-    description: `Information about ${formatDate(log.date)}${type ? ` - ${type}` : ""
-      }.`,
+    title: title,
+    description: type ? title : "",
   };
 }
+
 
 /* ========================= Page ========================= */
 
 async function PageWrapper({ params }: { params: Params }) {
   const { id, type } = await params;
-  return <LogPage id={id} type={type} />;
+
+  return (
+    <FleetSelect logId={id} logType={type} />
+  )
 }
 
 export default function Page({ params }: { params: Params }) {

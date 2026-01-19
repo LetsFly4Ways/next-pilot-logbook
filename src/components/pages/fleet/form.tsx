@@ -70,6 +70,7 @@ export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
   const router = useRouter();
   const pathname = usePathname();
   const isEdit = !!fleet;
+  const restorePromptShownRef = useRef(false); // ensure we only show once
 
   const form = useForm<FleetForm>({
     resolver: zodResolver(FleetFormSchema),
@@ -80,7 +81,6 @@ export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
     formState: { isSubmitting },
   } = form;
 
-  const restorePromptShownRef = useRef(false); // ensure we only show once
 
   // Restore draft on mount (only once)
   useEffect(() => {

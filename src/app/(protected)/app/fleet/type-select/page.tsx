@@ -8,7 +8,6 @@ export const metadata = {
 
 
 export default function SelectAircraftTypePage() {
-
   return (
     <div className="flex flex-col">
       <PageHeader

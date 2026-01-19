@@ -10,15 +10,25 @@ import { ChevronRight } from "lucide-react";
 
 interface ListItemProps {
   fleet: Fleet;
+  onSelect?: (fleet: Fleet) => void;
 }
 
-export default function FleetListItem({ fleet }: ListItemProps) {
+export default function FleetListItem({ fleet, onSelect }: ListItemProps) {
   const router = useRouter();
+
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect(fleet);
+    } else {
+      router.push(`/app/fleet/${fleet.id}`);
+    }
+  };
+
 
   return (
     <PositionedItem
       className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer"
-      onClick={() => router.push(`/app/fleet/${fleet.id}`)}
+      onClick={handleClick}
     >
       {/* LEFT COLUMN */}
       <div className="flex gap-2 min-w-0">

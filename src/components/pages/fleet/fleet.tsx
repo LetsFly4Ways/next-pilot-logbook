@@ -3,47 +3,28 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { FleetGroupBy } from "@/types/fleet";
+import { FleetAssetType } from "@/types/fleet";
 
 import { usePreferences } from "@/components/context/preferences-provider";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { FleetList } from "@/components/pages/fleet/list";
+import { FleetFilterDropdown } from "@/components/pages/fleet/fleet-filter-dropdown";
 
-import { CircleX, ListFilter, Plus, Search, X } from "lucide-react";
+
+import { CircleX, Plus, Search, X } from "lucide-react";
 
 export default function FleetPage() {
-  const { preferences, updatePreferences } = usePreferences();
+  const { preferences } = usePreferences();
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
 
-  // Use nameDisplay preference as the sort/group option
-  const groupBy: FleetGroupBy = preferences.fleet.grouping || "type";
-
-  const handleGroupChange = async (value: string) => {
-    try {
-      await updatePreferences({
-        fleet: {
-          ...preferences.fleet,
-          grouping: value as FleetGroupBy,
-        },
-      });
-    } catch (error) {
-      console.error("Failed to update group preference:", error);
-    }
-  };
+  const [assetTypes, setAssetTypes] = useState<FleetAssetType[]>([
+    "aircraft",
+    "simulator",
+  ]);
 
   return (
     <div className="flex flex-col">
@@ -100,53 +81,10 @@ export default function FleetPage() {
               </Button>
 
               {/* Filter Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
-                  >
-                    <ListFilter className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent
-                  className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md"
-                  align="end"
-                  sideOffset={12}
-                >
-                  <DropdownMenuGroup>
-                    <DropdownMenuLabel>Sort by</DropdownMenuLabel>
-
-                    <DropdownMenuSeparator />
-
-                    <DropdownMenuRadioGroup
-                      value={groupBy}
-                      onValueChange={handleGroupChange}
-                    >
-                      <DropdownMenuRadioItem
-                        value="type"
-                        className="hover:bg-primary-foreground/60"
-                      >
-                        Type
-                      </DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem
-                        value="operator"
-                        className="hover:bg-primary-foreground/60"
-                      >
-                        Operator
-                      </DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem
-                        value="icaoType"
-                        className="hover:bg-primary-foreground/60"
-                      >
-                        Aircraft Type
-                      </DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <FleetFilterDropdown
+                assetTypes={assetTypes}
+                onAssetTypesChange={setAssetTypes}
+              />
 
               <Button
                 variant="ghost"
@@ -162,7 +100,7 @@ export default function FleetPage() {
       />
 
       <div className="p-4 md:p-6">
-        <FleetList searchQuery={searchQuery} groupBy={groupBy} />
+        <FleetList searchQuery={searchQuery} groupBy={preferences.fleet.grouping || "type"} assetTypes={assetTypes} />
       </div>
     </div>
   );

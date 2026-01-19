@@ -1,12 +1,13 @@
 "use server";
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
-import { Fleet } from "@/types/fleet";
+import { Fleet, FleetAssetType } from "@/types/fleet";
 
 export interface FetchFleetParams {
 	searchQuery?: string;
 	page?: number;
 	pageSize?: number;
+	assetTypes?: FleetAssetType[];
 }
 
 export interface FetchFleetResult {
@@ -23,6 +24,7 @@ export async function fetchFleet({
 	searchQuery = "",
 	page = 1,
 	pageSize = 50,
+	assetTypes = ["aircraft", "simulator"],
 }: FetchFleetParams = {}): Promise<FetchFleetResult> {
 	try {
 		const auth = await getAuthenticatedUser();
@@ -50,6 +52,14 @@ export async function fetchFleet({
 				`registration.ilike.%${searchQuery}%,type.ilike.%${searchQuery}%,model.ilike.%${searchQuery}%,category.ilike.%${searchQuery}%,manufacturer.ilike.%${searchQuery}%,operator.ilike.%${searchQuery}%`,
 			);
 		}
+
+		// Asset type filter (aircraft/simulator)
+		if (assetTypes.length === 1) {
+			// Only one selected
+			const isSimulator = assetTypes[0] === "simulator";
+			query = query.eq("is_simulator", isSimulator);
+		}
+		// If both selected or empty → no filter (all)
 
 		// Add pagination
 		const from = (page - 1) * pageSize;

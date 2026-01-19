@@ -1,6 +1,19 @@
 import { z } from "zod";
 
 // ============================================================================
+// Selected Aircraft Schemas
+// ============================================================================
+
+export const SelectedAircraftSchema = z.object({
+	id: z.uuid(), // aircraft_id for submission
+	registration: z.string(), // for UI display
+	type: z.string(), // ICAO type
+	model: z.string(), // aircraft model
+	isSimulator: z.boolean().optional().default(false),
+});
+export type SelectedAircraft = z.infer<typeof SelectedAircraftSchema>;
+
+// ============================================================================
 // Base Schemas
 // ============================================================================
 
@@ -12,7 +25,7 @@ const BaseLogSchema = z.object({
 	aircraft_id: z.uuid(),
 	duty_start: z.iso.time().nullable().optional(),
 	duty_end: z.iso.time().nullable().optional(),
-	duty_time_minutes: z.number().int().min(0).default(0),
+	duty_time_minutes: z.number().int().min(0).optional().default(0),
 	hobbs_start: z.number().nonnegative().nullable().optional(),
 	hobbs_end: z.number().nonnegative().nullable().optional(),
 	remarks: z.string().max(1000).nullable().optional(),
@@ -45,31 +58,31 @@ export const FlightFormSchema = BaseLogSchema.extend({
 
 	// Duration fields (in minutes)
 	total_block_minutes: z.number().int().min(0),
-	total_air_minutes: z.number().int().min(0).default(0),
-	night_time_minutes: z.number().int().min(0).default(0),
-	ifr_time_minutes: z.number().int().min(0).default(0),
-	xc_time_minutes: z.number().int().min(0).default(0),
-	pic_time_minutes: z.number().int().min(0).default(0),
-	dual_time_minutes: z.number().int().min(0).default(0),
-	copilot_time_minutes: z.number().int().min(0).default(0),
-	instructor_time_minutes: z.number().int().min(0).default(0),
+	total_air_minutes: z.number().int().min(0).optional().default(0),
+	night_time_minutes: z.number().int().min(0).optional().default(0),
+	ifr_time_minutes: z.number().int().min(0).optional().default(0),
+	xc_time_minutes: z.number().int().min(0).optional().default(0),
+	pic_time_minutes: z.number().int().min(0).optional().default(0),
+	dual_time_minutes: z.number().int().min(0).optional().default(0),
+	copilot_time_minutes: z.number().int().min(0).optional().default(0),
+	instructor_time_minutes: z.number().int().min(0).optional().default(0),
 
 	// Maneuvers
-	day_takeoffs: z.number().int().min(0).default(0),
-	night_takeoffs: z.number().int().min(0).default(0),
-	day_landings: z.number().int().min(0).default(0),
-	night_landings: z.number().int().min(0).default(0),
-	go_arounds: z.number().int().min(0).default(0),
+	day_takeoffs: z.number().int().min(0).optional().default(0),
+	night_takeoffs: z.number().int().min(0).optional().default(0),
+	day_landings: z.number().int().min(0).optional().default(0),
+	night_landings: z.number().int().min(0).optional().default(0),
+	go_arounds: z.number().int().min(0).optional().default(0),
 
 	// Approaches
-	approaches: z.array(z.string()).default([]),
+	approaches: z.array(z.string()).optional().default([]),
 
 	// Flight status flags
-	is_pic: z.boolean().default(false),
-	is_solo: z.boolean().default(false),
-	is_spic: z.boolean().default(false),
-	is_picus: z.boolean().default(false),
-	pilot_flying: z.boolean().default(false),
+	is_pic: z.boolean().optional().default(false),
+	is_solo: z.boolean().optional().default(false),
+	is_spic: z.boolean().optional().default(false),
+	is_picus: z.boolean().optional().default(false),
+	pilot_flying: z.boolean().optional().default(false),
 
 	// Additional metrics
 	tach_start: z.number().nonnegative().nullable().optional(),
@@ -87,6 +100,14 @@ export const FlightFormSchema = BaseLogSchema.extend({
 			message: "pic_id is required when is_pic is false",
 		});
 	}
+});
+
+/**
+ * Flight Input schema for form
+ */
+export const FlightFormInputSchema = FlightFormSchema.extend({
+	// This is only for form convenience; not submitted
+	aircraft: SelectedAircraftSchema.optional().nullable(),
 });
 
 /**
@@ -157,6 +178,7 @@ export const ApproachSchema = z.object({
 
 export type Flight = z.infer<typeof FlightSchema>;
 export type FlightForm = z.infer<typeof FlightFormSchema>;
+export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
 export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
 export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
 export type Approach = z.infer<typeof ApproachSchema>;

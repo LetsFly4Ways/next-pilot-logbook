@@ -55,7 +55,7 @@ export default async function LogPage({ id, type }: LogPageProps) {
             variant="ghost"
             className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
           >
-            <Link href={`/app/logs/${id}/edit`}>
+            <Link href={`/app/logs/${type}/${id}/edit`}>
               <span>Edit</span>
             </Link>
           </Button>

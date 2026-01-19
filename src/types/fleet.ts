@@ -9,28 +9,28 @@ import { z } from "zod";
  */
 
 export const FleetFormSchema = z.object({
-  registration: z.string().min(1, "Registration is required."),
-  is_simulator: z.boolean(),
-  type: z.string().nullable(),
-  model: z.string().nullable(),
-  manufacturer: z.string().nullable(),
-  category: z.string(), // refine Single Pilot - Single Engine
-  engine_count: z.number().int(),
-  engine_type: z.string().nullable(),
-  passenger_seats: z.number().int(),
-  operator: z.string().nullable(),
-  status: z.string().nullable(),
-  note: z.string().nullable(),
+	registration: z.string().min(1, "Registration is required."),
+	is_simulator: z.boolean(),
+	type: z.string().nullable(),
+	model: z.string().nullable(),
+	manufacturer: z.string().nullable(),
+	category: z.string(), // refine Single Pilot - Single Engine
+	engine_count: z.number().int(),
+	engine_type: z.string().nullable(),
+	passenger_seats: z.number().int(),
+	operator: z.string().nullable(),
+	status: z.string().nullable(),
+	note: z.string().nullable(),
 });
 
 /**
  * Complete crew schema with database fields
  */
 export const FleetSchema = FleetFormSchema.extend({
-  id: z.uuid(),
-  user_id: z.uuid(),
-  created_at: z.iso.datetime(),
-  updated_at: z.iso.datetime(),
+	id: z.uuid(),
+	user_id: z.uuid(),
+	created_at: z.iso.datetime(),
+	updated_at: z.iso.datetime(),
 });
 
 // ============================================================================
@@ -45,3 +45,9 @@ export type FleetForm = z.infer<typeof FleetFormSchema>;
 // ============================================================================
 
 export type FleetGroupBy = "operator" | "type" | "icaoType";
+
+export type FleetAssetType = "aircraft" | "simulator";
+
+export interface FleetFilters {
+	assetTypes: FleetAssetType[]; // checkbox-based
+}

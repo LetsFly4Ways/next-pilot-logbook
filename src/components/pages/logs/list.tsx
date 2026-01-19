@@ -89,7 +89,7 @@ export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
         setHasMore(result.hasMore);
         setCurrentPage(page);
       } catch (err) {
-        setError("Failed to load crew members");
+        setError("Failed to load logs");
         console.error(err);
       } finally {
         setLoading(false);

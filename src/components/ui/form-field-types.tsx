@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useFormContext, FieldValues, Path } from "react-hook-form";
 
 import { Field } from "@/components/ui/field";
@@ -77,6 +78,63 @@ export function TextField<T extends FieldValues>({
                       : e.target.value;
                   field.onChange(value);
                 }}
+              />
+            </div>
+          </PositionedItem>
+        </Field>
+      )}
+    />
+  );
+}
+
+// DATE FIELD
+interface DateFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
+  placeholder?: string;
+  required?: boolean;
+}
+
+export function DateField<T extends FieldValues>({ name,
+  label,
+  isLoading,
+  placeholder = "Date",
+  required = false,
+}: DateFieldProps<T>) {
+  const form = useFormContext<T>();
+
+  if (isLoading) {
+    return (
+      <PositionedItem className="py-2">
+        <Skeleton className="h-12 w-full" />
+      </PositionedItem>
+    );
+  }
+
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <Field>
+          <PositionedItem
+            className="p-3 flex items-center justify-between"
+          >
+            <span className="text-sm font-medium w-36">
+              {label}
+              {required && <span className="text-destructive ml-1">*</span>}
+            </span>
+            <div className="ml-10 flex flex-col gap-1 mr-2">
+              <input
+                {...field}
+                type={"date"}
+                placeholder={placeholder}
+                value={field.value ?? ""}
+                required={required}
+                className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm cursor-pointer"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  field.onChange(value);
+                }}
+                disabled={isLoading}
               />
             </div>
           </PositionedItem>
@@ -243,6 +301,107 @@ export function DialogSelectField<T extends FieldValues>({
                   <span className="text-muted-foreground">{placeholder}</span>
                 )}
               </span>
+              <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+            </div>
+          </PositionedItem>
+        </Field>
+      )}
+    />
+  );
+}
+
+interface AsyncDialogSelectFieldProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  isLoading?: boolean;
+  onOpenDialog: () => void;
+  placeholder?: string;
+  required?: boolean;
+  fetchDisplayValue: (id: string) => Promise<string | null>;
+}
+
+// Async Dialog Select Field
+export function AsyncDialogSelectField<T extends FieldValues>({
+  name,
+  label,
+  isLoading,
+  onOpenDialog,
+  placeholder = "Select",
+  required = false,
+  fetchDisplayValue,
+}: AsyncDialogSelectFieldProps<T>) {
+  const form = useFormContext<T>();
+  const fieldValue = form.watch(name);
+  const [displayValue, setDisplayValue] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    if (!fieldValue || typeof fieldValue !== "string") {
+      setDisplayValue(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadDisplayValue() {
+      setIsFetching(true);
+      try {
+        const value = await fetchDisplayValue(fieldValue as string);
+        if (!cancelled) {
+          setDisplayValue(value);
+        }
+      } catch (error) {
+        console.error("Error fetching display value:", error);
+        if (!cancelled) {
+          setDisplayValue(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsFetching(false);
+        }
+      }
+    }
+
+    loadDisplayValue();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [fieldValue, fetchDisplayValue]);
+
+  if (isLoading) {
+    return (
+      <PositionedItem className="py-2">
+        <Skeleton className="h-12 w-full" />
+      </PositionedItem>
+    );
+  }
+
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={() => (
+        <Field>
+          <PositionedItem
+            role="button"
+            className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50"
+            onClick={onOpenDialog}
+          >
+            <span className="text-sm font-medium w-36">
+              {label}
+              {required && <span className="text-destructive ml-1">*</span>}
+            </span>
+            <div className="w-full ml-10 flex items-center justify-end gap-2 mr-2">
+              {isFetching ? (
+                <Skeleton className="h-4 w-32" />
+              ) : (
+                <span className="text-sm text-right truncate">
+                  {displayValue || (
+                    <span className="text-muted-foreground">{placeholder}</span>
+                  )}
+                </span>
+              )}
               <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
             </div>
           </PositionedItem>

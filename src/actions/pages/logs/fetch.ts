@@ -2,6 +2,7 @@
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
 import type { Flight, Log } from "@/types/logs";
+import { fetchAndFormatAircraft } from "../fleet/fetch";
 
 export interface FetchLogsParams {
 	searchQuery?: string;
@@ -233,5 +234,25 @@ export async function fetchLog(
 			log: null,
 			error: "An unexpected error occurred",
 		};
+	}
+}
+
+/**
+ * Fetch and format aircraft display value
+ */
+export async function fetchAircraftDisplayValue(
+	id: string,
+): Promise<string | null> {
+	try {
+		const { aircraft, error } = await fetchAndFormatAircraft(id);
+
+		if (error || !aircraft) {
+			return null;
+		}
+
+		return aircraft.displayName;
+	} catch (error) {
+		console.error("Error fetching aircraft display value:", error);
+		return null;
 	}
 }
