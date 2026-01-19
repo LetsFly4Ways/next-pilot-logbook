@@ -1,348 +1,389 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 import { updateFlight } from "@/actions/pages/logs/flight/update";
 import { createFlight } from "@/actions/pages/logs/flight/create";
 import { deleteFlight } from "@/actions/pages/logs/flight/delete";
-import { fetchAircraftDisplayValue } from "@/actions/pages/logs/fetch";
 
-import { Flight, FlightFormSchema, FlightFormInput, FlightForm as FlightFormType } from "@/types/logs";
+import {
+	Flight,
+	FlightFormSchema,
+	FlightFormInput,
+	FlightForm as FlightFormType,
+	SelectedAircraft,
+} from "@/types/logs";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LogForm from "@/components/pages/logs/form";
-import { clearDraftCookie, getDraftFromCookie, saveDraftToCookie } from "@/components/pages/logs/flight-cookie-helper";
-import { AsyncDialogSelectField, DateField, DialogSelectField, TextField } from "@/components/ui/form-field-types";
-import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
-import { clearSelectedFleet, readSelectedFleet } from "./select/selected-fleet-asset";
-import { FormField } from "@/components/ui/form-field";
-import { Field } from "@/components/ui/field";
-import { ChevronRight } from "lucide-react";
+import {
+	clearDraftCookie,
+	getDraftFromCookie,
+	saveDraftToCookie,
+} from "@/components/pages/logs/flight-cookie-helper";
+import {
+	DateField,
+	ObjectDialogSelectField,
+	TextField,
+} from "@/components/ui/form-field-types";
+import { PositionedGroup } from "@/components/ui/positioned-group";
+import {
+	clearSelectedFleet,
+	readSelectedFleet,
+} from "./select/selected-fleet-asset";
 
 const emptyValues: FlightFormInput = {
-  date: new Date(),
-  aircraft_id: "",
-  pic_id: null,
-  departure_airport_code: "",
-  departure_runway: null,
-  destination_airport_code: "",
-  destination_runway: null,
-  block_start: "",
-  block_end: "",
-  flight_start: "",
-  flight_end: "",
-  scheduled_start: null,
-  scheduled_end: null,
-  total_block_minutes: 0,
-  total_air_minutes: 0,
-  night_time_minutes: 0,
-  ifr_time_minutes: 0,
-  xc_time_minutes: 0,
-  pic_time_minutes: 0,
-  dual_time_minutes: 0,
-  copilot_time_minutes: 0,
-  instructor_time_minutes: 0,
-  day_takeoffs: 0,
-  night_takeoffs: 0,
-  day_landings: 0,
-  night_landings: 0,
-  go_arounds: 0,
-  approaches: [],
-  is_pic: false,
-  is_solo: false,
-  is_spic: false,
-  is_picus: false,
-  pilot_flying: false,
-  duty_start: null,
-  duty_end: null,
-  duty_time_minutes: 0,
-  hobbs_start: null,
-  hobbs_end: null,
-  tach_start: null,
-  tach_end: null,
-  fuel: null,
-  passengers: null,
-  flight_number: null,
-  remarks: null,
-  training_description: null,
+	date: new Date(),
+	aircraft_id: "",
+	aircraft: null,
+	pic_id: null,
+	departure_airport_code: "",
+	departure_runway: null,
+	destination_airport_code: "",
+	destination_runway: null,
+	block_start: "",
+	block_end: "",
+	flight_start: "",
+	flight_end: "",
+	scheduled_start: null,
+	scheduled_end: null,
+	total_block_minutes: 0,
+	total_air_minutes: 0,
+	night_time_minutes: 0,
+	ifr_time_minutes: 0,
+	xc_time_minutes: 0,
+	pic_time_minutes: 0,
+	dual_time_minutes: 0,
+	copilot_time_minutes: 0,
+	instructor_time_minutes: 0,
+	day_takeoffs: 0,
+	night_takeoffs: 0,
+	day_landings: 0,
+	night_landings: 0,
+	go_arounds: 0,
+	approaches: [],
+	is_pic: false,
+	is_solo: false,
+	is_spic: false,
+	is_picus: false,
+	pilot_flying: false,
+	duty_start: null,
+	duty_end: null,
+	duty_time_minutes: 0,
+	hobbs_start: null,
+	hobbs_end: null,
+	tach_start: null,
+	tach_end: null,
+	fuel: null,
+	passengers: null,
+	flight_number: null,
+	remarks: null,
+	training_description: null,
 };
 
 interface FlightFormProps {
-  flight?: Flight;
-  isLoading?: boolean;
+	flight?: Flight;
+	initialAircraft?: SelectedAircraft | null;
+	isLoading?: boolean;
 }
 
-export default function FlightForm({ flight, isLoading }: FlightFormProps) {
-  const router = useRouter();
-  const isEdit = !!flight;
+// Helper to read and convert fleet from sessionStorage
+function getSelectedFleetAsAircraft(): SelectedAircraft | null {
+	const selected = readSelectedFleet();
+	if (!selected) return null;
 
-  const form = useForm<FlightFormInput>({
-    resolver: zodResolver(FlightFormSchema),
-    defaultValues: emptyValues,
-  });
+	return {
+		id: selected.id ?? "",
+		registration: selected.registration ?? "",
+		type: selected.type ?? "",
+		model: selected.model ?? "",
+		isSimulator: selected.is_simulator ?? false,
+	};
+}
 
-  // Load flight data for editing
-  useEffect(() => {
-    if (flight && !isLoading) {
-      form.reset({
-        date: flight.date,
-        aircraft_id: flight.aircraft_id,
-        pic_id: flight.pic_id,
-        departure_airport_code: flight.departure_airport_code,
-        departure_runway: flight.departure_runway,
-        destination_airport_code: flight.destination_airport_code,
-        destination_runway: flight.destination_runway,
-        block_start: flight.block_start,
-        block_end: flight.block_end,
-        flight_start: flight.flight_start,
-        flight_end: flight.flight_end,
-        scheduled_start: flight.scheduled_start,
-        scheduled_end: flight.scheduled_end,
-        total_block_minutes: flight.total_block_minutes,
-        total_air_minutes: flight.total_air_minutes,
-        night_time_minutes: flight.night_time_minutes,
-        ifr_time_minutes: flight.ifr_time_minutes,
-        xc_time_minutes: flight.xc_time_minutes,
-        pic_time_minutes: flight.pic_time_minutes,
-        dual_time_minutes: flight.dual_time_minutes,
-        copilot_time_minutes: flight.copilot_time_minutes,
-        instructor_time_minutes: flight.instructor_time_minutes,
-        day_takeoffs: flight.day_takeoffs,
-        night_takeoffs: flight.night_takeoffs,
-        day_landings: flight.day_landings,
-        night_landings: flight.night_landings,
-        go_arounds: flight.go_arounds,
-        approaches: flight.approaches,
-        is_pic: flight.is_pic,
-        is_solo: flight.is_solo,
-        is_spic: flight.is_spic,
-        is_picus: flight.is_picus,
-        pilot_flying: flight.pilot_flying,
-        duty_start: flight.duty_start,
-        duty_end: flight.duty_end,
-        duty_time_minutes: flight.duty_time_minutes,
-        hobbs_start: flight.hobbs_start,
-        hobbs_end: flight.hobbs_end,
-        tach_start: flight.tach_start,
-        tach_end: flight.tach_end,
-        fuel: flight.fuel,
-        passengers: flight.passengers,
-        flight_number: flight.flight_number,
-        remarks: flight.remarks,
-        training_description: flight.training_description,
-      });
-    }
-  }, [flight, isLoading, form]);
+export default function FlightForm({
+	flight,
+	initialAircraft,
+	isLoading,
+}: FlightFormProps) {
+	const router = useRouter();
+	const isEdit = !!flight;
 
-  useEffect(() => {
-    const selected = readSelectedFleet();
-    if (!selected) return;
+	// Track the current aircraft state - this can be updated when user selects
+	const [currentAircraft, setCurrentAircraft] =
+		useState<SelectedAircraft | null>(() => initialAircraft ?? null);
 
-    console.log(selected)
+	// Track if we've done initial form setup
+	const hasInitializedForm = useRef(false);
 
-    // Set the full object, not just id
-    form.setValue("aircraft", {
-      id: selected.id ?? "",
-      registration: selected.registration ?? "",
-      type: selected.type ?? "",
-      model: selected.model ?? "",
-      isSimulator: selected.is_simulator ?? false,
-    });
+	const form = useForm<FlightFormInput>({
+		resolver: zodResolver(FlightFormSchema),
+		defaultValues: emptyValues,
+	});
 
-    console.log(form.getValues().aircraft)
+	// Poll for sessionStorage changes when component is visible
+	// This handles the case where user navigates back from fleet-select
+	useEffect(() => {
+		const checkStorage = () => {
+			const selected = getSelectedFleetAsAircraft();
+			if (selected) {
+				console.log(
+					"[FlightForm] Found selection in storage:",
+					selected.registration
+				);
+				setCurrentAircraft(selected);
+				form.setValue("aircraft", selected);
+				clearSelectedFleet();
+			}
+		};
 
-    clearSelectedFleet();
-  }, [form])
+		// Check immediately
+		checkStorage();
 
-  const handleSubmit = async (values: FlightFormInput) => {
-    const data: FlightFormType = FlightFormSchema.parse(
-      {
-        ...values,
-        aircraft_id: values.aircraft?.id ?? ""
-      }
-    )
+		// Set up interval to check periodically (handles navigation back)
+		const interval = setInterval(checkStorage, 100);
 
-    if (isEdit && flight) {
-      await updateFlight(flight.id, data);
-    } else {
-      await createFlight(data);
-    }
-  };
+		// Clean up after a short time - selection should be picked up quickly
+		const timeout = setTimeout(() => {
+			clearInterval(interval);
+		}, 2000);
 
-  const handleDelete = async () => {
-    if (flight?.id) {
-      await deleteFlight(flight.id);
-    }
-  };
+		return () => {
+			clearInterval(interval);
+			clearTimeout(timeout);
+		};
+	}, [form]);
 
-  const shouldSaveDraft = (values: FlightFormInput) => {
-    const data: FlightFormType = FlightFormSchema.parse(values)
+	// Initialize form with flight data (only once on mount)
+	useEffect(() => {
+		if (!flight || isLoading || hasInitializedForm.current) return;
+		hasInitializedForm.current = true;
 
-    return !!(data.departure_airport_code || data.destination_airport_code || data.aircraft_id);
-  };
+		// Check sessionStorage first in case there's a pending selection
+		const selectedFromStorage = getSelectedFleetAsAircraft();
+		const aircraftToUse = selectedFromStorage ?? initialAircraft ?? null;
 
+		if (selectedFromStorage) {
+			clearSelectedFleet();
+			setCurrentAircraft(selectedFromStorage);
+		}
 
-  return (
-    <LogForm
-      id={flight?.id}
-      form={form}
-      isEdit={isEdit}
-      isLoading={isLoading}
-      title="Flight"
-      draftName="flight"
-      onSubmit={handleSubmit}
-      onDelete={isEdit ? handleDelete : undefined}
-      onDraftRestore={getDraftFromCookie}
-      onDraftSave={saveDraftToCookie}
-      onDraftClear={clearDraftCookie}
-      shouldSaveDraft={shouldSaveDraft}
-    >
-      <div className="space-y-8">
-        {/* Basic Information (date, aircraft & flight number)*/}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Basic Information
-          </h3>
+		form.reset({
+			date: flight.date,
+			aircraft_id: flight.aircraft_id,
+			aircraft: aircraftToUse,
+			pic_id: flight.pic_id,
+			departure_airport_code: flight.departure_airport_code,
+			departure_runway: flight.departure_runway,
+			destination_airport_code: flight.destination_airport_code,
+			destination_runway: flight.destination_runway,
+			block_start: flight.block_start,
+			block_end: flight.block_end,
+			flight_start: flight.flight_start,
+			flight_end: flight.flight_end,
+			scheduled_start: flight.scheduled_start,
+			scheduled_end: flight.scheduled_end,
+			total_block_minutes: flight.total_block_minutes,
+			total_air_minutes: flight.total_air_minutes,
+			night_time_minutes: flight.night_time_minutes,
+			ifr_time_minutes: flight.ifr_time_minutes,
+			xc_time_minutes: flight.xc_time_minutes,
+			pic_time_minutes: flight.pic_time_minutes,
+			dual_time_minutes: flight.dual_time_minutes,
+			copilot_time_minutes: flight.copilot_time_minutes,
+			instructor_time_minutes: flight.instructor_time_minutes,
+			day_takeoffs: flight.day_takeoffs,
+			night_takeoffs: flight.night_takeoffs,
+			day_landings: flight.day_landings,
+			night_landings: flight.night_landings,
+			go_arounds: flight.go_arounds,
+			approaches: flight.approaches,
+			is_pic: flight.is_pic,
+			is_solo: flight.is_solo,
+			is_spic: flight.is_spic,
+			is_picus: flight.is_picus,
+			pilot_flying: flight.pilot_flying,
+			duty_start: flight.duty_start,
+			duty_end: flight.duty_end,
+			duty_time_minutes: flight.duty_time_minutes,
+			hobbs_start: flight.hobbs_start,
+			hobbs_end: flight.hobbs_end,
+			tach_start: flight.tach_start,
+			tach_end: flight.tach_end,
+			fuel: flight.fuel,
+			passengers: flight.passengers,
+			flight_number: flight.flight_number,
+			remarks: flight.remarks,
+			training_description: flight.training_description,
+		});
+	}, [flight, initialAircraft, isLoading, form]);
 
-          <PositionedGroup>
-            <DateField<FlightFormInput>
-              name="date"
-              label="Date"
-              isLoading={isLoading}
-              required
-            />
+	// For new flights (no flight prop), initialize with sessionStorage if available
+	useEffect(() => {
+		if (flight || hasInitializedForm.current) return;
+		hasInitializedForm.current = true;
 
+		const selectedFromStorage = getSelectedFleetAsAircraft();
+		if (selectedFromStorage) {
+			setCurrentAircraft(selectedFromStorage);
+			form.setValue("aircraft", selectedFromStorage);
+			clearSelectedFleet();
+		}
+	}, [flight, form]);
 
-            {/* -------------- WIP ---------------- */}
-            {/* <AsyncDialogSelectField<FlightFormInput>
-              name="aircraft"
-              label="Aircraft"
-              isLoading={isLoading}
-              onOpenDialog={() => router.push("/app/logs/flight/fleet-select")}
-              placeholder="select"
-              required
-            /> */}
+	const handleSubmit = async (values: FlightFormInput) => {
+		const data: FlightFormType = FlightFormSchema.parse({
+			...values,
+			aircraft_id: values.aircraft?.id ?? "",
+		});
 
-            <DialogSelectField<FlightFormInput>
-              name="aircraft.id"
-              label="Test"
-              isLoading={isLoading}
-              onOpenDialog={() => router.push("/app/logs/flight/fleet-select")}
-              required
-            />
+		if (isEdit && flight) {
+			await updateFlight(flight.id, data);
+		} else {
+			await createFlight(data);
+		}
+	};
 
-            <FormField
-              control={form.control}
-              name={"aircraft.id"}
-              render={({ field }) => {
-                const aircraft = field.value
+	const handleDelete = async () => {
+		if (flight?.id) {
+			await deleteFlight(flight.id);
+		}
+	};
 
-                console.log(aircraft)
+	const shouldSaveDraft = (values: FlightFormInput) => {
+		const data: FlightFormType = FlightFormSchema.parse(values);
 
-                return (
-                  <Field>
-                    <PositionedItem
-                      role="button"
-                      className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50"
-                      onClick={() => router.push("/app/logs/flight/fleet-select")}
-                    >
-                      <span className="text-sm font-medium w-36">
-                        Label
-                        <span className="text-destructive ml-1">*</span>
-                      </span>
-                      <div className="w-full ml-10 flex items-center justify-end gap-2 mr-2">
-                        <span className="text-sm text-right truncate">
-                          { }
-                        </span>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-                      </div>
-                    </PositionedItem>
-                  </Field>
-                )
-              }}
-            />
+		return !!(
+			data.departure_airport_code ||
+			data.destination_airport_code ||
+			data.aircraft_id
+		);
+	};
 
-            {/* -------------- WIP ---------------- */}
+	return (
+		<LogForm
+			id={flight?.id}
+			form={form}
+			isEdit={isEdit}
+			isLoading={isLoading}
+			title="Flight"
+			draftName="flight"
+			onSubmit={handleSubmit}
+			onDelete={isEdit ? handleDelete : undefined}
+			onDraftRestore={getDraftFromCookie}
+			onDraftSave={saveDraftToCookie}
+			onDraftClear={clearDraftCookie}
+			shouldSaveDraft={shouldSaveDraft}
+		>
+			<div className="space-y-8">
+				{/* Basic Information (date, aircraft & flight number)*/}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Basic Information
+					</h3>
 
-            <TextField<FlightFormInput>
-              name="flight_number"
-              label="Flight Number"
-              placeholder="BEL123"
-              isLoading={isLoading}
-            />
-          </PositionedGroup>
-        </div>
+					<PositionedGroup>
+						<DateField<FlightFormInput>
+							name="date"
+							label="Date"
+							isLoading={isLoading}
+							required
+						/>
 
-        {/* Routing */}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Routing Information
-          </h3>
+						<ObjectDialogSelectField<FlightFormInput, SelectedAircraft>
+							name="aircraft"
+							label="Aircraft"
+							isLoading={isLoading}
+							onOpenDialog={() => router.push("/app/logs/flight/fleet-select")}
+							placeholder="Select aircraft"
+							required
+							displayValue={(aircraft) =>
+								aircraft ? `${aircraft.registration} (${aircraft.type})` : null
+							}
+						/>
 
-          <PositionedGroup>
-            {/* Dialog select departure + departure runway */}
+						<TextField<FlightFormInput>
+							name="flight_number"
+							label="Flight Number"
+							placeholder="BEL123"
+							isLoading={isLoading}
+						/>
+					</PositionedGroup>
+				</div>
 
-            {/* Dialog select destination + destination runway */}
-          </PositionedGroup>
-        </div>
+				{/* Routing */}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Routing Information
+					</h3>
 
-        {/* Hours Section - Times Table */}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Time Table
-          </h3>
+					<PositionedGroup>
+						{/* Dialog select departure + departure runway */}
 
-          <PositionedGroup></PositionedGroup>
-        </div>
+						{/* Dialog select destination + destination runway */}
+					</PositionedGroup>
+				</div>
 
-        {/* Time Function Fields */}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Time Fields
-          </h3>
+				{/* Hours Section - Times Table */}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Time Table
+					</h3>
 
-          <PositionedGroup>
-            {/* Make it dynamic with timeRows and covert from minutes to HH:mm*/}
-            <TextField<FlightFormInput> name="total_block_minutes" label="Total" />
-          </PositionedGroup>
-        </div>
+					<PositionedGroup></PositionedGroup>
+				</div>
 
-        {/* Function + PIC + Pilot Flying */}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Function Information
-          </h3>
+				{/* Time Function Fields */}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Time Fields
+					</h3>
 
-          <PositionedGroup>
-            {/* <SelectField<FlightFormInput> name="function" label="Function" /> */}
-          </PositionedGroup>
-        </div>
+					<PositionedGroup>
+						{/* Make it dynamic with timeRows and covert from minutes to HH:mm*/}
+						<TextField<FlightFormInput>
+							name="total_block_minutes"
+							label="Total"
+						/>
+					</PositionedGroup>
+				</div>
 
-        {/* Manoeuvres (take-off, landing, go-around & approaches) */}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Manoeuvres Information
-          </h3>
+				{/* Function + PIC + Pilot Flying */}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Function Information
+					</h3>
 
-          <PositionedGroup>
-            {/* <SelectField<FlightFormInput> name="function" label="Function" /> */}
-          </PositionedGroup>
-        </div>
+					<PositionedGroup>
+						{/* <SelectField<FlightFormInput> name="function" label="Function" /> */}
+					</PositionedGroup>
+				</div>
 
-        {/* Notes */}
-        <div>
-          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-            Notes
-          </h3>
+				{/* Manoeuvres (take-off, landing, go-around & approaches) */}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Manoeuvres Information
+					</h3>
 
-          <PositionedGroup>
-            {/* <SelectField<FlightFormInput> name="function" label="Function" /> */}
-          </PositionedGroup>
-        </div>
-      </div>
-    </LogForm>
-  )
+					<PositionedGroup>
+						{/* <SelectField<FlightFormInput> name="function" label="Function" /> */}
+					</PositionedGroup>
+				</div>
+
+				{/* Notes */}
+				<div>
+					<h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+						Notes
+					</h3>
+
+					<PositionedGroup>
+						{/* <SelectField<FlightFormInput> name="function" label="Function" /> */}
+					</PositionedGroup>
+				</div>
+			</div>
+		</LogForm>
+	);
 }
