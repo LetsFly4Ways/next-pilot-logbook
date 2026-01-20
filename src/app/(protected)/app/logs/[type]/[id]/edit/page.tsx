@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { fetchLog } from "@/actions/pages/logs/fetch";
-import { fetchAsset } from "@/actions/pages/fleet/fetch";
 
 import { formatDate } from "@/lib/date-utils";
 
@@ -10,8 +9,6 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ErrorContainer } from "@/components/ui/error-container";
 import FlightForm from "@/components/pages/logs/flight-form";
 import CenterSpinner from "@/components/ui/center-spinner";
-
-import type { SelectedAircraft } from "@/types/logs";
 
 type Params = Promise<{
 	id: string;
@@ -76,23 +73,8 @@ async function EditLogPageContent({ params }: { params: Params }) {
 		);
 	}
 
-	// Fetch aircraft data for the form display
-	let initialAircraft: SelectedAircraft | null = null;
-	if (log._type === "flight" && log.aircraft_id) {
-		const { asset } = await fetchAsset(log.aircraft_id);
-		if (asset) {
-			initialAircraft = {
-				id: asset.id,
-				registration: asset.registration,
-				type: asset.type ?? "",
-				model: asset.model ?? "",
-				isSimulator: asset.is_simulator,
-			};
-		}
-	}
-
 	return log._type === "flight" ? (
-		<FlightForm flight={log} initialAircraft={initialAircraft} />
+		<FlightForm flight={log} />
 	) : (
 		// <SimulatorLogInfo session={log} />
 		<></>

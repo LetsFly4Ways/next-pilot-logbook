@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { updateFlight } from "@/actions/pages/logs/flight/update";
 import { createFlight } from "@/actions/pages/logs/flight/create";
 import { deleteFlight } from "@/actions/pages/logs/flight/delete";
+import { fetchAsset } from "@/actions/pages/fleet/fetch";
 
 import {
 	Flight,
@@ -86,7 +87,6 @@ const emptyValues: FlightFormInput = {
 
 interface FlightFormProps {
 	flight?: Flight;
-	initialAircraft?: SelectedAircraft | null;
 	isLoading?: boolean;
 }
 
@@ -106,7 +106,6 @@ function getSelectedFleetAsAircraft(): SelectedAircraft | null {
 
 export default function FlightForm({
 	flight,
-	initialAircraft,
 	isLoading,
 }: FlightFormProps) {
 	const router = useRouter();
@@ -114,10 +113,11 @@ export default function FlightForm({
 
 	// Track the current aircraft state - this can be updated when user selects
 	const [currentAircraft, setCurrentAircraft] =
-		useState<SelectedAircraft | null>(() => initialAircraft ?? null);
+		useState<SelectedAircraft | null>(null);
 
 	// Track if we've done initial form setup
 	const hasInitializedForm = useRef(false);
+	const hasFetchedAircraft = useRef(false);
 
 	const form = useForm<FlightFormInput>({
 		resolver: zodResolver(FlightFormSchema),
@@ -130,10 +130,6 @@ export default function FlightForm({
 		const checkStorage = () => {
 			const selected = getSelectedFleetAsAircraft();
 			if (selected) {
-				console.log(
-					"[FlightForm] Found selection in storage:",
-					selected.registration
-				);
 				setCurrentAircraft(selected);
 				form.setValue("aircraft", selected);
 				clearSelectedFleet();
@@ -157,6 +153,41 @@ export default function FlightForm({
 		};
 	}, [form]);
 
+	// Fetch aircraft data when editing a flight
+	useEffect(() => {
+		if (!flight?.aircraft_id || hasFetchedAircraft.current) return;
+		
+		// Check sessionStorage first - if user just selected an aircraft, use that
+		const selectedFromStorage = getSelectedFleetAsAircraft();
+		if (selectedFromStorage) {
+			hasFetchedAircraft.current = true;
+			setCurrentAircraft(selectedFromStorage);
+			form.setValue("aircraft", selectedFromStorage);
+			clearSelectedFleet();
+			return;
+		}
+
+		// Otherwise fetch the aircraft from the database
+		hasFetchedAircraft.current = true;
+		
+		async function loadAircraft() {
+			const { asset } = await fetchAsset(flight!.aircraft_id);
+			if (asset) {
+				const aircraft: SelectedAircraft = {
+					id: asset.id,
+					registration: asset.registration,
+					type: asset.type ?? "",
+					model: asset.model ?? "",
+					isSimulator: asset.is_simulator,
+				};
+				setCurrentAircraft(aircraft);
+				form.setValue("aircraft", aircraft);
+			}
+		}
+		
+		loadAircraft();
+	}, [flight?.aircraft_id, form]);
+
 	// Initialize form with flight data (only once on mount)
 	useEffect(() => {
 		if (!flight || isLoading || hasInitializedForm.current) return;
@@ -164,8 +195,7 @@ export default function FlightForm({
 
 		// Check sessionStorage first in case there's a pending selection
 		const selectedFromStorage = getSelectedFleetAsAircraft();
-		const aircraftToUse = selectedFromStorage ?? initialAircraft ?? null;
-
+		
 		if (selectedFromStorage) {
 			clearSelectedFleet();
 			setCurrentAircraft(selectedFromStorage);
@@ -174,7 +204,7 @@ export default function FlightForm({
 		form.reset({
 			date: flight.date,
 			aircraft_id: flight.aircraft_id,
-			aircraft: aircraftToUse,
+			aircraft: selectedFromStorage ?? null, // Will be populated by the fetch effect
 			pic_id: flight.pic_id,
 			departure_airport_code: flight.departure_airport_code,
 			departure_runway: flight.departure_runway,
@@ -219,7 +249,7 @@ export default function FlightForm({
 			remarks: flight.remarks,
 			training_description: flight.training_description,
 		});
-	}, [flight, initialAircraft, isLoading, form]);
+	}, [flight, isLoading, form]);
 
 	// For new flights (no flight prop), initialize with sessionStorage if available
 	useEffect(() => {
@@ -298,7 +328,7 @@ export default function FlightForm({
 							label="Aircraft"
 							isLoading={isLoading}
 							onOpenDialog={() => router.push("/app/logs/flight/fleet-select")}
-							placeholder="Select aircraft"
+							placeholder="select"
 							required
 							displayValue={(aircraft) =>
 								aircraft ? `${aircraft.registration} (${aircraft.type})` : null
