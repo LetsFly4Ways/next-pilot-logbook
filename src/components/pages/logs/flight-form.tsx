@@ -17,7 +17,7 @@ import {
 } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LogForm from "@/components/pages/logs/form";
@@ -30,6 +30,7 @@ import {
   DateField,
   ObjectDialogSelectField,
   TextField,
+  TimeInputField,
 } from "@/components/ui/form-field-types";
 import { PositionedGroup } from "@/components/ui/positioned-group";
 import {
@@ -37,6 +38,7 @@ import {
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
 import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
+import { calculateMinutes } from "@/lib/date-utils";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -262,6 +264,30 @@ export default function FlightForm({
     }
   }, [flight, form]);
 
+  // Watch the time fields
+  const blockStart = useWatch({ control: form.control, name: "block_start" });
+  const blockEnd = useWatch({ control: form.control, name: "block_end" });
+  const flightStart = useWatch({ control: form.control, name: "flight_start" });
+  const flightEnd = useWatch({ control: form.control, name: "flight_end" });
+
+  // Update total_block_minutes when block times change
+  useEffect(() => {
+    const minutes = calculateMinutes(blockStart ?? null, blockEnd ?? null);
+    const currentValue = form.getValues("total_block_minutes");
+    if (minutes !== currentValue) {
+      form.setValue("total_block_minutes", minutes, { shouldValidate: false });
+    }
+  }, [blockStart, blockEnd, form]);
+
+  // Update total_air_minutes when flight times change
+  useEffect(() => {
+    const minutes = calculateMinutes(flightStart ?? null, flightEnd ?? null);
+    const currentValue = form.getValues("total_air_minutes");
+    if (minutes !== currentValue) {
+      form.setValue("total_air_minutes", minutes, { shouldValidate: false });
+    }
+  }, [flightStart, flightEnd, form]);
+
   const handleSubmit = async (values: FlightFormInput) => {
     const data: FlightFormType = FlightFormSchema.parse({
       ...values,
@@ -417,13 +443,9 @@ export default function FlightForm({
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
             Time Information
           </h3>
+
           <TimeTable<FlightFormInput>
             fields={tableFields}
-          // values={formValues}
-          // onChange={(key, value) => {
-          //   form.setValue(key as keyof FlightFormInput, value as never);
-          // }}
-          // errors={errors}
           />
         </div>
 
@@ -433,7 +455,21 @@ export default function FlightForm({
             Total Time Information
           </h3>
 
+          <PositionedGroup>
+            <TimeInputField<FlightFormInput>
+              name="total_block_minutes"
+              label="Total Time"
+              isLoading={isLoading}
+              required
+            />
 
+            <TimeInputField<FlightFormInput>
+              name="total_air_minutes"
+              label="Air Time"
+              isLoading={isLoading}
+              required
+            />
+          </PositionedGroup>
         </div>
       </div>
     </LogForm>

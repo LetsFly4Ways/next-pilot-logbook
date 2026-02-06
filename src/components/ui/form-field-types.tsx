@@ -12,6 +12,7 @@ import { PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { ChevronRight, ChevronsUpDown } from "lucide-react";
+import { formatTime } from "@/lib/date-utils";
 
 // ============================================================================
 // UNIVERSAL FIELD COMPONENTS
@@ -141,31 +142,30 @@ export function DateField<T extends FieldValues>({
 	);
 }
 
-type InputType = "time" | "number";
-
-interface TimeInputProps<T extends FieldValues> {
+interface TimeInputFieldProps<T extends FieldValues> {
 	name: Path<T>;
-	type?: InputType;
+	label: string;
+	isLoading?: boolean;
 	required?: boolean;
 	placeholder?: string;
-	step?: string;
-	min?: number;
 }
 
-export function TimeInput<T extends FieldValues>({
+export function TimeInputField<T extends FieldValues>({
 	name,
-	type = "time",
+	label,
+	isLoading,
 	required = false,
 	placeholder,
-	step,
-	min,
-}: TimeInputProps<T>) {
+}: TimeInputFieldProps<T>) {
 	const form = useFormContext<T>();
 
-	const baseClasses = "flex h-fit justify-center text-center rounded-md border-transparent px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 shadow-none bg-background appearance-none";
-
-	const timeClasses = `${baseClasses} min-w-16 w-fit [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none`;
-	const numberClasses = `${baseClasses} w-20 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`;
+	if (isLoading) {
+		return (
+			<PositionedItem className="py-2">
+				<Skeleton className="h-12 w-full" />
+			</PositionedItem>
+		);
+	}
 
 	return (
 		<FormField
@@ -173,29 +173,34 @@ export function TimeInput<T extends FieldValues>({
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field>
-					<div className="flex flex-col items-center">
-						<Input
-							{...field}
-							type={type}
-							step={type === "time" ? "0" : step}
-							min={min}
-							value={field.value ?? ''}
-							required={required}
-							placeholder={placeholder}
-							className={type === "time" ? timeClasses : numberClasses}
-							onChange={(e) => {
-								const newValue = type === "number" && e.target.value !== ""
-									? parseFloat(e.target.value)
-									: e.target.value;
-								field.onChange(newValue);
-							}}
-						/>
-						{fieldState.error && (
-							<span className="text-xs text-red-500 mt-1">
-								{fieldState.error.message}
-							</span>
-						)}
-					</div>
+					<PositionedItem className="p-3 flex items-center justify-between">
+						<span className="text-sm font-medium w-36">
+							{label}
+							{required && <span className="text-destructive ml-1">*</span>}
+						</span>
+						<div className="ml-10 items-end w-full flex flex-col gap-1 mr-2">
+							<Input
+								{...field}
+								type={"time"}
+								placeholder={placeholder}
+								value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
+								required={required}
+								className="w-2/3 h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+								onChange={(e) => {
+									const value = e.target.value;
+									console.log(value)
+									field.onChange(formatTime(value, "decimal"));
+								}}
+								disabled={isLoading}
+							/>
+
+							{fieldState.error && (
+								<span className="text-right text-xs text-red-500 mt-1">
+									{fieldState.error.message}
+								</span>
+							)}
+						</div>
+					</PositionedItem>
 				</Field>
 			)}
 		/>

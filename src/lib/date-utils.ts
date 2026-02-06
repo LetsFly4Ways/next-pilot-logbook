@@ -111,6 +111,32 @@ function zeroValue(format: TimeFormat): string {
 }
 
 /**
+ * Calculate the difference between two time strings in minutes
+ * @param start - Start time in HH:MM format
+ * @param end - End time in HH:MM format
+ * @returns Total minutes between start and end time (handles overnight periods)
+ */
+export function calculateMinutes(
+	start: string | null,
+	end: string | null,
+): number {
+	if (!start || !end) return 0;
+
+	const [startHours, startMinutes] = start.split(":").map(Number);
+	const [endHours, endMinutes] = end.split(":").map(Number);
+
+	const startTotalMinutes = startHours * 60 + startMinutes;
+	let endTotalMinutes = endHours * 60 + endMinutes;
+
+	// Handle overnight flights (end time is earlier than start time)
+	if (endTotalMinutes < startTotalMinutes) {
+		endTotalMinutes += 24 * 60; // Add 24 hours
+	}
+
+	return endTotalMinutes - startTotalMinutes;
+}
+
+/**
  * Date formatting options
  */
 export type DateFormat =

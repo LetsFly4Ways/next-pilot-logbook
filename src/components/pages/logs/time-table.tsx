@@ -1,7 +1,8 @@
-import { TimeInput } from "@/components/ui/form-field-types";
+import { Field } from "@/components/ui/field";
+import { FormField } from "@/components/ui/form-field";
+import { Input } from "@/components/ui/input";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
-import { FieldValues, Path } from "react-hook-form";
-
+import { FieldValues, Path, useFormContext } from "react-hook-form";
 
 type InputType = "time" | "number";
 
@@ -20,6 +21,65 @@ export interface TimeTableField<T extends FieldValues> {
 interface TimeTableProps<T extends FieldValues> {
   fields: TimeTableField<T>[];
   isLoading?: boolean;
+}
+
+interface TimeInputProps<T extends FieldValues> {
+  name: Path<T>;
+  type?: InputType;
+  required?: boolean;
+  placeholder?: string;
+  step?: string;
+  min?: number;
+}
+
+export function TimeInput<T extends FieldValues>({
+  name,
+  type = "time",
+  required = false,
+  placeholder,
+  step,
+  min,
+}: TimeInputProps<T>) {
+  const form = useFormContext<T>();
+
+  const baseClasses = "flex h-fit justify-center text-center rounded-md border-transparent px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 shadow-none bg-form-border/25 dark:bg-background appearance-none";
+
+  const timeClasses = `${baseClasses} min-w-20 w-fit [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none`;
+  const numberClasses = `${baseClasses} w-20 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`;
+
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field, fieldState }) => (
+        <Field>
+          <div className="flex flex-col items-center">
+            <Input
+              {...field}
+              type={type}
+              step={type === "time" ? "0" : step}
+              min={min}
+              value={field.value ?? ''}
+              required={required}
+              placeholder={placeholder}
+              className={type === "time" ? timeClasses : numberClasses}
+              onChange={(e) => {
+                const newValue = type === "number" && e.target.value !== ""
+                  ? parseFloat(e.target.value)
+                  : e.target.value;
+                field.onChange(newValue);
+              }}
+            />
+            {fieldState.error && (
+              <span className="text-xs text-red-500 mt-1">
+                {fieldState.error.message}
+              </span>
+            )}
+          </div>
+        </Field>
+      )}
+    />
+  );
 }
 
 export default function TimeTable<T extends FieldValues>({
