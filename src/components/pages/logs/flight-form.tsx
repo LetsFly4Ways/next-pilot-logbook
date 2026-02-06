@@ -15,8 +15,9 @@ import {
   FlightForm as FlightFormType,
   SelectedAircraft,
 } from "@/types/logs";
+import { UserPreferences } from "@/types/user-preferences";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LogForm from "@/components/pages/logs/form";
@@ -30,11 +31,12 @@ import {
   ObjectDialogSelectField,
   TextField,
 } from "@/components/ui/form-field-types";
-import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
+import { PositionedGroup } from "@/components/ui/positioned-group";
 import {
   clearSelectedFleet,
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
+import TimeTable from "@/components/pages/logs/time-table";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -88,6 +90,7 @@ const emptyValues: FlightFormInput = {
 interface FlightFormProps {
   flight?: Flight;
   isLoading?: boolean;
+  preferences: UserPreferences;
 }
 
 // Helper to read and convert fleet from sessionStorage
@@ -107,6 +110,7 @@ function getSelectedFleetAsAircraft(): SelectedAircraft | null {
 export default function FlightForm({
   flight,
   isLoading,
+  preferences
 }: FlightFormProps) {
   const router = useRouter();
   const isEdit = !!flight;
@@ -119,6 +123,9 @@ export default function FlightForm({
     resolver: zodResolver(FlightFormSchema),
     defaultValues: emptyValues,
   });
+
+  const { formState: { errors } } = form
+  const formValues = (useWatch({ control: form.control }) || emptyValues) as FlightFormInput;
 
   // Poll for sessionStorage changes when component is visible
   // This handles the case where user navigates back from fleet-select
@@ -268,6 +275,63 @@ export default function FlightForm({
     }
   };
 
+  // Time Table
+  const tableFields = [
+    // Block & Flight Fields
+    {
+      label: "Block",
+      offKey: "block_start",
+      onKey: "block_end",
+      required: true,
+      visible: true,
+      inputType: "time" as const
+    },
+    {
+      label: "Flight",
+      offKey: "flight_start",
+      onKey: "flight_end",
+      required: true,
+      visible: true,
+      inputType: "time" as const
+    },
+
+    // Optional Fields
+    {
+      label: "Duty",
+      offKey: "duty_start",
+      onKey: "duty_end",
+      required: false,
+      visible: preferences.logging.fields.duty,
+      inputType: "time" as const
+    },
+    {
+      label: "Scheduled",
+      offKey: "scheduled_start",
+      onKey: "scheduled_end",
+      required: false,
+      visible: preferences.logging.fields.scheduled,
+      inputType: "time" as const
+    },
+
+    // Hobbs & Tach
+    {
+      label: "Hobbs",
+      offKey: "hobbs_start",
+      onKey: "hobbs_end",
+      required: false,
+      visible: preferences.logging.fields.hobbs,
+      inputType: "number" as const
+    },
+    {
+      label: "Tach",
+      offKey: "tach_start",
+      onKey: "tach_end",
+      required: false,
+      visible: preferences.logging.fields.tach,
+      inputType: "number" as const
+    },
+  ]
+
   const handleDelete = async () => {
     if (flight?.id) {
       await deleteFlight(flight.id);
@@ -346,6 +410,21 @@ export default function FlightForm({
 
             {/* Dialog select destination + destination runway */}
           </PositionedGroup>
+        </div>
+
+        {/* Time Table */}
+        <div>
+          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+            Time Information
+          </h3>
+          <TimeTable<FlightFormInput>
+            fields={tableFields}
+            values={formValues}
+            onChange={(key, value) => {
+              form.setValue(key as keyof FlightFormInput, value as never);
+            }}
+            errors={errors}
+          />
         </div>
       </div>
     </LogForm>

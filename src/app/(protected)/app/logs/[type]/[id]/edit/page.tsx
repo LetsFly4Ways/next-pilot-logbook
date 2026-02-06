@@ -9,6 +9,8 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ErrorContainer } from "@/components/ui/error-container";
 import FlightForm from "@/components/pages/logs/flight-form";
 import CenterSpinner from "@/components/ui/center-spinner";
+import { getPreferences } from "@/actions/user-preferences";
+import { getDefaultPreferences } from "@/types/user-preferences";
 
 type Params = Promise<{
 	id: string;
@@ -50,6 +52,7 @@ export async function generateMetadata({
 async function EditLogPageContent({ params }: { params: Params }) {
 	const { id, type } = await params;
 	const { log, error } = await fetchLog(id);
+	const { preferences } = await getPreferences();
 
 	if (error || !log) {
 		return (
@@ -74,7 +77,7 @@ async function EditLogPageContent({ params }: { params: Params }) {
 	}
 
 	return log._type === "flight" ? (
-		<FlightForm flight={log} />
+		<FlightForm flight={log} preferences={preferences ?? getDefaultPreferences()} />
 	) : (
 		// <SimulatorLogInfo session={log} />
 		<></>
