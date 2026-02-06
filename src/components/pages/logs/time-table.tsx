@@ -1,13 +1,14 @@
+import { TimeInput } from "@/components/ui/form-field-types";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
-import { Input } from "@/components/ui/input";
-import { FieldError, FieldErrors, FieldValues } from "react-hook-form";
+import { FieldValues, Path } from "react-hook-form";
+
 
 type InputType = "time" | "number";
 
-interface TimeTableField {
+export interface TimeTableField<T extends FieldValues> {
   label: string;
-  offKey: string;
-  onKey: string;
+  offKey: Path<T>;
+  onKey: Path<T>;
   required?: boolean;
   visible?: boolean;
   inputType?: InputType;
@@ -17,49 +18,26 @@ interface TimeTableField {
 }
 
 interface TimeTableProps<T extends FieldValues> {
-  fields: TimeTableField[];
-  values: T;
-  onChange: (key: string, value: string) => void;
-  errors?: FieldErrors<T>;
+  fields: TimeTableField<T>[];
+  isLoading?: boolean;
 }
 
 export default function TimeTable<T extends FieldValues>({
   fields,
-  values,
-  onChange,
-  errors
+  isLoading = false,
 }: TimeTableProps<T>) {
   // Filter to only show visible fields
   const visibleFields = fields.filter(field => field.visible !== false);
 
-  const renderInput = (field: TimeTableField, key: string) => {
-    const inputType = field.inputType || "time";
-    const value = values[key as keyof T];
-    const error = errors?.[key as keyof T] as FieldError | undefined;
-
-    const baseClasses = "min-w-16 w-fit h-fit justify-center text-center rounded-md border-transparent px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 shadow-none bg-background appearance-none";
-
-    const timeClasses = `${baseClasses} [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none`;
-    const numberClasses = `${baseClasses} w-20 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`;
-
+  if (isLoading) {
     return (
-      <div className="flex flex-col items-center ">
-        <Input
-          type={inputType}
-          step={inputType === "time" ? "0" : field.step}
-          min={field.min}
-          value={value ?? ''}
-          onChange={(e) => onChange(key, e.target.value)}
-          required={field.required}
-          placeholder={field.placeholder}
-          className={inputType === "time" ? timeClasses : numberClasses}
-        />
-        {error && (
-          <span className="text-xs text-red-500 mt-1">{error.message}</span>
-        )}
-      </div>
+      <PositionedGroup>
+        <PositionedItem className="p-3 h-14">
+          <div className="h-12 w-full bg-muted animate-pulse rounded" />
+        </PositionedItem>
+      </PositionedGroup>
     );
-  };
+  }
 
   return (
     <PositionedGroup>
@@ -87,8 +65,23 @@ export default function TimeTable<T extends FieldValues>({
             </span>
           </div>
 
-          {renderInput(field, field.offKey)}
-          {renderInput(field, field.onKey)}
+          <TimeInput<T>
+            name={field.offKey}
+            type={field.inputType}
+            required={field.required}
+            placeholder={field.placeholder}
+            step={field.step}
+            min={field.min}
+          />
+
+          <TimeInput<T>
+            name={field.onKey}
+            type={field.inputType}
+            required={field.required}
+            placeholder={field.placeholder}
+            step={field.step}
+            min={field.min}
+          />
         </PositionedItem>
       ))}
     </PositionedGroup>

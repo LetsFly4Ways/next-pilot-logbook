@@ -17,7 +17,7 @@ import {
 } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LogForm from "@/components/pages/logs/form";
@@ -36,7 +36,7 @@ import {
   clearSelectedFleet,
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
-import TimeTable from "@/components/pages/logs/time-table";
+import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -124,8 +124,8 @@ export default function FlightForm({
     defaultValues: emptyValues,
   });
 
-  const { formState: { errors } } = form
-  const formValues = (useWatch({ control: form.control }) || emptyValues) as FlightFormInput;
+  // const { formState: { errors } } = form
+  // const formValues = (useWatch({ control: form.control }) || emptyValues) as FlightFormInput;
 
   // Poll for sessionStorage changes when component is visible
   // This handles the case where user navigates back from fleet-select
@@ -276,7 +276,7 @@ export default function FlightForm({
   };
 
   // Time Table
-  const tableFields = [
+  const tableFields: TimeTableField<FlightFormInput>[] = [
     // Block & Flight Fields
     {
       label: "Block",
@@ -419,12 +419,21 @@ export default function FlightForm({
           </h3>
           <TimeTable<FlightFormInput>
             fields={tableFields}
-            values={formValues}
-            onChange={(key, value) => {
-              form.setValue(key as keyof FlightFormInput, value as never);
-            }}
-            errors={errors}
+          // values={formValues}
+          // onChange={(key, value) => {
+          //   form.setValue(key as keyof FlightFormInput, value as never);
+          // }}
+          // errors={errors}
           />
+        </div>
+
+        {/* Time Fields */}
+        <div>
+          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+            Total Time Information
+          </h3>
+
+
         </div>
       </div>
     </LogForm>
