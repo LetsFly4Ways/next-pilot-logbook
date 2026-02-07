@@ -14,18 +14,23 @@ import {
   FlightFormInput,
   FlightForm as FlightFormType,
   SelectedAircraft,
+  FlightFormInputSchema,
+  SelectedAirport,
 } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import LogForm from "@/components/pages/logs/form";
+import { calculateDurationMinutes } from "@/lib/time-utils";
 import {
   clearDraftCookie,
   getDraftFromCookie,
   saveDraftToCookie,
 } from "@/components/pages/logs/flight-cookie-helper";
+
+import LogForm from "@/components/pages/logs/form";
+
 import {
   DateField,
   DurationInputField,
@@ -39,7 +44,7 @@ import {
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
 import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
-import { calculateDurationMinutes } from "@/lib/date-utils";
+import { NightTimeDurationInputField } from "./night-time-input";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -47,8 +52,10 @@ const emptyValues: FlightFormInput = {
   aircraft: null,
   pic_id: null,
   departure_airport_code: "",
+  departure_airport: null,
   departure_runway: null,
   destination_airport_code: "",
+  destination_airport: null,
   destination_runway: null,
   block_start: "",
   block_end: "",
@@ -123,12 +130,9 @@ export default function FlightForm({
   const hasFetchedAircraft = useRef(false);
 
   const form = useForm<FlightFormInput>({
-    resolver: zodResolver(FlightFormSchema),
+    resolver: zodResolver(FlightFormInputSchema),
     defaultValues: emptyValues,
   });
-
-  // const { formState: { errors } } = form
-  // const formValues = (useWatch({ control: form.control }) || emptyValues) as FlightFormInput;
 
   // Poll for sessionStorage changes when component is visible
   // This handles the case where user navigates back from fleet-select
@@ -203,14 +207,27 @@ export default function FlightForm({
       clearSelectedFleet();
     }
 
+    // -------------- TESTING -------------- //
+    const testAirport: SelectedAirport = {
+      icao: "EBBR",
+      iata: "BRU",
+      name: "Brussels Airport",
+      city: "Brussels",
+      country: "Belgium",
+      lat: 50.9014015198,
+      lon: 4.4844398499,
+    };
+
     form.reset({
       date: flight.date,
       aircraft_id: flight.aircraft_id,
       aircraft: selectedFromStorage ?? null, // Will be populated by the fetch effect
       pic_id: flight.pic_id,
       departure_airport_code: flight.departure_airport_code,
+      departure_airport: testAirport, // TESTING
       departure_runway: flight.departure_runway,
       destination_airport_code: flight.destination_airport_code,
+      destination_airport: testAirport, // TESTING
       destination_runway: flight.destination_runway,
       block_start: flight.block_start,
       block_end: flight.block_end,
@@ -304,6 +321,9 @@ export default function FlightForm({
     const data: FlightFormType = FlightFormSchema.parse({
       ...values,
       aircraft_id: values.aircraft?.id ?? "",
+
+      // Remove the convenience fields that aren't in the database schema
+      // Set departure and destination airport code from object
     });
 
     if (isEdit && flight) {
@@ -494,16 +514,23 @@ export default function FlightForm({
             </PositionedGroup>
 
             <PositionedGroup>
-              <TimeInputField<FlightFormInput>
+              <DurationInputField<FlightFormInput>
                 name="ifr_time_minutes"
                 label="IFR Time"
+                referenceMinutesField="total_block_minutes"
                 isLoading={isLoading}
               />
 
-              <TimeInputField<FlightFormInput>
+              <NightTimeDurationInputField<FlightFormInput>
                 name="night_time_minutes"
                 label="Night Time"
                 isLoading={isLoading}
+
+                dateField="date"
+                flightStartField="block_start"
+                flightEndField="block_end"
+                departureAirportField="departure_airport"
+                destinationAirportField="destination_airport"
               />
 
               {preferences.logging.fields.xc && (

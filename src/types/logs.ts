@@ -14,6 +14,22 @@ export const SelectedAircraftSchema = z.object({
 export type SelectedAircraft = z.infer<typeof SelectedAircraftSchema>;
 
 // ============================================================================
+// Selected Airprot Schemas
+// ============================================================================
+
+export const SelectedAirportSchema = z.object({
+	icao: z.string().min(3).max(4),
+	iata: z.string().min(3).max(3).nullable(),
+	name: z.string(),
+	city: z.string().nullable(),
+	country: z.string(),
+	lat: z.number().nullable(),
+	lon: z.number().nullable(),
+});
+
+export type SelectedAirport = z.infer<typeof SelectedAirportSchema>;
+
+// ============================================================================
 // Base Schemas
 // ============================================================================
 
@@ -108,6 +124,8 @@ export const FlightFormSchema = BaseLogSchema.extend({
 export const FlightFormInputSchema = FlightFormSchema.extend({
 	// This is only for form convenience; not submitted
 	aircraft: SelectedAircraftSchema.optional().nullable(),
+	departure_airport: SelectedAirportSchema.nullable(),
+	destination_airport: SelectedAirportSchema.nullable(),
 });
 
 /**
