@@ -28,6 +28,7 @@ import {
 } from "@/components/pages/logs/flight-cookie-helper";
 import {
   DateField,
+  DurationInputField,
   ObjectDialogSelectField,
   TextField,
   TimeInputField,
@@ -38,7 +39,7 @@ import {
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
 import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
-import { calculateMinutes } from "@/lib/date-utils";
+import { calculateDurationMinutes } from "@/lib/date-utils";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -269,10 +270,12 @@ export default function FlightForm({
   const blockEnd = useWatch({ control: form.control, name: "block_end" });
   const flightStart = useWatch({ control: form.control, name: "flight_start" });
   const flightEnd = useWatch({ control: form.control, name: "flight_end" });
+  const dutyStart = useWatch({ control: form.control, name: "duty_start" });
+  const dutyEnd = useWatch({ control: form.control, name: "duty_end" });
 
   // Update total_block_minutes when block times change
   useEffect(() => {
-    const minutes = calculateMinutes(blockStart ?? null, blockEnd ?? null);
+    const minutes = calculateDurationMinutes(blockStart ?? null, blockEnd ?? null);
     const currentValue = form.getValues("total_block_minutes");
     if (minutes !== currentValue) {
       form.setValue("total_block_minutes", minutes, { shouldValidate: false });
@@ -281,12 +284,21 @@ export default function FlightForm({
 
   // Update total_air_minutes when flight times change
   useEffect(() => {
-    const minutes = calculateMinutes(flightStart ?? null, flightEnd ?? null);
+    const minutes = calculateDurationMinutes(flightStart ?? null, flightEnd ?? null);
     const currentValue = form.getValues("total_air_minutes");
     if (minutes !== currentValue) {
       form.setValue("total_air_minutes", minutes, { shouldValidate: false });
     }
   }, [flightStart, flightEnd, form]);
+
+  // Update total_air_minutes when flight times change
+  useEffect(() => {
+    const minutes = calculateDurationMinutes(dutyStart ?? null, dutyEnd ?? null);
+    const currentValue = form.getValues("duty_time_minutes");
+    if (minutes !== currentValue) {
+      form.setValue("duty_time_minutes", minutes, { shouldValidate: false });
+    }
+  }, [dutyStart, dutyEnd, form]);
 
   const handleSubmit = async (values: FlightFormInput) => {
     const data: FlightFormType = FlightFormSchema.parse({
@@ -455,21 +467,55 @@ export default function FlightForm({
             Total Time Information
           </h3>
 
-          <PositionedGroup>
-            <TimeInputField<FlightFormInput>
-              name="total_block_minutes"
-              label="Total Time"
-              isLoading={isLoading}
-              required
-            />
+          <div className="space-y-3">
+            <PositionedGroup>
+              <TimeInputField<FlightFormInput>
+                name="total_block_minutes"
+                label="Total Time"
+                isLoading={isLoading}
+                required
+              />
 
-            <TimeInputField<FlightFormInput>
-              name="total_air_minutes"
-              label="Air Time"
-              isLoading={isLoading}
-              required
-            />
-          </PositionedGroup>
+              <TimeInputField<FlightFormInput>
+                name="total_air_minutes"
+                label="Air Time"
+                isLoading={isLoading}
+                required
+              />
+
+              {preferences.logging.fields.duty && (
+                <TimeInputField<FlightFormInput>
+                  name="duty_time_minutes"
+                  label="Duty Time"
+                  isLoading={isLoading}
+                  required
+                />
+              )}
+            </PositionedGroup>
+
+            <PositionedGroup>
+              <TimeInputField<FlightFormInput>
+                name="ifr_time_minutes"
+                label="IFR Time"
+                isLoading={isLoading}
+              />
+
+              <TimeInputField<FlightFormInput>
+                name="night_time_minutes"
+                label="Night Time"
+                isLoading={isLoading}
+              />
+
+              {preferences.logging.fields.xc && (
+                <DurationInputField<FlightFormInput>
+                  name="xc_time_minutes"
+                  label="XC Time"
+                  referenceMinutesField="total_block_minutes"
+                  isLoading={isLoading}
+                />
+              )}
+            </PositionedGroup>
+          </div>
         </div>
       </div>
     </LogForm>

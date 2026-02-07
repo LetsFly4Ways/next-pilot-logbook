@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFormContext, FieldValues, Path } from "react-hook-form";
+import { useFormContext, FieldValues, Path, PathValue } from "react-hook-form";
 
 import { Field } from "@/components/ui/field";
 import { FormField } from "@/components/ui/form-field";
@@ -12,7 +12,8 @@ import { PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { ChevronRight, ChevronsUpDown } from "lucide-react";
-import { formatTime } from "@/lib/date-utils";
+import { formatTime, timeToMinutes } from "@/lib/date-utils";
+import { Button } from "./button";
 
 // ============================================================================
 // UNIVERSAL FIELD COMPONENTS
@@ -188,8 +189,7 @@ export function TimeInputField<T extends FieldValues>({
 								className="w-2/3 h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
 								onChange={(e) => {
 									const value = e.target.value;
-									console.log(value)
-									field.onChange(formatTime(value, "decimal"));
+									field.onChange(timeToMinutes(value));
 								}}
 								disabled={isLoading}
 							/>
@@ -204,6 +204,114 @@ export function TimeInputField<T extends FieldValues>({
 				</Field>
 			)}
 		/>
+	);
+}
+
+// DURATION TIME INPUT
+interface DurationInputFieldProps<T extends FieldValues> {
+	name: Path<T>;
+	label: string;
+	isLoading?: boolean;
+	required?: boolean;
+	placeholder?: string;
+	referenceMinutesField?: Path<T>; // Field to get the reference duration from (e.g., "total_block_minutes")
+}
+
+export function DurationInputField<T extends FieldValues>({
+	name,
+	label,
+	isLoading,
+	required = false,
+	placeholder,
+	referenceMinutesField,
+}: DurationInputFieldProps<T>) {
+	const form = useFormContext<T>();
+	const [isFocused, setIsFocused] = useState(false);
+
+	// Get the reference duration value
+	const referenceMinutes = referenceMinutesField
+		? (form.watch(referenceMinutesField) as number)
+		: null;
+
+	// Get current field value
+	const currentValue = form.watch(name) as number;
+
+	// Show button only if: reference exists, field is 0, and field is NOT focused
+	const shouldShowButton =
+		referenceMinutes &&
+		referenceMinutes > 0 &&
+		(!currentValue || currentValue === 0) &&
+		!isFocused;
+
+	const handleSetFromReference = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		if (referenceMinutes) {
+			form.setValue(name, referenceMinutes as PathValue<T, Path<T>>, { shouldValidate: true });
+		}
+	};
+
+	if (isLoading) {
+		return (
+			<PositionedItem className="py-2">
+				<Skeleton className="h-12 w-full" />
+			</PositionedItem>
+		);
+	}
+
+	return (
+		<FormField
+			control={form.control}
+			name={name}
+			render={({ field, fieldState }) => (
+				<Field>
+					<PositionedItem className="p-3 flex items-center justify-between">
+						<span className="text-sm font-medium w-36">
+							{label}
+							{required && <span className="text-destructive ml-1">*</span>}
+						</span>
+						<div className="ml-10 items-end w-full flex flex-col gap-1 mr-2">
+							{shouldShowButton ? (
+								<Button
+									type="button"
+									variant="outline"
+									size="sm"
+									onClick={handleSetFromReference}
+									className="h-fit py-1 px-3 text-sm hover:bg-background/30 cursor-pointer"
+								>
+									+{formatTime(referenceMinutes!, "HH:mm")}
+								</Button>
+							) : (
+								<>
+									<Input
+										type="time"
+										placeholder={placeholder}
+										value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
+										required={required}
+										className="w-2/3 h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+										onChange={(e) => {
+											const minutes = timeToMinutes(e.target.value);
+											field.onChange(minutes);
+										}}
+										onFocus={() => setIsFocused(true)}
+										onBlur={() => {
+											setIsFocused(false);
+											field.onBlur();
+										}}
+										disabled={isLoading}
+									/>
+
+									{fieldState.error && (
+										<span className="text-xs text-red-500 mt-1">
+											{fieldState.error.message}
+										</span>
+									)}
+								</>
+							)}
+						</div>
+					</PositionedItem>
+				</Field>
+			)} />
 	);
 }
 

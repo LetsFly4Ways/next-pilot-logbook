@@ -88,7 +88,6 @@ export function formatTime(
 }
 
 /* helpers */
-
 function pad(v: number): string {
 	return v.toString().padStart(2, "0");
 }
@@ -116,7 +115,7 @@ function zeroValue(format: TimeFormat): string {
  * @param end - End time in HH:MM format
  * @returns Total minutes between start and end time (handles overnight periods)
  */
-export function calculateMinutes(
+export function calculateDurationMinutes(
 	start: string | null,
 	end: string | null,
 ): number {
@@ -134,6 +133,33 @@ export function calculateMinutes(
 	}
 
 	return endTotalMinutes - startTotalMinutes;
+}
+
+/**
+ * Format minutes to HH:MM time string
+ * @param minutes - Total minutes
+ * @returns Time formatted as HH:MM
+ */
+export function formatMinutesToTime(minutes: number): string {
+	const hours = Math.floor(minutes / 60);
+	const mins = minutes % 60;
+	return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
+}
+
+/**
+ * Convert time string to total minutes
+ * @param time - Time in HH:MM format
+ * @returns Total minutes
+ */
+export function timeToMinutes(time: string | null): number {
+	if (!time) return 0;
+
+	const [hours, minutes] = time.split(":").map(Number);
+
+	// Handle invalid input
+	if (isNaN(hours) || isNaN(minutes)) return 0;
+
+	return hours * 60 + minutes;
 }
 
 /**
