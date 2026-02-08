@@ -118,7 +118,7 @@ export function NightTimeDurationInputField<T extends FieldValues>({
               {label}
               {required && <span className="text-destructive ml-1">*</span>}
             </span>
-            <div className="flex flex-col items-center gap-x-3 gap-y-1 mr-3 lg:mr-0">
+            <div className="flex flex-col items-center gap-x-3 gap-y-1">
               {shouldShowButton ? (
                 <Button
                   type="button"
