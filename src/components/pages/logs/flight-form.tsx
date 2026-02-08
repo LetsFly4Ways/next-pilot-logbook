@@ -45,6 +45,8 @@ import {
 } from "@/components/pages/logs/select/selected-fleet-asset";
 import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
 import { NightTimeDurationInputField } from "./night-time-input";
+import { ManoeuvresField } from "./manoeuvre-field";
+import { ManoeuvreInput } from "./manoeuvre-input";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -541,6 +543,36 @@ export default function FlightForm({
                   isLoading={isLoading}
                 />
               )}
+            </PositionedGroup>
+          </div>
+        </div>
+
+        {/* Manoeuvres */}
+        <div>
+          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+            Operations Information
+          </h3>
+
+          <div className="space-y-3">
+            <ManoeuvresField<FlightFormInput>
+              dayTakeoffsField="day_takeoffs"
+              nightTakeoffsField="night_takeoffs"
+              dayLandingsField="day_landings"
+              nightLandingsField="night_landings"
+              isLoading={isLoading}
+
+              dateField="date"
+              flightStartField="flight_start"
+              flightEndField="flight_end"
+              departureAirportField="departure_airport"
+              destinationAirportField="destination_airport"
+            />
+
+            <PositionedGroup>
+              {/* Approach */}
+
+              {/* Go-arounds */}
+              <ManoeuvreInput<FlightFormInput> label="Go Around" name="go_arounds" isLoading={isLoading} />
             </PositionedGroup>
           </div>
         </div>

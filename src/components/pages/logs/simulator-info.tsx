@@ -6,7 +6,9 @@ import { getPreferences } from "@/actions/user-preferences";
 
 import { SimulatorSession } from "@/types/logs";
 
-import { formatDate, formatTime } from "@/lib/date-utils";
+import { formatDate } from "@/lib/date-utils";
+import { formatTime } from "@/lib/time-utils";
+
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";

@@ -4,7 +4,8 @@ import { fetchAndFormatCrewMember } from "@/actions/pages/crew/fetch";
 import { fetchAndFormatAircraft } from "@/actions/pages/fleet/fetch";
 import { getPreferences } from "@/actions/user-preferences";
 
-import { formatDate, formatTime } from "@/lib/date-utils";
+import { formatDate } from "@/lib/date-utils";
+import { formatTime } from "@/lib/time-utils";
 import { ArrayToText, formatMovement, getSelectedFunction } from "@/lib/log-utils";
 
 import { Flight } from "@/types/logs";

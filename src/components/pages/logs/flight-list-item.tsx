@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import type { Flight } from "@/types/logs";
 import { Fleet } from "@/types/fleet";
 
-import { formatDate, formatTime } from "@/lib/date-utils";
+import { formatDate } from "@/lib/date-utils";
+import { formatTime } from "@/lib/time-utils";
 
 import { PositionedItem } from "@/components/ui/positioned-group";
 
