@@ -67,7 +67,7 @@ export function ManoeuvreInput<T extends FieldValues>({
                     type="number"
                     value={currentValue}
                     min={0}
-                    className="h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
+                    className="h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     onChange={(e) => {
                       const value =
                         e.target.value === ""

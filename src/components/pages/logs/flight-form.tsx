@@ -44,9 +44,9 @@ import {
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
 import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
-import { NightTimeDurationInputField } from "./night-time-input";
-import { ManoeuvresField } from "./manoeuvre-field";
-import { ManoeuvreInput } from "./manoeuvre-input";
+import { NightTimeDurationInputField } from "@/components/pages/logs/night-time-input";
+import { ManoeuvresField } from "@/components/pages/logs/manoeuvre-field";
+import { ManoeuvreInput } from "@/components/pages/logs/manoeuvre-input";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),

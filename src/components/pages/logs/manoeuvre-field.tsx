@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { FieldValues, Path, useWatch } from "react-hook-form";
+import { FieldValues, Path, PathValue, useFormContext, useWatch } from "react-hook-form";
 
 import { SelectedAirport } from "@/types/logs";
 
@@ -42,6 +42,8 @@ export function ManoeuvresField<T extends FieldValues>({
   departureAirportField,
   destinationAirportField,
 }: ManoeuvresFieldProps<T>) {
+  const form = useFormContext<T>();
+
   const hasInitialized = useRef(false);
   const hasAutoDetected = useRef(false);
 
@@ -114,23 +116,44 @@ export function ManoeuvresField<T extends FieldValues>({
 
         hasAutoDetected.current = true;
 
-        console.log(isTakeoffNight, isLandingNight)
+        // Set values based on detection
+        if (isTakeoffNight) {
+          form.setValue(nightTakeoffsField, 1 as PathValue<T, typeof nightTakeoffsField>);
+          form.setValue(dayTakeoffsField, 0 as PathValue<T, typeof dayTakeoffsField>);
+        } else {
+          form.setValue(dayTakeoffsField, 1 as PathValue<T, typeof dayTakeoffsField>);
+          form.setValue(nightTakeoffsField, 0 as PathValue<T, typeof nightTakeoffsField>);
+        };
+
+        if (isLandingNight) {
+          form.setValue(nightLandingsField, 1 as PathValue<T, typeof nightLandingsField>);
+          form.setValue(dayLandingsField, 0 as PathValue<T, typeof dayLandingsField>);
+        } else {
+          form.setValue(dayLandingsField, 1 as PathValue<T, typeof dayLandingsField>);
+          form.setValue(nightLandingsField, 0 as PathValue<T, typeof nightLandingsField>);
+        };
+
+        // Set active tab based on what was detected
+        if (isTakeoffNight || isLandingNight) {
+          setActiveTab("night");
+        } else {
+          setActiveTab("day");
+        };
       } catch (error) {
         console.error("Error detecting night manoeuvres:", error);
       } finally {
         setIsDetecting(false);
       }
-    }
+    };
 
     detectNightManoeuvres()
-  }, [date, flightStart, flightEnd, departureAirport, destinationAirport, dayTakeoff, nightTakeoff, dayLanding, nightLanding])
+  }, [date, flightStart, flightEnd, departureAirport, destinationAirport, dayTakeoff, nightTakeoff, dayLanding, nightLanding, form, nightTakeoffsField, dayTakeoffsField, nightLandingsField, dayLandingsField]);
 
 
   if (isLoading || isDetecting) {
     return (
       <PositionedGroup>
         <Skeleton className="h-14 w-full" />
-        <Skeleton className="h-12 w-full" />
         <Skeleton className="h-12 w-full" />
         <Skeleton className="h-12 w-full" />
       </PositionedGroup>
