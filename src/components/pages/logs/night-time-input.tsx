@@ -118,7 +118,7 @@ export function NightTimeDurationInputField<T extends FieldValues>({
               {label}
               {required && <span className="text-destructive ml-1">*</span>}
             </span>
-            <div className="ml-10 items-end w-full flex flex-col gap-1 mr-2">
+            <div className="flex flex-col items-center gap-x-3 gap-y-1 mr-3 lg:mr-0">
               {shouldShowButton ? (
                 <Button
                   type="button"
@@ -136,7 +136,7 @@ export function NightTimeDurationInputField<T extends FieldValues>({
                     type="time"
                     value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
                     required={required}
-                    className="w-2/3 h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                    className="w-full h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
                     onChange={(e) => {
                       const minutes = timeToMinutes(e.target.value);
                       field.onChange(minutes);
