@@ -35,6 +35,7 @@ import {
   DateField,
   DurationInputField,
   ObjectDialogSelectField,
+  TextareaField,
   TextField,
   TimeInputField,
 } from "@/components/ui/form-field-types";
@@ -569,12 +570,74 @@ export default function FlightForm({
             />
 
             <PositionedGroup>
-              {/* Approach */}
+              {/* Approaches */}
+              {preferences.logging.fields.approaches && (
+                <></>
+              )}
 
               {/* Go-arounds */}
-              <ManoeuvreInput<FlightFormInput> label="Go Around" name="go_arounds" isLoading={isLoading} />
+              {preferences.logging.fields.go_arounds && (
+                <ManoeuvreInput<FlightFormInput>
+                  label="Go Around"
+                  name="go_arounds"
+                  isLoading={isLoading}
+                />
+              )}
             </PositionedGroup>
           </div>
+        </div>
+
+        {(preferences.logging.fields.passengers || preferences.logging.fields.fuel) && (
+          <div>
+            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+              Miscellaneous Information
+            </h3>
+
+            <PositionedGroup>
+              {preferences.logging.fields.passengers && (
+                <TextField<FlightFormInput>
+                  name="passengers"
+                  label="Passengers"
+                  type="number"
+                  isLoading={isLoading}
+                />
+              )}
+
+              {preferences.logging.fields.fuel && (
+                <TextField<FlightFormInput>
+                  name="fuel"
+                  label="Fuel"
+                  placeholder="KG"
+                  type="number"
+                  isLoading={isLoading}
+                />
+              )}
+            </PositionedGroup>
+          </div>
+        )}
+
+        <div>
+          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+            Notes
+          </h3>
+
+          <PositionedGroup>
+            <TextareaField<FlightFormInput>
+              name="remarks"
+              label="Remarks"
+              isLoading={isLoading}
+            />
+
+            {preferences.logging.fields.training && (
+              <TextareaField<FlightFormInput>
+                name="training_description"
+                label="Training"
+                isLoading={isLoading}
+              />
+            )}
+
+            {/* Endorsment future release */}
+          </PositionedGroup>
         </div>
       </div>
     </LogForm>
