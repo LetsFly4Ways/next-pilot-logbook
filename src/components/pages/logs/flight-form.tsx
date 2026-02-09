@@ -397,7 +397,7 @@ export default function FlightForm({
   const handleDelete = async () => {
     if (flight?.id) {
       await deleteFlight(flight.id);
-    }
+    };
   };
 
   const shouldSaveDraft = (values: FlightFormInput) => {

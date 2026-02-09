@@ -70,7 +70,10 @@ export type AirportDatabase = z.infer<typeof AirportDatabaseSchema>;
 
 // Custom error types for better error handling
 export class AirportDataError extends Error {
-  constructor(message: string, public cause?: unknown) {
+  constructor(
+    message: string,
+    public cause?: unknown,
+  ) {
     super(message);
     this.name = "AirportDataError";
   }
