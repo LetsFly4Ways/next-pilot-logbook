@@ -672,22 +672,28 @@ export function TextareaField<T extends FieldValues>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => (
+			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between w-full h-fit">
+					<PositionedItem className="p-3 flex items-center justify-between min-h-12 h-fit">
 						<span className="text-sm font-medium w-36">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
 						</span>
-						<div className="w-full ml-10 flex flex-col gap-1">
+						<div className="flex flex-col items-center w-full gap-x-3 gap-y-1">
 							<AutosizeTextarea
 								{...field}
 								placeholder={placeholder}
-								className="min-h-6 p-0 text-sm font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none"
+								className="p-0 text-sm font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none"
 								rows={rows}
 								value={field.value || ""}
 								required={required}
 							/>
+
+							{fieldState.error && (
+								<span className="text-right text-xs text-red-500 mt-1">
+									{fieldState.error.message}
+								</span>
+							)}
 						</div>
 					</PositionedItem>
 				</Field>

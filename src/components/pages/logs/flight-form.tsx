@@ -48,6 +48,7 @@ import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
 import { NightTimeDurationInputField } from "@/components/pages/logs/night-time-input";
 import { ManoeuvresField } from "@/components/pages/logs/manoeuvre-field";
 import { ManoeuvreInput } from "@/components/pages/logs/manoeuvre-input";
+import { Approach } from "@/types/approach";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -572,7 +573,16 @@ export default function FlightForm({
             <PositionedGroup>
               {/* Approaches */}
               {preferences.logging.fields.approaches && (
-                <></>
+                <ObjectDialogSelectField<FlightFormInput, Approach>
+                  name="approaches"
+                  label="Approaches"
+                  isLoading={isLoading}
+                  onOpenDialog={() => router.push("/app/logs/flight/approach-select")}
+                  placeholder="select"
+                  displayValue={(approach) =>
+                    approach ? `${approach}` : null
+                  }
+                />
               )}
 
               {/* Go-arounds */}
@@ -625,6 +635,7 @@ export default function FlightForm({
             <TextareaField<FlightFormInput>
               name="remarks"
               label="Remarks"
+              rows={1}
               isLoading={isLoading}
             />
 
@@ -632,6 +643,7 @@ export default function FlightForm({
               <TextareaField<FlightFormInput>
                 name="training_description"
                 label="Training"
+                rows={1}
                 isLoading={isLoading}
               />
             )}

@@ -182,15 +182,6 @@ export const DiscriminatedSchema = z.discriminatedUnion("type", [
 ]);
 
 // ============================================================================
-// Approach Schema
-// ============================================================================
-
-export const ApproachSchema = z.object({
-	title: z.string(),
-	type: z.enum(["precision", "non-precision", "visual"]).optional(),
-});
-
-// ============================================================================
 // Type Exports
 // ============================================================================
 
@@ -199,7 +190,6 @@ export type FlightForm = z.infer<typeof FlightFormSchema>;
 export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
 export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
 export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
-export type Approach = z.infer<typeof ApproachSchema>;
 
 /**
  * Union type representing any log entry (flight or simulator session)
