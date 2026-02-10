@@ -77,7 +77,7 @@ async function EditLogPageContent({ params }: { params: Params }) {
 	}
 
 	return log._type === "flight" ? (
-		<FlightForm flight={log} preferences={preferences ?? getDefaultPreferences()} />
+		<FlightForm flight={log} isEdit={!!log} preferences={preferences ?? getDefaultPreferences()} />
 	) : (
 		// <SimulatorLogInfo session={log} />
 		<></>

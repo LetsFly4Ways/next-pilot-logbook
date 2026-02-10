@@ -103,6 +103,7 @@ const emptyValues: FlightFormInput = {
 
 interface FlightFormProps {
   flight?: Flight;
+  isEdit?: boolean;
   isLoading?: boolean;
   preferences: UserPreferences;
 }
@@ -123,11 +124,11 @@ function getSelectedFleetAsAircraft(): SelectedAircraft | null {
 
 export default function FlightForm({
   flight,
+  isEdit = false,
   isLoading,
   preferences
 }: FlightFormProps) {
   const router = useRouter();
-  const isEdit = !!flight;
 
   // Track if we've done initial form setup
   const hasInitializedForm = useRef(false);

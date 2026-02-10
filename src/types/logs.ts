@@ -160,6 +160,15 @@ export const SimulatorSessionFormSchema = BaseLogSchema.extend({
 });
 
 /**
+ * Flight Input schema for form
+ */
+export const SimulatorSessionFormInputSchema =
+  SimulatorSessionFormSchema.extend({
+    // This is only for form convenience; not submitted
+    simulator: SelectedAircraftSchema.optional().nullable(),
+  });
+
+/**
  * Complete simulator session schema with database fields
  */
 export const SimulatorSessionSchema = SimulatorSessionFormSchema.extend({
@@ -190,6 +199,9 @@ export type FlightForm = z.infer<typeof FlightFormSchema>;
 export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
 export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
 export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
+export type SimulatorSessionFormInput = z.input<
+  typeof SimulatorSessionFormInputSchema
+>;
 
 /**
  * Union type representing any log entry (flight or simulator session)
