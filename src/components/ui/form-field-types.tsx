@@ -20,11 +20,12 @@ interface BaseFieldProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
   isLoading?: boolean;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 // TEXT INPUT FIELD
 interface TextFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
-  required?: boolean;
   type?: "text" | "email" | "tel" | "number" | "password" | "url";
   placeholder?: string;
 }
@@ -34,6 +35,7 @@ export function TextField<T extends FieldValues>({
   label,
   isLoading,
   required = false,
+  disabled = false,
   type = "text",
   placeholder,
 }: TextFieldProps<T>) {
@@ -67,6 +69,7 @@ export function TextField<T extends FieldValues>({
                 placeholder={placeholder}
                 value={field.value ?? ""}
                 required={required}
+                disabled={disabled}
                 className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
                 onChange={(e) => {
                   const value =
@@ -133,7 +136,6 @@ export function SwitchField<T extends FieldValues>({
 interface SelectFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
   options: { label: string; value: string }[];
   placeholder?: string;
-  required?: boolean
 }
 
 export function SelectField<T extends FieldValues>({
@@ -201,7 +203,6 @@ interface DialogSelectFieldProps<T extends FieldValues>
   extends BaseFieldProps<T> {
   onOpenDialog: () => void;
   placeholder?: string;
-  required?: boolean;
 }
 
 export function DialogSelectField<T extends FieldValues>({
@@ -256,7 +257,6 @@ export function DialogSelectField<T extends FieldValues>({
 interface TextareaFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
   rows?: number;
   placeholder?: string;
-  required?: boolean;
 }
 
 export function TextareaField<T extends FieldValues>({

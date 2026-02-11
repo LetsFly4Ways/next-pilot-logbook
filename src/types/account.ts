@@ -1,28 +1,24 @@
 import { z } from "zod";
 
-// ============================================================================
-// Form Schemas
-// ============================================================================
-
 /**
- * Crew form schema - used for creating/editing crew members
+ * User form schema - used for creating/editing user information
  */
-export const CrewFormSchema = z.object({
+export const UserInfoFormSchema = z.object({
 	first_name: z.string().min(1, "First Name is required."),
 	last_name: z.string().min(1, "Last Name is required."),
-	email: z.email("Invalid email address.").nullable().optional(),
+	email: z.email("Invalid email address.").min(1, "Last Name is required."),
+
 	phone: z.string().nullable().optional(),
-	address: z.string().nullable().optional(),
+
 	license_number: z.string().nullable().optional(),
 	company: z.string().nullable().optional(),
 	company_id: z.string().nullable().optional(),
-	note: z.string().nullable().optional(),
 });
 
 /**
- * Complete crew schema with database fields
+ * Complete user schema with database fields
  */
-export const CrewSchema = CrewFormSchema.extend({
+export const UserInfoSchema = UserInfoFormSchema.extend({
 	id: z.uuid(),
 	user_id: z.uuid(),
 	created_at: z.iso.datetime(),
@@ -33,5 +29,5 @@ export const CrewSchema = CrewFormSchema.extend({
 // Type Exports
 // ============================================================================
 
-export type Crew = z.infer<typeof CrewSchema>;
-export type CrewForm = z.infer<typeof CrewFormSchema>;
+export type UserInfo = z.infer<typeof UserInfoSchema>;
+export type UserInfoForm = z.infer<typeof UserInfoFormSchema>;

@@ -1,48 +1,98 @@
-## Refactor Checklist
+# NEXT Pilot Logbook
 
-### Authentication
+## Introduction
 
-- [ ] Layout: Leading side content
-- [ ] Actions: MFA
-  - [ ] Database: Setup user database
+This pilot logbook application aims to provide a free, open-source alternative to costly paid subscription services. Built with user privacy and data ownership in mind, this app puts you in complete control of your flight records.
 
-### Application
+**⚠️ Important Note:** This project is currently under active development. At this stage, you should **NOT** rely on it as your sole record-keeping solution for flight logs.
 
-#### General
+By using Next Pilot Logbook, you agree to the Terms of Service and Privacy Statement included in this repository.
 
-- [x] Context: User preferences
-- [x] Layout: Sidebar & Mobile navigation bar
-- [x] Layout: App banner
+## Installation
 
-#### Flights & Simulator Sessions _(rename this page)_
+### Prerequisites
 
-- [ ] All: Fetching & displaying
-- [ ] All: Specific Flight/Simulator log
-- [ ] All: Create & Update log
+- Node.js (v18 or higher recommended)
+- npm or yarn package manager
 
-#### Crew
+### Setup
 
-- [ ] All: Fetching & displaying
-- [ ] All: Specific crew
-- [ ] All: Create & Update
+1. Clone the repository:
 
-#### Aircraft
+```bash
+git clone https://github.com/LetsFly4Ways/next-pilot-logbook/
+cd <project-directory>
+```
 
-- [ ] All: Fetching & displaying
-- [ ] All: Specific aircraft
-- [ ] All: Create & Update
+2. Install required packages:
 
-#### Airport
+```bash
+npm install
+# or
+yarn install
+```
 
-- [ ] All: Fetching & displaying
-- [ ] All: Specific airport
+3. Set up Supabase (coming soon):
+   - Configuration instructions will be added in future updates
 
-#### Dashboard
+4. Run the development server:
 
-- [ ] Dashboard features
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-#### Settings
+## Usage
 
-- [ ] User Profile
-- [ ] Preferences
-- [ ] Support & Release Notes
+Usage documentation is not yet available. This section will be updated as features are implemented and tested.
+
+## Tech Stack
+
+This project is built with modern web technologies:
+
+- **Next.js 16** - React framework for production
+- **React 19** - UI component library
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Re-usable component library
+- **Supabase** - Backend and database solution
+
+## Roadmap
+
+### Version 1.0
+
+The initial release will include basic functionality:
+
+- Flight & Simulator Logs
+- Fleet management
+- Crew management
+- Dashboard
+- Settings
+
+### Future Versions
+
+Additional features and improvements are planned for upcoming releases. Stay tuned for updates!
+
+## Disclaimer
+
+**⚠️ IMPORTANT DISCLAIMER**
+
+This project is currently under development and should **NOT** be used as your only source of flight record keeping. Always maintain official logbook records in accordance with your aviation authority's requirements. The developers assume no responsibility for lost or inaccurate data.
+
+Use this application at your own risk and always keep backup records of your flight time.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## License
+
+[License information to be added]
+
+## Legal
+
+- [Privacy Statement](./PRIVACY.md)
+- [Terms of Service](./TERMS_OF_SERVICE.md)
