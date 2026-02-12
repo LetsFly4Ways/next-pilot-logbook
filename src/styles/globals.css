@@ -224,3 +224,9 @@
 		}
 	}
 }
+
+select {
+	-webkit-appearance: none; /* turn off drop-down arrow*/
+	-moz-appearance: none;
+	direction: rtl;
+}
