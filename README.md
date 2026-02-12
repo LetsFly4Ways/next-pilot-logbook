@@ -6,8 +6,6 @@ This pilot logbook application aims to provide a free, open-source alternative t
 
 **⚠️ Important Note:** This project is currently under active development. At this stage, you should **NOT** rely on it as your sole record-keeping solution for flight logs.
 
-By using Next Pilot Logbook, you agree to the Terms of Service and Privacy Statement included in this repository.
-
 ## Installation
 
 ### Prerequisites
@@ -96,3 +94,5 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 - [Privacy Statement](./PRIVACY.md)
 - [Terms of Service](./TERMS_OF_SERVICE.md)
+
+By using Next Pilot Logbook, you agree to the Terms of Service and Privacy Statement included in this repository.
