@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { SortBy } from "@/types/airports";
+import { SortAirportBy } from "@/types/airports";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { AirportsList } from "@/components/pages/airports/list";
@@ -24,7 +24,7 @@ import { CircleX, ListFilter, Search, X } from "lucide-react";
 
 export default function AirportsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<SortBy>("country");
+  const [sortBy, setSortBy] = useState<SortAirportBy>("country");
   const [showSearch, setShowSearch] = useState(false);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
@@ -108,7 +108,7 @@ export default function AirportsPage() {
 
                       <DropdownMenuRadioGroup
                         value={sortBy}
-                        onValueChange={(value) => setSortBy(value as SortBy)}
+                        onValueChange={(value) => setSortBy(value as SortAirportBy)}
                       >
                         <DropdownMenuRadioItem
                           value="country"

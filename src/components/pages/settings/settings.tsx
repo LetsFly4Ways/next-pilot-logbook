@@ -66,7 +66,7 @@ export default function SettingsPage() {
               className="p-3 flex items-center gap-2 justify-between cursor-pointer h-fit"
               onClick={() => router.push("/app/settings/preferences")}
             >
-              <span className="text-sm font-medium text-foreground">Name</span>
+              <span className="text-sm font-medium text-foreground">Preferences</span>
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </PositionedItem>
           </PositionedGroup>

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { Airport, SortBy } from "@/types/airports";
+import { Airport, SortAirportBy } from "@/types/airports";
 
 import { searchAndSortAirports } from "@/actions/pages/airports/fetch";
 import { getFavoriteAirports } from "@/actions/pages/airports/favorites";
@@ -25,7 +25,7 @@ const ITEMS_PER_PAGE = 50;
 
 interface AirportsListProps {
   searchQuery: string;
-  sortBy: SortBy;
+  sortBy: SortAirportBy;
   showFavoritesOnly: boolean;
 }
 

@@ -54,7 +54,6 @@ export function AccountForm({ authUser, authLoading }: AccountFormProps) {
 
   return (
     <div className="space-y-8 animate-in fade-in">
-
       {/* Name Section */}
       <div>
         <h3 className="text-xs font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Name</h3>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { useFormContext, FieldValues, Path } from "react-hook-form";
 
 import { Field } from "@/components/ui/field";
@@ -10,7 +12,7 @@ import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 import { PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { ChevronRight, ChevronsUpDown } from "lucide-react";
+import { ChevronRight, ChevronsUpDown, Eye, EyeOff } from "lucide-react";
 
 // ============================================================================
 // UNIVERSAL FIELD COMPONENTS
@@ -81,6 +83,79 @@ export function TextField<T extends FieldValues>({
                   field.onChange(value);
                 }}
               />
+            </div>
+          </PositionedItem>
+        </Field>
+      )}
+    />
+  );
+}
+
+// PASSWORD INPUT
+interface PasswordFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
+  placeholder?: string;
+}
+
+export function PasswordField<T extends FieldValues>({
+  name,
+  label,
+  isLoading,
+  required = false,
+  disabled = false,
+  placeholder,
+}: PasswordFieldProps<T>) {
+  const form = useFormContext<T>();
+  const [showPassword, setShowPassword] = useState(false);
+
+  if (isLoading) {
+    return (
+      <PositionedItem className="py-2">
+        <Skeleton className="h-12 w-full" />
+      </PositionedItem>
+    );
+  }
+
+  const toggleVisibility = () => setShowPassword((prev) => !prev);
+
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <Field>
+          <PositionedItem className="p-3 flex items-center justify-between">
+            {/* Label Side */}
+            <span className="text-sm font-medium w40 shrink-0">
+              {label}
+              {required && <span className="text-destructive ml-1">*</span>}
+            </span>
+
+            {/* Input Side */}
+            <div className="w-full ml-10 flex items-center gap-2">
+              <Input
+                {...field}
+                type={showPassword ? "text" : "password"}
+                placeholder={placeholder}
+                value={field.value ?? ""}
+                required={required}
+                disabled={disabled}
+                className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
+              />
+
+              {/* Toggle Button */}
+              <button
+                type="button"
+                onClick={toggleVisibility}
+                disabled={disabled}
+                className="text-muted-foreground hover:text-foreground transition-colors outline-none focus:ring-0"
+                tabIndex={-1} // Prevents tab-key focus for smoother form navigation
+              >
+                {showPassword ? (
+                  <Eye className="size-4" />
+                ) : (
+                  <EyeOff className="size-4" />
+                )}
+              </button>
             </div>
           </PositionedItem>
         </Field>

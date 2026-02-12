@@ -15,7 +15,7 @@ import { ChangePasswordForm, ChangePasswordFormSchema } from "@/types/auth/chang
 import { useAuth } from "@/components/context/auth-provider";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
-import { TextField } from "@/components/ui/form-field-types";
+import { PasswordField, TextField } from "@/components/ui/form-field-types";
 import { PositionedGroup } from "@/components/ui/positioned-group";
 
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
@@ -92,25 +92,22 @@ export default function ChangePasswordPage() {
         <FormProvider {...form}>
           <div className="space-y-6">
             <PositionedGroup>
-              <TextField<ChangePasswordForm>
+              <PasswordField<ChangePasswordForm>
                 name="current_password"
                 label="Current Password"
-                type="password"
                 required
               />
             </PositionedGroup>
 
             <PositionedGroup>
-              <TextField<ChangePasswordForm>
+              <PasswordField<ChangePasswordForm>
                 name="new_password"
                 label="New Password"
-                type="password"
                 required
               />
-              <TextField<ChangePasswordForm>
+              <PasswordField<ChangePasswordForm>
                 name="confirm_new_password"
                 label="Confirm New Password"
-                type="password"
                 required
               />
             </PositionedGroup>
