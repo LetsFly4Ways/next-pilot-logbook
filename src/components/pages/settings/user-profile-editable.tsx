@@ -9,6 +9,7 @@ import { User } from "@supabase/supabase-js";
 
 import { ProfilePicture } from "@/components/pages/settings/profile-picture";
 import { Skeleton } from "@/components/ui/skeleton";
+import { canEditProfilePicture } from "@/lib/verify-auth-provider";
 
 interface UserProfileProps {
   authUser: User | null; // The User object from Supabase Auth
@@ -16,7 +17,7 @@ interface UserProfileProps {
 
 export function UserProfileSkeleton() {
   return (
-    <div className="flex flex-col items-center gap-4 py-4">
+    <div className="flex flex-col items-center gap-4">
       {/* Profile Picture Placeholder (Matching 'xl' size) */}
       <Skeleton className="size-32 rounded-full" />
 
@@ -82,7 +83,7 @@ export function UserProfile({ authUser }: UserProfileProps) {
   if (!authUser) return null;
 
   return (
-    <div className="flex flex-col items-center gap-4 py-4">
+    <div className="flex flex-col items-center gap-4">
       <ProfilePicture
         src={avatarUrl}
         alt={displayName}
@@ -90,6 +91,7 @@ export function UserProfile({ authUser }: UserProfileProps) {
         onImageChange={handleUpload}
         onImageDelete={handleDelete}
         isProcessing={isProcessing}
+        disabled={!canEditProfilePicture(authUser) || isProcessing}
       />
 
       <div className="space-y-1 text-center">

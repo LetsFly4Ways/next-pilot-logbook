@@ -1,65 +1,60 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
 import { useFormContext } from "react-hook-form";
-
 import { logout } from "@/actions/auth/logout";
 import { getAccountData } from "@/actions/pages/settings/account";
-
 import { UserInfoForm } from "@/types/account";
 import { User } from "@supabase/supabase-js";
-
 import { TextField } from "@/components/ui/form-field-types";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import { canChangePassword } from "@/lib/verify-auth-provider";
+import { useRouter } from "next/navigation";
 
 interface AccountFormProps {
-  authUser: User | null; // The User object from Supabase Auth
-  authLoading: boolean
+  authUser: User | null;
+  authLoading: boolean;
 }
 
 export function AccountForm({ authUser, authLoading }: AccountFormProps) {
+  const router = useRouter();
   const { reset } = useFormContext<UserInfoForm>();
   const [dbLoading, setDbLoading] = useState(true);
-  // const [isPwdOpen, setIsPwdOpen] = useState(false);
-
-  // Use a ref to ensure we only load initial data once
-  const hasLoaded = useRef(false);
+  const hasHydrated = useRef(false);
 
   useEffect(() => {
-    if (authLoading || !authUser || hasLoaded.current) return;
+    // Stop the loop: only run if we have a user and haven't hydrated yet
+    if (authLoading || !authUser || hasHydrated.current) return;
 
     async function load() {
       try {
         const { profile } = await getAccountData();
-        if (profile) {
-          reset({
-            first_name: profile.first_name || authUser?.user_metadata?.first_name || "",
-            last_name: profile.last_name || authUser?.user_metadata?.last_name || "",
-            email: authUser?.email || "",
-            phone: profile.phone || "",
-            company: profile.company || "",
-            company_id: profile.company_id || "",
-            license_number: profile.license_number || "",
-          });
-        }
+        reset({
+          first_name: profile?.first_name || authUser?.user_metadata?.first_name || "",
+          last_name: profile?.last_name || authUser?.user_metadata?.last_name || "",
+          email: authUser?.email || "",
+          phone: profile?.phone || "",
+          company: profile?.company || "",
+          company_id: profile?.company_id || "",
+          license_number: profile?.license_number || "",
+        });
+        hasHydrated.current = true;
       } catch (error) {
         console.error(error);
       } finally {
         setDbLoading(false);
-        hasLoaded.current = true;
       }
     }
     load();
-  }, [reset, authUser, authLoading]);
+    // Dependency on ID (string) is stable and won't trigger the loop
+  }, [reset, authUser?.id, authLoading, authUser]);
 
-  if (dbLoading) return <AccountFormSkeleton />
-
+  if (dbLoading) return <AccountFormSkeleton />;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-in fade-in">
+
       {/* Name Section */}
       <div>
         <h3 className="text-xs font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Name</h3>
@@ -89,16 +84,18 @@ export function AccountForm({ authUser, authLoading }: AccountFormProps) {
       </div>
 
       <div className="space-y-4">
-        <PositionedGroup>
-          <PositionedItem
-            className="p-3 text-center text-sm font-medium text-blue-500 cursor-pointer"
-          // onClick={() => setIsPwdOpen(true)}
-          >
-            Change Password
-          </PositionedItem>
-        </PositionedGroup>
+        {canChangePassword(authUser) && (
+          <PositionedGroup>
+            <PositionedItem
+              className="p-3 text-center text-sm font-medium text-blue-500 cursor-pointer"
+              onClick={() => router.push("/app/settings/account/change-password")}
+            >
+              Change Password
+            </PositionedItem>
+          </PositionedGroup>
+        )}
 
-        <PositionedGroup>
+        < PositionedGroup >
           <PositionedItem
             className="p-3 text-center text-sm font-medium text-red-500 cursor-pointer"
             onClick={() => logout()}
@@ -107,9 +104,7 @@ export function AccountForm({ authUser, authLoading }: AccountFormProps) {
           </PositionedItem>
         </PositionedGroup>
       </div>
-
-      {/* <PasswordDialog isOpen={isPwdOpen} onClose={() => setIsPwdOpen(false)} /> */}
-    </div>
+    </div >
   );
 }
 
