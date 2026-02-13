@@ -7,8 +7,8 @@ import { Log } from "@/types/logs";
 
 import { formatDate } from "@/lib/date-utils";
 
-import FlightLogInfo, { FlightLogInfoSkeleton } from "@/components/pages/logs/flight-info";
-import SimulatorLogInfo, { SimulatorLogInfoSkeleton } from "@/components/pages/logs/simulator-info";
+import FlightLogInfo, { FlightLogInfoSkeleton } from "@/components/pages/logs/info/flight-info";
+import SimulatorLogInfo, { SimulatorLogInfoSkeleton } from "@/components/pages/logs/info/simulator-info";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { ErrorContainer } from "@/components/ui/error-container";

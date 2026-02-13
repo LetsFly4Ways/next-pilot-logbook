@@ -11,7 +11,7 @@ import { isLandingAtNight, isTakeoffAtNight } from "@/lib/night-time-utils";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ManoeuvreInput } from "@/components/pages/logs/manoeuvre-input";
+import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
 
 type TimeOfDay = "day" | "night";
 

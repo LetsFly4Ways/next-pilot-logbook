@@ -7,7 +7,7 @@ import { formatDate } from "@/lib/date-utils";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { ErrorContainer } from "@/components/ui/error-container";
-import FlightForm from "@/components/pages/logs/flight-form";
+import FlightForm from "@/components/pages/logs/form/flight-form";
 import CenterSpinner from "@/components/ui/center-spinner";
 import { getPreferences } from "@/actions/user-preferences";
 import { getDefaultPreferences } from "@/types/user-preferences";

@@ -27,9 +27,9 @@ import {
   clearDraftCookie,
   getDraftFromCookie,
   saveDraftToCookie,
-} from "@/components/pages/logs/flight-cookie-helper";
+} from "@/components/pages/logs/form/flight-cookie-helper";
 
-import LogForm from "@/components/pages/logs/form";
+import LogForm from "@/components/pages/logs/form/form";
 
 import {
   DateField,
@@ -44,10 +44,10 @@ import {
   clearSelectedFleet,
   readSelectedFleet,
 } from "@/components/pages/logs/select/selected-fleet-asset";
-import TimeTable, { TimeTableField } from "@/components/pages/logs/time-table";
-import { NightTimeDurationInputField } from "@/components/pages/logs/night-time-input";
-import { ManoeuvresField } from "@/components/pages/logs/manoeuvre-field";
-import { ManoeuvreInput } from "@/components/pages/logs/manoeuvre-input";
+import TimeTable, { TimeTableField } from "@/components/pages/logs/form/time-table";
+import { NightTimeDurationInputField } from "@/components/pages/logs/form/night-time-input";
+import { ManoeuvresField } from "@/components/pages/logs/form/manoeuvre-field";
+import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
 import { Approach } from "@/types/approach";
 
 const emptyValues: FlightFormInput = {

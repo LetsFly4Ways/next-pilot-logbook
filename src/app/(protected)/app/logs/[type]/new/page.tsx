@@ -1,5 +1,5 @@
 import { getPreferences } from "@/actions/user-preferences";
-import FlightForm from "@/components/pages/logs/flight-form";
+import FlightForm from "@/components/pages/logs/form/flight-form";
 import CenterSpinner from "@/components/ui/center-spinner";
 import { getDefaultPreferences } from "@/types/user-preferences";
 import { Suspense } from "react";

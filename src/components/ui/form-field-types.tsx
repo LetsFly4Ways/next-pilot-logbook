@@ -519,14 +519,16 @@ export function ObjectDialogSelectField<T extends FieldValues, V>({
 					<Field>
 						<PositionedItem
 							role="button"
-							className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50"
+							className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50 w-full overflow-hidden" // Added w-full and overflow-hidden
 							onClick={onOpenDialog}
 						>
-							<span className="text-sm font-medium w-36">
+							<span className="text-sm font-medium w-36 shrink-0"> {/* Added shrink-0 to keep label width stable */}
 								{label}
 								{required && <span className="text-destructive ml-1">*</span>}
 							</span>
-							<div className="w-full ml-10 flex items-center justify-end gap-2 mr-2">
+
+							{/* The container for the value needs min-w-0 to allow truncation */}
+							<div className="min-w-0 flex-1 ml-4 flex items-center justify-end gap-2">
 								<span className="text-sm text-right truncate">
 									{display || (
 										<span className="text-muted-foreground">{placeholder}</span>

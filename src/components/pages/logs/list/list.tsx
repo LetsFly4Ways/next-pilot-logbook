@@ -12,8 +12,8 @@ import { format } from "date-fns";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
-import { FlightListItem } from "@/components/pages/logs/flight-list-item";
-import { SimulatorListItem } from "@/components/pages/logs/simulator-list-item";
+import { FlightListItem } from "@/components/pages/logs/list/flight-list-item";
+import { SimulatorListItem } from "@/components/pages/logs/list/simulator-list-item";
 import { ErrorContainer } from "@/components/ui/error-container";
 
 import { ChevronRight } from "lucide-react";

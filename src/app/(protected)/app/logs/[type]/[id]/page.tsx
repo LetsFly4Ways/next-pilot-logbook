@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import LogPage from "@/components/pages/logs/view";
+import LogPage from "@/components/pages/logs/info/view";
 import CenterSpinner from "@/components/ui/center-spinner";
 import { Metadata } from "next";
 import { fetchLog } from "@/actions/pages/logs/fetch";

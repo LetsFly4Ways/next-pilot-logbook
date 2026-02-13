@@ -1,4 +1,4 @@
-import LogsPage from "@/components/pages/logs/logs";
+import LogsPage from "@/components/pages/logs/list/logs";
 
 export const metadata = {
   title: "Logs",
