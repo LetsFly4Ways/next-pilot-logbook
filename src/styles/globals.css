@@ -73,11 +73,11 @@
 	/* Used in: dropdown-menu, select, etc. */
 	--popover-foreground: #24242c;
 	/* Used in: dropdown-menu, select, etc. */
-	--primary: #18181b;
+	--primary: #24242c;
 	/* Used in: Button, Badge, Switch, Checkbox, Crew/CrewForm, Fleet/FleetForm, etc. */
 	--primary-foreground: #ffffff;
 	/* Used in: Button, Badge, Switch, Checkbox, Crew/CrewForm, Fleet/FleetForm, etc. */
-	--secondary: #24242c;
+	--secondary: #3e3e47;
 	/* Used in: Button, Badge, Home page, etc. */
 	--secondary-hover: #0c1121;
 	/* Used in: Button, Home page, etc. */
@@ -151,7 +151,7 @@
 	--primary: #eaeaeb;
 	--primary-foreground: #dddddd;
 	--secondary: #464650;
-	--secondary-hover: #363642;
+	--secondary-hover: #2a2a34;
 	--secondary-foreground: #fbfbfb;
 	--muted: #464650;
 	--muted-foreground: #b4b4b8;
@@ -197,6 +197,10 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+	}
+
+	html {
+		scroll-behavior: smooth;
 	}
 
 	body {

@@ -8,7 +8,7 @@ import CenterSpinner from "@/components/ui/center-spinner";
 import ReactMarkdown from "react-markdown";
 import { MarkdownComponents } from "@/lib/markdown";
 
-async function ToSContent() {
+export async function ToSContent() {
   const file = await fetchStatement("terms_of_service.md");
 
   if (!file) {

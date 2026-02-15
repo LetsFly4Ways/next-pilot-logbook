@@ -9,7 +9,7 @@ import ReactMarkdown from "react-markdown";
 import { MarkdownComponents } from "@/lib/markdown";
 
 
-async function PrivacyContent() {
+export async function PrivacyContent() {
   const file = await fetchStatement("privacy.md");
 
   if (!file) {

@@ -8,7 +8,7 @@ import CenterSpinner from "@/components/ui/center-spinner";
 import ReactMarkdown from "react-markdown";
 import { MarkdownComponents } from "@/lib/markdown";
 
-async function LicenseContent() {
+export async function LicenseContent() {
   const file = await fetchStatement("license.md");
 
   if (!file) {
