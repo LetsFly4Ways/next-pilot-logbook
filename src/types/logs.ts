@@ -118,14 +118,23 @@ export const FlightFormSchema = BaseLogSchema.extend({
   }
 });
 
+/** Convenience type for PIC display in form */
+export const SelectedCrewSchema = z.object({
+  id: z.string().uuid(),
+  first_name: z.string(),
+  last_name: z.string(),
+});
+export type SelectedCrew = z.infer<typeof SelectedCrewSchema>;
+
 /**
  * Flight Input schema for form
  */
 export const FlightFormInputSchema = FlightFormSchema.extend({
-  // This is only for form convenience; not submitted
+  // Form convenience; not submitted
   aircraft: SelectedAircraftSchema.optional().nullable(),
   departure_airport: SelectedAirportSchema.nullable(),
   destination_airport: SelectedAirportSchema.nullable(),
+  pic: SelectedCrewSchema.nullable().optional(),
 });
 
 /**

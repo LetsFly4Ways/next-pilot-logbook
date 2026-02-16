@@ -3,28 +3,23 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { FleetAssetType } from "@/types/fleet";
-
 import { usePreferences } from "@/components/context/preferences-provider";
-import { FleetList } from "@/components/pages/fleet/list";
+import { CrewList } from "@/components/pages/crew/list";
 import { PageHeader } from "@/components/layout/page-header";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FleetFilterDropdown } from "@/components/pages/fleet/fleet-filter-dropdown";
 import {
   writeFlightFormSelection,
-  fleetToSelectedAircraft,
+  crewToSelectionPayload,
 } from "@/components/pages/logs/select/flight-form-selection";
 import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
 
 import { CircleX, Search, X } from "lucide-react";
 
-interface FleetSelectProps {
-  logType: "flight" | "simulator";
-}
-
-export default function FleetSelect({ logType }: FleetSelectProps) {
+export default function CrewSelect() {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
   const [currentId, setCurrentId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,20 +29,10 @@ export default function FleetSelect({ logType }: FleetSelectProps) {
     }
   }, []);
 
-  const { preferences } = usePreferences();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
-
-  const [assetTypes, setAssetTypes] = useState<FleetAssetType[]>(
-    logType === "simulator" ? ["simulator"] : ["aircraft"]
-  );
-
-  const title = logType === "flight" ? "Select Aircraft" : "Select Simulator";
-
   return (
     <div className="flex flex-col">
       <PageHeader
-        title={title}
+        title="Select PIC"
         backHref=""
         showBackButton
         isTopLevelPage={false}
@@ -88,38 +73,26 @@ export default function FleetSelect({ logType }: FleetSelectProps) {
               </Button>
             </div>
           ) : (
-            <div className="relative flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
-                onClick={() => setShowSearch(true)}
-              >
-                <Search className="h-4 w-4" />
-              </Button>
-
-              <FleetFilterDropdown
-                assetTypes={assetTypes}
-                onAssetTypesChange={setAssetTypes}
-                lockedAssetType={
-                  logType === "simulator" ? "simulator" : "aircraft"
-                }
-              />
-            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+              onClick={() => setShowSearch(true)}
+            >
+              <Search className="h-4 w-4" />
+            </Button>
           )
         }
       />
 
       <div className="p-4 md:p-6">
-        <FleetList
+        <CrewList
           searchQuery={searchQuery}
-          groupBy={preferences.fleet.grouping || "type"}
-          assetTypes={assetTypes}
           selectedId={currentId ?? undefined}
-          onSelect={(fleet) => {
+          onSelect={(crew) => {
             writeFlightFormSelection({
-              type: "aircraft",
-              payload: fleetToSelectedAircraft(fleet),
+              type: "crew",
+              payload: crewToSelectionPayload(crew),
             });
             clearSelectContext();
             router.back();

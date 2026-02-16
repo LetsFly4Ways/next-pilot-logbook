@@ -6,14 +6,19 @@ import { PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 
-import { ChevronRight } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 
 interface ListItemProps {
   fleet: Fleet;
   onSelect?: (fleet: Fleet) => void;
+  isSelected?: boolean;
 }
 
-export default function FleetListItem({ fleet, onSelect }: ListItemProps) {
+export default function FleetListItem({
+  fleet,
+  onSelect,
+  isSelected = false,
+}: ListItemProps) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -24,7 +29,6 @@ export default function FleetListItem({ fleet, onSelect }: ListItemProps) {
     }
   };
 
-
   return (
     <PositionedItem
       className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer"
@@ -33,14 +37,19 @@ export default function FleetListItem({ fleet, onSelect }: ListItemProps) {
       {/* LEFT COLUMN */}
       <div className="flex gap-2 min-w-0">
         <span className="font-medium shrink-0">{fleet.registration}</span>
-        {fleet.model && <Badge
-          variant="outline"
-          className="rounded flex items-center"
-        >{fleet.model}</Badge>}
+        {fleet.model && (
+          <Badge variant="outline" className="rounded flex items-center">
+            {fleet.model}
+          </Badge>
+        )}
       </div>
 
       {/* RIGHT COLUMN */}
-      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+      {isSelected ? (
+        <Check className="w-4 h-4 text-primary shrink-0" />
+      ) : (
+        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+      )}
     </PositionedItem>
   );
 }

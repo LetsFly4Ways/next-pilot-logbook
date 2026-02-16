@@ -5,25 +5,36 @@ import { Airport } from "@/types/airports";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PositionedItem } from "@/components/ui/positioned-group";
 
-import { ChevronRight, Star } from "lucide-react";
+import { Check, ChevronRight, Star } from "lucide-react";
 
 interface ListItemProps {
   airport: Airport;
-  isFavorite: boolean;
+  isFavorite?: boolean;
+  onSelect?: (airport: Airport) => void;
+  isSelected?: boolean;
 }
 
 export default function AirportListItem({
   airport,
   isFavorite = false,
+  onSelect,
+  isSelected = false,
 }: ListItemProps) {
   const router = useRouter();
+
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect(airport);
+    } else {
+      router.push(`/app/airports/${airport.icao}`);
+    }
+  };
 
   return (
     <PositionedItem
       className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer"
-      onClick={() => router.push(`/app/airports/${airport.icao}`)}
+      onClick={handleClick}
     >
-      {/* LEFT COLUMN */}
       <div className="min-w-0">
         <div className="flex items-center gap-2 min-w-0">
           <span className="font-medium shrink-0">{airport.icao}</span>
@@ -40,12 +51,15 @@ export default function AirportListItem({
         </span>
       </div>
 
-      {/* RIGHT COLUMN */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         {isFavorite && (
           <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
         )}
-        <ChevronRight className="w-4 h-4 text-muted-foreground" />
+        {isSelected ? (
+          <Check className="w-4 h-4 text-primary" />
+        ) : (
+          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+        )}
       </div>
     </PositionedItem>
   );
