@@ -12,9 +12,10 @@ import {
   crewToSelectionPayload,
   selfToSelectionPayload,
 } from "@/components/pages/logs/select/flight-form-selection";
-import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
+import { readSelectContext, clearSelectContext, writeSelectContext } from "@/components/pages/logs/select/select-context";
+import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 
-import { CircleX, Search, X } from "lucide-react";
+import { CircleX, Search, X, Check, ChevronRight } from "lucide-react";
 
 export default function CrewSelect() {
   const router = useRouter();
@@ -86,20 +87,38 @@ export default function CrewSelect() {
       />
 
       <div className="p-4 md:p-6 space-y-4">
-        <Button
-          variant="outline"
-          className="w-full justify-start"
-          onClick={() => {
-            writeFlightFormSelection({
-              type: "crew",
-              payload: selfToSelectionPayload(),
-            });
-            clearSelectContext();
-            router.back();
-          }}
-        >
-          <span className="font-medium">Self</span>
-        </Button>
+        <PositionedGroup>
+          <PositionedItem
+            className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer hover:bg-muted/50"
+            onClick={() => {
+              writeFlightFormSelection({
+                type: "crew",
+                payload: selfToSelectionPayload(),
+              });
+              // Update context to mark SELF as selected
+              const context = readSelectContext();
+              if (context) {
+                writeSelectContext({
+                  ...context,
+                  current: "__SELF__",
+                });
+              }
+              clearSelectContext();
+              router.back();
+            }}
+          >
+            <div className="min-w-0">
+              <span className="font-medium shrink-0">SELF</span>
+            </div>
+
+            <div className="flex gap-2">
+              {currentId === "__SELF__" && (
+                <Check className="w-4 h-4 text-blue-500 shrink-0" />
+              )}
+              <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+            </div>
+          </PositionedItem>
+        </PositionedGroup>
 
         <CrewList
           searchQuery={searchQuery}

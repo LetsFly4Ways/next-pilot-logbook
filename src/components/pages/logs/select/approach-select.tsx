@@ -72,7 +72,7 @@ export default function ApproachSelect() {
           <Button
             variant="default"
             size="sm"
-            className="font-medium"
+            className="font-medium cursor-pointer"
             onClick={handleSelect}
           >
             Select

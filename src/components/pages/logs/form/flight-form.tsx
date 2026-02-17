@@ -8,6 +8,7 @@ import { createFlight } from "@/actions/pages/logs/flight/create";
 import { deleteFlight } from "@/actions/pages/logs/flight/delete";
 import { fetchAsset } from "@/actions/pages/fleet/fetch";
 import { fetchCrewMember } from "@/actions/pages/crew/fetch";
+import { getAirportByIcao } from "@/actions/pages/airports/fetch";
 
 import {
   Flight,
@@ -235,15 +236,47 @@ export default function FlightForm({
     if (!flight || isLoading || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
 
-    const minimalAirport = (code: string): SelectedAirport => ({
-      icao: code,
-      iata: null,
-      name: "",
-      city: null,
-      country: "",
-      lat: null,
-      lon: null,
-    });
+    async function loadAirports() {
+      let departureAirport: SelectedAirport | null = null;
+      let destinationAirport: SelectedAirport | null = null;
+
+      // Fetch departure airport with full data (including lat/lon for night time calculation)
+      if (flight?.departure_airport_code) {
+        const result = await getAirportByIcao(flight.departure_airport_code);
+        if (result.success) {
+          const airport = result.data;
+          departureAirport = {
+            icao: airport.icao,
+            iata: airport.iata ?? null,
+            name: airport.name,
+            city: airport.city ?? null,
+            country: airport.countryName,
+            lat: airport.lat,
+            lon: airport.lon,
+          };
+        }
+      }
+
+      // Fetch destination airport with full data
+      if (flight?.destination_airport_code) {
+        const result = await getAirportByIcao(flight.destination_airport_code);
+        if (result.success) {
+          const airport = result.data;
+          destinationAirport = {
+            icao: airport.icao,
+            iata: airport.iata ?? null,
+            name: airport.name,
+            city: airport.city ?? null,
+            country: airport.countryName,
+            lat: airport.lat,
+            lon: airport.lon,
+          };
+        }
+      }
+
+      form.setValue("departure_airport", departureAirport);
+      form.setValue("destination_airport", destinationAirport);
+    }
 
     form.reset({
       date: flight.date,
@@ -252,14 +285,10 @@ export default function FlightForm({
       pic_id: flight.pic_id,
       pic: null,
       departure_airport_code: flight.departure_airport_code,
-      departure_airport: flight.departure_airport_code
-        ? minimalAirport(flight.departure_airport_code)
-        : null,
+      departure_airport: null, // Populated by loadAirports effect
       departure_runway: flight.departure_runway,
       destination_airport_code: flight.destination_airport_code,
-      destination_airport: flight.destination_airport_code
-        ? minimalAirport(flight.destination_airport_code)
-        : null,
+      destination_airport: null, // Populated by loadAirports effect
       destination_runway: flight.destination_runway,
       block_start: flight.block_start,
       block_end: flight.block_end,
@@ -309,11 +338,22 @@ export default function FlightForm({
             id: result.crew.id,
             first_name: result.crew.first_name,
             last_name: result.crew.last_name ?? "",
-            code: result.crew.company_id ?? ""
+            code: result.crew.company_id ?? "",
           });
         }
       });
+    } else if (flight.pic_id === null) {
+      // pic_id is null means SELF is the PIC
+      form.setValue("pic", {
+        id: null,
+        first_name: "Self",
+        last_name: "",
+        code: "SELF",
+      });
     }
+
+    // Load airports with full data (including coordinates)
+    loadAirports();
   }, [flight, isLoading, form]);
 
   // For new flights (no flight prop), ensure form is initialized once
@@ -372,7 +412,6 @@ export default function FlightForm({
       aircraft_id: values.aircraft?.id ?? "",
 
       // Remove the convenience fields that aren't in the database schema
-      // Set departure and destination airport code from object
     });
 
     if (isEdit && flight) {
@@ -589,8 +628,9 @@ export default function FlightForm({
               isLoading={isLoading}
               required
               onOpenDialog={() => {
+                const picId = form.getValues("pic_id");
                 writeSelectContext({
-                  current: form.getValues("pic_id") ?? null,
+                  current: picId === null ? "__SELF__" : picId,
                   return: pathname ?? "/app/logs/flight/new",
                 });
                 router.push("/app/logs/flight/crew-select");
