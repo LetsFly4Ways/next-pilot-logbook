@@ -42,11 +42,14 @@ export default function CrewListItem({
         <span className="font-medium shrink-0">{fullName}</span>
       </div>
 
-      {isSelected ? (
-        <Check className="w-4 h-4 text-primary shrink-0" />
-      ) : (
+      {/* RIGHT COLUMN */}
+      <div className="flex gap-2">
+        {isSelected && (
+          <Check className="w-4 h-4 shrink-0 text-blue-500 " />
+        )}
+
         <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-      )}
+      </div>
     </PositionedItem>
   );
 }

@@ -55,11 +55,10 @@ export default function AirportListItem({
         {isFavorite && (
           <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
         )}
-        {isSelected ? (
-          <Check className="w-4 h-4 text-primary" />
-        ) : (
-          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+        {isSelected && (
+          <Check className="w-4 h-4 text-blue-500" />
         )}
+        <ChevronRight className="w-4 h-4 text-muted-foreground" />
       </div>
     </PositionedItem>
   );

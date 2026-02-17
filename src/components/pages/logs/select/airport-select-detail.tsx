@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 
 import { getAirportByIcao } from "@/actions/pages/airports/fetch";
 import { PageHeader } from "@/components/layout/page-header";
-import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
-import { Skeleton } from "@/components/ui/skeleton";
+import { PositionedGroup } from "@/components/ui/positioned-group";
+
 import { Button } from "@/components/ui/button";
 import {
   writeFlightFormSelection,
@@ -14,28 +14,35 @@ import {
 } from "@/components/pages/logs/select/flight-form-selection";
 import { readSelectContext, clearSelectContext, writeSelectContext } from "@/components/pages/logs/select/select-context";
 import { Airport, Runway } from "@/types/airports";
-import { Check } from "lucide-react";
+
+import RunwaySelectRow, { RunwaySelectRowSkeleton } from "@/components/pages/logs/select/runway-select-item";
+import { AirportHeader, AirportHeaderSkeleton } from "../../airports/airport-header";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 export default function AirportSelectDetail() {
   const router = useRouter();
   const params = useParams();
   const icao = (params?.icao as string) ?? "";
-  
+
   const [airport, setAirport] = useState<Airport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [role, setRole] = useState<"departure" | "destination">("departure");
-  const [returnHref, setReturnHref] = useState<string>("/app/logs/flight/new");
-  const [selectedRunway, setSelectedRunway] = useState<string | null>(null);
-
-  useEffect(() => {
+  const [role] = useState<"departure" | "destination">(() => {
     const context = readSelectContext();
-    if (context) {
-      setRole(context.role ?? "departure");
-      setReturnHref(context.return ?? "/app/logs/flight/new");
-      setSelectedRunway(context.runway ?? null);
-    }
-  }, []);
+    return context?.role ?? "departure";
+  });
+  const [returnHref] = useState<string>(() => {
+    const context = readSelectContext();
+    return context?.return ?? "/app/logs/flight/new";
+  });
+  const [selectedRunway, setSelectedRunway] = useState<string | null>(() => {
+    const context = readSelectContext();
+    return context?.runway ?? null;
+  });
+  
+  // Back button always goes to airport-select-list
+  const backHref = "/app/logs/flight/airport-select";
 
   useEffect(() => {
     let cancelled = false;
@@ -76,17 +83,16 @@ export default function AirportSelectDetail() {
       <div className="flex flex-col">
         <PageHeader
           title={icao.toUpperCase()}
-          backHref={returnHref}
+          backHref={backHref}
           showBackButton
           isTopLevelPage={false}
         />
         <div className="p-4 md:p-6 space-y-4">
-          <Skeleton className="h-8 w-48" />
-          <PositionedGroup>
-            {[1, 2, 3].map((i) => (
-              <Skeleton key={i} className="h-12 w-full" />
-            ))}
-          </PositionedGroup>
+          <AirportHeaderSkeleton />
+
+          <Separator />
+
+          <RunwaySelectRowSkeleton />
         </div>
       </div>
     );
@@ -97,7 +103,7 @@ export default function AirportSelectDetail() {
       <div className="flex flex-col">
         <PageHeader
           title={icao.toUpperCase()}
-          backHref={returnHref}
+          backHref={backHref}
           showBackButton
           isTopLevelPage={false}
         />
@@ -115,14 +121,14 @@ export default function AirportSelectDetail() {
     <div className="flex flex-col">
       <PageHeader
         title={title}
-        backHref={returnHref}
+        backHref={backHref}
         showBackButton
         isTopLevelPage={false}
         actionButton={
           <Button
             variant="default"
             size="sm"
-            className="font-medium"
+            className="font-medium cursor-pointer"
             onClick={handleSelect}
           >
             Select
@@ -131,13 +137,9 @@ export default function AirportSelectDetail() {
       />
 
       <div className="p-4 md:p-6 space-y-6">
-        <div>
-          <p className="text-sm text-muted-foreground">
-            {airport.icao}
-            {airport.iata ? ` / ${airport.iata}` : ""} · {airport.city},{" "}
-            {airport.countryName}
-          </p>
-        </div>
+        <AirportHeader airport={airport} />
+
+        <Separator />
 
         <div>
           <h3 className="text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wide">
@@ -150,10 +152,9 @@ export default function AirportSelectDetail() {
           ) : (
             <PositionedGroup>
               {runways.map((rw) => (
-                <RunwayRow
+                <RunwaySelectRow
                   key={rw.ident}
-                  ident={rw.ident}
-                  heading={rw.heading}
+                  runway={rw}
                   selected={selectedRunway === rw.ident}
                   onSelect={() => {
                     const newRunway = selectedRunway === rw.ident ? null : rw.ident;
@@ -172,35 +173,21 @@ export default function AirportSelectDetail() {
             </PositionedGroup>
           )}
         </div>
+
+        <div className="w-full flex justify-center">
+          <span className="text-sm text-muted-foreground">
+            Found a mistake?{" "}
+            <Link
+              target="_blank"
+              href={`https://github.com/LetsFly4Ways/next-pilot-logbook/issues/new?template=airport-data-issues.md&title=[AIRPORT]+${airport.icao}+airport+data+issue`}
+              className="underline"
+            >
+              Create a ticket!
+            </Link>
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
-function RunwayRow({
-  ident,
-  heading,
-  selected,
-  onSelect,
-}: {
-  ident: string;
-  heading: string;
-  selected: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <PositionedItem
-      role="button"
-      className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer hover:bg-muted/50"
-      onClick={onSelect}
-    >
-      <div className="flex items-center gap-2 min-w-0">
-        <span className="font-medium">{ident}</span>
-        <span className="text-sm text-muted-foreground">{heading}°</span>
-      </div>
-      {selected ? (
-        <Check className="w-4 h-4 text-primary shrink-0" />
-      ) : null}
-    </PositionedItem>
-  );
-}

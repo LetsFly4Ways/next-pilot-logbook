@@ -1,31 +1,32 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 import { APPROACHES } from "@/lib/approach-types";
+
 import { PageHeader } from "@/components/layout/page-header";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 import { writeFlightFormSelection } from "@/components/pages/logs/select/flight-form-selection";
 import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
 import { Button } from "@/components/ui/button";
+
 import { Check, ChevronRight } from "lucide-react";
 
 export default function ApproachSelect() {
   const router = useRouter();
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [returnHref, setReturnHref] = useState<string>("/app/logs/flight/new");
-
-  useEffect(() => {
+  const [selected, setSelected] = useState<Set<string>>(() => {
     const context = readSelectContext();
-    if (context) {
-      setReturnHref(context.return ?? "/app/logs/flight/new");
-      if (context.selected) {
-        const titles = context.selected.split("|").filter(Boolean);
-        setSelected(new Set(titles));
-      }
+    if (context?.selected) {
+      const titles = context.selected.split("|").filter(Boolean);
+      return new Set(titles);
     }
-  }, []);
+    return new Set();
+  });
+  const [returnHref] = useState<string>(() => {
+    const context = readSelectContext();
+    return context?.return ?? "/app/logs/flight/new";
+  });
 
   const toggle = (title: string) => {
     setSelected((prev) => {
@@ -101,11 +102,13 @@ export default function ApproachSelect() {
                     onClick={() => toggle(a.title)}
                   >
                     <span className="font-medium">{a.title}</span>
-                    {selected.has(a.title) ? (
-                      <Check className="w-4 h-4 text-primary shrink-0" />
-                    ) : (
+
+                    <div className="flex gap-2">
+                      {selected.has(a.title) && (
+                        <Check className="w-4 h-4 text-blue-500 shrink-0" />
+                      )}
                       <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-                    )}
+                    </div>
                   </PositionedItem>
                 ))}
               </PositionedGroup>

@@ -45,11 +45,13 @@ export default function FleetListItem({
       </div>
 
       {/* RIGHT COLUMN */}
-      {isSelected ? (
-        <Check className="w-4 h-4 text-primary shrink-0" />
-      ) : (
+      <div className="flex gap-2">
+        {isSelected && (
+          <Check className="w-4 h-4 shrink-0 text-blue-500 " />
+        )}
+
         <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-      )}
+      </div>
     </PositionedItem>
   );
 }

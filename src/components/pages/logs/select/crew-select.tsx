@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { usePreferences } from "@/components/context/preferences-provider";
 import { CrewList } from "@/components/pages/crew/list";
 import { PageHeader } from "@/components/layout/page-header";
 import { Input } from "@/components/ui/input";
@@ -11,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import {
   writeFlightFormSelection,
   crewToSelectionPayload,
+  selfToSelectionPayload,
 } from "@/components/pages/logs/select/flight-form-selection";
 import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
 
@@ -20,20 +20,20 @@ export default function CrewSelect() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [currentId, setCurrentId] = useState<string | null>(null);
-
-  useEffect(() => {
+  const [currentId] = useState<string | null>(() => {
     const context = readSelectContext();
-    if (context) {
-      setCurrentId(context.current ?? null);
-    }
-  }, []);
+    return context?.current ?? null;
+  });
+  const [returnHref] = useState<string>(() => {
+    const context = readSelectContext();
+    return context?.return ?? "/app/logs/flight/new";
+  });
 
   return (
     <div className="flex flex-col">
       <PageHeader
         title="Select PIC"
-        backHref=""
+        backHref={returnHref}
         showBackButton
         isTopLevelPage={false}
         actionButton={
@@ -85,7 +85,22 @@ export default function CrewSelect() {
         }
       />
 
-      <div className="p-4 md:p-6">
+      <div className="p-4 md:p-6 space-y-4">
+        <Button
+          variant="outline"
+          className="w-full justify-start"
+          onClick={() => {
+            writeFlightFormSelection({
+              type: "crew",
+              payload: selfToSelectionPayload(),
+            });
+            clearSelectContext();
+            router.back();
+          }}
+        >
+          <span className="font-medium">Self</span>
+        </Button>
+
         <CrewList
           searchQuery={searchQuery}
           selectedId={currentId ?? undefined}

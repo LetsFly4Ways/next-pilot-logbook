@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { FleetAssetType } from "@/types/fleet";
@@ -25,14 +25,14 @@ interface FleetSelectProps {
 
 export default function FleetSelect({ logType }: FleetSelectProps) {
   const router = useRouter();
-  const [currentId, setCurrentId] = useState<string | null>(null);
-
-  useEffect(() => {
+  const [currentId] = useState<string | null>(() => {
     const context = readSelectContext();
-    if (context) {
-      setCurrentId(context.current ?? null);
-    }
-  }, []);
+    return context?.current ?? null;
+  });
+  const [returnHref] = useState<string>(() => {
+    const context = readSelectContext();
+    return context?.return ?? "/app/logs/flight/new";
+  });
 
   const { preferences } = usePreferences();
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,7 +48,7 @@ export default function FleetSelect({ logType }: FleetSelectProps) {
     <div className="flex flex-col">
       <PageHeader
         title={title}
-        backHref=""
+        backHref={returnHref}
         showBackButton
         isTopLevelPage={false}
         actionButton={

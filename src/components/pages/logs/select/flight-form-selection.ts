@@ -13,7 +13,16 @@ export type FlightFormSelectionType =
 
 export type FlightFormSelectionPayload =
   | { type: "aircraft"; payload: SelectedAircraft }
-  | { type: "crew"; payload: { id: string; first_name: string; last_name: string } }
+  | {
+      type: "crew";
+      payload: {
+        id: string | null;
+        first_name: string;
+        last_name: string;
+        code: string;
+        pic_is_self?: boolean;
+      };
+    }
   | {
       type: "departure_airport";
       payload: { airport: SelectedAirport; runway: string | null };
@@ -24,7 +33,9 @@ export type FlightFormSelectionPayload =
     }
   | { type: "approaches"; payload: string[] };
 
-export function writeFlightFormSelection(selection: FlightFormSelectionPayload): void {
+export function writeFlightFormSelection(
+  selection: FlightFormSelectionPayload,
+): void {
   if (typeof sessionStorage === "undefined") return;
   sessionStorage.setItem(KEY, JSON.stringify(selection));
 }
@@ -67,18 +78,36 @@ export function crewToSelectionPayload(crew: Crew): {
   id: string;
   first_name: string;
   last_name: string;
+  code: string;
 } {
   return {
     id: crew.id,
     first_name: crew.first_name,
     last_name: crew.last_name ?? "",
+    code: crew.company_id ?? "",
+  };
+}
+
+/** Create a "self" payload for PIC selection (pic_id = null, pic_is_self = true) */
+export function selfToSelectionPayload(): {
+  id: null;
+  first_name: string;
+  last_name: string;
+  code: string;
+  pic_is_self: boolean;
+} {
+  return {
+    id: null,
+    first_name: "Self",
+    last_name: "",
+    code: "SELF",
+    pic_is_self: true,
   };
 }
 
 /** Map Airport (from API) to SelectedAirport for form */
 export function airportToSelectedAirport(airport: Airport): SelectedAirport {
-  const iata =
-    airport.iata && airport.iata.length === 3 ? airport.iata : null;
+  const iata = airport.iata && airport.iata.length === 3 ? airport.iata : null;
   return {
     icao: airport.icao,
     iata,

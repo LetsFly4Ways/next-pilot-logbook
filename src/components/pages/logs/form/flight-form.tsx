@@ -7,6 +7,7 @@ import { updateFlight } from "@/actions/pages/logs/flight/update";
 import { createFlight } from "@/actions/pages/logs/flight/create";
 import { deleteFlight } from "@/actions/pages/logs/flight/delete";
 import { fetchAsset } from "@/actions/pages/fleet/fetch";
+import { fetchCrewMember } from "@/actions/pages/crew/fetch";
 
 import {
   Flight,
@@ -140,7 +141,12 @@ export default function FlightForm({
         break;
       case "crew":
         form.setValue("pic_id", selection.payload.id);
-        form.setValue("pic", selection.payload);
+        form.setValue("pic", {
+          id: selection.payload.id,
+          first_name: selection.payload.first_name,
+          last_name: selection.payload.last_name,
+          code: selection.payload.code,
+        });
         break;
       case "departure_airport":
         form.setValue("departure_airport", selection.payload.airport);
@@ -174,7 +180,12 @@ export default function FlightForm({
             break;
           case "crew":
             form.setValue("pic_id", selection.payload.id);
-            form.setValue("pic", selection.payload);
+            form.setValue("pic", {
+              id: selection.payload.id,
+              first_name: selection.payload.first_name,
+              last_name: selection.payload.last_name,
+              code: selection.payload.code,
+            });
             break;
           case "departure_airport":
             form.setValue("departure_airport", selection.payload.airport);
@@ -289,6 +300,20 @@ export default function FlightForm({
       remarks: flight.remarks,
       training_description: flight.training_description,
     });
+
+    // Fetch PIC data if pic_id exists
+    if (flight.pic_id) {
+      fetchCrewMember(flight.pic_id).then((result) => {
+        if (result.crew) {
+          form.setValue("pic", {
+            id: result.crew.id,
+            first_name: result.crew.first_name,
+            last_name: result.crew.last_name ?? "",
+            code: result.crew.company_id ?? ""
+          });
+        }
+      });
+    }
   }, [flight, isLoading, form]);
 
   // For new flights (no flight prop), ensure form is initialized once
@@ -480,25 +505,6 @@ export default function FlightForm({
               }
             />
 
-            <ObjectDialogSelectField<
-              FlightFormInput,
-              { id: string; first_name: string; last_name: string }
-            >
-              name="pic"
-              label="PIC"
-              isLoading={isLoading}
-              onOpenDialog={() => {
-                writeSelectContext({
-                  current: form.getValues("pic_id") ?? null,
-                  return: pathname ?? "/app/logs/flight/new",
-                });
-                router.push("/app/logs/flight/crew-select");
-              }}
-              placeholder="select"
-              displayValue={(pic) =>
-                pic ? `${pic.first_name} ${pic.last_name}`.trim() : null
-              }
-            />
             <TextField<FlightFormInput>
               name="flight_number"
               label="Flight Number"
@@ -536,7 +542,7 @@ export default function FlightForm({
               displayValue={(ap) => {
                 if (!ap) return null;
                 const runway = form.getValues("departure_runway");
-                return runway ? `${ap.icao} · ${runway}` : ap.icao;
+                return runway ? `${ap.icao} | ${runway}` : ap.icao;
               }}
             />
             <ObjectDialogSelectField<
@@ -560,10 +566,50 @@ export default function FlightForm({
               displayValue={(ap) => {
                 if (!ap) return null;
                 const runway = form.getValues("destination_runway");
-                return runway ? `${ap.icao} · ${runway}` : ap.icao;
+                return runway ? `${ap.icao} | ${runway}` : ap.icao;
               }}
             />
           </PositionedGroup>
+        </div>
+
+        {/* Crew & Function */}
+        <div>
+          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+            Crew Information
+          </h3>
+
+          {/* PIC */}
+          <PositionedGroup>
+            <ObjectDialogSelectField<
+              FlightFormInput,
+              { id: string; first_name: string; last_name: string; code: string }
+            >
+              name="pic"
+              label="PIC"
+              isLoading={isLoading}
+              required
+              onOpenDialog={() => {
+                writeSelectContext({
+                  current: form.getValues("pic_id") ?? null,
+                  return: pathname ?? "/app/logs/flight/new",
+                });
+                router.push("/app/logs/flight/crew-select");
+              }}
+              placeholder="select"
+              displayValue={(pic) => {
+                if (!pic) return null;
+                // Handle SELF case
+                if (pic.first_name === "Self") {
+                  return "SELF";
+                }
+                const name = `${pic.first_name} ${pic.last_name}`.trim();
+                const code = `${pic.code}`;
+                return code ? `${name} | ${code}` : name;
+              }}
+            />
+          </PositionedGroup>
+
+          {/* Function */}
         </div>
 
         {/* Time Table */}
@@ -694,33 +740,33 @@ export default function FlightForm({
 
         {(preferences.logging.fields.passengers ||
           preferences.logging.fields.fuel) && (
-          <div>
-            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-              Miscellaneous Information
-            </h3>
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                Miscellaneous Information
+              </h3>
 
-            <PositionedGroup>
-              {preferences.logging.fields.passengers && (
-                <TextField<FlightFormInput>
-                  name="passengers"
-                  label="Passengers"
-                  type="number"
-                  isLoading={isLoading}
-                />
-              )}
+              <PositionedGroup>
+                {preferences.logging.fields.passengers && (
+                  <TextField<FlightFormInput>
+                    name="passengers"
+                    label="Passengers"
+                    type="number"
+                    isLoading={isLoading}
+                  />
+                )}
 
-              {preferences.logging.fields.fuel && (
-                <TextField<FlightFormInput>
-                  name="fuel"
-                  label="Fuel"
-                  placeholder="KG"
-                  type="number"
-                  isLoading={isLoading}
-                />
-              )}
-            </PositionedGroup>
-          </div>
-        )}
+                {preferences.logging.fields.fuel && (
+                  <TextField<FlightFormInput>
+                    name="fuel"
+                    label="Fuel"
+                    placeholder="KG"
+                    type="number"
+                    isLoading={isLoading}
+                  />
+                )}
+              </PositionedGroup>
+            </div>
+          )}
 
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { SortBy } from "@/types/airports";
@@ -27,18 +27,18 @@ export default function AirportSelectList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortBy>("country");
   const [showSearch, setShowSearch] = useState(false);
-  const [role, setRole] = useState<"departure" | "destination">("departure");
-  const [currentIcao, setCurrentIcao] = useState<string | null>(null);
-  const [returnHref, setReturnHref] = useState<string>("/app/logs/flight/new");
-
-  useEffect(() => {
+  const [role] = useState<"departure" | "destination">(() => {
     const context = readSelectContext();
-    if (context) {
-      setRole(context.role ?? "departure");
-      setCurrentIcao(context.current ?? null);
-      setReturnHref(context.return ?? "/app/logs/flight/new");
-    }
-  }, []);
+    return context?.role ?? "departure";
+  });
+  const [currentIcao] = useState<string | null>(() => {
+    const context = readSelectContext();
+    return context?.current ?? null;
+  });
+  const [returnHref] = useState<string>(() => {
+    const context = readSelectContext();
+    return context?.return ?? "/app/logs/flight/new";
+  });
 
   const title =
     role === "departure" ? "Select departure airport" : "Select destination airport";
@@ -50,6 +50,7 @@ export default function AirportSelectList() {
       writeSelectContext({
         ...context,
         current: icao,
+        runway: null, // Clear runway when switching airports
       });
     }
     return `/app/logs/flight/airport-select/${icao}`;

@@ -120,9 +120,10 @@ export const FlightFormSchema = BaseLogSchema.extend({
 
 /** Convenience type for PIC display in form */
 export const SelectedCrewSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid().nullable(),
   first_name: z.string(),
   last_name: z.string(),
+  code: z.string(),
 });
 export type SelectedCrew = z.infer<typeof SelectedCrewSchema>;
 
