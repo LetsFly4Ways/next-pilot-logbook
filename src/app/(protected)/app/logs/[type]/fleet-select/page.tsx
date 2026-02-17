@@ -4,11 +4,7 @@ import { Metadata } from "next";
 import FleetSelect from "@/components/pages/logs/select/fleet-select";
 import CenterSpinner from "@/components/ui/center-spinner";
 
-
-type Params = Promise<{
-  id: string;
-  type: "flight" | "simulator";
-}>;
+type Params = Promise<{ type: "flight" | "simulator" }>;
 
 /* ========================= Metadata ========================= */
 
@@ -39,15 +35,11 @@ export async function generateMetadata({
   };
 }
 
-
 /* ========================= Page ========================= */
 
 async function PageWrapper({ params }: { params: Params }) {
-  const { id, type } = await params;
-
-  return (
-    <FleetSelect logId={id} logType={type} />
-  )
+  const { type } = await params;
+  return <FleetSelect logType={type} />;
 }
 
 export default function Page({ params }: { params: Params }) {

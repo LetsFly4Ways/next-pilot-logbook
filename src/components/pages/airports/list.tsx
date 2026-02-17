@@ -27,12 +27,16 @@ interface AirportsListProps {
   searchQuery: string;
   sortBy: SortBy;
   showFavoritesOnly: boolean;
+  onSelect?: (airport: Airport) => void;
+  selectedIcao?: string | null;
 }
 
 export function AirportsList({
   searchQuery,
   sortBy,
   showFavoritesOnly,
+  onSelect,
+  selectedIcao = null,
 }: AirportsListProps) {
   const [airports, setAirports] = useState<Airport[]>([]);
   const [favoriteIcaos, setFavoriteIcaos] = useState<string[]>([]);
@@ -198,6 +202,12 @@ export function AirportsList({
                             key={airport.icao}
                             airport={airport}
                             isFavorite={isFavorite(airport.icao)}
+                            onSelect={onSelect}
+                            isSelected={
+                              selectedIcao != null &&
+                              airport.icao.toUpperCase() ===
+                                selectedIcao.toUpperCase()
+                            }
                           />
                         ))}
                       </PositionedGroup>

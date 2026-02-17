@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import { updateFlight } from "@/actions/pages/logs/flight/update";
 import { createFlight } from "@/actions/pages/logs/flight/create";
 import { deleteFlight } from "@/actions/pages/logs/flight/delete";
 import { fetchAsset } from "@/actions/pages/fleet/fetch";
+import { fetchCrewMember } from "@/actions/pages/crew/fetch";
 
 import {
   Flight,
@@ -28,6 +29,12 @@ import {
   getDraftFromCookie,
   saveDraftToCookie,
 } from "@/components/pages/logs/form/flight-cookie-helper";
+import {
+  readFlightFormSelection,
+  clearFlightFormSelection,
+  fleetToSelectedAircraft,
+} from "@/components/pages/logs/select/flight-form-selection";
+import { writeSelectContext } from "@/components/pages/logs/select/select-context";
 
 import LogForm from "@/components/pages/logs/form/form";
 
@@ -40,21 +47,19 @@ import {
   TimeInputField,
 } from "@/components/ui/form-field-types";
 import { PositionedGroup } from "@/components/ui/positioned-group";
-import {
-  clearSelectedFleet,
-  readSelectedFleet,
-} from "@/components/pages/logs/select/selected-fleet-asset";
-import TimeTable, { TimeTableField } from "@/components/pages/logs/form/time-table";
+import TimeTable, {
+  TimeTableField,
+} from "@/components/pages/logs/form/time-table";
 import { NightTimeDurationInputField } from "@/components/pages/logs/form/night-time-input";
 import { ManoeuvresField } from "@/components/pages/logs/form/manoeuvre-field";
 import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
-import { Approach } from "@/types/approach";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
   aircraft_id: "",
   aircraft: null,
   pic_id: null,
+  pic: null,
   departure_airport_code: "",
   departure_airport: null,
   departure_runway: null,
@@ -108,29 +113,15 @@ interface FlightFormProps {
   preferences: UserPreferences;
 }
 
-// Helper to read and convert fleet from sessionStorage
-function getSelectedFleetAsAircraft(): SelectedAircraft | null {
-  const selected = readSelectedFleet();
-  if (!selected) return null;
-
-  return {
-    id: selected.id ?? "",
-    registration: selected.registration ?? "",
-    type: selected.type ?? "",
-    model: selected.model ?? "",
-    isSimulator: selected.is_simulator ?? false,
-  };
-}
-
 export default function FlightForm({
   flight,
   isEdit = false,
   isLoading,
-  preferences
+  preferences,
 }: FlightFormProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
-  // Track if we've done initial form setup
   const hasInitializedForm = useRef(false);
   const hasFetchedAircraft = useRef(false);
 
@@ -139,64 +130,103 @@ export default function FlightForm({
     defaultValues: emptyValues,
   });
 
-  // Poll for sessionStorage changes when component is visible
-  // This handles the case where user navigates back from fleet-select
+  // Single reader: handle any selection returned from select pages
   useEffect(() => {
-    const checkStorage = () => {
-      const selected = getSelectedFleetAsAircraft();
-      if (selected) {
-        form.setValue("aircraft", selected);
-        clearSelectedFleet();
+    const selection = readFlightFormSelection();
+    if (!selection) return;
+
+    switch (selection.type) {
+      case "aircraft":
+        form.setValue("aircraft", selection.payload);
+        break;
+      case "crew":
+        form.setValue("pic_id", selection.payload.id);
+        form.setValue("pic", {
+          id: selection.payload.id,
+          first_name: selection.payload.first_name,
+          last_name: selection.payload.last_name,
+          code: selection.payload.code,
+        });
+        break;
+      case "departure_airport":
+        form.setValue("departure_airport", selection.payload.airport);
+        form.setValue("departure_airport_code", selection.payload.airport.icao);
+        form.setValue("departure_runway", selection.payload.runway);
+        break;
+      case "destination_airport":
+        form.setValue("destination_airport", selection.payload.airport);
+        form.setValue(
+          "destination_airport_code",
+          selection.payload.airport.icao,
+        );
+        form.setValue("destination_runway", selection.payload.runway);
+        break;
+      case "approaches":
+        form.setValue("approaches", selection.payload);
+        break;
+    }
+    clearFlightFormSelection();
+  }, [form]);
+
+  // Poll briefly after mount so we pick up selection when navigating back
+  useEffect(() => {
+    const t = setInterval(() => {
+      const selection = readFlightFormSelection();
+      if (selection) {
+        clearFlightFormSelection();
+        switch (selection.type) {
+          case "aircraft":
+            form.setValue("aircraft", selection.payload);
+            break;
+          case "crew":
+            form.setValue("pic_id", selection.payload.id);
+            form.setValue("pic", {
+              id: selection.payload.id,
+              first_name: selection.payload.first_name,
+              last_name: selection.payload.last_name,
+              code: selection.payload.code,
+            });
+            break;
+          case "departure_airport":
+            form.setValue("departure_airport", selection.payload.airport);
+            form.setValue(
+              "departure_airport_code",
+              selection.payload.airport.icao,
+            );
+            form.setValue("departure_runway", selection.payload.runway);
+            break;
+          case "destination_airport":
+            form.setValue("destination_airport", selection.payload.airport);
+            form.setValue(
+              "destination_airport_code",
+              selection.payload.airport.icao,
+            );
+            form.setValue("destination_runway", selection.payload.runway);
+            break;
+          case "approaches":
+            form.setValue("approaches", selection.payload);
+            break;
+        }
       }
-    };
-
-    // Check immediately
-    checkStorage();
-
-    // Set up interval to check periodically (handles navigation back)
-    const interval = setInterval(checkStorage, 100);
-
-    // Clean up after a short time - selection should be picked up quickly
-    const timeout = setTimeout(() => {
-      clearInterval(interval);
-    }, 2000);
-
+    }, 100);
+    const timeout = setTimeout(() => clearInterval(t), 2000);
     return () => {
-      clearInterval(interval);
+      clearInterval(t);
       clearTimeout(timeout);
     };
   }, [form]);
 
-  // Fetch aircraft data when editing a flight
+  // Fetch aircraft when editing
   useEffect(() => {
     if (!flight?.aircraft_id || hasFetchedAircraft.current) return;
-
-    // Check sessionStorage first - if user just selected an aircraft, use that
-    const selectedFromStorage = getSelectedFleetAsAircraft();
-    if (selectedFromStorage) {
-      hasFetchedAircraft.current = true;
-      form.setValue("aircraft", selectedFromStorage);
-      clearSelectedFleet();
-      return;
-    }
-
-    // Otherwise fetch the aircraft from the database
     hasFetchedAircraft.current = true;
 
     async function loadAircraft() {
       const { asset } = await fetchAsset(flight!.aircraft_id);
       if (asset) {
-        const aircraft: SelectedAircraft = {
-          id: asset.id,
-          registration: asset.registration,
-          type: asset.type ?? "",
-          model: asset.model ?? "",
-          isSimulator: asset.is_simulator,
-        };
-        form.setValue("aircraft", aircraft);
+        form.setValue("aircraft", fleetToSelectedAircraft(asset));
       }
     }
-
     loadAircraft();
   }, [flight, flight?.aircraft_id, form]);
 
@@ -205,34 +235,31 @@ export default function FlightForm({
     if (!flight || isLoading || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
 
-    // Check sessionStorage first in case there's a pending selection
-    const selectedFromStorage = getSelectedFleetAsAircraft();
-
-    if (selectedFromStorage) {
-      clearSelectedFleet();
-    }
-
-    // -------------- TESTING -------------- //
-    const testAirport: SelectedAirport = {
-      icao: "EBBR",
-      iata: "BRU",
-      name: "Brussels Airport",
-      city: "Brussels",
-      country: "Belgium",
-      lat: 50.9014015198,
-      lon: 4.4844398499,
-    };
+    const minimalAirport = (code: string): SelectedAirport => ({
+      icao: code,
+      iata: null,
+      name: "",
+      city: null,
+      country: "",
+      lat: null,
+      lon: null,
+    });
 
     form.reset({
       date: flight.date,
       aircraft_id: flight.aircraft_id,
-      aircraft: selectedFromStorage ?? null, // Will be populated by the fetch effect
+      aircraft: null, // Populated by fetch effect
       pic_id: flight.pic_id,
+      pic: null,
       departure_airport_code: flight.departure_airport_code,
-      departure_airport: testAirport, // TESTING
+      departure_airport: flight.departure_airport_code
+        ? minimalAirport(flight.departure_airport_code)
+        : null,
       departure_runway: flight.departure_runway,
       destination_airport_code: flight.destination_airport_code,
-      destination_airport: testAirport, // TESTING
+      destination_airport: flight.destination_airport_code
+        ? minimalAirport(flight.destination_airport_code)
+        : null,
       destination_runway: flight.destination_runway,
       block_start: flight.block_start,
       block_end: flight.block_end,
@@ -273,18 +300,26 @@ export default function FlightForm({
       remarks: flight.remarks,
       training_description: flight.training_description,
     });
+
+    // Fetch PIC data if pic_id exists
+    if (flight.pic_id) {
+      fetchCrewMember(flight.pic_id).then((result) => {
+        if (result.crew) {
+          form.setValue("pic", {
+            id: result.crew.id,
+            first_name: result.crew.first_name,
+            last_name: result.crew.last_name ?? "",
+            code: result.crew.company_id ?? ""
+          });
+        }
+      });
+    }
   }, [flight, isLoading, form]);
 
-  // For new flights (no flight prop), initialize with sessionStorage if available
+  // For new flights (no flight prop), ensure form is initialized once
   useEffect(() => {
     if (flight || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
-
-    const selectedFromStorage = getSelectedFleetAsAircraft();
-    if (selectedFromStorage) {
-      form.setValue("aircraft", selectedFromStorage);
-      clearSelectedFleet();
-    }
   }, [flight, form]);
 
   // Watch the time fields
@@ -297,7 +332,10 @@ export default function FlightForm({
 
   // Update total_block_minutes when block times change
   useEffect(() => {
-    const minutes = calculateDurationMinutes(blockStart ?? null, blockEnd ?? null);
+    const minutes = calculateDurationMinutes(
+      blockStart ?? null,
+      blockEnd ?? null,
+    );
     const currentValue = form.getValues("total_block_minutes");
     if (minutes !== currentValue) {
       form.setValue("total_block_minutes", minutes, { shouldValidate: false });
@@ -306,7 +344,10 @@ export default function FlightForm({
 
   // Update total_air_minutes when flight times change
   useEffect(() => {
-    const minutes = calculateDurationMinutes(flightStart ?? null, flightEnd ?? null);
+    const minutes = calculateDurationMinutes(
+      flightStart ?? null,
+      flightEnd ?? null,
+    );
     const currentValue = form.getValues("total_air_minutes");
     if (minutes !== currentValue) {
       form.setValue("total_air_minutes", minutes, { shouldValidate: false });
@@ -315,7 +356,10 @@ export default function FlightForm({
 
   // Update total_air_minutes when flight times change
   useEffect(() => {
-    const minutes = calculateDurationMinutes(dutyStart ?? null, dutyEnd ?? null);
+    const minutes = calculateDurationMinutes(
+      dutyStart ?? null,
+      dutyEnd ?? null,
+    );
     const currentValue = form.getValues("duty_time_minutes");
     if (minutes !== currentValue) {
       form.setValue("duty_time_minutes", minutes, { shouldValidate: false });
@@ -347,7 +391,7 @@ export default function FlightForm({
       onKey: "block_end",
       required: true,
       visible: true,
-      inputType: "time" as const
+      inputType: "time" as const,
     },
     {
       label: "Flight",
@@ -355,7 +399,7 @@ export default function FlightForm({
       onKey: "flight_end",
       required: true,
       visible: true,
-      inputType: "time" as const
+      inputType: "time" as const,
     },
 
     // Optional Fields
@@ -365,7 +409,7 @@ export default function FlightForm({
       onKey: "duty_end",
       required: false,
       visible: preferences.logging.fields.duty,
-      inputType: "time" as const
+      inputType: "time" as const,
     },
     {
       label: "Scheduled",
@@ -373,7 +417,7 @@ export default function FlightForm({
       onKey: "scheduled_end",
       required: false,
       visible: preferences.logging.fields.scheduled,
-      inputType: "time" as const
+      inputType: "time" as const,
     },
 
     // Hobbs & Tach
@@ -383,7 +427,7 @@ export default function FlightForm({
       onKey: "hobbs_end",
       required: false,
       visible: preferences.logging.fields.hobbs,
-      inputType: "number" as const
+      inputType: "number" as const,
     },
     {
       label: "Tach",
@@ -391,14 +435,14 @@ export default function FlightForm({
       onKey: "tach_end",
       required: false,
       visible: preferences.logging.fields.tach,
-      inputType: "number" as const
+      inputType: "number" as const,
     },
-  ]
+  ];
 
   const handleDelete = async () => {
     if (flight?.id) {
       await deleteFlight(flight.id);
-    };
+    }
   };
 
   const shouldSaveDraft = (values: FlightFormInput) => {
@@ -445,11 +489,19 @@ export default function FlightForm({
               name="aircraft"
               label="Aircraft"
               isLoading={isLoading}
-              onOpenDialog={() => router.push("/app/logs/flight/fleet-select")}
+              onOpenDialog={() => {
+                writeSelectContext({
+                  current: form.getValues("aircraft")?.id ?? null,
+                  return: pathname ?? "/app/logs/flight/new",
+                });
+                router.push("/app/logs/flight/fleet-select");
+              }}
               placeholder="select"
               required
               displayValue={(aircraft) =>
-                aircraft ? `${aircraft.registration} ${(aircraft.model || aircraft.type) && `| ${aircraft.model || aircraft.type}`}` : null
+                aircraft
+                  ? `${aircraft.registration}${aircraft.model || aircraft.type ? ` | ${aircraft.model || aircraft.type}` : ""}`
+                  : null
               }
             />
 
@@ -469,10 +521,95 @@ export default function FlightForm({
           </h3>
 
           <PositionedGroup>
-            {/* Dialog select departure + departure runway */}
-
-            {/* Dialog select destination + destination runway */}
+            <ObjectDialogSelectField<
+              FlightFormInput,
+              SelectedAirport & { runway?: string | null }
+            >
+              name="departure_airport"
+              label="Departure"
+              isLoading={isLoading}
+              onOpenDialog={() => {
+                writeSelectContext({
+                  role: "departure",
+                  current: form.getValues("departure_airport")?.icao ?? null,
+                  return: pathname ?? "/app/logs/flight/new",
+                  runway: form.getValues("departure_runway") ?? null,
+                });
+                router.push("/app/logs/flight/airport-select");
+              }}
+              placeholder="select"
+              required
+              displayValue={(ap) => {
+                if (!ap) return null;
+                const runway = form.getValues("departure_runway");
+                return runway ? `${ap.icao} | ${runway}` : ap.icao;
+              }}
+            />
+            <ObjectDialogSelectField<
+              FlightFormInput,
+              SelectedAirport & { runway?: string | null }
+            >
+              name="destination_airport"
+              label="Destination"
+              isLoading={isLoading}
+              onOpenDialog={() => {
+                writeSelectContext({
+                  role: "destination",
+                  current: form.getValues("destination_airport")?.icao ?? null,
+                  return: pathname ?? "/app/logs/flight/new",
+                  runway: form.getValues("destination_runway") ?? null,
+                });
+                router.push("/app/logs/flight/airport-select");
+              }}
+              placeholder="select"
+              required
+              displayValue={(ap) => {
+                if (!ap) return null;
+                const runway = form.getValues("destination_runway");
+                return runway ? `${ap.icao} | ${runway}` : ap.icao;
+              }}
+            />
           </PositionedGroup>
+        </div>
+
+        {/* Crew & Function */}
+        <div>
+          <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+            Crew Information
+          </h3>
+
+          {/* PIC */}
+          <PositionedGroup>
+            <ObjectDialogSelectField<
+              FlightFormInput,
+              { id: string; first_name: string; last_name: string; code: string }
+            >
+              name="pic"
+              label="PIC"
+              isLoading={isLoading}
+              required
+              onOpenDialog={() => {
+                writeSelectContext({
+                  current: form.getValues("pic_id") ?? null,
+                  return: pathname ?? "/app/logs/flight/new",
+                });
+                router.push("/app/logs/flight/crew-select");
+              }}
+              placeholder="select"
+              displayValue={(pic) => {
+                if (!pic) return null;
+                // Handle SELF case
+                if (pic.first_name === "Self") {
+                  return "SELF";
+                }
+                const name = `${pic.first_name} ${pic.last_name}`.trim();
+                const code = `${pic.code}`;
+                return code ? `${name} | ${code}` : name;
+              }}
+            />
+          </PositionedGroup>
+
+          {/* Function */}
         </div>
 
         {/* Time Table */}
@@ -481,9 +618,7 @@ export default function FlightForm({
             Time Information
           </h3>
 
-          <TimeTable<FlightFormInput>
-            fields={tableFields}
-          />
+          <TimeTable<FlightFormInput> fields={tableFields} />
         </div>
 
         {/* Time Fields */}
@@ -530,7 +665,6 @@ export default function FlightForm({
                 name="night_time_minutes"
                 label="Night Time"
                 isLoading={isLoading}
-
                 dateField="date"
                 flightStartField="block_start"
                 flightEndField="block_end"
@@ -563,7 +697,6 @@ export default function FlightForm({
               dayLandingsField="day_landings"
               nightLandingsField="night_landings"
               isLoading={isLoading}
-
               dateField="date"
               flightStartField="flight_start"
               flightEndField="flight_end"
@@ -572,17 +705,24 @@ export default function FlightForm({
             />
 
             <PositionedGroup>
-              {/* Approaches */}
               {preferences.logging.fields.approaches && (
-                <ObjectDialogSelectField<FlightFormInput, Approach>
+                <ObjectDialogSelectField<FlightFormInput, string[]>
                   name="approaches"
                   label="Approaches"
                   isLoading={isLoading}
-                  onOpenDialog={() => router.push("/app/logs/flight/approach-select")}
+                  onOpenDialog={() => {
+                    const approaches = form.getValues("approaches") ?? [];
+                    writeSelectContext({
+                      selected:
+                        approaches.length > 0
+                          ? approaches.join("|")
+                          : undefined,
+                      return: pathname ?? "/app/logs/flight/new",
+                    });
+                    router.push("/app/logs/flight/approach-select");
+                  }}
                   placeholder="select"
-                  displayValue={(approach) =>
-                    approach ? `${approach}` : null
-                  }
+                  displayValue={(arr) => (arr?.length ? arr.join(", ") : null)}
                 />
               )}
 
@@ -598,34 +738,35 @@ export default function FlightForm({
           </div>
         </div>
 
-        {(preferences.logging.fields.passengers || preferences.logging.fields.fuel) && (
-          <div>
-            <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-              Miscellaneous Information
-            </h3>
+        {(preferences.logging.fields.passengers ||
+          preferences.logging.fields.fuel) && (
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                Miscellaneous Information
+              </h3>
 
-            <PositionedGroup>
-              {preferences.logging.fields.passengers && (
-                <TextField<FlightFormInput>
-                  name="passengers"
-                  label="Passengers"
-                  type="number"
-                  isLoading={isLoading}
-                />
-              )}
+              <PositionedGroup>
+                {preferences.logging.fields.passengers && (
+                  <TextField<FlightFormInput>
+                    name="passengers"
+                    label="Passengers"
+                    type="number"
+                    isLoading={isLoading}
+                  />
+                )}
 
-              {preferences.logging.fields.fuel && (
-                <TextField<FlightFormInput>
-                  name="fuel"
-                  label="Fuel"
-                  placeholder="KG"
-                  type="number"
-                  isLoading={isLoading}
-                />
-              )}
-            </PositionedGroup>
-          </div>
-        )}
+                {preferences.logging.fields.fuel && (
+                  <TextField<FlightFormInput>
+                    name="fuel"
+                    label="Fuel"
+                    placeholder="KG"
+                    type="number"
+                    isLoading={isLoading}
+                  />
+                )}
+              </PositionedGroup>
+            </div>
+          )}
 
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">

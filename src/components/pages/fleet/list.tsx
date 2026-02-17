@@ -62,12 +62,19 @@ function groupFleet(
 
 interface FleetListProps {
   searchQuery: string;
-  groupBy: FleetGroupBy
+  groupBy: FleetGroupBy;
   assetTypes?: FleetAssetType[];
   onSelect?: (fleet: Fleet) => void;
+  selectedId?: string | null;
 }
 
-export function FleetList({ searchQuery, groupBy = "type", assetTypes, onSelect }: FleetListProps) {
+export function FleetList({
+  searchQuery,
+  groupBy = "type",
+  assetTypes,
+  onSelect,
+  selectedId = null,
+}: FleetListProps) {
   const [fleet, setFleet] = useState<Fleet[]>([]);
   const [groupedFleet, setGroupedFleet] = useState<Record<string, Fleet[]>>({});
 
@@ -204,7 +211,12 @@ export function FleetList({ searchQuery, groupBy = "type", assetTypes, onSelect 
 
             <PositionedGroup>
               {groupedFleet.map((fleet) => (
-                <FleetListItem key={fleet.id} fleet={fleet} onSelect={onSelect} />
+                <FleetListItem
+                  key={fleet.id}
+                  fleet={fleet}
+                  onSelect={onSelect}
+                  isSelected={selectedId != null && fleet.id === selectedId}
+                />
               ))}
             </PositionedGroup>
           </div>
