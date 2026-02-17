@@ -36,11 +36,12 @@ export default function AirportSelectDetail() {
     const context = readSelectContext();
     return context?.return ?? "/app/logs/flight/new";
   });
+
   const [selectedRunway, setSelectedRunway] = useState<string | null>(() => {
     const context = readSelectContext();
     return context?.runway ?? null;
   });
-  
+
   // Back button always goes to airport-select-list
   const backHref = "/app/logs/flight/airport-select";
 
