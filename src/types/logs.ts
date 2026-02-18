@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserPreferences } from "./user-preferences";
 
 // ============================================================================
 // Selected Aircraft Schemas
@@ -14,7 +15,20 @@ export const SelectedAircraftSchema = z.object({
 export type SelectedAircraft = z.infer<typeof SelectedAircraftSchema>;
 
 // ============================================================================
-// Selected Airprot Schemas
+// Selected Crew Schemas
+// ============================================================================
+
+/** Convenience type for PIC display in form */
+export const SelectedCrewSchema = z.object({
+  id: z.uuid().nullable(),
+  first_name: z.string(),
+  last_name: z.string(),
+  code: z.string(),
+});
+export type SelectedCrew = z.infer<typeof SelectedCrewSchema>;
+
+// ============================================================================
+// Selected Airport Schemas
 // ============================================================================
 
 export const SelectedAirportSchema = z.object({
@@ -28,6 +42,27 @@ export const SelectedAirportSchema = z.object({
 });
 
 export type SelectedAirport = z.infer<typeof SelectedAirportSchema>;
+
+// ============================================================================
+// Pilot Function Schema
+// ============================================================================
+
+export const FunctionSchema = z.enum([
+  "PIC",
+  "Co-Pilot",
+  "Dual",
+  "Instructor",
+  "Solo",
+  "SPIC",
+  "PICUS",
+]);
+
+export type PilotFunction = z.infer<typeof FunctionSchema>;
+
+export const functionOptions = FunctionSchema.options.map((val) => ({
+  label: val === "PICUS" ? "PICUS" : val, // Customize labels if needed
+  value: val,
+}));
 
 // ============================================================================
 // Base Schemas
@@ -118,14 +153,7 @@ export const FlightFormSchema = BaseLogSchema.extend({
   }
 });
 
-/** Convenience type for PIC display in form */
-export const SelectedCrewSchema = z.object({
-  id: z.uuid().nullable(),
-  first_name: z.string(),
-  last_name: z.string(),
-  code: z.string(),
-});
-export type SelectedCrew = z.infer<typeof SelectedCrewSchema>;
+export type FlightForm = z.infer<typeof FlightFormSchema>;
 
 /**
  * Flight Input schema for form
@@ -136,7 +164,10 @@ export const FlightFormInputSchema = FlightFormSchema.extend({
   departure_airport: SelectedAirportSchema.nullable(),
   destination_airport: SelectedAirportSchema.nullable(),
   pic: SelectedCrewSchema.nullable().optional(),
+  function: FunctionSchema.optional(),
 });
+
+export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
 
 /**
  * Complete flight schema with database fields
@@ -147,6 +178,8 @@ export const FlightSchema = FlightFormSchema.extend({
   created_at: z.iso.datetime(),
   updated_at: z.iso.datetime(),
 });
+
+export type Flight = z.infer<typeof FlightSchema>;
 
 // ============================================================================
 // Simulator Session Schemas
@@ -169,6 +202,8 @@ export const SimulatorSessionFormSchema = BaseLogSchema.extend({
   }
 });
 
+export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
+
 /**
  * Flight Input schema for form
  */
@@ -177,6 +212,10 @@ export const SimulatorSessionFormInputSchema =
     // This is only for form convenience; not submitted
     simulator: SelectedAircraftSchema.optional().nullable(),
   });
+
+export type SimulatorSessionFormInput = z.input<
+  typeof SimulatorSessionFormInputSchema
+>;
 
 /**
  * Complete simulator session schema with database fields
@@ -187,6 +226,8 @@ export const SimulatorSessionSchema = SimulatorSessionFormSchema.extend({
   created_at: z.iso.datetime(),
   updated_at: z.iso.datetime(),
 });
+
+export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
 
 // ============================================================================
 // Discriminated Union Schema
@@ -201,17 +242,30 @@ export const DiscriminatedSchema = z.discriminatedUnion("type", [
 ]);
 
 // ============================================================================
-// Type Exports
+// Logging Fields
 // ============================================================================
 
-export type Flight = z.infer<typeof FlightSchema>;
-export type FlightForm = z.infer<typeof FlightFormSchema>;
-export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
-export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
-export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
-export type SimulatorSessionFormInput = z.input<
-  typeof SimulatorSessionFormInputSchema
->;
+// Define a record of all logging fields with their display labels
+// If you add a field to the Zod schema and not here, TS will throw an error.
+export const LOGGING_FIELD_LABELS: Record<
+  keyof UserPreferences["logging"]["fields"],
+  string
+> = {
+  hobbs: "Hobbs Time",
+  tach: "Tach Time",
+  duty: "Duty Time",
+  scheduled: "Scheduled Time",
+  xc: "Cross-Country Time",
+  go_arounds: "Go-Arounds",
+  approaches: "Approaches",
+  fuel: "Fuel",
+  passengers: "Passengers",
+  training: "Training Description",
+};
+
+// ============================================================================
+// Type Export
+// ============================================================================
 
 /**
  * Union type representing any log entry (flight or simulator session)

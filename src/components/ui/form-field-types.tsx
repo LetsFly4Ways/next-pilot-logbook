@@ -395,7 +395,7 @@ export function SelectField<T extends FieldValues>({
 							{/* <div className="relative flex items-center justify-end"> */}
 							<select
 								{...field}
-								className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-8 py-1 border-none focus:ring-0 focus:border-none ${field.value && field.value !== ""
+								className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-6 py-1 border-none focus:ring-0 focus:border-none ${field.value && field.value !== ""
 									? "text-foreground"
 									: "text-muted-foreground"
 									}`}
@@ -412,7 +412,7 @@ export function SelectField<T extends FieldValues>({
 									</option>
 								))}
 							</select>
-							<ChevronsUpDown className="absolute right-2 w-4 h-4 pointer-events-none text-muted-foreground" />
+							<ChevronsUpDown className="absolute right-3 w-4 h-4 pointer-events-none text-muted-foreground" />
 						</div>
 						{/* </div> */}
 					</PositionedItem>

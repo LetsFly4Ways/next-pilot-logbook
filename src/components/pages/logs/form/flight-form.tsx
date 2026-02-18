@@ -18,6 +18,7 @@ import {
   SelectedAircraft,
   FlightFormInputSchema,
   SelectedAirport,
+  functionOptions,
 } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
@@ -43,6 +44,7 @@ import {
   DateField,
   DurationInputField,
   ObjectDialogSelectField,
+  SelectField,
   TextareaField,
   TextField,
   TimeInputField,
@@ -535,7 +537,6 @@ export default function FlightForm({
                 });
                 router.push("/app/logs/flight/fleet-select");
               }}
-              placeholder="select"
               required
               displayValue={(aircraft) =>
                 aircraft
@@ -576,7 +577,6 @@ export default function FlightForm({
                 });
                 router.push("/app/logs/flight/airport-select");
               }}
-              placeholder="select"
               required
               displayValue={(ap) => {
                 if (!ap) return null;
@@ -600,7 +600,6 @@ export default function FlightForm({
                 });
                 router.push("/app/logs/flight/airport-select");
               }}
-              placeholder="select"
               required
               displayValue={(ap) => {
                 if (!ap) return null;
@@ -635,7 +634,6 @@ export default function FlightForm({
                 });
                 router.push("/app/logs/flight/crew-select");
               }}
-              placeholder="select"
               displayValue={(pic) => {
                 if (!pic) return null;
                 // Handle SELF case
@@ -647,9 +645,16 @@ export default function FlightForm({
                 return code ? `${name} | ${code}` : name;
               }}
             />
-          </PositionedGroup>
 
-          {/* Function */}
+            {/* Function */}
+            <SelectField<FlightFormInput>
+              name="function"
+              label="Function"
+              options={functionOptions}
+              isLoading={isLoading}
+              required
+            />
+          </PositionedGroup>
         </div>
 
         {/* Time Table */}
@@ -761,7 +766,6 @@ export default function FlightForm({
                     });
                     router.push("/app/logs/flight/approach-select");
                   }}
-                  placeholder="select"
                   displayValue={(arr) => (arr?.length ? arr.join(", ") : null)}
                 />
               )}
