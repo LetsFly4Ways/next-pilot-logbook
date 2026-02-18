@@ -18,7 +18,7 @@ import {
   SelectedAircraft,
   FlightFormInputSchema,
   SelectedAirport,
-  functionOptions,
+  availableFunctions,
 } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
@@ -80,20 +80,16 @@ const emptyValues: FlightFormInput = {
   night_time_minutes: 0,
   ifr_time_minutes: 0,
   xc_time_minutes: 0,
-  pic_time_minutes: 0,
-  dual_time_minutes: 0,
-  copilot_time_minutes: 0,
-  instructor_time_minutes: 0,
+
+  function: "PIC",
+
   day_takeoffs: 0,
   night_takeoffs: 0,
   day_landings: 0,
   night_landings: 0,
   go_arounds: 0,
   approaches: [],
-  is_pic: false,
-  is_solo: false,
-  is_spic: false,
-  is_picus: false,
+
   pilot_flying: false,
   duty_start: null,
   duty_end: null,
@@ -133,7 +129,10 @@ export default function FlightForm({
     defaultValues: emptyValues,
   });
 
-  // Single reader: handle any selection returned from select pages
+  // ------- Section reader ------- //
+  /**
+   * Single reader: handle any selection returned from select pages
+   */
   useEffect(() => {
     const selection = readFlightFormSelection();
     if (!selection) return;
@@ -171,7 +170,9 @@ export default function FlightForm({
     clearFlightFormSelection();
   }, [form]);
 
-  // Poll briefly after mount so we pick up selection when navigating back
+  /**
+   * Poll briefly after mount so we pick up selection when navigating back
+   */
   useEffect(() => {
     const t = setInterval(() => {
       const selection = readFlightFormSelection();
@@ -219,7 +220,7 @@ export default function FlightForm({
     };
   }, [form]);
 
-  // Fetch aircraft when editing
+  // ------- Aircraft fetching ------- //
   useEffect(() => {
     if (!flight?.aircraft_id || hasFetchedAircraft.current) return;
     hasFetchedAircraft.current = true;
@@ -233,7 +234,7 @@ export default function FlightForm({
     loadAircraft();
   }, [flight, flight?.aircraft_id, form]);
 
-  // Initialize form with flight data (only once on mount)
+  // ------- Initialize form (edit mode) ------- //
   useEffect(() => {
     if (!flight || isLoading || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
@@ -303,20 +304,16 @@ export default function FlightForm({
       night_time_minutes: flight.night_time_minutes,
       ifr_time_minutes: flight.ifr_time_minutes,
       xc_time_minutes: flight.xc_time_minutes,
-      pic_time_minutes: flight.pic_time_minutes,
-      dual_time_minutes: flight.dual_time_minutes,
-      copilot_time_minutes: flight.copilot_time_minutes,
-      instructor_time_minutes: flight.instructor_time_minutes,
+
       day_takeoffs: flight.day_takeoffs,
       night_takeoffs: flight.night_takeoffs,
       day_landings: flight.day_landings,
       night_landings: flight.night_landings,
       go_arounds: flight.go_arounds,
       approaches: flight.approaches,
-      is_pic: flight.is_pic,
-      is_solo: flight.is_solo,
-      is_spic: flight.is_spic,
-      is_picus: flight.is_picus,
+
+      function: flight.function,
+
       pilot_flying: flight.pilot_flying,
       duty_start: flight.duty_start,
       duty_end: flight.duty_end,
@@ -358,13 +355,13 @@ export default function FlightForm({
     loadAirports();
   }, [flight, isLoading, form]);
 
-  // For new flights (no flight prop), ensure form is initialized once
+  // ------- Initialize form (new flights) ------- //
   useEffect(() => {
     if (flight || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
   }, [flight, form]);
 
-  // Watch the time fields
+  // ------- Time Watchers ------- //
   const blockStart = useWatch({ control: form.control, name: "block_start" });
   const blockEnd = useWatch({ control: form.control, name: "block_end" });
   const flightStart = useWatch({ control: form.control, name: "flight_start" });
@@ -408,6 +405,22 @@ export default function FlightForm({
     }
   }, [dutyStart, dutyEnd, form]);
 
+  // ------- Pilot Function ------- //
+  /**
+   * Determine if PIC is self for function options
+   */
+  const pic = useWatch({ control: form.control, name: "pic" });
+  const picIsSelf = pic?.first_name === "Self" && pic?.code === "SELF";
+
+  /**
+   * Determine available function options based on PIC selection and whether PIC is self
+   */
+  const functionOptions = availableFunctions(picIsSelf).map((fn) => ({
+    label: fn,
+    value: fn,
+  }));
+
+  // ------- Submit ------- //
   const handleSubmit = async (values: FlightFormInput) => {
     const data: FlightFormType = FlightFormSchema.parse({
       ...values,

@@ -392,10 +392,9 @@ export function SelectField<T extends FieldValues>({
 							{required && <span className="text-destructive ml-1">*</span>}
 						</span>
 						<div className="w-full ml-10 flex items-center justify-end ">
-							{/* <div className="relative flex items-center justify-end"> */}
 							<select
 								{...field}
-								className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-6 py-1 border-none focus:ring-0 focus:border-none ${field.value && field.value !== ""
+								className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-6 py-1 border-none focus:ring-0 focus:border-none cursor-pointer ${field.value && field.value !== ""
 									? "text-foreground"
 									: "text-muted-foreground"
 									}`}
@@ -414,7 +413,6 @@ export function SelectField<T extends FieldValues>({
 							</select>
 							<ChevronsUpDown className="absolute right-3 w-4 h-4 pointer-events-none text-muted-foreground" />
 						</div>
-						{/* </div> */}
 					</PositionedItem>
 				</Field>
 			)}

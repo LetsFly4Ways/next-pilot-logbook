@@ -6,9 +6,9 @@ import { getPreferences } from "@/actions/user-preferences";
 
 import { formatDate } from "@/lib/date-utils";
 import { formatTime } from "@/lib/time-utils";
-import { ArrayToText, formatMovement, getSelectedFunction } from "@/lib/log-utils";
+import { ArrayToText, formatMovement } from "@/lib/log-utils";
 
-import { Flight } from "@/types/logs";
+import { Flight, SELF_PIC_FUNCTIONS } from "@/types/logs";
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -87,7 +87,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
     ReturnType<typeof fetchAndFormatCrewMember>
   >["crew"] = null;
 
-  if (!flight.is_pic && flight.pic_id) {
+  if (!SELF_PIC_FUNCTIONS.includes(flight.function) && flight.pic_id) {
     const result = await fetchAndFormatCrewMember(flight.pic_id, nameFormat);
     crew = result.crew;
   }
@@ -189,7 +189,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
 
         <div className="text-center">
           <div className="text-2xl font-bold text-primary">
-            {getSelectedFunction(flight)}
+            {flight.function || "-"}
           </div>
           <div className="text-sm text-muted-foreground">Function</div>
         </div>
@@ -447,7 +447,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
           Crew Information
         </h3>
         {/* Check if PIC is self <-> fetch PIC based on ID */}
-        {!flight.is_pic && crew ? (
+        {!SELF_PIC_FUNCTIONS.includes(flight.function) && crew ? (
           <div className="p-3 pr-1 flex items-center justify-between">
             <span className="text-sm font-semibold">Pilot In Command</span>
             <span className="text-sm">

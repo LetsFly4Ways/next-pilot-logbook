@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserPreferences } from "./user-preferences";
+import { UserPreferences } from "@/types/user-preferences";
 
 // ============================================================================
 // Selected Aircraft Schemas
@@ -12,6 +12,7 @@ export const SelectedAircraftSchema = z.object({
   model: z.string(), // aircraft model
   isSimulator: z.boolean().optional().default(false),
 });
+
 export type SelectedAircraft = z.infer<typeof SelectedAircraftSchema>;
 
 // ============================================================================
@@ -25,6 +26,7 @@ export const SelectedCrewSchema = z.object({
   last_name: z.string(),
   code: z.string(),
 });
+
 export type SelectedCrew = z.infer<typeof SelectedCrewSchema>;
 
 // ============================================================================
@@ -63,6 +65,25 @@ export const functionOptions = FunctionSchema.options.map((val) => ({
   label: val === "PICUS" ? "PICUS" : val, // Customize labels if needed
   value: val,
 }));
+
+/** Functions available when the logged-in user is themselves PIC (pic_id === null). */
+export const SELF_PIC_FUNCTIONS: PilotFunction[] = [
+  "PIC",
+  "Solo",
+  "Instructor",
+];
+
+/** Functions available when someone else is PIC. */
+export const OTHER_PIC_FUNCTIONS: PilotFunction[] = [
+  "Co-Pilot",
+  "Dual",
+  "SPIC",
+  "PICUS",
+];
+
+export function availableFunctions(picIsSelf: boolean): PilotFunction[] {
+  return picIsSelf ? SELF_PIC_FUNCTIONS : OTHER_PIC_FUNCTIONS;
+}
 
 // ============================================================================
 // Base Schemas
@@ -113,10 +134,6 @@ export const FlightFormSchema = BaseLogSchema.extend({
   night_time_minutes: z.number().int().min(0).optional().default(0),
   ifr_time_minutes: z.number().int().min(0).optional().default(0),
   xc_time_minutes: z.number().int().min(0).optional().default(0),
-  pic_time_minutes: z.number().int().min(0).optional().default(0),
-  dual_time_minutes: z.number().int().min(0).optional().default(0),
-  copilot_time_minutes: z.number().int().min(0).optional().default(0),
-  instructor_time_minutes: z.number().int().min(0).optional().default(0),
 
   // Maneuvers
   day_takeoffs: z.number().int().min(0).optional().default(0),
@@ -129,10 +146,7 @@ export const FlightFormSchema = BaseLogSchema.extend({
   approaches: z.array(z.string()).optional().default([]),
 
   // Flight status flags
-  is_pic: z.boolean().optional().default(false),
-  is_solo: z.boolean().optional().default(false),
-  is_spic: z.boolean().optional().default(false),
-  is_picus: z.boolean().optional().default(false),
+  function: FunctionSchema,
   pilot_flying: z.boolean().optional().default(false),
 
   // Additional metrics
@@ -144,11 +158,25 @@ export const FlightFormSchema = BaseLogSchema.extend({
   // Metadata
   flight_number: z.string().max(20).nullable().optional(),
 }).superRefine((data, ctx) => {
-  if (!data.is_pic && data.pic_id === null) {
+  if (
+    SELF_PIC_FUNCTIONS.includes(data.function as PilotFunction) &&
+    data.pic_id !== null
+  ) {
     ctx.addIssue({
       code: "custom",
       path: ["pic_id"],
-      message: "pic_id is required when is_pic is false",
+      message: `Function "${data.function}" requires PIC to be set to Self (pic_id must be null).`,
+    });
+  }
+
+  if (
+    OTHER_PIC_FUNCTIONS.includes(data.function as PilotFunction) &&
+    data.pic_id === null
+  ) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["pic_id"],
+      message: `Function "${data.function}" requires a PIC to be selected.`,
     });
   }
 });
@@ -164,7 +192,6 @@ export const FlightFormInputSchema = FlightFormSchema.extend({
   departure_airport: SelectedAirportSchema.nullable(),
   destination_airport: SelectedAirportSchema.nullable(),
   pic: SelectedCrewSchema.nullable().optional(),
-  function: FunctionSchema.optional(),
 });
 
 export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
