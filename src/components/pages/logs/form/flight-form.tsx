@@ -18,7 +18,9 @@ import {
   SelectedAircraft,
   FlightFormInputSchema,
   SelectedAirport,
-  availableFunctions,
+  PilotFunction,
+  OTHER_PIC_FUNCTIONS,
+  SELF_PIC_FUNCTIONS,
 } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
@@ -44,7 +46,7 @@ import {
   DateField,
   DurationInputField,
   ObjectDialogSelectField,
-  SelectField,
+  SwitchField,
   TextareaField,
   TextField,
   TimeInputField,
@@ -56,6 +58,7 @@ import TimeTable, {
 import { NightTimeDurationInputField } from "@/components/pages/logs/form/night-time-input";
 import { ManoeuvresField } from "@/components/pages/logs/form/manoeuvre-field";
 import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
+import { FunctionSelectField } from "@/components/pages/logs/form/select-pilot-function";
 
 const emptyValues: FlightFormInput = {
   date: new Date(),
@@ -81,7 +84,8 @@ const emptyValues: FlightFormInput = {
   ifr_time_minutes: 0,
   xc_time_minutes: 0,
 
-  function: "PIC",
+  function: undefined,
+  pilot_flying: true,
 
   day_takeoffs: 0,
   night_takeoffs: 0,
@@ -90,7 +94,6 @@ const emptyValues: FlightFormInput = {
   go_arounds: 0,
   approaches: [],
 
-  pilot_flying: false,
   duty_start: null,
   duty_end: null,
   duty_time_minutes: 0,
@@ -142,6 +145,35 @@ export default function FlightForm({
         form.setValue("aircraft", selection.payload);
         break;
       case "crew":
+        /**
+         * When PIC changes, check if the current function is cross-boundary.
+         * If so, confirm with the user — clear and error if they decline.
+         */
+        const newPicIsSelf = selection.payload.id === null;
+        const currentFunction = form.getValues("function") as PilotFunction | undefined;
+
+        if (currentFunction) {
+          const isCrossBoundary =
+            (newPicIsSelf && OTHER_PIC_FUNCTIONS.includes(currentFunction!)) ||
+            (!newPicIsSelf && SELF_PIC_FUNCTIONS.includes(currentFunction!));
+
+          if (isCrossBoundary) {
+            const confirmed = window.confirm(
+              newPicIsSelf
+                ? `You changed PIC to Self but function is "${currentFunction}". Keep this function anyway?`
+                : `You changed PIC but function is "${currentFunction}". Keep this function anyway?`,
+            );
+
+            if (!confirmed) {
+              form.setValue("function", undefined as unknown as PilotFunction);
+              form.setError("function", {
+                type: "manual",
+                message: `"${currentFunction}" is not typical for the selected PIC. Please re-select.`,
+              });
+            }
+          }
+        }
+
         form.setValue("pic_id", selection.payload.id);
         form.setValue("pic", {
           id: selection.payload.id,
@@ -183,6 +215,35 @@ export default function FlightForm({
             form.setValue("aircraft", selection.payload);
             break;
           case "crew":
+            /**
+             * When PIC changes, check if the current function is cross-boundary.
+             * If so, confirm with the user — clear and error if they decline.
+             */
+            const newPicIsSelf = selection.payload.id === null;
+            const currentFunction = form.getValues("function") as PilotFunction | undefined;
+
+            if (currentFunction) {
+              const isCrossBoundary =
+                (newPicIsSelf && OTHER_PIC_FUNCTIONS.includes(currentFunction!)) ||
+                (!newPicIsSelf && SELF_PIC_FUNCTIONS.includes(currentFunction!));
+
+              if (isCrossBoundary) {
+                const confirmed = window.confirm(
+                  newPicIsSelf
+                    ? `You changed PIC to Self but function is "${currentFunction}". Keep this function anyway?`
+                    : `You changed PIC but function is "${currentFunction}". Keep this function anyway?`,
+                );
+
+                if (!confirmed) {
+                  form.setValue("function", undefined as unknown as PilotFunction);
+                  form.setError("function", {
+                    type: "manual",
+                    message: `"${currentFunction}" is not typical for the selected PIC. Please re-select.`,
+                  });
+                }
+              }
+            }
+
             form.setValue("pic_id", selection.payload.id);
             form.setValue("pic", {
               id: selection.payload.id,
@@ -359,7 +420,12 @@ export default function FlightForm({
   useEffect(() => {
     if (flight || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
-  }, [flight, form]);
+
+    // Set the default function based on user preferences
+    if (preferences.logging.defaultFunction) {
+      form.setValue("function", preferences.logging.defaultFunction as PilotFunction);
+    }
+  }, [flight, form, preferences.logging.defaultFunction]);
 
   // ------- Time Watchers ------- //
   const blockStart = useWatch({ control: form.control, name: "block_start" });
@@ -411,14 +477,6 @@ export default function FlightForm({
    */
   const pic = useWatch({ control: form.control, name: "pic" });
   const picIsSelf = pic?.first_name === "Self" && pic?.code === "SELF";
-
-  /**
-   * Determine available function options based on PIC selection and whether PIC is self
-   */
-  const functionOptions = availableFunctions(picIsSelf).map((fn) => ({
-    label: fn,
-    value: fn,
-  }));
 
   // ------- Submit ------- //
   const handleSubmit = async (values: FlightFormInput) => {
@@ -660,12 +718,18 @@ export default function FlightForm({
             />
 
             {/* Function */}
-            <SelectField<FlightFormInput>
+            <FunctionSelectField<FlightFormInput>
               name="function"
-              label="Function"
-              options={functionOptions}
+              picIsSelf={picIsSelf}
               isLoading={isLoading}
               required
+            />
+
+            {/* Pilot flying */}
+            <SwitchField<FlightFormInput>
+              name="pilot_flying"
+              label="Pilot Flying"
+              isLoading={isLoading}
             />
           </PositionedGroup>
         </div>

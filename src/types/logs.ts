@@ -67,23 +67,18 @@ export const functionOptions = FunctionSchema.options.map((val) => ({
 }));
 
 /** Functions available when the logged-in user is themselves PIC (pic_id === null). */
-export const SELF_PIC_FUNCTIONS: PilotFunction[] = [
+export const SELF_PIC_FUNCTIONS: string[] = [
   "PIC",
   "Solo",
   "Instructor",
-];
+] satisfies PilotFunction[];
 
-/** Functions available when someone else is PIC. */
-export const OTHER_PIC_FUNCTIONS: PilotFunction[] = [
+export const OTHER_PIC_FUNCTIONS: string[] = [
   "Co-Pilot",
   "Dual",
   "SPIC",
   "PICUS",
-];
-
-export function availableFunctions(picIsSelf: boolean): PilotFunction[] {
-  return picIsSelf ? SELF_PIC_FUNCTIONS : OTHER_PIC_FUNCTIONS;
-}
+] satisfies PilotFunction[];
 
 // ============================================================================
 // Base Schemas
@@ -146,7 +141,7 @@ export const FlightFormSchema = BaseLogSchema.extend({
   approaches: z.array(z.string()).optional().default([]),
 
   // Flight status flags
-  function: FunctionSchema,
+  function: FunctionSchema.optional(),
   pilot_flying: z.boolean().optional().default(false),
 
   // Additional metrics
@@ -157,28 +152,6 @@ export const FlightFormSchema = BaseLogSchema.extend({
 
   // Metadata
   flight_number: z.string().max(20).nullable().optional(),
-}).superRefine((data, ctx) => {
-  if (
-    SELF_PIC_FUNCTIONS.includes(data.function as PilotFunction) &&
-    data.pic_id !== null
-  ) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["pic_id"],
-      message: `Function "${data.function}" requires PIC to be set to Self (pic_id must be null).`,
-    });
-  }
-
-  if (
-    OTHER_PIC_FUNCTIONS.includes(data.function as PilotFunction) &&
-    data.pic_id === null
-  ) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["pic_id"],
-      message: `Function "${data.function}" requires a PIC to be selected.`,
-    });
-  }
 });
 
 export type FlightForm = z.infer<typeof FlightFormSchema>;

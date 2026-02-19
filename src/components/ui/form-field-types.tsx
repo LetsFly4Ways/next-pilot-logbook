@@ -391,7 +391,7 @@ export function SelectField<T extends FieldValues>({
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
 						</span>
-						<div className="w-full ml-10 flex items-center justify-end ">
+						<div className="w-full ml-10 flex items-center justify-end">
 							<select
 								{...field}
 								className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-6 py-1 border-none focus:ring-0 focus:border-none cursor-pointer ${field.value && field.value !== ""
