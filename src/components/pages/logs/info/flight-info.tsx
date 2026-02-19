@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/date-utils";
 import { formatTime } from "@/lib/time-utils";
 import { ArrayToText, formatMovement } from "@/lib/log-utils";
 
-import { Flight, SELF_PIC_FUNCTIONS } from "@/types/logs";
+import { Flight } from "@/types/logs";
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
