@@ -87,7 +87,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
     ReturnType<typeof fetchAndFormatCrewMember>
   >["crew"] = null;
 
-  if (flight.function && !SELF_PIC_FUNCTIONS.includes(flight.function) && flight.pic_id) {
+  if (flight.pic_id) {
     const result = await fetchAndFormatCrewMember(flight.pic_id, nameFormat);
     crew = result.crew;
   }
@@ -447,7 +447,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
           Crew Information
         </h3>
         {/* Check if PIC is self <-> fetch PIC based on ID */}
-        {flight.function && !SELF_PIC_FUNCTIONS.includes(flight.function) && crew ? (
+        {crew ? (
           <div className="p-3 pr-1 flex items-center justify-between">
             <span className="text-sm font-semibold">Pilot In Command</span>
             <span className="text-sm">
