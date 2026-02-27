@@ -115,7 +115,7 @@ export function DateField<T extends FieldValues>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => (
+			render={({ field, fieldState }) => (
 				<Field>
 					<PositionedItem className="p-3 flex items-center justify-between">
 						<span className="text-sm font-medium w-36">
@@ -129,13 +129,19 @@ export function DateField<T extends FieldValues>({
 								placeholder={placeholder}
 								value={field.value ?? ""}
 								required={required}
-								className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm cursor-pointer"
+								className="w-fit h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm cursor-pointer"
 								onChange={(e) => {
-									const value = e.target.value;
+									const value = new Date(e.target.value).toISOString().split("T")[0]; // Store as YYYY-MM-DD
 									field.onChange(value);
 								}}
 								disabled={isLoading}
 							/>
+
+							{fieldState.error && (
+								<span className="text-right text-xs text-red-500 mt-1">
+									{fieldState.error.message}
+								</span>
+							)}
 						</div>
 					</PositionedItem>
 				</Field>

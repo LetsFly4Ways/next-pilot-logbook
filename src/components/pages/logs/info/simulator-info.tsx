@@ -1,10 +1,8 @@
 import Link from "next/link";
 
-import { fetchAndFormatCrewMember } from "@/actions/pages/crew/fetch";
-import { fetchAndFormatAircraft } from "@/actions/pages/fleet/fetch";
 import { getPreferences } from "@/actions/user-preferences";
 
-import { SimulatorSession } from "@/types/logs";
+import { SimulatorSessionRecord } from "@/actions/pages/logs/fetch";
 
 import { formatDate } from "@/lib/date-utils";
 import { formatTime } from "@/lib/time-utils";
@@ -14,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface SimulatorLogInfoProps {
-  session: SimulatorSession & { _type: "simulator" };
+  session: SimulatorSessionRecord & { _type: "simulator" };
 }
 
 export default async function SimulatorLogInfo({ session }: SimulatorLogInfoProps) {
@@ -24,23 +22,12 @@ export default async function SimulatorLogInfo({ session }: SimulatorLogInfoProp
   const showHobbs = preferences?.logging?.fields?.hobbs ?? true;
   const showDuty = preferences?.logging?.fields?.duty ?? true;
   const showTraining = preferences?.logging?.fields?.training ?? true;
-  const nameFormat = preferences?.nameDisplay ?? "first-last";
 
   const timeRows = [
     showDuty ? "duty" : null,
     showHobbs ? "hobbs" : null,
   ].filter(Boolean);
 
-  const { aircraft } = await fetchAndFormatAircraft(session.aircraft_id);
-
-  let crew: Awaited<
-    ReturnType<typeof fetchAndFormatCrewMember>
-  >["crew"] = null;
-
-  if (!session.instructor_is_self && session.instructor_id) {
-    const result = await fetchAndFormatCrewMember(session.instructor_id, nameFormat);
-    crew = result.crew;
-  }
 
   return (
     <div className="p-6">
@@ -61,12 +48,12 @@ export default async function SimulatorLogInfo({ session }: SimulatorLogInfoProp
           </div>
 
           {/* Aircraft */}
-          {aircraft && (
+          {session._simulator && (
             <Link
               href={`/app/fleet/${session.aircraft_id}`}
               className="inline-flex items-center font-medium text-sm md:text-base hover:bg-muted rounded px-3 py-1 md:px-2"
             >
-              {aircraft.displayName}
+              {`${session._simulator.registration} ${(session._simulator.model || session._simulator.type) && `| ${session._simulator.model || session._simulator.type}`}`}
             </Link>
           )}
         </div>
@@ -196,19 +183,19 @@ export default async function SimulatorLogInfo({ session }: SimulatorLogInfoProp
           Crew Information
         </h3>
 
-        {!session.instructor_is_self && crew ? (
+        {!session.instructor_is_self && session._instructor ? (
           <div className="p-3 pr-1 flex items-center justify-between">
             <span className="text-sm font-semibold">Instructor</span>
             <span className="text-sm">
               <Link
-                href={`/app/crew/${crew.id}`}
+                href={`/app/crew/${session._instructor.id}`}
                 className="inline-flex items-center gap-2 font-medium text-sm hover:bg-muted rounded py-1 px-2"
               >
-                <span>{crew.fullName}</span>
+                <span>{session._instructor.full_name}</span>
 
-                {crew.companyId && (
+                {session._instructor.company_id && (
                   <span className="text-xs px-2 py-0.5 rounded bg-muted text-muted-foreground">
-                    {crew.companyId}
+                    {session._instructor.company_id}
                   </span>
                 )}
               </Link>

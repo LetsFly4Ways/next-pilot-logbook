@@ -148,10 +148,10 @@ export async function fetchCrewMember(
 }
 
 export interface FormattedCrewMember {
-  id: string;
+  id: string | null;
   fullName: string; // "John Doe"
   companyId?: string; // optional badge value
-  displayName: string; // "John Doe • AC123"
+  displayName: string; // "John Doe | AC123"
 }
 
 export async function fetchAndFormatCrewMember(

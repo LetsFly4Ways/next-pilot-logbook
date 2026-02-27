@@ -6,28 +6,26 @@ import { useRouter, usePathname } from "next/navigation";
 import { updateFlight } from "@/actions/pages/logs/flight/update";
 import { createFlight } from "@/actions/pages/logs/flight/create";
 import { deleteFlight } from "@/actions/pages/logs/flight/delete";
-import { fetchAsset } from "@/actions/pages/fleet/fetch";
-import { fetchCrewMember } from "@/actions/pages/crew/fetch";
-import { getAirportByIcao } from "@/actions/pages/airports/fetch";
+import { FlightRecord } from "@/actions/pages/logs/fetch";
 
 import {
-  Flight,
+  FlightPayloadSchema,
+  FlightFormValues,
+  FlightPayload as FlightFormType,
   FlightFormSchema,
-  FlightFormInput,
-  FlightForm as FlightFormType,
-  SelectedAircraft,
-  FlightFormInputSchema,
   SelectedAirport,
   PilotFunction,
   OTHER_PIC_FUNCTIONS,
   SELF_PIC_FUNCTIONS,
 } from "@/types/logs";
+import { formatCrewName } from "@/lib/format-crew";
+import { calculateDurationMinutes } from "@/lib/time-utils";
+
 import { UserPreferences } from "@/types/user-preferences";
 
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { calculateDurationMinutes } from "@/lib/time-utils";
 import {
   clearDraftCookie,
   getDraftFromCookie,
@@ -36,9 +34,9 @@ import {
 import {
   readFlightFormSelection,
   clearFlightFormSelection,
-  fleetToSelectedAircraft,
 } from "@/components/pages/logs/select/flight-form-selection";
 import { writeSelectContext } from "@/components/pages/logs/select/select-context";
+import { CrewSelectionPayload } from "@/components/pages/logs/select/flight-form-selection";
 
 import LogForm from "@/components/pages/logs/form/form";
 
@@ -59,8 +57,9 @@ import { NightTimeDurationInputField } from "@/components/pages/logs/form/night-
 import { ManoeuvresField } from "@/components/pages/logs/form/manoeuvre-field";
 import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
 import { FunctionSelectField } from "@/components/pages/logs/form/select-pilot-function";
+import { Fleet } from "@/types/fleet";
 
-const emptyValues: FlightFormInput = {
+const emptyValues: FlightFormValues = {
   date: new Date(),
   aircraft_id: "",
   aircraft: null,
@@ -109,7 +108,7 @@ const emptyValues: FlightFormInput = {
 };
 
 interface FlightFormProps {
-  flight?: Flight;
+  flight?: FlightRecord;
   isEdit?: boolean;
   isLoading?: boolean;
   preferences: UserPreferences;
@@ -125,10 +124,9 @@ export default function FlightForm({
   const pathname = usePathname();
 
   const hasInitializedForm = useRef(false);
-  const hasFetchedAircraft = useRef(false);
 
-  const form = useForm<FlightFormInput>({
-    resolver: zodResolver(FlightFormInputSchema),
+  const form = useForm<FlightFormValues>({
+    resolver: zodResolver(FlightFormSchema),
     defaultValues: emptyValues,
   });
 
@@ -175,12 +173,7 @@ export default function FlightForm({
         }
 
         form.setValue("pic_id", selection.payload.id);
-        form.setValue("pic", {
-          id: selection.payload.id,
-          first_name: selection.payload.first_name,
-          last_name: selection.payload.last_name,
-          code: selection.payload.code,
-        });
+        form.setValue("pic", selection.payload);
         break;
       case "departure_airport":
         form.setValue("departure_airport", selection.payload.airport);
@@ -245,12 +238,7 @@ export default function FlightForm({
             }
 
             form.setValue("pic_id", selection.payload.id);
-            form.setValue("pic", {
-              id: selection.payload.id,
-              first_name: selection.payload.first_name,
-              last_name: selection.payload.last_name,
-              code: selection.payload.code,
-            });
+            form.setValue("pic", selection.payload);
             break;
           case "departure_airport":
             form.setValue("departure_airport", selection.payload.airport);
@@ -281,85 +269,35 @@ export default function FlightForm({
     };
   }, [form]);
 
-  // ------- Aircraft fetching ------- //
-  useEffect(() => {
-    if (!flight?.aircraft_id || hasFetchedAircraft.current) return;
-    hasFetchedAircraft.current = true;
-
-    async function loadAircraft() {
-      const { asset } = await fetchAsset(flight!.aircraft_id);
-      if (asset) {
-        form.setValue("aircraft", fleetToSelectedAircraft(asset));
-      }
-    }
-    loadAircraft();
-  }, [flight, flight?.aircraft_id, form]);
-
   // ------- Initialize form (edit mode) ------- //
+  // All display data is pre-resolved in FlightRecord — no client fetches needed.
   useEffect(() => {
     if (!flight || isLoading || hasInitializedForm.current) return;
     hasInitializedForm.current = true;
 
-    async function loadAirports() {
-      let departureAirport: SelectedAirport | null = null;
-      let destinationAirport: SelectedAirport | null = null;
-
-      // Fetch departure airport with full data (including lat/lon for night time calculation)
-      if (flight?.departure_airport_code) {
-        const result = await getAirportByIcao(flight.departure_airport_code);
-        if (result.success) {
-          const airport = result.data;
-          departureAirport = {
-            icao: airport.icao,
-            iata: airport.iata ?? null,
-            name: airport.name,
-            city: airport.city ?? null,
-            country: airport.countryName,
-            lat: airport.lat,
-            lon: airport.lon,
-          };
-        }
-      }
-
-      // Fetch destination airport with full data
-      if (flight?.destination_airport_code) {
-        const result = await getAirportByIcao(flight.destination_airport_code);
-        if (result.success) {
-          const airport = result.data;
-          destinationAirport = {
-            icao: airport.icao,
-            iata: airport.iata ?? null,
-            name: airport.name,
-            city: airport.city ?? null,
-            country: airport.countryName,
-            lat: airport.lat,
-            lon: airport.lon,
-          };
-        }
-      }
-
-      form.setValue("departure_airport", departureAirport);
-      form.setValue("destination_airport", destinationAirport);
-    }
-
     form.reset({
       date: flight.date,
+
       aircraft_id: flight.aircraft_id,
-      aircraft: null, // Populated by fetch effect
+      aircraft: flight._aircraft,
+
       pic_id: flight.pic_id,
-      pic: null,
+      pic: flight._pic,
+
       departure_airport_code: flight.departure_airport_code,
-      departure_airport: null, // Populated by loadAirports effect
+      departure_airport: flight._departure_airport,
       departure_runway: flight.departure_runway,
       destination_airport_code: flight.destination_airport_code,
-      destination_airport: null, // Populated by loadAirports effect
+      destination_airport: flight._destination_airport,
       destination_runway: flight.destination_runway,
+
       block_start: flight.block_start,
       block_end: flight.block_end,
       flight_start: flight.flight_start,
       flight_end: flight.flight_end,
       scheduled_start: flight.scheduled_start,
       scheduled_end: flight.scheduled_end,
+
       total_block_minutes: flight.total_block_minutes,
       total_air_minutes: flight.total_air_minutes,
       night_time_minutes: flight.night_time_minutes,
@@ -374,8 +312,8 @@ export default function FlightForm({
       approaches: flight.approaches,
 
       function: flight.function,
-
       pilot_flying: flight.pilot_flying,
+
       duty_start: flight.duty_start,
       duty_end: flight.duty_end,
       duty_time_minutes: flight.duty_time_minutes,
@@ -383,37 +321,14 @@ export default function FlightForm({
       hobbs_end: flight.hobbs_end,
       tach_start: flight.tach_start,
       tach_end: flight.tach_end,
+
       fuel: flight.fuel,
       passengers: flight.passengers,
       flight_number: flight.flight_number,
+
       remarks: flight.remarks,
       training_description: flight.training_description,
     });
-
-    // Fetch PIC data if pic_id exists
-    if (flight.pic_id) {
-      fetchCrewMember(flight.pic_id).then((result) => {
-        if (result.crew) {
-          form.setValue("pic", {
-            id: result.crew.id,
-            first_name: result.crew.first_name,
-            last_name: result.crew.last_name ?? "",
-            code: result.crew.company_id ?? "",
-          });
-        }
-      });
-    } else if (flight.pic_id === null) {
-      // pic_id is null means SELF is the PIC
-      form.setValue("pic", {
-        id: null,
-        first_name: "Self",
-        last_name: "",
-        code: "SELF",
-      });
-    }
-
-    // Load airports with full data (including coordinates)
-    loadAirports();
   }, [flight, isLoading, form]);
 
   // ------- Initialize form (new flights) ------- //
@@ -423,7 +338,10 @@ export default function FlightForm({
 
     // Set the default function based on user preferences
     if (preferences.logging.defaultFunction) {
-      form.setValue("function", preferences.logging.defaultFunction as PilotFunction);
+      form.setValue(
+        "function",
+        preferences.logging.defaultFunction as PilotFunction
+      );
     }
   }, [flight, form, preferences.logging.defaultFunction]);
 
@@ -476,11 +394,11 @@ export default function FlightForm({
    * Determine if PIC is self for function options
    */
   const pic = useWatch({ control: form.control, name: "pic" });
-  const picIsSelf = pic?.first_name === "Self" && pic?.code === "SELF";
+  const picIsSelf = pic?.first_name === "Self" && pic?.company_id === "SELF";
 
   // ------- Submit ------- //
-  const handleSubmit = async (values: FlightFormInput) => {
-    const data: FlightFormType = FlightFormSchema.parse({
+  const handleSubmit = async (values: FlightFormValues) => {
+    const data: FlightFormType = FlightPayloadSchema.parse({
       ...values,
       aircraft_id: values.aircraft?.id ?? "",
 
@@ -495,7 +413,7 @@ export default function FlightForm({
   };
 
   // Time Table
-  const tableFields: TimeTableField<FlightFormInput>[] = [
+  const tableFields: TimeTableField<FlightFormValues>[] = [
     // Block & Flight Fields
     {
       label: "Block",
@@ -557,8 +475,8 @@ export default function FlightForm({
     }
   };
 
-  const shouldSaveDraft = (values: FlightFormInput) => {
-    const data: FlightFormType = FlightFormSchema.parse(values);
+  const shouldSaveDraft = (values: FlightFormValues) => {
+    const data: FlightFormType = FlightPayloadSchema.parse(values);
 
     return !!(
       data.departure_airport_code ||
@@ -590,14 +508,14 @@ export default function FlightForm({
           </h3>
 
           <PositionedGroup>
-            <DateField<FlightFormInput>
+            <DateField<FlightFormValues>
               name="date"
               label="Date"
               isLoading={isLoading}
               required
             />
 
-            <ObjectDialogSelectField<FlightFormInput, SelectedAircraft>
+            <ObjectDialogSelectField<FlightFormValues, Fleet>
               name="aircraft"
               label="Aircraft"
               isLoading={isLoading}
@@ -616,7 +534,7 @@ export default function FlightForm({
               }
             />
 
-            <TextField<FlightFormInput>
+            <TextField<FlightFormValues>
               name="flight_number"
               label="Flight Number"
               placeholder="BEL123"
@@ -633,7 +551,7 @@ export default function FlightForm({
 
           <PositionedGroup>
             <ObjectDialogSelectField<
-              FlightFormInput,
+              FlightFormValues,
               SelectedAirport & { runway?: string | null }
             >
               name="departure_airport"
@@ -656,7 +574,7 @@ export default function FlightForm({
               }}
             />
             <ObjectDialogSelectField<
-              FlightFormInput,
+              FlightFormValues,
               SelectedAirport & { runway?: string | null }
             >
               name="destination_airport"
@@ -690,8 +608,8 @@ export default function FlightForm({
           {/* PIC */}
           <PositionedGroup>
             <ObjectDialogSelectField<
-              FlightFormInput,
-              { id: string; first_name: string; last_name: string; code: string }
+              FlightFormValues,
+              CrewSelectionPayload
             >
               name="pic"
               label="PIC"
@@ -707,18 +625,17 @@ export default function FlightForm({
               }}
               displayValue={(pic) => {
                 if (!pic) return null;
-                // Handle SELF case
-                if (pic.first_name === "Self") {
+                if (pic.pic_is_self || pic.first_name === "Self") {
                   return "SELF";
                 }
-                const name = `${pic.first_name} ${pic.last_name}`.trim();
-                const code = `${pic.code}`;
+                const name = formatCrewName(pic.first_name, pic.last_name, preferences.nameDisplay);
+                const code = pic.company_id || "";
                 return code ? `${name} | ${code}` : name;
               }}
             />
 
             {/* Function */}
-            <FunctionSelectField<FlightFormInput>
+            <FunctionSelectField<FlightFormValues>
               name="function"
               picIsSelf={picIsSelf}
               isLoading={isLoading}
@@ -726,7 +643,7 @@ export default function FlightForm({
             />
 
             {/* Pilot flying */}
-            <SwitchField<FlightFormInput>
+            <SwitchField<FlightFormValues>
               name="pilot_flying"
               label="Pilot Flying"
               isLoading={isLoading}
@@ -740,7 +657,7 @@ export default function FlightForm({
             Time Information
           </h3>
 
-          <TimeTable<FlightFormInput> fields={tableFields} />
+          <TimeTable<FlightFormValues> fields={tableFields} />
         </div>
 
         {/* Time Fields */}
@@ -751,14 +668,14 @@ export default function FlightForm({
 
           <div className="space-y-3">
             <PositionedGroup>
-              <TimeInputField<FlightFormInput>
+              <TimeInputField<FlightFormValues>
                 name="total_block_minutes"
                 label="Total Time"
                 isLoading={isLoading}
                 required
               />
 
-              <TimeInputField<FlightFormInput>
+              <TimeInputField<FlightFormValues>
                 name="total_air_minutes"
                 label="Air Time"
                 isLoading={isLoading}
@@ -766,7 +683,7 @@ export default function FlightForm({
               />
 
               {preferences.logging.fields.duty && (
-                <TimeInputField<FlightFormInput>
+                <TimeInputField<FlightFormValues>
                   name="duty_time_minutes"
                   label="Duty Time"
                   isLoading={isLoading}
@@ -776,14 +693,14 @@ export default function FlightForm({
             </PositionedGroup>
 
             <PositionedGroup>
-              <DurationInputField<FlightFormInput>
+              <DurationInputField<FlightFormValues>
                 name="ifr_time_minutes"
                 label="IFR Time"
                 referenceMinutesField="total_block_minutes"
                 isLoading={isLoading}
               />
 
-              <NightTimeDurationInputField<FlightFormInput>
+              <NightTimeDurationInputField<FlightFormValues>
                 name="night_time_minutes"
                 label="Night Time"
                 isLoading={isLoading}
@@ -795,7 +712,7 @@ export default function FlightForm({
               />
 
               {preferences.logging.fields.xc && (
-                <DurationInputField<FlightFormInput>
+                <DurationInputField<FlightFormValues>
                   name="xc_time_minutes"
                   label="XC Time"
                   referenceMinutesField="total_block_minutes"
@@ -813,7 +730,7 @@ export default function FlightForm({
           </h3>
 
           <div className="space-y-3">
-            <ManoeuvresField<FlightFormInput>
+            <ManoeuvresField<FlightFormValues>
               dayTakeoffsField="day_takeoffs"
               nightTakeoffsField="night_takeoffs"
               dayLandingsField="day_landings"
@@ -828,7 +745,7 @@ export default function FlightForm({
 
             <PositionedGroup>
               {preferences.logging.fields.approaches && (
-                <ObjectDialogSelectField<FlightFormInput, string[]>
+                <ObjectDialogSelectField<FlightFormValues, string[]>
                   name="approaches"
                   label="Approaches"
                   isLoading={isLoading}
@@ -849,7 +766,7 @@ export default function FlightForm({
 
               {/* Go-arounds */}
               {preferences.logging.fields.go_arounds && (
-                <ManoeuvreInput<FlightFormInput>
+                <ManoeuvreInput<FlightFormValues>
                   label="Go Around"
                   name="go_arounds"
                   isLoading={isLoading}
@@ -868,7 +785,7 @@ export default function FlightForm({
 
               <PositionedGroup>
                 {preferences.logging.fields.passengers && (
-                  <TextField<FlightFormInput>
+                  <TextField<FlightFormValues>
                     name="passengers"
                     label="Passengers"
                     type="number"
@@ -877,7 +794,7 @@ export default function FlightForm({
                 )}
 
                 {preferences.logging.fields.fuel && (
-                  <TextField<FlightFormInput>
+                  <TextField<FlightFormValues>
                     name="fuel"
                     label="Fuel"
                     placeholder="KG"
@@ -895,7 +812,7 @@ export default function FlightForm({
           </h3>
 
           <PositionedGroup>
-            <TextareaField<FlightFormInput>
+            <TextareaField<FlightFormValues>
               name="remarks"
               label="Remarks"
               rows={1}
@@ -903,7 +820,7 @@ export default function FlightForm({
             />
 
             {preferences.logging.fields.training && (
-              <TextareaField<FlightFormInput>
+              <TextareaField<FlightFormValues>
                 name="training_description"
                 label="Training"
                 rows={1}

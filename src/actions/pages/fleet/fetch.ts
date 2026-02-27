@@ -144,7 +144,7 @@ export interface FormattedAircraft {
 	id: string;
 	registration: string;
 	type: string;
-	displayName: string; // e.g. "OO-SKX · DA40 D"
+	displayName: string; // e.g. "OO-SKX | DA40 D"
 }
 
 export async function fetchAndFormatAircraft(assetId: string): Promise<{

@@ -1,14 +1,12 @@
 import Link from "next/link";
 
-import { fetchAndFormatCrewMember } from "@/actions/pages/crew/fetch";
-import { fetchAndFormatAircraft } from "@/actions/pages/fleet/fetch";
 import { getPreferences } from "@/actions/user-preferences";
 
 import { formatDate } from "@/lib/date-utils";
 import { formatTime } from "@/lib/time-utils";
 import { ArrayToText, formatMovement } from "@/lib/log-utils";
 
-import { Flight } from "@/types/logs";
+import { FlightRecord } from "@/actions/pages/logs/fetch";
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,7 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Check, X } from "lucide-react";
 
 interface FlightLogInfoProps {
-  flight: Flight & { _type: "flight" };
+  flight: FlightRecord & { _type: "flight" };
 }
 
 export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
@@ -33,7 +31,6 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
   const showApproaches = preferences?.logging?.fields?.approaches ?? true;
   const showGoArounds = preferences?.logging?.fields?.go_arounds ?? true;
   const showTraining = preferences?.logging?.fields?.training ?? true;
-  const nameFormat = preferences?.nameDisplay ?? "first-last";
 
   const timeRows = [
     "block",
@@ -80,17 +77,6 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
 
   const visibleItems = miscItems.filter(item => item.show);
   const hasAnyContent = visibleItems.some(item => item.hasValue);
-
-  const { aircraft } = await fetchAndFormatAircraft(flight.aircraft_id);
-
-  let crew: Awaited<
-    ReturnType<typeof fetchAndFormatCrewMember>
-  >["crew"] = null;
-
-  if (flight.pic_id) {
-    const result = await fetchAndFormatCrewMember(flight.pic_id, nameFormat);
-    crew = result.crew;
-  }
 
   return (
     <div className="p-6">
@@ -142,12 +128,12 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
           </div>
 
           {/* Aircraft */}
-          {aircraft && (
+          {flight._aircraft && (
             <Link
               href={`/app/fleet/${flight.aircraft_id}`}
               className="inline-flex items-center font-medium text-sm md:text-base hover:bg-muted rounded px-3 py-1 md:px-2"
             >
-              {aircraft.displayName}
+              {`${flight._aircraft.registration} ${(flight._aircraft.model || flight._aircraft.type) && `| ${flight._aircraft.model || flight._aircraft.type}`}`}
             </Link>
           )}
         </div>
@@ -447,19 +433,19 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
           Crew Information
         </h3>
         {/* Check if PIC is self <-> fetch PIC based on ID */}
-        {crew ? (
+        {flight._pic && flight._pic.id ? (
           <div className="p-3 pr-1 flex items-center justify-between">
             <span className="text-sm font-semibold">Pilot In Command</span>
             <span className="text-sm">
               <Link
-                href={`/app/crew/${crew.id}`}
+                href={`/app/crew/${flight._pic.id}`}
                 className="inline-flex items-center gap-2 font-medium text-sm hover:bg-muted rounded py-1 px-2"
               >
-                <span>{crew.fullName}</span>
+                <span>{flight._pic.full_name}</span>
 
-                {crew.companyId && (
+                {flight._pic.company_id && (
                   <span className="text-xs px-2 py-0.5 rounded bg-muted text-muted-foreground">
-                    {crew.companyId}
+                    {flight._pic.company_id}
                   </span>
                 )}
               </Link>

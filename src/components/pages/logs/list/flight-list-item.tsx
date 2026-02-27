@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import type { Flight } from "@/types/logs";
+import type { FlightRow } from "@/types/logs";
 import { Fleet } from "@/types/fleet";
 
 import { formatDate } from "@/lib/date-utils";
@@ -13,7 +13,7 @@ import { PositionedItem } from "@/components/ui/positioned-group";
 import { ChevronRight } from "lucide-react";
 
 interface FlightListItemProps {
-  flight: Flight;
+  flight: FlightRow;
   aircraft?: Fleet;
 }
 

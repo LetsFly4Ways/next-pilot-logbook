@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { FleetFilterDropdown } from "@/components/pages/fleet/fleet-filter-dropdown";
 import {
   writeFlightFormSelection,
-  fleetToSelectedAircraft,
 } from "@/components/pages/logs/select/flight-form-selection";
 import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
 
@@ -119,7 +118,7 @@ export default function FleetSelect({ logType }: FleetSelectProps) {
           onSelect={(fleet) => {
             writeFlightFormSelection({
               type: "aircraft",
-              payload: fleetToSelectedAircraft(fleet),
+              payload: fleet,
             });
             clearSelectContext();
             router.back();

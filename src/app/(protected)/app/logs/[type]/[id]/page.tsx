@@ -1,10 +1,12 @@
 import { Suspense } from "react";
+import { Metadata } from "next";
+
+import { fetchLog } from "@/actions/pages/logs/fetch";
+
+import { formatDate } from "@/lib/date-utils";
 
 import LogPage from "@/components/pages/logs/info/view";
 import CenterSpinner from "@/components/ui/center-spinner";
-import { Metadata } from "next";
-import { fetchLog } from "@/actions/pages/logs/fetch";
-import { formatDate } from "@/lib/date-utils";
 
 type Params = Promise<{
   id: string;
@@ -27,7 +29,7 @@ export async function generateMetadata({
     };
   }
 
-  const { log } = await fetchLog(id);
+  const { log } = await fetchLog(id, type);
 
   if (!log) {
     return {

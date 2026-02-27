@@ -1,33 +1,7 @@
 import { z } from "zod";
 import { UserPreferences } from "@/types/user-preferences";
-
-// ============================================================================
-// Selected Aircraft Schemas
-// ============================================================================
-
-export const SelectedAircraftSchema = z.object({
-  id: z.uuid(), // aircraft_id for submission
-  registration: z.string(), // for UI display
-  type: z.string(), // ICAO type
-  model: z.string(), // aircraft model
-  isSimulator: z.boolean().optional().default(false),
-});
-
-export type SelectedAircraft = z.infer<typeof SelectedAircraftSchema>;
-
-// ============================================================================
-// Selected Crew Schemas
-// ============================================================================
-
-/** Convenience type for PIC display in form */
-export const SelectedCrewSchema = z.object({
-  id: z.uuid().nullable(),
-  first_name: z.string(),
-  last_name: z.string(),
-  code: z.string(),
-});
-
-export type SelectedCrew = z.infer<typeof SelectedCrewSchema>;
+import { FleetSchema } from "@/types/fleet";
+import { CrewSchema } from "@/types/crew";
 
 // ============================================================================
 // Selected Airport Schemas
@@ -106,7 +80,7 @@ const BaseLogSchema = z.object({
 /**
  * Flight form schema - used for creating/editing flights
  */
-export const FlightFormSchema = BaseLogSchema.extend({
+export const FlightPayloadSchema = BaseLogSchema.extend({
   pic_id: z.uuid().nullable(),
 
   // Route information
@@ -154,32 +128,32 @@ export const FlightFormSchema = BaseLogSchema.extend({
   flight_number: z.string().max(20).nullable().optional(),
 });
 
-export type FlightForm = z.infer<typeof FlightFormSchema>;
+export type FlightPayload = z.infer<typeof FlightPayloadSchema>;
 
 /**
  * Flight Input schema for form
  */
-export const FlightFormInputSchema = FlightFormSchema.extend({
+export const FlightFormSchema = FlightPayloadSchema.extend({
   // Form convenience; not submitted
-  aircraft: SelectedAircraftSchema.optional().nullable(),
+  aircraft: FleetSchema.optional().nullable(),
   departure_airport: SelectedAirportSchema.nullable(),
   destination_airport: SelectedAirportSchema.nullable(),
-  pic: SelectedCrewSchema.nullable().optional(),
+  pic: CrewSchema.nullable().optional(),
 });
 
-export type FlightFormInput = z.input<typeof FlightFormInputSchema>;
+export type FlightFormValues = z.input<typeof FlightFormSchema>;
 
 /**
  * Complete flight schema with database fields
  */
-export const FlightSchema = FlightFormSchema.extend({
+export const FlightRowSchema = FlightPayloadSchema.extend({
   id: z.uuid(),
   user_id: z.uuid(),
   created_at: z.iso.datetime(),
   updated_at: z.iso.datetime(),
 });
 
-export type Flight = z.infer<typeof FlightSchema>;
+export type FlightRow = z.infer<typeof FlightRowSchema>;
 
 // ============================================================================
 // Simulator Session Schemas
@@ -210,7 +184,7 @@ export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
 export const SimulatorSessionFormInputSchema =
   SimulatorSessionFormSchema.extend({
     // This is only for form convenience; not submitted
-    simulator: SelectedAircraftSchema.optional().nullable(),
+    simulator: FleetSchema.optional().nullable(),
   });
 
 export type SimulatorSessionFormInput = z.input<
@@ -237,7 +211,7 @@ export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
  * Discriminated union for form data - allows type-safe handling of either flight or simulator
  */
 export const DiscriminatedSchema = z.discriminatedUnion("type", [
-  FlightFormSchema.extend({ type: z.literal("flight") }),
+  FlightPayloadSchema.extend({ type: z.literal("flight") }),
   SimulatorSessionFormSchema.extend({ type: z.literal("simulator") }),
 ]);
 
@@ -271,5 +245,5 @@ export const LOGGING_FIELD_LABELS: Record<
  * Union type representing any log entry (flight or simulator session)
  */
 export type Log =
-  | (Flight & { _type: "flight" })
+  | (FlightRow & { _type: "flight" })
   | (SimulatorSession & { _type: "simulator" });

@@ -1,9 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 
-import { fetchLog } from "@/actions/pages/logs/fetch";
-
-import { Log } from "@/types/logs";
+import { fetchLog, LogRecord } from "@/actions/pages/logs/fetch";
 
 import { formatDate } from "@/lib/date-utils";
 
@@ -19,7 +17,7 @@ interface LogPageProps {
 }
 
 export default async function LogPage({ id, type }: LogPageProps) {
-  const { log, error } = await fetchLog(id);
+  const { log, error } = await fetchLog(id, type);
 
   const date = log?.date ? new Date(log.date) : null;
 
@@ -71,7 +69,7 @@ export default async function LogPage({ id, type }: LogPageProps) {
 }
 
 interface LogContentProps {
-  log: Log
+  log: LogRecord
 }
 
 // Main log content component
