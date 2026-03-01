@@ -33,12 +33,16 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
       {/* LEADING COLUMN - 3 ROWS */}
       <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-1 items-start">
         {/* ROW 1: Date & Flight Number */}
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground hidden sm:inline">
-            {formatDate(flight.date, "short")}
-          </span>
-          <span className="text-sm text-muted-foreground sm:hidden">
-            {formatDate(flight.date, "dateMonth")}
+        <div className="flex items-center gap-2 min-w-0 @container">
+          <span className="text-sm text-muted-foreground">
+            {/* Full date: "28 Jun 2026" — hidden when container is narrow */}
+            <span className="[@container(max-width:105px)]:hidden">
+              {formatDate(flight.date, "short")}
+            </span>
+            {/* Short date: "28 Jun" — only shown when container is narrow */}
+            <span className="hidden [@container(max-width:105px)]:inline">
+              {formatDate(flight.date, "dateMonth")}
+            </span>
           </span>
         </div>
 

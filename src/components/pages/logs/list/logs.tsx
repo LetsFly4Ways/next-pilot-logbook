@@ -3,14 +3,30 @@
 import { useState } from "react";
 import Link from "next/link";
 
-
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LogList } from "./list";
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { LogList } from "@/components/pages/logs/list/list";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
-import { ChevronsUpDown, CircleX, ListFilter, Plus, Search, X } from "lucide-react";
+import {
+  ChevronsUpDown,
+  CircleX,
+  ListFilter,
+  MonitorPlay,
+  PlaneTakeoff,
+  Plus,
+  Search,
+  X
+} from "lucide-react";
 
 export default function LogsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -114,14 +130,34 @@ export default function LogsPage() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button
-              variant="ghost"
-              className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
-            >
-              <Link href="/app/fleet/new">
-                <Plus className="h-4 w-4" />
-              </Link>
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md" align="end" sideOffset={12}>
+                <DropdownMenuItem asChild>
+                  <Link href="/app/logs/flight/new" className="flex items-center gap-2 cursor-pointer">
+                    <PlaneTakeoff className="h-4 w-4 text-muted-foreground" />
+                    New Flight
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem asChild>
+                  <Link href="/app/logs/simulator/new" className="flex items-center gap-2 cursor-pointer">
+                    <MonitorPlay className="h-4 w-4 text-muted-foreground" />
+                    New Simulator Session
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )
       } />

@@ -33,12 +33,18 @@ export function SimulatorListItem({ session, simulator }: SimulatorListItemProps
       {/* LEADING COLUMN - 3 ROWS */}
       <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-1 items-start">
         {/* ROW 1: Date */}
-        <span className="text-sm text-muted-foreground hidden sm:inline">
-          {formatDate(session.date, "short")}
-        </span>
-        <span className="text-sm text-muted-foreground sm:hidden">
-          {formatDate(session.date, "dateMonth")}
-        </span>
+        <div className="flex items-center gap-2 min-w-0 @container">
+          <span className="text-sm text-muted-foreground">
+            {/* Full date: "28 Jun 2026" — hidden when container is narrow */}
+            <span className="[@container(max-width:105px)]:hidden">
+              {formatDate(session.date, "short")}
+            </span>
+            {/* Short date: "28 Jun" — only shown when container is narrow */}
+            <span className="hidden [@container(max-width:105px)]:inline">
+              {formatDate(session.date, "dateMonth")}
+            </span>
+          </span>
+        </div>
 
         {/* ROW 2: Simulator */}
         <div className="flex items-center text-lg font-semibold">

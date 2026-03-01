@@ -1,7 +1,9 @@
 import { getPreferences } from "@/actions/user-preferences";
 import FlightForm from "@/components/pages/logs/form/flight-form";
+import SimulatorForm from "@/components/pages/logs/form/simulator-form";
 import CenterSpinner from "@/components/ui/center-spinner";
 import { getDefaultPreferences } from "@/types/user-preferences";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 type Params = Promise<{
@@ -14,9 +16,10 @@ async function PageWrapper({ params }: { params: Params }) {
 
   if (type === "flight") {
     return <FlightForm preferences={preferences ?? getDefaultPreferences()} />;
+  } else if (type === "simulator") {
+    return <SimulatorForm preferences={preferences ?? getDefaultPreferences()} />;
   } else {
-    // <SimulatorForm />
-    return <></>
+    notFound();
   }
 }
 
