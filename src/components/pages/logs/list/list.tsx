@@ -277,7 +277,9 @@ export function ListItemSkeleton() {
         </div>
 
         {/* Row 3 — spacer */}
-        <div className="col-start-1 row-start-3" />
+        <div className="col-start-1 row-start-3 text-sm text-muted-foreground text-right">
+          <Skeleton className="h-4 w-20 justify-self-end" />
+        </div>
 
         {/* Chevron */}
         <ChevronRight className="col-start-2 row-span-3 w-5 h-5 text-muted-foreground self-center" />
