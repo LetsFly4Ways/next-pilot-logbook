@@ -163,7 +163,7 @@ export type FlightRow = z.infer<typeof FlightRowSchema>;
  * Simulator session form schema - used for creating/editing simulator sessions
  */
 export const SimulatorSessionPayloadSchema = BaseLogSchema.extend({
-  instructor_id: z.uuid(),
+  instructor_id: z.uuid().nullable(),
   instructor_is_self: z.boolean().default(false),
   session_minutes: z.number().int().min(0),
 }).superRefine((data, ctx) => {

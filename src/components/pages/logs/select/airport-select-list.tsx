@@ -24,17 +24,18 @@ import { readSelectContext, writeSelectContext } from "@/components/pages/logs/s
 
 import { CircleX, ListFilter, Search, X } from "lucide-react";
 
-export default function AirportSelectList() {
+interface AirportSelectListProps {
+  role: "departure" | "destination";
+}
+
+export default function AirportSelectList({ role }: AirportSelectListProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortBy>("country");
   const [showSearch, setShowSearch] = useState(false);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-  const [role] = useState<"departure" | "destination">(() => {
-    const context = readSelectContext("flight");
-    return context?.role ?? "departure";
-  });
+  // current selection / return url still stored in context
   const [currentIcao] = useState<string | null>(() => {
     const context = readSelectContext("flight");
     return context?.current ?? null;
@@ -60,7 +61,7 @@ export default function AirportSelectList() {
         "flight"
       );
     }
-    return `/app/logs/flight/airport-select/${icao}`;
+    return `/app/logs/flight/airport-select/${role}/${icao}`;
   };
 
   return (

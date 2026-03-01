@@ -22,17 +22,18 @@ import RunwaySelectRow, { RunwaySelectRowSkeleton } from "@/components/pages/log
 import { AirportHeader, AirportHeaderSkeleton } from "@/components/pages/airports/airport-header";
 import { Separator } from "@/components/ui/separator";
 
-export default function AirportSelectDetail({ params }: { params: { type: string, icao: string } }) {
+export default function AirportSelectDetail({ params }: { params: { type: string; role?: string; icao: string } }) {
   const router = useRouter();
-  const icao = (params?.icao as string) ?? "";
+  const icao = params?.icao ?? "";
 
   const [airport, setAirport] = useState<Airport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [role] = useState<"departure" | "destination">(() => {
-    const context = readSelectContext("flight");
-    return context?.role ?? "departure";
-  });
+
+  // role now comes from the route parameter; default to departure for safety
+  const role: "departure" | "destination" =
+    params.role === "destination" ? "destination" : "departure";
+
   const [returnHref] = useState<string>(() => {
     const context = readSelectContext("flight");
     return context?.return ?? "/app/logs/flight/new";
@@ -43,8 +44,8 @@ export default function AirportSelectDetail({ params }: { params: { type: string
     return context?.runway ?? null;
   });
 
-  // Back button always goes to airport-select-list
-  const backHref = "/app/logs/flight/airport-select";
+  // Back button always goes to airport-select-list for the same role
+  const backHref = `/app/logs/flight/airport-select/${role}`;
 
   useEffect(() => {
     let cancelled = false;

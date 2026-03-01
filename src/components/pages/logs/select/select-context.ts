@@ -6,7 +6,6 @@ export interface SelectContext {
   type?: "flight" | "simulator"; // Indicates whether this is for a flight or simulator session
   current?: string | null;
   return: string;
-  role?: "departure" | "destination";
   selected?: string; // For approaches: pipe-separated titles
   runway?: string | null; // For airport detail: current runway selection
 }

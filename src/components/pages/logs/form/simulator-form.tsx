@@ -46,6 +46,25 @@ import {
 } from "@/components/ui/form-field-types";
 import TimeTable, { TimeTableField } from "@/components/pages/logs/form/time-table";
 
+const emptyValues: SimulatorSessionFormValues = {
+  date: new Date(),
+  aircraft_id: "",
+  simulator: null,
+  instructor_id: null,
+  instructor_is_self: false,
+  instructor: null,
+
+  session_minutes: 0,
+  duty_start: null,
+  duty_end: null,
+  duty_time_minutes: 0,
+  hobbs_start: null,
+  hobbs_end: null,
+
+  remarks: null,
+  training_description: null,
+}
+
 interface SimulatorFormProps {
   session?: SimulatorSessionRecord;
   isEdit?: boolean;
@@ -66,7 +85,7 @@ export default function SimulatorForm({
 
   const form = useForm<SimulatorSessionFormValues>({
     resolver: zodResolver(SimulatorSessionFormSchema),
-    // defaultValues: 
+    defaultValues: emptyValues,
   });
 
   // ------- Selection reader ------- //

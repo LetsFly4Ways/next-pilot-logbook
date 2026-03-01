@@ -560,12 +560,12 @@ export default function FlightForm({
               isLoading={isLoading}
               onOpenDialog={() => {
                 writeSelectContext({
-                  role: "departure",
+                  type: "flight",
                   current: form.getValues("departure_airport")?.icao ?? null,
                   return: pathname ?? "/app/logs/flight/new",
                   runway: form.getValues("departure_runway") ?? null,
                 }, "flight");
-                router.push("/app/logs/flight/airport-select");
+                router.push("/app/logs/flight/airport-select/departure");
               }}
               required
               displayValue={(ap) => {
@@ -583,12 +583,12 @@ export default function FlightForm({
               isLoading={isLoading}
               onOpenDialog={() => {
                 writeSelectContext({
-                  role: "destination",
+                  type: "flight",
                   current: form.getValues("destination_airport")?.icao ?? null,
                   return: pathname ?? "/app/logs/flight/new",
                   runway: form.getValues("destination_runway") ?? null,
                 }, "flight");
-                router.push("/app/logs/flight/airport-select");
+                router.push("/app/logs/flight/airport-select/destination");
               }}
               required
               displayValue={(ap) => {
