@@ -204,7 +204,7 @@ export default function SimulatorForm({
       isEdit={isEdit}
       isLoading={isLoading}
       title="Simulator Session"
-      draftName="simulator-session"
+      draftName="simulator"
       onSubmit={handleSubmit}
       onDelete={isEdit ? handleDelete : undefined}
       onDraftRestore={getDraftFromCookie}

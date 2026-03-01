@@ -33,9 +33,12 @@ export function SimulatorListItem({ session, simulator }: SimulatorListItemProps
       {/* LEADING COLUMN - 3 ROWS */}
       <div className="min-w-0 ml-2 grid grid-rows-[auto_auto] grid-cols-1 gap-1 items-start">
         {/* ROW 1: Date */}
-        <div className="text-sm text-muted-foreground">
-          {formatDate(session.date)}
-        </div>
+        <span className="text-sm text-muted-foreground hidden sm:inline">
+          {formatDate(session.date, "short")}
+        </span>
+        <span className="text-sm text-muted-foreground sm:hidden">
+          {formatDate(session.date, "dateMonth")}
+        </span>
 
         {/* ROW 2: Simulator */}
         <div className="flex items-center text-lg font-semibold">

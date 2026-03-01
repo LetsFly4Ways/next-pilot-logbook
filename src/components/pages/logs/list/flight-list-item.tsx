@@ -40,11 +40,6 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
           <span className="text-sm text-muted-foreground sm:hidden">
             {formatDate(flight.date, "dateMonth")}
           </span>
-          {flight.flight_number && (
-            <span className="text-sm font-medium">
-              {flight.flight_number}
-            </span>
-          )}
         </div>
 
         {/* ROW 2: Route */}
@@ -82,7 +77,13 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
         </div>
 
         {/* Row 3 — empty spacer to align with leading row 3 */}
-        <div className="col-start-1 row-start-3" />
+        <div className="col-start-1 row-start-3 text-sm text-muted-foreground text-right">
+          {flight.flight_number && (
+            <span className="text-sm font-medium">
+              {flight.flight_number}
+            </span>
+          )}
+        </div>
 
         {/* Chevron — vertically centered across all rows */}
         <ChevronRight className="col-start-2 row-span-3 w-5 h-5 text-muted-foreground self-center" />

@@ -240,8 +240,6 @@ async function resolveCrew(
       preferences?.nameDisplay,
     );
 
-    console.log(name);
-
     return {
       id: crew.id,
       user_id: "",

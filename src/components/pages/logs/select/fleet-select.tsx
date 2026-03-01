@@ -29,7 +29,6 @@ export default function FleetSelect({ logType }: FleetSelectProps) {
   const router = useRouter();
   const [currentId, setCurrentId] = useState<string | null>(() => {
     const context = readSelectContext(logType);
-    console.log("Current context:", context);
     return context?.current ?? null;
   });
 
