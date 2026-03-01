@@ -479,9 +479,16 @@ export default function FlightForm({
     const data: FlightPayload = FlightPayloadSchema.parse(values);
 
     return !!(
+      data.date ||
       data.departure_airport_code ||
       data.destination_airport_code ||
-      data.aircraft_id
+      data.aircraft_id ||
+      data.pic_id ||
+      data.block_start ||
+      data.block_end ||
+      data.flight_start ||
+      data.flight_end ||
+      data.flight_number
     );
   };
 

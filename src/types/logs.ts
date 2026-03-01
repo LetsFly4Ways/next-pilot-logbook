@@ -62,7 +62,19 @@ export const OTHER_PIC_FUNCTIONS: string[] = [
  * Common fields shared between flights and simulator sessions
  */
 const BaseLogSchema = z.object({
-  date: z.date(),
+  // the date field comes from a native HTML <input type="date" /> which
+  // always produces a string ("YYYY-MM-DD"). we accept both Date objects and
+  // strings here by preprocessing so that callers of `parse` don't have to
+  // worry about converting the value first. this also keeps the schema
+  // compatible with drafts that are serialized to/from JSON.
+  date: z.preprocess((val) => {
+    if (val instanceof Date) return val;
+    if (typeof val === "string" && val) {
+      // `new Date("YYYY-MM-DD")` produces a valid date in local time
+      return new Date(val);
+    }
+    return val;
+  }, z.date()),
   aircraft_id: z.uuid(),
   duty_start: z.iso.time().nullable().optional(),
   duty_end: z.iso.time().nullable().optional(),

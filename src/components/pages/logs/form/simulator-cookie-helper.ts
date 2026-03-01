@@ -1,12 +1,9 @@
-import {
-  SimulatorSessionFormValues,
-  SimulatorSessionPayload,
-} from "@/types/logs";
+import { SimulatorSessionFormValues } from "@/types/logs";
 
 const DRAFT_COOKIE_NAME = "nplb_simulator_form_draft";
 const DRAFT_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-export function getDraftFromCookie(): SimulatorSessionPayload | null {
+export function getDraftFromCookie(): SimulatorSessionFormValues | null {
   if (typeof document === "undefined") return null;
 
   try {
@@ -19,10 +16,7 @@ export function getDraftFromCookie(): SimulatorSessionPayload | null {
 
     const value = draftCookie.split("=")[1];
     const decoded = decodeURIComponent(value);
-    const parsed = JSON.parse(decoded);
-
-    // Validate the draft has required fields
-    if (!parsed.aircraft_id && !parsed.instructor_id) return null;
+    const parsed = JSON.parse(decoded) as SimulatorSessionFormValues;
 
     return parsed;
   } catch (error) {

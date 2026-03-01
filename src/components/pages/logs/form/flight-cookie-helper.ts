@@ -16,11 +16,7 @@ export function getDraftFromCookie(): FlightFormValues | null {
 
     const value = draftCookie.split("=")[1];
     const decoded = decodeURIComponent(value);
-    const parsed = JSON.parse(decoded);
-
-    // Validate the draft has required fields
-    if (!parsed.departure_airport_code && !parsed.destination_airport_code)
-      return null;
+    const parsed = JSON.parse(decoded) as FlightFormValues;
 
     return parsed;
   } catch (error) {

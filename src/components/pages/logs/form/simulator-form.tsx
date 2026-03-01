@@ -99,11 +99,13 @@ export default function SimulatorForm({
     switch (selection.type) {
       case "simulator":
         form.setValue("simulator", selection.payload);
+        form.setValue("aircraft_id", selection.payload.id);
         break;
 
       case "crew":
         form.setValue("instructor_id", selection.payload.id);
         form.setValue("instructor", selection.payload);
+        form.setValue("instructor_is_self", selection.payload.instructor_is_self || false);
         break;
     }
     clearSimulatorFormSelection();
@@ -120,11 +122,13 @@ export default function SimulatorForm({
       switch (selection.type) {
         case "simulator":
           form.setValue("simulator", selection.payload);
+          form.setValue("aircraft_id", selection.payload.id);
           break;
 
         case "crew":
           form.setValue("instructor_id", selection.payload.id);
           form.setValue("instructor", selection.payload);
+          form.setValue("instructor_is_self", selection.payload.instructor_is_self);
           break;
       }
     }, 100);
@@ -211,7 +215,11 @@ export default function SimulatorForm({
     const data: SimulatorSessionPayload = SimulatorSessionPayloadSchema.parse(values);
 
     return !!(
-      data.aircraft_id || data.instructor_id || data.instructor_is_self === true
+      data.date ||
+      data.aircraft_id ||
+      data.instructor_id ||
+      data.instructor_is_self === true ||
+      data.session_minutes > 0
     );
   };
 
