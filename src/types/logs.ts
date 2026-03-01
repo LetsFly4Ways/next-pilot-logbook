@@ -162,7 +162,7 @@ export type FlightRow = z.infer<typeof FlightRowSchema>;
 /**
  * Simulator session form schema - used for creating/editing simulator sessions
  */
-export const SimulatorSessionFormSchema = BaseLogSchema.extend({
+export const SimulatorSessionPayloadSchema = BaseLogSchema.extend({
   instructor_id: z.uuid(),
   instructor_is_self: z.boolean().default(false),
   session_minutes: z.number().int().min(0),
@@ -176,32 +176,34 @@ export const SimulatorSessionFormSchema = BaseLogSchema.extend({
   }
 });
 
-export type SimulatorSessionForm = z.infer<typeof SimulatorSessionFormSchema>;
+export type SimulatorSessionPayload = z.infer<
+  typeof SimulatorSessionPayloadSchema
+>;
 
 /**
  * Flight Input schema for form
  */
-export const SimulatorSessionFormInputSchema =
-  SimulatorSessionFormSchema.extend({
-    // This is only for form convenience; not submitted
-    simulator: FleetSchema.optional().nullable(),
-  });
+export const SimulatorSessionFormSchema = SimulatorSessionPayloadSchema.extend({
+  // This is only for form convenience; not submitted
+  simulator: FleetSchema.optional().nullable(),
+  instructor: CrewSchema.nullable().optional(),
+});
 
-export type SimulatorSessionFormInput = z.input<
-  typeof SimulatorSessionFormInputSchema
+export type SimulatorSessionFormValues = z.input<
+  typeof SimulatorSessionFormSchema
 >;
 
 /**
  * Complete simulator session schema with database fields
  */
-export const SimulatorSessionSchema = SimulatorSessionFormSchema.extend({
+export const SimulatorSessionRowSchema = SimulatorSessionPayloadSchema.extend({
   id: z.uuid(),
   user_id: z.uuid(),
   created_at: z.iso.datetime(),
   updated_at: z.iso.datetime(),
 });
 
-export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
+export type SimulatorSessionRow = z.infer<typeof SimulatorSessionRowSchema>;
 
 // ============================================================================
 // Discriminated Union Schema
@@ -212,7 +214,7 @@ export type SimulatorSession = z.infer<typeof SimulatorSessionSchema>;
  */
 export const DiscriminatedSchema = z.discriminatedUnion("type", [
   FlightPayloadSchema.extend({ type: z.literal("flight") }),
-  SimulatorSessionFormSchema.extend({ type: z.literal("simulator") }),
+  SimulatorSessionPayloadSchema.extend({ type: z.literal("simulator") }),
 ]);
 
 // ============================================================================
@@ -246,4 +248,4 @@ export const LOGGING_FIELD_LABELS: Record<
  */
 export type Log =
   | (FlightRow & { _type: "flight" })
-  | (SimulatorSession & { _type: "simulator" });
+  | (SimulatorSessionRow & { _type: "simulator" });

@@ -1,47 +1,52 @@
 "use server";
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
+import { SimulatorSessionPayload } from "@/types/logs";
 
 /**
- * Delete a flight log entry
+ * Create a new simulator session log entry
  */
-export async function deleteFlight(
-	flightId: string,
-): Promise<{ success: boolean; error?: string }> {
-	try {
-		const auth = await getAuthenticatedUser();
+export async function createSimulatorSession(
+  data: SimulatorSessionPayload,
+): Promise<{ success: boolean; error?: string; sessionId?: string }> {
+  try {
+    const auth = await getAuthenticatedUser();
 
-		if (!auth) {
-			return {
-				success: false,
-				error: "Authentication required",
-			};
-		}
+    if (!auth) {
+      return {
+        success: false,
+        error: "Authentication required",
+      };
+    }
 
-		const { supabase, user } = auth;
+    const { supabase, user } = auth;
 
-		const { error } = await supabase
-			.from("flights")
-			.delete()
-			.eq("id", flightId)
-			.eq("user_id", user.id);
+    const { data: newSession, error } = await supabase
+      .from("simulator_sessions")
+      .insert({
+        user_id: user.id,
+        ...data,
+      })
+      .select()
+      .single();
 
-		if (error) {
-			console.error("Error deleting flight:", error);
-			return {
-				success: false,
-				error: error.message,
-			};
-		}
+    if (error) {
+      console.error("Error creating simulator session:", error);
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
 
-		return {
-			success: true,
-		};
-	} catch (error) {
-		console.error("Unexpected error deleting flight:", error);
-		return {
-			success: false,
-			error: "An unexpected error occurred",
-		};
-	}
+    return {
+      success: true,
+      sessionId: newSession.id,
+    };
+  } catch (error) {
+    console.error("Unexpected error creating simulator session:", error);
+    return {
+      success: false,
+      error: "An unexpected error occurred",
+    };
+  }
 }

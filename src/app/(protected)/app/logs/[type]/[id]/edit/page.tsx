@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { ErrorContainer } from "@/components/ui/error-container";
 import FlightForm from "@/components/pages/logs/form/flight-form";
 import CenterSpinner from "@/components/ui/center-spinner";
+import SimulatorForm from "@/components/pages/logs/form/simulator-form";
 
 type Params = Promise<{
 	id: string;
@@ -80,8 +81,7 @@ async function EditLogPageContent({ params }: { params: Params }) {
 	return log._type === "flight" ? (
 		<FlightForm flight={log} isEdit={!!log} preferences={preferences ?? getDefaultPreferences()} />
 	) : (
-		// <SimulatorLogInfo session={log} />
-		<></>
+		<SimulatorForm session={log} isEdit={!!log} preferences={preferences ?? getDefaultPreferences()} />
 	);
 }
 

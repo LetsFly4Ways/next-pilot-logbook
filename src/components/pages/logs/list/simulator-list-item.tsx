@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import type { SimulatorSession } from "@/types/logs";
+import type { SimulatorSessionRow } from "@/types/logs";
 import { Fleet } from "@/types/fleet";
 
 import { formatDate } from "@/lib/date-utils";
@@ -13,7 +13,7 @@ import { PositionedItem } from "@/components/ui/positioned-group";
 import { ChevronRight } from "lucide-react";
 
 interface SimulatorListItemProps {
-  session: SimulatorSession;
+  session: SimulatorSessionRow;
   simulator?: Fleet
 }
 

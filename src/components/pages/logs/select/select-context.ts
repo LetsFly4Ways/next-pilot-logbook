@@ -1,6 +1,9 @@
-const CONTEXT_KEY = "flight-form-select-context";
+function getContextKey(type: "flight" | "simulator"): string {
+  return type === "flight" ? "flight-form-select-context" : "simulator-form-select-context";
+}
 
 export interface SelectContext {
+  type?: "flight" | "simulator"; // Indicates whether this is for a flight or simulator session
   current?: string | null;
   return: string;
   role?: "departure" | "destination";
@@ -8,14 +11,14 @@ export interface SelectContext {
   runway?: string | null; // For airport detail: current runway selection
 }
 
-export function writeSelectContext(context: SelectContext): void {
+export function writeSelectContext(context: SelectContext, type: "flight" | "simulator"): void {
   if (typeof sessionStorage === "undefined") return;
-  sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+  sessionStorage.setItem(getContextKey(type), JSON.stringify(context));
 }
 
-export function readSelectContext(): SelectContext | null {
+export function readSelectContext(type: "flight" | "simulator"): SelectContext | null {
   if (typeof sessionStorage === "undefined") return null;
-  const raw = sessionStorage.getItem(CONTEXT_KEY);
+  const raw = sessionStorage.getItem(getContextKey(type));
   if (!raw) return null;
   try {
     return JSON.parse(raw) as SelectContext;
@@ -24,7 +27,7 @@ export function readSelectContext(): SelectContext | null {
   }
 }
 
-export function clearSelectContext(): void {
+export function clearSelectContext(type: "flight" | "simulator"): void {
   if (typeof sessionStorage === "undefined") return;
-  sessionStorage.removeItem(CONTEXT_KEY);
+  sessionStorage.removeItem(getContextKey(type));
 }

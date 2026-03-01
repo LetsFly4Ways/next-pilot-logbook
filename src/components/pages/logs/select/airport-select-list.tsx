@@ -32,15 +32,15 @@ export default function AirportSelectList() {
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   const [role] = useState<"departure" | "destination">(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.role ?? "departure";
   });
   const [currentIcao] = useState<string | null>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.current ?? null;
   });
   const [returnHref] = useState<string>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.return ?? "/app/logs/flight/new";
   });
 
@@ -49,13 +49,16 @@ export default function AirportSelectList() {
 
   const buildDetailUrl = (icao: string) => {
     // Update context with selected airport before navigating
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     if (context) {
-      writeSelectContext({
-        ...context,
-        current: icao,
-        runway: null, // Clear runway when switching airports
-      });
+      writeSelectContext(
+        {
+          ...context,
+          current: icao,
+          runway: null, // Clear runway when switching airports
+        },
+        "flight"
+      );
     }
     return `/app/logs/flight/airport-select/${icao}`;
   };

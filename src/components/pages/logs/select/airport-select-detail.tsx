@@ -1,9 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { getAirportByIcao } from "@/actions/pages/airports/fetch";
+
+import { Airport, Runway } from "@/types/airports";
+
 import { PageHeader } from "@/components/layout/page-header";
 import { PositionedGroup } from "@/components/ui/positioned-group";
 
@@ -13,32 +17,29 @@ import {
   airportToSelectedAirport,
 } from "@/components/pages/logs/select/flight-form-selection";
 import { readSelectContext, clearSelectContext, writeSelectContext } from "@/components/pages/logs/select/select-context";
-import { Airport, Runway } from "@/types/airports";
 
 import RunwaySelectRow, { RunwaySelectRowSkeleton } from "@/components/pages/logs/select/runway-select-item";
-import { AirportHeader, AirportHeaderSkeleton } from "../../airports/airport-header";
+import { AirportHeader, AirportHeaderSkeleton } from "@/components/pages/airports/airport-header";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 
-export default function AirportSelectDetail() {
+export default function AirportSelectDetail({ params }: { params: { type: string, icao: string } }) {
   const router = useRouter();
-  const params = useParams();
   const icao = (params?.icao as string) ?? "";
 
   const [airport, setAirport] = useState<Airport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [role] = useState<"departure" | "destination">(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.role ?? "departure";
   });
   const [returnHref] = useState<string>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.return ?? "/app/logs/flight/new";
   });
 
   const [selectedRunway, setSelectedRunway] = useState<string | null>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.runway ?? null;
   });
 
@@ -75,7 +76,7 @@ export default function AirportSelectDetail() {
         payload: { airport: selectedAirport, runway: selectedRunway },
       });
     }
-    clearSelectContext();
+    clearSelectContext("flight");
     router.push(returnHref);
   };
 
@@ -161,12 +162,15 @@ export default function AirportSelectDetail() {
                     const newRunway = selectedRunway === rw.ident ? null : rw.ident;
                     setSelectedRunway(newRunway);
                     // Update context so runway selection persists
-                    const context = readSelectContext();
+                    const context = readSelectContext("flight");
                     if (context) {
-                      writeSelectContext({
-                        ...context,
-                        runway: newRunway,
-                      });
+                      writeSelectContext(
+                        {
+                          ...context,
+                          runway: newRunway,
+                        },
+                        "flight"
+                      );
                     }
                   }}
                 />

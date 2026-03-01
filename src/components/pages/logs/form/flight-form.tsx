@@ -11,17 +11,18 @@ import { FlightRecord } from "@/actions/pages/logs/fetch";
 import {
   FlightPayloadSchema,
   FlightFormValues,
-  FlightPayload as FlightFormType,
+  FlightPayload,
   FlightFormSchema,
   SelectedAirport,
   PilotFunction,
   OTHER_PIC_FUNCTIONS,
   SELF_PIC_FUNCTIONS,
 } from "@/types/logs";
+import { Fleet } from "@/types/fleet";
+import { UserPreferences } from "@/types/user-preferences";
+
 import { formatCrewName } from "@/lib/format-crew";
 import { calculateDurationMinutes } from "@/lib/time-utils";
-
-import { UserPreferences } from "@/types/user-preferences";
 
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,9 +35,9 @@ import {
 import {
   readFlightFormSelection,
   clearFlightFormSelection,
+  CrewSelectionPayload
 } from "@/components/pages/logs/select/flight-form-selection";
 import { writeSelectContext } from "@/components/pages/logs/select/select-context";
-import { CrewSelectionPayload } from "@/components/pages/logs/select/flight-form-selection";
 
 import LogForm from "@/components/pages/logs/form/form";
 
@@ -57,7 +58,6 @@ import { NightTimeDurationInputField } from "@/components/pages/logs/form/night-
 import { ManoeuvresField } from "@/components/pages/logs/form/manoeuvre-field";
 import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
 import { FunctionSelectField } from "@/components/pages/logs/form/select-pilot-function";
-import { Fleet } from "@/types/fleet";
 
 const emptyValues: FlightFormValues = {
   date: new Date(),
@@ -130,7 +130,7 @@ export default function FlightForm({
     defaultValues: emptyValues,
   });
 
-  // ------- Section reader ------- //
+  // ------- Selection reader ------- //
   /**
    * Single reader: handle any selection returned from select pages
    */
@@ -377,7 +377,7 @@ export default function FlightForm({
     }
   }, [flightStart, flightEnd, form]);
 
-  // Update total_air_minutes when flight times change
+  // Update duty_time_minutes when duty times change
   useEffect(() => {
     const minutes = calculateDurationMinutes(
       dutyStart ?? null,
@@ -398,7 +398,7 @@ export default function FlightForm({
 
   // ------- Submit ------- //
   const handleSubmit = async (values: FlightFormValues) => {
-    const data: FlightFormType = FlightPayloadSchema.parse({
+    const data: FlightPayload = FlightPayloadSchema.parse({
       ...values,
       aircraft_id: values.aircraft?.id ?? "",
 
@@ -476,7 +476,7 @@ export default function FlightForm({
   };
 
   const shouldSaveDraft = (values: FlightFormValues) => {
-    const data: FlightFormType = FlightPayloadSchema.parse(values);
+    const data: FlightPayload = FlightPayloadSchema.parse(values);
 
     return !!(
       data.departure_airport_code ||
@@ -521,9 +521,10 @@ export default function FlightForm({
               isLoading={isLoading}
               onOpenDialog={() => {
                 writeSelectContext({
+                  type: "flight",
                   current: form.getValues("aircraft")?.id ?? null,
                   return: pathname ?? "/app/logs/flight/new",
-                });
+                }, "flight");
                 router.push("/app/logs/flight/fleet-select");
               }}
               required
@@ -563,7 +564,7 @@ export default function FlightForm({
                   current: form.getValues("departure_airport")?.icao ?? null,
                   return: pathname ?? "/app/logs/flight/new",
                   runway: form.getValues("departure_runway") ?? null,
-                });
+                }, "flight");
                 router.push("/app/logs/flight/airport-select");
               }}
               required
@@ -586,7 +587,7 @@ export default function FlightForm({
                   current: form.getValues("destination_airport")?.icao ?? null,
                   return: pathname ?? "/app/logs/flight/new",
                   runway: form.getValues("destination_runway") ?? null,
-                });
+                }, "flight");
                 router.push("/app/logs/flight/airport-select");
               }}
               required
@@ -618,9 +619,10 @@ export default function FlightForm({
               onOpenDialog={() => {
                 const picId = form.getValues("pic_id");
                 writeSelectContext({
+                  type: "flight",
                   current: picId === null ? "__SELF__" : picId,
                   return: pathname ?? "/app/logs/flight/new",
-                });
+                }, "flight");
                 router.push("/app/logs/flight/crew-select");
               }}
               displayValue={(pic) => {
@@ -687,7 +689,6 @@ export default function FlightForm({
                   name="duty_time_minutes"
                   label="Duty Time"
                   isLoading={isLoading}
-                  required
                 />
               )}
             </PositionedGroup>
@@ -757,7 +758,7 @@ export default function FlightForm({
                           ? approaches.join("|")
                           : undefined,
                       return: pathname ?? "/app/logs/flight/new",
-                    });
+                    }, "flight");
                     router.push("/app/logs/flight/approach-select");
                   }}
                   displayValue={(arr) => (arr?.length ? arr.join(", ") : null)}

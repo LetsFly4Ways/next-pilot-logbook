@@ -16,7 +16,7 @@ import { Check, ChevronRight } from "lucide-react";
 export default function ApproachSelect() {
   const router = useRouter();
   const [selected, setSelected] = useState<Set<string>>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     if (context?.selected) {
       const titles = context.selected.split("|").filter(Boolean);
       return new Set(titles);
@@ -24,7 +24,7 @@ export default function ApproachSelect() {
     return new Set();
   });
   const [returnHref] = useState<string>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext("flight");
     return context?.return ?? "/app/logs/flight/new";
   });
 
@@ -45,7 +45,7 @@ export default function ApproachSelect() {
       type: "approaches",
       payload: Array.from(selected),
     });
-    clearSelectContext();
+    clearSelectContext("flight");
     router.push(returnHref);
   };
 

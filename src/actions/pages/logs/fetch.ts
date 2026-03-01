@@ -12,7 +12,7 @@ import type {
   FlightRow,
   Log,
   SelectedAirport,
-  SimulatorSession,
+  SimulatorSessionRow,
 } from "@/types/logs";
 
 import { formatCrewName } from "@/lib/format-crew";
@@ -197,7 +197,7 @@ export type FlightRecord = FlightRow & {
   _destination_airport: SelectedAirport | null;
 };
 
-export type SimulatorSessionRecord = SimulatorSession & {
+export type SimulatorSessionRecord = SimulatorSessionRow & {
   _simulator: Fleet | null;
   _instructor: (Crew & { full_name: string }) | null;
 };
@@ -367,7 +367,7 @@ export async function fetchLog(
         },
       };
     } else if (type === "simulator") {
-      const session = data as SimulatorSession;
+      const session = data as SimulatorSessionRow;
 
       const [_simulator, _instructor] = await Promise.all([
         resolveAircraft(session.aircraft_id),

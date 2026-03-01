@@ -3,6 +3,8 @@ import { Metadata } from "next";
 
 import AirportSelectList from "@/components/pages/logs/select/airport-select-list";
 import CenterSpinner from "@/components/ui/center-spinner";
+import AirportSelectFallback from "@/components/pages/logs/select/airport-select-fallback";
+
 
 type Params = Promise<{ type: "flight" | "simulator" }>;
 
@@ -15,11 +17,7 @@ async function PageWrapper({ params }: { params: Params }) {
   const { type } = await params;
 
   if (type !== "flight") {
-    return (
-      <div className="p-6 text-muted-foreground">
-        Airport select is only available for flights.
-      </div>
-    );
+    return <AirportSelectFallback type={type} />;
   }
 
   return <AirportSelectList />;

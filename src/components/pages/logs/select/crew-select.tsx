@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { CrewList } from "@/components/pages/crew/list";
@@ -9,24 +9,46 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   writeFlightFormSelection,
-  crewToSelectionPayload,
-  selfToSelectionPayload,
+  crewToSelectionPayload as flightCrewToSelectionPayload,
+  selfToSelectionPayload as flightSelfToSelectionPayload,
 } from "@/components/pages/logs/select/flight-form-selection";
-import { readSelectContext, clearSelectContext, writeSelectContext } from "@/components/pages/logs/select/select-context";
+import {
+  writeSimulatorFormSelection,
+  crewToSelectionPayload as simulatorCrewToSelectionPayload,
+  selfToSelectionPayload as simulatorSelfToSelectionPayload,
+} from "@/components/pages/logs/select/simulator-form-selection";
+import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
 import { PositionedGroup, PositionedItem } from "@/components/ui/positioned-group";
 
 import { CircleX, Search, X, Check, ChevronRight } from "lucide-react";
 
-export default function CrewSelect() {
+interface CrewSelectProps {
+  logType: "flight" | "simulator";
+}
+
+export default function CrewSelect({ logType }: CrewSelectProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [currentId] = useState<string | null>(() => {
-    const context = readSelectContext();
+  const [currentId, setCurrentId] = useState<string | null>(() => {
+    const context = readSelectContext(logType);
     return context?.current ?? null;
   });
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      const context = readSelectContext(logType);
+      const val = context?.current ?? null;
+      if (val !== currentId) setCurrentId(val);
+    }, 100);
+    const timeout = setTimeout(() => clearInterval(t), 2000);
+    return () => {
+      clearInterval(t);
+      clearTimeout(timeout);
+    };
+  }, [logType, currentId]);
   const [returnHref] = useState<string>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext(logType);
     return context?.return ?? "/app/logs/flight/new";
   });
 
@@ -91,20 +113,19 @@ export default function CrewSelect() {
           <PositionedItem
             className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer hover:bg-muted/50"
             onClick={() => {
-              writeFlightFormSelection({
-                type: "crew",
-                payload: selfToSelectionPayload(),
-              });
-              // Update context to mark SELF as selected
-              const context = readSelectContext();
-              if (context) {
-                writeSelectContext({
-                  ...context,
-                  current: "__SELF__",
+              if (logType === "simulator") {
+                writeSimulatorFormSelection({
+                  type: "crew",
+                  payload: simulatorSelfToSelectionPayload(),
+                });
+              } else {
+                writeFlightFormSelection({
+                  type: "crew",
+                  payload: flightSelfToSelectionPayload(),
                 });
               }
-              clearSelectContext();
-              router.back();
+              clearSelectContext(logType);
+              router.push(returnHref);
             }}
           >
             <div className="min-w-0">
@@ -124,12 +145,19 @@ export default function CrewSelect() {
           searchQuery={searchQuery}
           selectedId={currentId ?? undefined}
           onSelect={(crew) => {
-            writeFlightFormSelection({
-              type: "crew",
-              payload: crewToSelectionPayload(crew),
-            });
-            clearSelectContext();
-            router.back();
+            if (logType === "simulator") {
+              writeSimulatorFormSelection({
+                type: "crew",
+                payload: simulatorCrewToSelectionPayload(crew),
+              });
+            } else {
+              writeFlightFormSelection({
+                type: "crew",
+                payload: flightCrewToSelectionPayload(crew),
+              });
+            }
+            clearSelectContext(logType);
+            router.push(returnHref);
           }}
         />
       </div>

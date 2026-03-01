@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { FleetAssetType } from "@/types/fleet";
@@ -14,6 +14,9 @@ import { FleetFilterDropdown } from "@/components/pages/fleet/fleet-filter-dropd
 import {
   writeFlightFormSelection,
 } from "@/components/pages/logs/select/flight-form-selection";
+import {
+  writeSimulatorFormSelection,
+} from "@/components/pages/logs/select/simulator-form-selection";
 import { readSelectContext, clearSelectContext } from "@/components/pages/logs/select/select-context";
 
 import { CircleX, Search, X } from "lucide-react";
@@ -24,12 +27,31 @@ interface FleetSelectProps {
 
 export default function FleetSelect({ logType }: FleetSelectProps) {
   const router = useRouter();
-  const [currentId] = useState<string | null>(() => {
-    const context = readSelectContext();
+  const [currentId, setCurrentId] = useState<string | null>(() => {
+    const context = readSelectContext(logType);
+    console.log("Current context:", context);
     return context?.current ?? null;
   });
+
+  // poll context briefly after mount so we pick up updates when user
+  // navigates back from a dialog without remounting the page
+  useEffect(() => {
+    const t = setInterval(() => {
+      const context = readSelectContext(logType);
+      const val = context?.current ?? null;
+      if (val !== currentId) {
+        setCurrentId(val);
+      }
+    }, 100);
+    const timeout = setTimeout(() => clearInterval(t), 2000);
+    return () => {
+      clearInterval(t);
+      clearTimeout(timeout);
+    };
+  }, [logType, currentId]);
+
   const [returnHref] = useState<string>(() => {
-    const context = readSelectContext();
+    const context = readSelectContext(logType);
     return context?.return ?? "/app/logs/flight/new";
   });
 
@@ -116,12 +138,19 @@ export default function FleetSelect({ logType }: FleetSelectProps) {
           assetTypes={assetTypes}
           selectedId={currentId ?? undefined}
           onSelect={(fleet) => {
-            writeFlightFormSelection({
-              type: "aircraft",
-              payload: fleet,
-            });
-            clearSelectContext();
-            router.back();
+            if (logType === "simulator") {
+              writeSimulatorFormSelection({
+                type: "simulator",
+                payload: fleet,
+              });
+            } else {
+              writeFlightFormSelection({
+                type: "aircraft",
+                payload: fleet,
+              });
+            }
+            clearSelectContext(logType);
+            router.push(returnHref);
           }}
         />
       </div>

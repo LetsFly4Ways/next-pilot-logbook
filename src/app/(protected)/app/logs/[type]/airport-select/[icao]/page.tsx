@@ -18,10 +18,11 @@ export async function generateMetadata({
   };
 }
 
-export default function Page({ params }: { params: Params }) {
+export default async function Page({ params }: { params: Params }) {
+  const resolvedParams = await params;
   return (
     <Suspense fallback={<CenterSpinner />}>
-      <AirportSelectDetail />
+      <AirportSelectDetail params={resolvedParams} />
     </Suspense>
   );
 }
