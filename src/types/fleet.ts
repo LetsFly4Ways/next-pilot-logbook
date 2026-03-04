@@ -17,7 +17,7 @@ export const FleetFormSchema = z.object({
   category: z.string(), // refine Single Pilot - Single Engine
   engine_count: z.number().int(),
   engine_type: z.string().nullable(),
-  passenger_seats: z.number().int(),
+  passenger_seats: z.number().int().min(0),
   operator: z.string().nullable(),
   status: z.string().nullable(),
   note: z.string().nullable(),

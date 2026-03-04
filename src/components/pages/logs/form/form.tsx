@@ -71,19 +71,22 @@ export default function LogForm<TForm extends FieldValues>({
     }
   }, [isEdit, form, draftName, onDraftRestore, onDraftClear]);
 
-  const handleSubmit = async (data: TForm) => {
+  // Called by RHF when zodResolver passes.
+  const handleValidSubmit = async (data: TForm) => {
     try {
+      console.log("Submitting form with data:", data);
       await onSubmit(data);
-      if (!isEdit) {
-        onDraftClear();
-      }
+      if (!isEdit) onDraftClear();
       router.push("/app/logs");
     } catch (error) {
-      console.error(
-        error instanceof Error ? error.message : "Something went wrong"
-      );
+      // Anything thrown by the child's onSubmit (ZodError, network error, etc.)
+      // is caught here and surfaced in the banner.
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+      console.error(`Failed to save ${draftName}:`, message);
     }
   };
+
 
   const handleDraftSave = () => {
     if (!isEdit && !isSubmitting) {
@@ -130,8 +133,9 @@ export default function LogForm<TForm extends FieldValues>({
             <Skeleton className="h-10 w-20" />
           ) : (
             <Button
+              type="submit"
+              form="log-form"
               variant="ghost"
-              onClick={form.handleSubmit(handleSubmit)}
               className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
               disabled={isSubmitting}
             >
@@ -143,7 +147,16 @@ export default function LogForm<TForm extends FieldValues>({
 
       <div className="p-6">
         <FormProvider {...form}>
-          <form onChange={debouncedSaveDraft} className="space-y-8">
+          <form id="log-form"
+            onSubmit={
+              async (e) => {
+                e.preventDefault();
+                const values = form.getValues();
+                await handleValidSubmit(values);
+              }}
+            onChange={debouncedSaveDraft}
+            className="space-y-8"
+          >
             {children}
 
             {/* Action Buttons */}

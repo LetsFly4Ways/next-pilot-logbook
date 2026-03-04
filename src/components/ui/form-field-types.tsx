@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useFormContext, FieldValues, Path, PathValue } from "react-hook-form";
 import { formatTime, timeToMinutes } from "@/lib/time-utils";
+import { cn } from "@/lib/utils";
 
 import { Field } from "@/components/ui/field";
 import { FormField } from "@/components/ui/form-field";
@@ -55,9 +56,12 @@ export function TextField<T extends FieldValues>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => (
+			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between"
+					>
 						<span className="text-sm font-medium w-36">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
@@ -66,10 +70,17 @@ export function TextField<T extends FieldValues>({
 							<Input
 								{...field}
 								type={type}
-								placeholder={placeholder}
+								placeholder={
+									fieldState.error?.message
+										? fieldState.error.message
+										: placeholder
+								}
 								value={field.value ?? ""}
 								required={required}
-								className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
+								className={cn(
+									"w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm",
+									fieldState.error && "placeholder:text-destructive placeholder:font-normal"
+								)}
 								onChange={(e) => {
 									const value =
 										type === "number"
@@ -117,7 +128,10 @@ export function DateField<T extends FieldValues>({
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between"
+					>
 						<span className="text-sm font-medium w-36">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
@@ -129,19 +143,16 @@ export function DateField<T extends FieldValues>({
 								placeholder={placeholder}
 								value={field.value ?? ""}
 								required={required}
-								className="w-fit h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm cursor-pointer"
+								className={cn(
+									"w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm",
+									fieldState.error && !field.value && "text-destructive"
+								)}
 								onChange={(e) => {
 									const value = new Date(e.target.value).toISOString().split("T")[0]; // Store as YYYY-MM-DD
 									field.onChange(value);
 								}}
 								disabled={isLoading}
 							/>
-
-							{fieldState.error && (
-								<span className="text-right text-xs text-red-500 mt-1">
-									{fieldState.error.message}
-								</span>
-							)}
 						</div>
 					</PositionedItem>
 				</Field>
@@ -181,7 +192,10 @@ export function TimeInputField<T extends FieldValues>({
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between"
+					>
 						<span className="text-sm font-medium w-36">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
@@ -190,22 +204,23 @@ export function TimeInputField<T extends FieldValues>({
 							<Input
 								{...field}
 								type={"time"}
-								placeholder={placeholder}
+								placeholder={
+									fieldState.error?.message
+										? fieldState.error.message
+										: placeholder
+								}
 								value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
 								required={required}
-								className="h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+								className={cn(
+									"w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm",
+									fieldState.error && "placeholder:text-destructive placeholder:font-normal"
+								)}
 								onChange={(e) => {
 									const value = e.target.value;
 									field.onChange(timeToMinutes(value));
 								}}
 								disabled={isLoading}
 							/>
-
-							{fieldState.error && (
-								<span className="text-right text-xs text-red-500 mt-1">
-									{fieldState.error.message}
-								</span>
-							)}
 						</div>
 					</PositionedItem>
 				</Field>
@@ -235,15 +250,12 @@ export function DurationInputField<T extends FieldValues>({
 	const form = useFormContext<T>();
 	const [isFocused, setIsFocused] = useState(false);
 
-	// Get the reference duration value
 	const referenceMinutes = referenceMinutesField
 		? (form.watch(referenceMinutesField) as number)
 		: null;
 
-	// Get current field value
 	const currentValue = form.watch(name) as number;
 
-	// Show button only if: reference exists, field is 0, and field is NOT focused
 	const shouldShowButton =
 		referenceMinutes &&
 		referenceMinutes > 0 &&
@@ -254,7 +266,9 @@ export function DurationInputField<T extends FieldValues>({
 		e.preventDefault();
 		e.stopPropagation();
 		if (referenceMinutes) {
-			form.setValue(name, referenceMinutes as PathValue<T, Path<T>>, { shouldValidate: true });
+			form.setValue(name, referenceMinutes as PathValue<T, Path<T>>, {
+				shouldValidate: true,
+			});
 		}
 	};
 
@@ -272,53 +286,64 @@ export function DurationInputField<T extends FieldValues>({
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between">
-						<span className="text-sm font-medium w-36">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between"
+					>
+						<span className="text-sm font-medium w-36 shrink-0">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
 						</span>
 						<div className="flex flex-col items-center gap-x-3 gap-y-1">
 							{shouldShowButton ? (
+								// Button state: no value yet and a reference exists.
+								// Error isn't shown here since the button itself is the
+								// call-to-action — the row border strip is enough signal.
 								<Button
 									type="button"
 									variant="outline"
 									size="sm"
 									onClick={handleSetFromReference}
-									className="h-fit py-1 px-3 text-sm hover:bg-background/30 cursor-pointer"
+									className={cn(
+										"h-fit py-1 px-3 text-sm hover:bg-background/30 cursor-pointer",
+										// Tint the button border red when invalid so it's obvious
+										// even in this "pre-fill" state
+										fieldState.error && "border-destructive/60 text-destructive"
+									)}
 								>
 									+{formatTime(referenceMinutes!, "HH:mm")}
 								</Button>
 							) : (
-								<>
-									<Input
-										type="time"
-										placeholder={placeholder}
-										value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
-										required={required}
-										className="h-fit px-3 py-1 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-										onChange={(e) => {
-											const minutes = timeToMinutes(e.target.value);
-											field.onChange(minutes);
-										}}
-										onFocus={() => setIsFocused(true)}
-										onBlur={() => {
-											setIsFocused(false);
-											field.onBlur();
-										}}
-										disabled={isLoading}
-									/>
-
-									{fieldState.error && (
-										<span className="text-xs text-red-500 mt-1">
-											{fieldState.error.message}
-										</span>
+								<Input
+									type="time"
+									// Error message as placeholder when field is empty
+									placeholder={fieldState.error?.message ?? placeholder}
+									value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
+									required={required}
+									className={cn(
+										"h-fit px-3 py-1 border dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none justify-items-end text-right text-sm cursor-pointer min-w-16 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none",
+										// Stable border so no layout shift between states
+										fieldState.error
+											? "border-destructive/60 placeholder:text-destructive placeholder:text-xs placeholder:font-normal"
+											: "border-transparent"
 									)}
-								</>
+									onChange={(e) => {
+										const minutes = timeToMinutes(e.target.value);
+										field.onChange(minutes);
+									}}
+									onFocus={() => setIsFocused(true)}
+									onBlur={() => {
+										setIsFocused(false);
+										field.onBlur();
+									}}
+									disabled={isLoading}
+								/>
 							)}
 						</div>
 					</PositionedItem>
 				</Field>
-			)} />
+			)}
+		/>
 	);
 }
 
@@ -342,9 +367,12 @@ export function SwitchField<T extends FieldValues>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => (
+			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between"
+					>
 						<span className="text-sm font-medium w-36">{label}</span>
 						<div className="w-full ml-10 flex flex-col gap-1 items-end">
 							<Switch
@@ -390,9 +418,11 @@ export function SelectField<T extends FieldValues>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => (
+			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between">
 						<span className="text-sm font-medium w-36">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
@@ -400,16 +430,20 @@ export function SelectField<T extends FieldValues>({
 						<div className="w-full ml-10 flex items-center justify-end">
 							<select
 								{...field}
-								className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-6 py-1 border-none focus:ring-0 focus:border-none cursor-pointer ${field.value && field.value !== ""
-									? "text-foreground"
-									: "text-muted-foreground"
-									}`}
+								className={cn(
+									"appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-8 py-1 border-none focus:ring-0 focus:border-none",
+									field.value && field.value !== ""
+										? "text-foreground"
+										: fieldState.error
+											? "text-destructive"
+											: "text-muted-foreground"
+								)}
 								style={{ textAlignLast: "right" }}
 								value={field.value ?? ""}
 								onChange={(e) => field.onChange(e.target.value || undefined)}
 							>
 								<option value="" disabled>
-									{placeholder}
+									{fieldState.error?.message ?? placeholder}
 								</option>
 								{options.map((opt) => (
 									<option key={opt.value} value={opt.value}>
@@ -456,10 +490,11 @@ export function DialogSelectField<T extends FieldValues>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => (
+			render={({ field, fieldState }) => (
 				<Field>
 					<PositionedItem
 						role="button"
+						invalid={!!fieldState.error}
 						className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50"
 						onClick={onOpenDialog}
 					>
@@ -468,10 +503,21 @@ export function DialogSelectField<T extends FieldValues>({
 							{required && <span className="text-destructive ml-1">*</span>}
 						</span>
 						<div className="w-full ml-10 flex items-center justify-end gap-2 mr-2">
-							<span className="text-sm text-right truncate">
-								{field.value || (
-									<span className="text-muted-foreground">{placeholder}</span>
+							<span
+								className={cn(
+									"text-sm text-right truncate",
+									!field.value && fieldState.error
+										? "text-destructive text-xs"
+										: !field.value
+											? "text-muted-foreground"
+											: "text-foreground"
 								)}
+							>
+								{field.value
+									? field.value
+									: fieldState.error?.message
+										? fieldState.error.message
+										: placeholder}
 							</span>
 							<ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
 						</div>
@@ -483,17 +529,17 @@ export function DialogSelectField<T extends FieldValues>({
 }
 
 // OBJECT DIALOG SELECT FIELD (Stores object, displays formatted value)
-interface ObjectDialogSelectFieldProps<T extends FieldValues, V> {
+interface ObjectDialogSelectFieldProps<T extends FieldValues, TObject extends object> {
 	name: Path<T>;
 	label: string;
 	isLoading?: boolean;
 	onOpenDialog: () => void;
 	placeholder?: string;
 	required?: boolean;
-	displayValue: (value: V | null | undefined) => string | null;
+	displayValue: (value: TObject | null | undefined) => string | null;
 }
 
-export function ObjectDialogSelectField<T extends FieldValues, V>({
+export function ObjectDialogSelectField<T extends FieldValues, TObject extends object>({
 	name,
 	label,
 	isLoading,
@@ -501,7 +547,7 @@ export function ObjectDialogSelectField<T extends FieldValues, V>({
 	placeholder = "Select",
 	required = false,
 	displayValue,
-}: ObjectDialogSelectFieldProps<T, V>) {
+}: ObjectDialogSelectFieldProps<T, TObject>) {
 	const form = useFormContext<T>();
 
 	if (isLoading) {
@@ -516,13 +562,15 @@ export function ObjectDialogSelectField<T extends FieldValues, V>({
 		<FormField
 			control={form.control}
 			name={name}
-			render={({ field }) => {
-				const display = displayValue(field.value as V);
+			render={({ field, fieldState }) => {
+				const display = displayValue(field.value as TObject | null | undefined);
+				const hasValue = display !== null && display !== "";
 
 				return (
 					<Field>
 						<PositionedItem
 							role="button"
+							invalid={!!fieldState.error}
 							className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50 w-full overflow-hidden" // Added w-full and overflow-hidden
 							onClick={onOpenDialog}
 						>
@@ -533,10 +581,21 @@ export function ObjectDialogSelectField<T extends FieldValues, V>({
 
 							{/* The container for the value needs min-w-0 to allow truncation */}
 							<div className="min-w-0 flex-1 ml-4 flex items-center justify-end gap-2">
-								<span className="text-sm text-right truncate">
-									{display || (
-										<span className="text-muted-foreground">{placeholder}</span>
+								<span
+									className={cn(
+										"text-sm text-right truncate",
+										!hasValue && fieldState.error
+											? "text-destructive text-xs"
+											: !hasValue
+												? "text-muted-foreground"
+												: "text-foreground"
 									)}
+								>
+									{hasValue
+										? display
+										: fieldState.error?.message
+											? fieldState.error.message
+											: placeholder}
 								</span>
 								<ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
 							</div>
@@ -544,107 +603,6 @@ export function ObjectDialogSelectField<T extends FieldValues, V>({
 					</Field>
 				);
 			}}
-		/>
-	);
-}
-
-interface AsyncDialogSelectFieldProps<T extends FieldValues> {
-	name: Path<T>;
-	label: string;
-	isLoading?: boolean;
-	onOpenDialog: () => void;
-	placeholder?: string;
-	required?: boolean;
-	fetchDisplayValue: (id: string) => Promise<string | null>;
-}
-
-// Async Dialog Select Field
-export function AsyncDialogSelectField<T extends FieldValues>({
-	name,
-	label,
-	isLoading,
-	onOpenDialog,
-	placeholder = "Select",
-	required = false,
-	fetchDisplayValue,
-}: AsyncDialogSelectFieldProps<T>) {
-	const form = useFormContext<T>();
-	const fieldValue = form.watch(name);
-	const [displayValue, setDisplayValue] = useState<string | null>(null);
-	const [isFetching, setIsFetching] = useState(false);
-
-	useEffect(() => {
-		if (!fieldValue || typeof fieldValue !== "string") {
-			setDisplayValue(null);
-			return;
-		}
-
-		let cancelled = false;
-
-		async function loadDisplayValue() {
-			setIsFetching(true);
-			try {
-				const value = await fetchDisplayValue(fieldValue as string);
-				if (!cancelled) {
-					setDisplayValue(value);
-				}
-			} catch (error) {
-				console.error("Error fetching display value:", error);
-				if (!cancelled) {
-					setDisplayValue(null);
-				}
-			} finally {
-				if (!cancelled) {
-					setIsFetching(false);
-				}
-			}
-		}
-
-		loadDisplayValue();
-
-		return () => {
-			cancelled = true;
-		};
-	}, [fieldValue, fetchDisplayValue]);
-
-	if (isLoading) {
-		return (
-			<PositionedItem className="py-2">
-				<Skeleton className="h-12 w-full" />
-			</PositionedItem>
-		);
-	}
-
-	return (
-		<FormField
-			control={form.control}
-			name={name}
-			render={() => (
-				<Field>
-					<PositionedItem
-						role="button"
-						className="p-3 flex items-center justify-between cursor-pointer hover:bg-muted/50"
-						onClick={onOpenDialog}
-					>
-						<span className="text-sm font-medium w-36">
-							{label}
-							{required && <span className="text-destructive ml-1">*</span>}
-						</span>
-						<div className="w-full ml-10 flex items-center justify-end gap-2 mr-2">
-							{isFetching ? (
-								<Skeleton className="h-4 w-32" />
-							) : (
-								<span className="text-sm text-right truncate">
-									{displayValue || (
-										<span className="text-muted-foreground">{placeholder}</span>
-									)}
-								</span>
-							)}
-							<ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
-						</div>
-					</PositionedItem>
-				</Field>
-			)}
 		/>
 	);
 }
@@ -680,7 +638,10 @@ export function TextareaField<T extends FieldValues>({
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field>
-					<PositionedItem className="p-3 flex items-center justify-between min-h-12 h-fit">
+					<PositionedItem
+						invalid={!!fieldState.error}
+						className="p-3 flex items-center justify-between min-h-12 h-fit"
+					>
 						<span className="text-sm font-medium w-36">
 							{label}
 							{required && <span className="text-destructive ml-1">*</span>}
@@ -688,18 +649,15 @@ export function TextareaField<T extends FieldValues>({
 						<div className="flex flex-col items-center w-full gap-x-3 gap-y-1">
 							<AutosizeTextarea
 								{...field}
-								placeholder={placeholder}
-								className="p-0 text-sm font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none"
+								placeholder={fieldState.error?.message ?? placeholder}
+								className={cn(
+									"min-h-6 p-0 text-sm font-medium h-fit border-none rounded-sm bg-transparent dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none w-full text-right resize-none",
+									fieldState.error && "placeholder:text-destructive placeholder:font-normal"
+								)}
 								rows={rows}
 								value={field.value || ""}
 								required={required}
 							/>
-
-							{fieldState.error && (
-								<span className="text-right text-xs text-red-500 mt-1">
-									{fieldState.error.message}
-								</span>
-							)}
 						</div>
 					</PositionedItem>
 				</Field>

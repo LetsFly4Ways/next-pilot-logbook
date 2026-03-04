@@ -12,7 +12,6 @@ import { UserPreferences } from "@/types/user-preferences";
 import {
   SimulatorSessionFormSchema,
   SimulatorSessionFormValues,
-  SimulatorSessionPayload,
   SimulatorSessionPayloadSchema
 } from "@/types/logs";
 import { Fleet } from "@/types/fleet";
@@ -47,7 +46,7 @@ import {
 import TimeTable, { TimeTableField } from "@/components/pages/logs/form/time-table";
 
 const emptyValues: SimulatorSessionFormValues = {
-  date: new Date(),
+  date: new Date().toISOString().split("T")[0], // Store as YYYY-MM-DD
   aircraft_id: "",
   simulator: null,
   instructor_id: null,
@@ -191,17 +190,31 @@ export default function SimulatorForm({
 
   // ------- Submit ------- //
   const handleSubmit = async (values: SimulatorSessionFormValues) => {
-    const data: SimulatorSessionPayload = SimulatorSessionPayloadSchema.parse({
-      ...values,
-      aircraft_id: values.simulator?.id ?? "",
+    const result = SimulatorSessionPayloadSchema.safeParse(values);
 
-      // Remove the convenience fields that aren't in the database schema
-    });
+    if (!result.success) {
+      console.group("SimulatorSessionPayloadSchema parse failed");
+      console.log("Raw values:", values);
+      console.table(
+        result.error.issues.map((i) => ({
+          path: i.path.join("."),
+          code: i.code,
+          message: i.message,
+        }))
+      );
+      console.groupEnd();
+      // Still throw so the form treats it as a submission error
+      throw result.error;
+    } else {
+      console.group("SimulatorSessionPayloadSchema parse succeeded");
+      console.log("Parsed payload:", result.data);
+      console.groupEnd();
+    }
 
     if (isEdit && session) {
-      await updateSimulatorSession(session.id, data);
+      await updateSimulatorSession(session.id, result.data);
     } else {
-      await createSimulatorSession(data);
+      await createSimulatorSession(result.data);
     }
   };
 
@@ -212,14 +225,13 @@ export default function SimulatorForm({
   };
 
   const shouldSaveDraft = (values: SimulatorSessionFormValues) => {
-    const data: SimulatorSessionPayload = SimulatorSessionPayloadSchema.parse(values);
 
     return !!(
-      data.date ||
-      data.aircraft_id ||
-      data.instructor_id ||
-      data.instructor_is_self === true ||
-      data.session_minutes > 0
+      (values.date !== new Date().toISOString().split("T")[0]) ||
+      values.aircraft_id ||
+      values.instructor_id ||
+      values.instructor_is_self === true ||
+      values.session_minutes > 0
     );
   };
 

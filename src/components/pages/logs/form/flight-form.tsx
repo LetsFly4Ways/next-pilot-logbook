@@ -11,7 +11,6 @@ import { FlightRecord } from "@/actions/pages/logs/fetch";
 import {
   FlightPayloadSchema,
   FlightFormValues,
-  FlightPayload,
   FlightFormSchema,
   SelectedAirport,
   PilotFunction,
@@ -60,7 +59,7 @@ import { ManoeuvreInput } from "@/components/pages/logs/form/manoeuvre-input";
 import { FunctionSelectField } from "@/components/pages/logs/form/select-pilot-function";
 
 const emptyValues: FlightFormValues = {
-  date: new Date(),
+  date: new Date().toISOString().split("T")[0], // Store as YYYY-MM-DD
   aircraft_id: "",
   aircraft: null,
   pic_id: null,
@@ -141,6 +140,7 @@ export default function FlightForm({
     switch (selection.type) {
       case "aircraft":
         form.setValue("aircraft", selection.payload);
+        form.setValue("aircraft_id", selection.payload.id);
         break;
       case "crew":
         /**
@@ -206,6 +206,7 @@ export default function FlightForm({
         switch (selection.type) {
           case "aircraft":
             form.setValue("aircraft", selection.payload);
+            form.setValue("aircraft_id", selection.payload.id);
             break;
           case "crew":
             /**
@@ -329,6 +330,8 @@ export default function FlightForm({
       remarks: flight.remarks,
       training_description: flight.training_description,
     });
+
+    console.log("Form initialized with flight data:", form.getValues());
   }, [flight, isLoading, form]);
 
   // ------- Initialize form (new flights) ------- //
@@ -398,17 +401,32 @@ export default function FlightForm({
 
   // ------- Submit ------- //
   const handleSubmit = async (values: FlightFormValues) => {
-    const data: FlightPayload = FlightPayloadSchema.parse({
-      ...values,
-      aircraft_id: values.aircraft?.id ?? "",
+    const result = FlightPayloadSchema.safeParse(values);
 
-      // Remove the convenience fields that aren't in the database schema
-    });
+    if (!result.success) {
+      console.group("FlightPayloadSchema parse failed");
+      console.log("Raw values:", values);
+      console.table(
+        result.error.issues.map((i) => ({
+          path: i.path.join("."),
+          code: i.code,
+          message: i.message,
+        }))
+      );
+      console.groupEnd();
+      // Still throw so the form treats it as a submission error
+      throw result.error;
+    } else {
+      console.group("FlightPayloadSchema parse succeeded");
+      console.log("Parsed payload:", result.data);
+      console.groupEnd();
+    }
+
 
     if (isEdit && flight) {
-      await updateFlight(flight.id, data);
+      await updateFlight(flight.id, result.data);
     } else {
-      await createFlight(data);
+      await createFlight(result.data);
     }
   };
 
@@ -476,19 +494,18 @@ export default function FlightForm({
   };
 
   const shouldSaveDraft = (values: FlightFormValues) => {
-    const data: FlightPayload = FlightPayloadSchema.parse(values);
 
     return !!(
-      data.date ||
-      data.departure_airport_code ||
-      data.destination_airport_code ||
-      data.aircraft_id ||
-      data.pic_id ||
-      data.block_start ||
-      data.block_end ||
-      data.flight_start ||
-      data.flight_end ||
-      data.flight_number
+      (values.date !== new Date().toISOString().split("T")[0]) ||
+      values.departure_airport_code ||
+      values.destination_airport_code ||
+      values.aircraft_id ||
+      values.pic_id ||
+      values.block_start ||
+      values.block_end ||
+      values.flight_start ||
+      values.flight_end ||
+      values.flight_number
     );
   };
 
@@ -509,6 +526,23 @@ export default function FlightForm({
     >
       <div className="space-y-8">
         {/* Basic Information (date, aircraft & flight number)*/}
+        {Object.keys(form.formState.errors).length > 0 && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+            <ul className="list-disc pl-5">
+              {Object.entries(form.formState.errors).map(
+                ([field, error]) => (
+                  <li key={field}>
+                    <strong>{field}:</strong>{" "}
+                    {error && "message" in error && error.message
+                      ? error.message.toString()
+                      : "Unknown error"}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        )}
+
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
             Basic Information
