@@ -343,9 +343,11 @@ export async function fetchLog(
       const [_aircraft, _pic, _departure_airport, _destination_airport] =
         await Promise.all([
           resolveAircraft(flight.aircraft_id),
-          flight.pic_id
-            ? resolveCrew(flight.pic_id)
-            : Promise.resolve(selfCrew()),
+          flight.pic_is_self
+            ? Promise.resolve(selfCrew())
+            : flight.pic_id
+              ? resolveCrew(flight.pic_id)
+              : Promise.resolve(null),
           flight.departure_airport_code
             ? resolveAirport(flight.departure_airport_code)
             : Promise.resolve(null),

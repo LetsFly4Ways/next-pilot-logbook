@@ -43,9 +43,11 @@ export function FunctionSelectField<T extends FieldValues>({
     <FormField
       control={form.control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <Field>
-          <PositionedItem className="p-3 flex items-center justify-between">
+          <PositionedItem
+            invalid={!!fieldState.error}
+            className="p-3 flex items-center justify-between">
             <span className="text-sm font-medium w-36">
               {label}
               {required && <span className="text-destructive ml-1">*</span>}
@@ -56,7 +58,9 @@ export function FunctionSelectField<T extends FieldValues>({
                 {...field}
                 className={`appearance-none rounded-md w-full max-w-48 bg-transparent text-sm pr-6 py-1 border-none focus:ring-0 focus:border-none cursor-pointer ${field.value && field.value !== ""
                   ? "text-foreground"
-                  : "text-muted-foreground"
+                  : fieldState.error
+                    ? "text-destructive"
+                    : "text-muted-foreground"
                   }`}
                 style={{ textAlignLast: "right" }}
                 value={field.value ?? ""}
@@ -87,7 +91,7 @@ export function FunctionSelectField<T extends FieldValues>({
                 }}
               >
                 <option value="" disabled>
-                  Select
+                  {fieldState.error?.message ?? "Select"}
                 </option>
 
                 <optgroup label={picIsSelf ? "Self as PIC" : "Other as PIC"}>

@@ -104,7 +104,7 @@ export default function SimulatorForm({
       case "crew":
         form.setValue("instructor_id", selection.payload.id);
         form.setValue("instructor", selection.payload);
-        form.setValue("instructor_is_self", selection.payload.instructor_is_self || false);
+        form.setValue("instructor_is_self", selection.payload.id === null);
         break;
     }
     clearSimulatorFormSelection();
@@ -127,7 +127,7 @@ export default function SimulatorForm({
         case "crew":
           form.setValue("instructor_id", selection.payload.id);
           form.setValue("instructor", selection.payload);
-          form.setValue("instructor_is_self", selection.payload.instructor_is_self);
+          form.setValue("instructor_is_self", selection.payload.id === null);
           break;
       }
     }, 100);
@@ -203,6 +203,18 @@ export default function SimulatorForm({
         }))
       );
       console.groupEnd();
+
+      const payloadToFormField: Partial<Record<string, keyof SimulatorSessionFormValues>> = {
+        aircraft_id: "simulator",
+        instructor_id: "instructor"
+      };
+
+      result.error.issues.forEach((issue) => {
+        const payloadPath = issue.path[0] as string;
+        const formField = payloadToFormField[payloadPath] ?? payloadPath as keyof SimulatorSessionFormValues;
+        form.setError(formField, { message: issue.message }, { shouldFocus: true });
+      });
+
       // Still throw so the form treats it as a submission error
       throw result.error;
     } else {
@@ -308,7 +320,7 @@ export default function SimulatorForm({
                 const picId = form.getValues("instructor_id");
                 writeSelectContext({
                   type: "simulator",
-                  current: picId === null ? "__SELF__" : picId,
+                  current: form.getValues("instructor_is_self") ? "__SELF__" : picId,
                   return: pathname ?? "/app/logs/simulator/new",
                 }, "simulator");
                 router.push("/app/logs/simulator/crew-select");

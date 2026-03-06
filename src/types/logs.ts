@@ -75,7 +75,7 @@ const BaseLogSchema = z.object({
     }
     return val;
   }, z.date()),
-  aircraft_id: z.uuid(),
+  aircraft_id: z.uuid("Aircraft is required"),
   duty_start: z.iso.time().nullable().optional(),
   duty_end: z.iso.time().nullable().optional(),
   duty_time_minutes: z.number().int().min(0).optional().default(0),
@@ -94,11 +94,20 @@ const BaseLogSchema = z.object({
  */
 export const FlightPayloadSchema = BaseLogSchema.extend({
   pic_id: z.uuid().nullable(),
+  pic_is_self: z.boolean().default(false),
 
   // Route information
-  departure_airport_code: z.string().min(3).max(4).toUpperCase(),
+  departure_airport_code: z
+    .string()
+    .min(3, "Departure airport is required")
+    .max(4, "Departure airport invalid")
+    .toUpperCase(),
   departure_runway: z.string().max(10).nullable().optional(),
-  destination_airport_code: z.string().min(3).max(4).toUpperCase(),
+  destination_airport_code: z
+    .string()
+    .min(3, "Destination airport is required")
+    .max(4, "Destination airport invalid")
+    .toUpperCase(),
   destination_runway: z.string().max(10).nullable().optional(),
 
   // Time information
@@ -138,6 +147,14 @@ export const FlightPayloadSchema = BaseLogSchema.extend({
 
   // Metadata
   flight_number: z.string().max(20).nullable().optional(),
+}).superRefine((data, ctx) => {
+  if (!data.pic_is_self && data.pic_id === null) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["pic_id"],
+      message: "PIC is required",
+    });
+  }
 });
 
 export type FlightPayload = z.infer<typeof FlightPayloadSchema>;
@@ -183,7 +200,7 @@ export const SimulatorSessionPayloadSchema = BaseLogSchema.extend({
     ctx.addIssue({
       code: "custom",
       path: ["instructor_id"],
-      message: "instructor_id is required when instructor_is_self is false",
+      message: "Instructor is required",
     });
   }
 });

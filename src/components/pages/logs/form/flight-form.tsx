@@ -64,6 +64,7 @@ const emptyValues: FlightFormValues = {
   aircraft: null,
   pic_id: null,
   pic: null,
+  pic_is_self: false,
   departure_airport_code: "",
   departure_airport: null,
   departure_runway: null,
@@ -174,6 +175,8 @@ export default function FlightForm({
 
         form.setValue("pic_id", selection.payload.id);
         form.setValue("pic", selection.payload);
+        form.setValue("pic_is_self", selection.payload.id === null);
+
         break;
       case "departure_airport":
         form.setValue("departure_airport", selection.payload.airport);
@@ -240,6 +243,7 @@ export default function FlightForm({
 
             form.setValue("pic_id", selection.payload.id);
             form.setValue("pic", selection.payload);
+            form.setValue("pic_is_self", selection.payload.id === null);
             break;
           case "departure_airport":
             form.setValue("departure_airport", selection.payload.airport);
@@ -284,6 +288,7 @@ export default function FlightForm({
 
       pic_id: flight.pic_id,
       pic: flight._pic,
+      pic_is_self: flight.pic_is_self,
 
       departure_airport_code: flight.departure_airport_code,
       departure_airport: flight._departure_airport,
@@ -396,8 +401,7 @@ export default function FlightForm({
   /**
    * Determine if PIC is self for function options
    */
-  const pic = useWatch({ control: form.control, name: "pic" });
-  const picIsSelf = pic?.first_name === "Self" && pic?.company_id === "SELF";
+  const picIsSelf = useWatch({ control: form.control, name: "pic_is_self" });
 
   // ------- Submit ------- //
   const handleSubmit = async (values: FlightFormValues) => {
@@ -414,6 +418,20 @@ export default function FlightForm({
         }))
       );
       console.groupEnd();
+
+      const payloadToFormField: Partial<Record<string, keyof FlightFormValues>> = {
+        aircraft_id: "aircraft",
+        departure_airport_code: "departure_airport",
+        destination_airport_code: "destination_airport",
+        pic_id: "pic",
+      };
+
+      result.error.issues.forEach((issue) => {
+        const payloadPath = issue.path[0] as string;
+        const formField = payloadToFormField[payloadPath] ?? payloadPath as keyof FlightFormValues;
+        form.setError(formField, { message: issue.message }, { shouldFocus: true });
+      });
+
       // Still throw so the form treats it as a submission error
       throw result.error;
     } else {
@@ -526,23 +544,6 @@ export default function FlightForm({
     >
       <div className="space-y-8">
         {/* Basic Information (date, aircraft & flight number)*/}
-        {Object.keys(form.formState.errors).length > 0 && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-            <ul className="list-disc pl-5">
-              {Object.entries(form.formState.errors).map(
-                ([field, error]) => (
-                  <li key={field}>
-                    <strong>{field}:</strong>{" "}
-                    {error && "message" in error && error.message
-                      ? error.message.toString()
-                      : "Unknown error"}
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-        )}
-
         <div>
           <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
             Basic Information
@@ -661,7 +662,7 @@ export default function FlightForm({
                 const picId = form.getValues("pic_id");
                 writeSelectContext({
                   type: "flight",
-                  current: picId === null ? "__SELF__" : picId,
+                  current: form.getValues("pic_is_self") ? "__SELF__" : picId,
                   return: pathname ?? "/app/logs/flight/new",
                 }, "flight");
                 router.push("/app/logs/flight/crew-select");
@@ -680,7 +681,7 @@ export default function FlightForm({
             {/* Function */}
             <FunctionSelectField<FlightFormValues>
               name="function"
-              picIsSelf={picIsSelf}
+              picIsSelf={picIsSelf || false}
               isLoading={isLoading}
               required
             />
