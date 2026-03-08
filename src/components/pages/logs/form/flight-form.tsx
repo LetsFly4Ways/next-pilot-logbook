@@ -446,6 +446,8 @@ export default function FlightForm({
     } else {
       await createFlight(result.data);
     }
+
+    form.reset()
   };
 
   // Time Table

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { useFormContext, FieldValues, Path, PathValue } from "react-hook-form";
 import { formatTime, timeToMinutes } from "@/lib/time-utils";
@@ -189,6 +189,7 @@ export function DateField<T extends FieldValues>({
 	required = false,
 }: DateFieldProps<T>) {
 	const form = useFormContext<T>();
+	const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	if (isLoading) {
 		return (
@@ -224,8 +225,15 @@ export function DateField<T extends FieldValues>({
 									fieldState.error && !field.value && "text-destructive"
 								)}
 								onChange={(e) => {
-									const value = new Date(e.target.value).toISOString().split("T")[0]; // Store as YYYY-MM-DD
-									field.onChange(value);
+									const raw = e.target.value;
+
+									if (debounceRef.current) clearTimeout(debounceRef.current);
+
+									debounceRef.current = setTimeout(() => {
+										const parsed = new Date(raw);
+										if (!raw || isNaN(parsed.getTime())) return;
+										field.onChange(parsed.toISOString().split("T")[0]);
+									}, 100);
 								}}
 								disabled={isLoading}
 							/>

@@ -26,6 +26,7 @@ export async function createSimulatorSession(
       .insert({
         user_id: user.id,
         ...data,
+        date: new Date(data.date).toDateString(),
       })
       .select()
       .single();

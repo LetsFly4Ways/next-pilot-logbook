@@ -84,7 +84,10 @@ export async function getPreferences() {
     if (!validated.success) {
       // If validation fails, merge with defaults to recover
       const defaults = getDefaultPreferences();
-      const merged = deepMerge(defaults, data.preferences || {});
+      const merged = deepMerge(
+        defaults,
+        data.preferences as Partial<UserPreferences>,
+      );
       const recovered = UserPreferencesContentSchema.safeParse(merged);
 
       if (recovered.success) {
@@ -154,7 +157,10 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
         current = parsed.data;
       } else {
         // If current preferences are invalid, merge with defaults to recover
-        current = deepMerge(defaultPreferences, currentPrefs.preferences || {});
+        current = deepMerge(
+          defaultPreferences,
+          currentPrefs.preferences as Partial<UserPreferences>,
+        );
         // Validate the recovered preferences
         const recovered = UserPreferencesContentSchema.safeParse(current);
         if (!recovered.success) {

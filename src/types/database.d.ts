@@ -430,7 +430,7 @@ export type Database = {
           hobbs_end: number | null;
           hobbs_start: number | null;
           id: string;
-          instructor_id: string;
+          instructor_id: string | null;
           instructor_is_self: boolean;
           remarks: string | null;
           session_minutes: number;
@@ -450,7 +450,7 @@ export type Database = {
           hobbs_end?: number | null;
           hobbs_start?: number | null;
           id?: string;
-          instructor_id: string;
+          instructor_id: string | null;
           instructor_is_self?: boolean;
           remarks?: string | null;
           session_minutes: number;
@@ -470,7 +470,7 @@ export type Database = {
           hobbs_end?: number | null;
           hobbs_start?: number | null;
           id?: string;
-          instructor_id?: string;
+          instructor_id?: string | null;
           instructor_is_self?: boolean;
           remarks?: string | null;
           session_minutes?: number;

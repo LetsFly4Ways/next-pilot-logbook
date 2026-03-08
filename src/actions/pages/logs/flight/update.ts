@@ -26,6 +26,7 @@ export async function updateFlight(
       .from("flights")
       .update({
         ...data,
+        date: new Date(data.date).toDateString(),
         updated_at: new Date().toISOString(),
       })
       .eq("id", flightId)
