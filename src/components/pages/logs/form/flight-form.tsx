@@ -580,7 +580,7 @@ export default function FlightForm({
             <TextField<FlightFormValues>
               name="flight_number"
               label="Flight Number"
-              placeholder="BEL123"
+              placeholder="BA1234"
               isLoading={isLoading}
             />
           </PositionedGroup>
