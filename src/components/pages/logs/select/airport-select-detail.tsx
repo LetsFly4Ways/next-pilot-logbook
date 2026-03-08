@@ -129,9 +129,8 @@ export default function AirportSelectDetail({ params }: { params: { type: string
         isTopLevelPage={false}
         actionButton={
           <Button
-            variant="default"
-            size="sm"
-            className="font-medium cursor-pointer"
+            variant="ghost"
+            className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
             onClick={handleSelect}
           >
             Select

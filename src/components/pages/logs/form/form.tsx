@@ -145,7 +145,7 @@ export default function LogForm<TForm extends FieldValues>({
         }
       />
 
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <FormProvider {...form}>
           <form id="log-form"
             onSubmit={
