@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import { useState } from "react";
-
 import { useFormContext, FieldValues, Path, PathValue } from "react-hook-form";
 import { formatTime, timeToMinutes } from "@/lib/time-utils";
 import { cn } from "@/lib/utils";
@@ -24,27 +22,27 @@ import { ChevronRight, ChevronsUpDown, Eye, EyeOff } from "lucide-react";
 // ============================================================================
 
 interface BaseFieldProps<T extends FieldValues> {
-  name: Path<T>;
-  label: string;
-  isLoading?: boolean;
-  disabled?: boolean;
-  required?: boolean;
+	name: Path<T>;
+	label: string;
+	isLoading?: boolean;
+	disabled?: boolean;
+	required?: boolean;
 }
 
 // TEXT INPUT FIELD
 interface TextFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
-  type?: "text" | "email" | "tel" | "number" | "password" | "url";
-  placeholder?: string;
+	type?: "text" | "email" | "tel" | "number" | "password" | "url";
+	placeholder?: string;
 }
 
 export function TextField<T extends FieldValues>({
-  name,
-  label,
-  isLoading,
-  required = false,
-  disabled = false,
-  type = "text",
-  placeholder,
+	name,
+	label,
+	isLoading,
+	required = false,
+	disabled = false,
+	type = "text",
+	placeholder,
 }: TextFieldProps<T>) {
 	const form = useFormContext<T>();
 
@@ -81,7 +79,7 @@ export function TextField<T extends FieldValues>({
 								}
 								value={field.value ?? ""}
 								required={required}
-                disabled={disabled}
+								disabled={disabled}
 								className={cn(
 									"w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm",
 									fieldState.error && "placeholder:text-destructive placeholder:font-normal"
@@ -106,75 +104,75 @@ export function TextField<T extends FieldValues>({
 
 // PASSWORD INPUT
 interface PasswordFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
-  placeholder?: string;
+	placeholder?: string;
 }
 
 export function PasswordField<T extends FieldValues>({
-  name,
-  label,
-  isLoading,
-  required = false,
-  disabled = false,
-  placeholder,
+	name,
+	label,
+	isLoading,
+	required = false,
+	disabled = false,
+	placeholder,
 }: PasswordFieldProps<T>) {
-  const form = useFormContext<T>();
-  const [showPassword, setShowPassword] = useState(false);
+	const form = useFormContext<T>();
+	const [showPassword, setShowPassword] = useState(false);
 
-  if (isLoading) {
-    return (
-      <PositionedItem className="py-2">
-        <Skeleton className="h-12 w-full" />
-      </PositionedItem>
-    );
-  }
+	if (isLoading) {
+		return (
+			<PositionedItem className="py-2">
+				<Skeleton className="h-12 w-full" />
+			</PositionedItem>
+		);
+	}
 
-  const toggleVisibility = () => setShowPassword((prev) => !prev);
+	const toggleVisibility = () => setShowPassword((prev) => !prev);
 
-  return (
-    <FormField
-      control={form.control}
-      name={name}
-      render={({ field }) => (
-        <Field>
-          <PositionedItem className="p-3 flex items-center justify-between">
-            {/* Label Side */}
-            <span className="text-sm font-medium w40 shrink-0">
-              {label}
-              {required && <span className="text-destructive ml-1">*</span>}
-            </span>
+	return (
+		<FormField
+			control={form.control}
+			name={name}
+			render={({ field }) => (
+				<Field>
+					<PositionedItem className="p-3 flex items-center justify-between">
+						{/* Label Side */}
+						<span className="text-sm font-medium w40 shrink-0">
+							{label}
+							{required && <span className="text-destructive ml-1">*</span>}
+						</span>
 
-            {/* Input Side */}
-            <div className="w-full ml-10 flex items-center gap-2">
-              <Input
-                {...field}
-                type={showPassword ? "text" : "password"}
-                placeholder={placeholder}
-                value={field.value ?? ""}
-                required={required}
-                disabled={disabled}
-                className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
-              />
+						{/* Input Side */}
+						<div className="w-full ml-10 flex items-center gap-2">
+							<Input
+								{...field}
+								type={showPassword ? "text" : "password"}
+								placeholder={placeholder}
+								value={field.value ?? ""}
+								required={required}
+								disabled={disabled}
+								className="w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm"
+							/>
 
-              {/* Toggle Button */}
-              <button
-                type="button"
-                onClick={toggleVisibility}
-                disabled={disabled}
-                className="text-muted-foreground hover:text-foreground transition-colors outline-none focus:ring-0"
-                tabIndex={-1} // Prevents tab-key focus for smoother form navigation
-              >
-                {showPassword ? (
-                  <Eye className="size-4" />
-                ) : (
-                  <EyeOff className="size-4" />
-                )}
-              </button>
-            </div>
-          </PositionedItem>
-        </Field>
-      )}
-    />
-  );
+							{/* Toggle Button */}
+							<button
+								type="button"
+								onClick={toggleVisibility}
+								disabled={disabled}
+								className="text-muted-foreground hover:text-foreground transition-colors outline-none focus:ring-0"
+								tabIndex={-1} // Prevents tab-key focus for smoother form navigation
+							>
+								{showPassword ? (
+									<Eye className="size-4" />
+								) : (
+									<EyeOff className="size-4" />
+								)}
+							</button>
+						</div>
+					</PositionedItem>
+				</Field>
+			)}
+		/>
+	);
 }
 
 // DATE FIELD
@@ -469,8 +467,8 @@ export function SwitchField<T extends FieldValues>({
 
 // SELECT FIELD (SMALL OPTIONS)
 interface SelectFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
-  options: { label: string; value: string }[];
-  placeholder?: string;
+	options: { label: string; value: string }[];
+	placeholder?: string;
 }
 
 export function SelectField<T extends FieldValues>({
@@ -539,9 +537,9 @@ export function SelectField<T extends FieldValues>({
 
 // DIALOG SELECT FIELD (LARGE OPTIONS - Opens Modal/Dialog)
 interface DialogSelectFieldProps<T extends FieldValues>
-  extends BaseFieldProps<T> {
-  onOpenDialog: () => void;
-  placeholder?: string;
+	extends BaseFieldProps<T> {
+	onOpenDialog: () => void;
+	placeholder?: string;
 }
 
 export function DialogSelectField<T extends FieldValues>({
@@ -685,8 +683,8 @@ export function ObjectDialogSelectField<T extends FieldValues, TObject extends o
 
 // TEXTAREA FIELD
 interface TextareaFieldProps<T extends FieldValues> extends BaseFieldProps<T> {
-  rows?: number;
-  placeholder?: string;
+	rows?: number;
+	placeholder?: string;
 }
 
 export function TextareaField<T extends FieldValues>({

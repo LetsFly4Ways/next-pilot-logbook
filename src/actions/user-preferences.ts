@@ -12,7 +12,7 @@ import {
 // Helper function for deep merge with proper typing
 function deepMerge<T extends Record<string, unknown>>(
   target: T,
-  source: Partial<T>
+  source: Partial<T>,
 ): T {
   const output = { ...target };
 
@@ -23,7 +23,7 @@ function deepMerge<T extends Record<string, unknown>>(
     if (isObject(sourceValue) && isObject(targetValue)) {
       output[key as keyof T] = deepMerge(
         targetValue as Record<string, unknown>,
-        sourceValue as Record<string, unknown>
+        sourceValue as Record<string, unknown>,
       ) as T[keyof T];
     } else if (sourceValue !== undefined) {
       output[key as keyof T] = sourceValue as T[keyof T];
@@ -148,7 +148,7 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
     let current = defaultPreferences;
     if (currentPrefs?.preferences) {
       const parsed = UserPreferencesContentSchema.safeParse(
-        currentPrefs.preferences
+        currentPrefs.preferences,
       );
       if (parsed.success) {
         current = parsed.data;
@@ -175,7 +175,7 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
         return {
           success: false,
           error: `Invalid airports preferences: ${JSON.stringify(
-            airportsValidation.error.issues
+            airportsValidation.error.issues,
           )}`,
         };
       }
@@ -190,7 +190,7 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
         return {
           success: false,
           error: `Invalid logging preferences: ${JSON.stringify(
-            loggingValidation.error.issues
+            loggingValidation.error.issues,
           )}`,
         };
       }
@@ -204,7 +204,7 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
         return {
           success: false,
           error: `Invalid fleet preferences: ${JSON.stringify(
-            fleetValidation.error.issues
+            fleetValidation.error.issues,
           )}`,
         };
       }
@@ -214,13 +214,13 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
     if (updates.nameDisplay !== undefined) {
       const nameDisplaySchema = UserPreferencesContentSchema.shape.nameDisplay;
       const nameDisplayValidation = nameDisplaySchema.safeParse(
-        updates.nameDisplay
+        updates.nameDisplay,
       );
       if (!nameDisplayValidation.success) {
         return {
           success: false,
           error: `Invalid nameDisplay preference: ${JSON.stringify(
-            nameDisplayValidation.error.issues
+            nameDisplayValidation.error.issues,
           )}`,
         };
       }
@@ -239,7 +239,7 @@ export async function updatePreferences(updates: Partial<UserPreferences>) {
         user_id: user.id,
         preferences: validated,
       } as unknown as UserPreferencesRow,
-      { onConflict: "user_id" }
+      { onConflict: "user_id" },
     );
 
     if (error) {
@@ -282,7 +282,7 @@ export async function resetPreferences() {
         user_id: user.id,
         preferences: defaultPreferences,
       } as unknown as UserPreferencesRow,
-      { onConflict: "user_id" }
+      { onConflict: "user_id" },
     );
 
     if (error) {

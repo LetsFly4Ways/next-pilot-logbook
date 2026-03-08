@@ -2,7 +2,7 @@
 
 import { AIRPORT_SORTING_LABELS, DISTANCE_UNIT_LABELS, DistanceUnit, SortAirportBy } from "@/types/airports";
 import { FleetGroupBy, GROUP_BY_LABELS } from "@/types/fleet";
-import { functionOptions, LOGGING_FIELD_LABELS, PilotFunction } from "@/types/log";
+import { functionOptions, LOGGING_FIELD_LABELS, PilotFunction } from "@/types/logs";
 import { UserPreferences } from "@/types/user-preferences";
 
 import { usePreferences } from "@/components/context/preferences-provider";

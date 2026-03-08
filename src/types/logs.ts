@@ -133,11 +133,11 @@ export const FlightPayloadSchema = BaseLogSchema.extend({
   go_arounds: z.number().int().min(0).optional().default(0),
 
   // Approaches
-  approaches: z.array(z.string()).optional().default([]),
+  approaches: z.array(z.string()).nullable().default([]),
 
   // Flight status flags
-  function: FunctionSchema.optional(),
-  pilot_flying: z.boolean().optional().default(false),
+  function: FunctionSchema,
+  pilot_flying: z.boolean().default(false),
 
   // Additional metrics
   tach_start: z.number().nonnegative().nullable().optional(),
@@ -182,7 +182,9 @@ export const FlightRowSchema = FlightPayloadSchema.extend({
   updated_at: z.iso.datetime(),
 });
 
-export type FlightRow = z.infer<typeof FlightRowSchema>;
+export type FlightRow = Omit<z.infer<typeof FlightRowSchema>, "date"> & {
+  date: string;
+};
 
 // ============================================================================
 // Simulator Session Schemas
@@ -232,7 +234,10 @@ export const SimulatorSessionRowSchema = SimulatorSessionPayloadSchema.extend({
   updated_at: z.iso.datetime(),
 });
 
-export type SimulatorSessionRow = z.infer<typeof SimulatorSessionRowSchema>;
+export type SimulatorSessionRow = Omit<
+  z.infer<typeof SimulatorSessionRowSchema>,
+  "date"
+> & { date: string };
 
 // ============================================================================
 // Discriminated Union Schema

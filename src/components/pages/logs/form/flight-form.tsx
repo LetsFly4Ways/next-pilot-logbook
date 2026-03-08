@@ -83,7 +83,7 @@ const emptyValues: FlightFormValues = {
   ifr_time_minutes: 0,
   xc_time_minutes: 0,
 
-  function: undefined,
+  function: "PIC", // Future update this to preference
   pilot_flying: true,
 
   day_takeoffs: 0,
