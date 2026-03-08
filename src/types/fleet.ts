@@ -27,10 +27,10 @@ export const FleetFormSchema = z.object({
  * Complete crew schema with database fields
  */
 export const FleetSchema = FleetFormSchema.extend({
-  id: z.uuid(),
-  user_id: z.uuid(),
-  created_at: z.iso.datetime(),
-  updated_at: z.iso.datetime(),
+	id: z.uuid(),
+	user_id: z.uuid(),
+	created_at: z.iso.datetime(),
+	updated_at: z.iso.datetime(),
 });
 
 // ============================================================================
@@ -41,10 +41,18 @@ export type Fleet = z.infer<typeof FleetSchema>;
 export type FleetForm = z.infer<typeof FleetFormSchema>;
 
 // ============================================================================
-// User Prefernces?
+// Grouping Of Fleet
 // ============================================================================
 
-export type FleetGroupBy = "operator" | "type" | "icaoType";
+export const FleetGroupBySchema = z.enum(["operator", "icaoType", "type"]);
+
+export type FleetGroupBy = z.infer<typeof FleetGroupBySchema>;
+
+export const GROUP_BY_LABELS: Record<FleetGroupBy, string> = {
+	operator: "Operator",
+	type: "Aircraft / Sim Type",
+	icaoType: "ICAO Type",
+};
 
 export type FleetAssetType = "aircraft" | "simulator";
 

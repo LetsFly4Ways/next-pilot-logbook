@@ -9,18 +9,21 @@ This pilot logbook application aims to provide a free, open-source alternative t
 ## Installation
 
 ### Prerequisites
+
 - Node.js (v18 or higher recommended)
 - npm or yarn package manager
 
 ### Setup
 
 1. Clone the repository:
+
 ```bash
-git clone https://github.com/LetsFly4Ways/next-pilot-logbook
+git clone https://github.com/LetsFly4Ways/next-pilot-logbook/
 cd <project-directory>
 ```
 
 2. Install required packages:
+
 ```bash
 npm install
 # or
@@ -31,6 +34,7 @@ yarn install
    - Configuration instructions will be added in future updates
 
 4. Run the development server:
+
 ```bash
 npm run dev
 # or
@@ -55,14 +59,17 @@ This project is built with modern web technologies:
 ## Roadmap
 
 ### Version 1.0
+
 The initial release will include basic functionality:
-- Flight logs
+
+- Flight & Simulator Logs
 - Fleet management
 - Crew management
 - Dashboard
 - Settings
 
 ### Future Versions
+
 Additional features and improvements are planned for upcoming releases. Stay tuned for updates!
 
 ## Disclaimer
@@ -82,3 +89,10 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 ## License
 
 [License information to be added]
+
+## Legal
+
+- [Privacy Statement](./PRIVACY.md)
+- [Terms of Service](./TERMS_OF_SERVICE.md)
+
+By using Next Pilot Logbook, you agree to the Terms of Service and Privacy Statement included in this repository.

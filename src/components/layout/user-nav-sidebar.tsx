@@ -16,7 +16,7 @@ export function NavUserSidebar() {
   const { user, loading } = useAuth();
 
   const userName =
-    user?.user_metadata?.name || user?.email?.split("@")[0] || "User";
+    user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
   const userEmail = user?.email || "";
   const userAvatar = user?.user_metadata?.avatar_url;
 
