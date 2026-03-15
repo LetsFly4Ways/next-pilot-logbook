@@ -1,3 +1,9 @@
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <div>This is an empty test page.</div>;
+  // Automatically redirect to /logs/
+  redirect("/app/logs");
+
+  // This component never renders anything
+  return null;
 }

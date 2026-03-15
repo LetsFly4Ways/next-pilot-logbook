@@ -50,7 +50,7 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
       show: showApproaches,
       hasValue: flight.approaches && flight.approaches.length > 0,
       label: "Approaches",
-      value: ArrayToText({ items: flight.approaches }),
+      value: ArrayToText({ items: flight.approaches ?? undefined }),
     },
     {
       key: "go_arounds",
