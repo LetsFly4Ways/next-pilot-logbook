@@ -170,6 +170,7 @@ export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
     hasMore,
     isLoading: loadingMore,
     onLoadMore: handleLoadMore,
+    rootMargin: "400px"
   });
 
   // Loading state
@@ -235,9 +236,14 @@ export function LogList({ searchQuery, filters, sortOrder }: LogListProps) {
         </div>
       ))}
 
-      {/* Infinite scroll sentinel */}
+      {/* Sentinel: invisible, stays in DOM while more data exists */}
       {hasMore && (
-        <div ref={sentinelRef} className="py-4">
+        <div ref={sentinelRef} className="h-px w-full" aria-hidden />
+      )}
+
+      {/* Skeleton: only visible while actively fetching */}
+      {loadingMore && (
+        <div className="py-4">
           <PositionedGroup>
             {Array.from({ length: 3 }).map((_, index) => (
               <ListItemSkeleton key={`loading-${index}`} />

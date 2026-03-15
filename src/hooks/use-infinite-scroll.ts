@@ -16,12 +16,12 @@ export function useInfiniteScroll({
   threshold = 0.1,
 }: UseInfiniteScrollOptions) {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const sentinelNodeRef = useRef<HTMLDivElement | null>(null);
   const loadingRef = useRef(false);
 
   const observerCallback = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
-
       if (
         entry.isIntersecting &&
         hasMore &&
@@ -30,28 +30,29 @@ export function useInfiniteScroll({
       ) {
         loadingRef.current = true;
         onLoadMore();
-
-        // Reset loading flag after a short delay
         setTimeout(() => {
           loadingRef.current = false;
         }, 500);
       }
     },
-    [hasMore, isLoading, onLoadMore]
+    [hasMore, isLoading, onLoadMore],
   );
 
   useEffect(() => {
-    // Disconnect previous observer
     if (observerRef.current) {
       observerRef.current.disconnect();
     }
 
-    // Create new observer
     observerRef.current = new IntersectionObserver(observerCallback, {
       root: null,
       rootMargin,
       threshold,
     });
+
+    // Re-attach to the sentinel node if it's already in the DOM
+    if (sentinelNodeRef.current) {
+      observerRef.current.observe(sentinelNodeRef.current);
+    }
 
     return () => {
       if (observerRef.current) {
@@ -61,6 +62,7 @@ export function useInfiniteScroll({
   }, [observerCallback, rootMargin, threshold]);
 
   const sentinelRef = useCallback((node: HTMLDivElement | null) => {
+    sentinelNodeRef.current = node;
     if (node && observerRef.current) {
       observerRef.current.observe(node);
     }
