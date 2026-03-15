@@ -46,7 +46,7 @@ export function AppSidebar({
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      isActive={pathname === item.href}
+                      isActive={pathname.startsWith(item.href)}
                       className="cursor-pointer font-normal"
                       size={"default"}
                     >

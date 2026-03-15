@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 
 import { useRouter, usePathname } from "next/navigation";
 
@@ -49,29 +49,19 @@ export function MobileNavBar() {
   const router = useRouter();
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
-  const [activeTab, setActiveTab] = useState("flights");
 
-  // Update active tab based on current pathname
-  useEffect(() => {
-    const currentTab = tabs.find((tab) => {
-      if (tab.action === "navigate" && tab.path) {
-        // For the "new" tab, check if we're on the new flight page
-        if (tab.id === "new") {
-          return pathname === tab.path;
-        }
-        // For other tabs, check if the pathname starts with the tab path
-        return pathname.startsWith(tab.path);
-      }
-      return false;
-    });
-
-    if (currentTab) {
-      setActiveTab(currentTab.id);
-    }
+  // Derive active tab directly from pathname — most specific path wins
+  const activeTab = useMemo(() => {
+    return [...tabs]
+      .filter((tab) => tab.action === "navigate" && tab.path)
+      .sort((a, b) => (b.path?.length ?? 0) - (a.path?.length ?? 0))
+      .find((tab) => {
+        if (tab.id === "new") return pathname === tab.path;
+        return pathname.startsWith(tab.path!);
+      })?.id ?? "";
   }, [pathname]);
 
   const handleTabPress = (tab: TabItem) => {
-    setActiveTab(tab.id);
     router.push(tab.path ?? "");
   };
 
@@ -84,8 +74,7 @@ export function MobileNavBar() {
             <div className="flex items-center justify-between p-1">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
-                const isActive =
-                  activeTab === tab.id && tab.action === "navigate"; // Only show active state for navigation tabs
+                const isActive = activeTab === tab.id && tab.action === "navigate";
 
                 return (
                   <button
@@ -122,13 +111,13 @@ export function MobileNavBar() {
 
                     {/* Label */}
                     {/* <span
-                    className={cn(
-                      "text-xs font-medium transition-colors duration-200 text-center leading-tight",
-                      isActive ? "text-primary" : "text-muted-foreground"
-                    )}
-                  >
-                    {tab.label}
-                  </span> */}
+                      className={cn(
+                        "text-xs font-medium transition-colors duration-200 text-center leading-tight",
+                        isActive ? "text-primary" : "text-muted-foreground"
+                      )}
+                    >
+                      {tab.label}
+                    </span> */}
                   </button>
                 );
               })}
