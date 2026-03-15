@@ -113,6 +113,7 @@ export default function CrewForm({ crew, isLoading }: CrewFormProps) {
       }
 
       console.log("Success, redirecting...");
+      form.reset(emptyValues);
       router.push("/app/crew");
     } catch (error) {
       console.error(

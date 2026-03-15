@@ -229,7 +229,7 @@ export default function SimulatorForm({
       await createSimulatorSession(result.data);
     }
 
-    form.reset()
+    form.reset(emptyValues)
   };
 
   const handleDelete = async () => {

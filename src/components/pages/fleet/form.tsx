@@ -157,6 +157,7 @@ export default function FleetForm({ fleet, isLoading }: FleetFormProps) {
       }
 
       console.log("Success, redirecting...");
+      form.reset(emptyValues);
       router.push("/app/fleet");
     } catch (error) {
       console.error(

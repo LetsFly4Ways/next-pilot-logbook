@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 
 import { FieldValues, Path, PathValue, useFormContext } from "react-hook-form";
 import { calculateNightTime } from "@/lib/night-time-utils";
+import { formatTime, timeToMinutes } from "@/lib/time-utils";
+
+import { SelectedAirport } from "@/types/logs";
+
 
 import { PositionedItem } from "@/components/ui/positioned-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormField } from "@/components/ui/form-field";
-import { formatTime, timeToMinutes } from "@/lib/time-utils";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { SelectedAirport } from "@/types/logs";
 
 interface NightTimeDurationInputProps<T extends FieldValues> {
   name: Path<T>;
