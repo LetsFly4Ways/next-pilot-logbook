@@ -9,18 +9,18 @@ import { z } from "zod";
  */
 
 export const FleetFormSchema = z.object({
-	registration: z.string().min(1, "Registration is required."),
-	is_simulator: z.boolean(),
-	type: z.string().nullable(),
-	model: z.string().nullable(),
-	manufacturer: z.string().nullable(),
-	category: z.string(), // refine Single Pilot - Single Engine
-	engine_count: z.number().int(),
-	engine_type: z.string().nullable(),
-	passenger_seats: z.number().int(),
-	operator: z.string().nullable(),
-	status: z.string().nullable(),
-	note: z.string().nullable(),
+  registration: z.string().min(1, "Registration is required."),
+  is_simulator: z.boolean(),
+  type: z.string().nullable(),
+  model: z.string().nullable(),
+  manufacturer: z.string().nullable(),
+  category: z.string(), // refine Single Pilot - Single Engine
+  engine_count: z.number().int(),
+  engine_type: z.string().nullable(),
+  passenger_seats: z.number().int().min(0),
+  operator: z.string().nullable(),
+  status: z.string().nullable(),
+  note: z.string().nullable(),
 });
 
 /**
@@ -53,3 +53,9 @@ export const GROUP_BY_LABELS: Record<FleetGroupBy, string> = {
 	type: "Aircraft / Sim Type",
 	icaoType: "ICAO Type",
 };
+
+export type FleetAssetType = "aircraft" | "simulator";
+
+export interface FleetFilters {
+  assetTypes: FleetAssetType[]; // checkbox-based
+}

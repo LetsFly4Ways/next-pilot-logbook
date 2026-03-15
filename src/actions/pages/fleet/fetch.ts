@@ -1,12 +1,13 @@
 "use server";
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
-import { Fleet } from "@/types/fleet";
+import { Fleet, FleetAssetType } from "@/types/fleet";
 
 export interface FetchFleetParams {
 	searchQuery?: string;
 	page?: number;
 	pageSize?: number;
+	assetTypes?: FleetAssetType[];
 }
 
 export interface FetchFleetResult {
@@ -23,6 +24,7 @@ export async function fetchFleet({
 	searchQuery = "",
 	page = 1,
 	pageSize = 50,
+	assetTypes = ["aircraft", "simulator"],
 }: FetchFleetParams = {}): Promise<FetchFleetResult> {
 	try {
 		const auth = await getAuthenticatedUser();
@@ -47,9 +49,17 @@ export async function fetchFleet({
 		// Add search filter if provided
 		if (searchQuery.trim()) {
 			query = query.or(
-				`registration.ilike.%${searchQuery}%,type.ilike.%${searchQuery}%,model.ilike.%${searchQuery}%,category.ilike.%${searchQuery}%,manufacturer.ilike.%${searchQuery}%,operator.ilike.%${searchQuery}%`
+				`registration.ilike.%${searchQuery}%,type.ilike.%${searchQuery}%,model.ilike.%${searchQuery}%,category.ilike.%${searchQuery}%,manufacturer.ilike.%${searchQuery}%,operator.ilike.%${searchQuery}%`,
 			);
 		}
+
+		// Asset type filter (aircraft/simulator)
+		if (assetTypes.length === 1) {
+			// Only one selected
+			const isSimulator = assetTypes[0] === "simulator";
+			query = query.eq("is_simulator", isSimulator);
+		}
+		// If both selected or empty → no filter (all)
 
 		// Add pagination
 		const from = (page - 1) * pageSize;
@@ -89,7 +99,7 @@ export async function fetchFleet({
 }
 
 export async function fetchAsset(
-	assetId: string
+	assetId: string,
 ): Promise<{ asset: Fleet | null; error?: string }> {
 	try {
 		const auth = await getAuthenticatedUser();
@@ -128,4 +138,86 @@ export async function fetchAsset(
 			error: "An unexpected error occurred",
 		};
 	}
+}
+
+export interface FormattedAircraft {
+	id: string;
+	registration: string;
+	type: string;
+	displayName: string; // e.g. "OO-SKX | DA40 D"
+}
+
+export async function fetchAndFormatAircraft(assetId: string): Promise<{
+	aircraft: FormattedAircraft | null;
+	error?: string;
+}> {
+	try {
+		const auth = await getAuthenticatedUser();
+
+		if (!auth) {
+			return { aircraft: null, error: "Authentication required" };
+		}
+
+		const { supabase, user } = auth;
+
+		const { data, error } = await supabase
+			.from("fleet")
+			.select("*")
+			.eq("id", assetId)
+			.eq("user_id", user.id)
+			.single();
+
+		if (error || !data) {
+			console.error("Error fetching fleet asset:", error);
+			return {
+				aircraft: null,
+				error: error?.message ?? "Aircraft not found",
+			};
+		}
+
+		const asset = data as Fleet;
+
+		const formatted = {
+			id: asset.id,
+			registration: asset.registration,
+			type: [asset.manufacturer, asset.model, asset.type]
+				.filter(Boolean)
+				.join(" "),
+			displayName: `${asset.registration} ${(asset.model || asset.type) && `| ${asset.model || asset.type}`}`,
+		};
+
+		return { aircraft: formatted };
+	} catch (err) {
+		console.error("Unexpected error fetching aircraft:", err);
+		return {
+			aircraft: null,
+			error: "An unexpected error occurred",
+		};
+	}
+}
+
+export async function fetchAssetsByIds(
+	ids: string[],
+): Promise<{ assets: Fleet[]; error?: string }> {
+	if (!ids.length) return { assets: [] };
+
+	const auth = await getAuthenticatedUser();
+	if (!auth) {
+		return { assets: [], error: "Authentication required" };
+	}
+
+	const { supabase, user } = auth;
+
+	const { data, error } = await supabase
+		.from("fleet")
+		.select("*")
+		.eq("user_id", user.id)
+		.in("id", ids);
+
+	if (error) {
+		console.error(error);
+		return { assets: [], error: error.message };
+	}
+
+	return { assets: data as Fleet[] };
 }

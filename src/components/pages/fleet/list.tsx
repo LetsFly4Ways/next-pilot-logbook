@@ -5,7 +5,7 @@ import { fetchFleet } from "@/actions/pages/fleet/fetch";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
 
-import { Fleet, FleetGroupBy } from "@/types/fleet";
+import { Fleet, FleetAssetType, FleetGroupBy } from "@/types/fleet";
 
 import { ErrorContainer } from "@/components/ui/error-container";
 import { PositionedGroup } from "@/components/ui/positioned-group";
@@ -62,10 +62,19 @@ function groupFleet(
 
 interface FleetListProps {
   searchQuery: string;
-  groupBy: FleetGroupBy
+  groupBy: FleetGroupBy;
+  assetTypes?: FleetAssetType[];
+  onSelect?: (fleet: Fleet) => void;
+  selectedId?: string | null;
 }
 
-export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
+export function FleetList({
+  searchQuery,
+  groupBy = "type",
+  assetTypes,
+  onSelect,
+  selectedId = null,
+}: FleetListProps) {
   const [fleet, setFleet] = useState<Fleet[]>([]);
   const [groupedFleet, setGroupedFleet] = useState<Record<string, Fleet[]>>({});
 
@@ -90,6 +99,7 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
           searchQuery,
           page,
           pageSize: ITEMS_PER_PAGE,
+          assetTypes: assetTypes,
         });
 
         if (result.error) {
@@ -106,14 +116,14 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
         setHasMore(result.hasMore);
         setCurrentPage(page);
       } catch (err) {
-        setError("Failed to load crew members");
+        setError("Failed to load fleet");
         console.error(err);
       } finally {
         setLoading(false);
         setLoadingMore(false);
       }
     },
-    [searchQuery]
+    [searchQuery, assetTypes]
   );
 
   // Debounced search handler
@@ -168,7 +178,7 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
   // Error state
   if (error) {
     return (
-      <ErrorContainer title="Error Loading Crew Members" message={error} />
+      <ErrorContainer title="Error Loading Fleet" message={error} />
     );
   }
 
@@ -178,8 +188,8 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
       <div className="flex justify-center text-center py-12 text-muted-foreground w-full">
         <p className="w-2/3">
           {searchQuery
-            ? `No crew members found matching "${searchQuery}".`
-            : "No crew members found. You can create them by clicking on the plus icon in the top right corner."}
+            ? `No fleet asset found matching "${searchQuery}".`
+            : "No fleet found. You can create them by clicking on the plus icon in the top right corner."}
         </p>
       </div>
     );
@@ -201,7 +211,12 @@ export function FleetList({ searchQuery, groupBy = "type" }: FleetListProps) {
 
             <PositionedGroup>
               {groupedFleet.map((fleet) => (
-                <FleetListItem key={fleet.id} fleet={fleet} />
+                <FleetListItem
+                  key={fleet.id}
+                  fleet={fleet}
+                  onSelect={onSelect}
+                  isSelected={selectedId != null && fleet.id === selectedId}
+                />
               ))}
             </PositionedGroup>
           </div>

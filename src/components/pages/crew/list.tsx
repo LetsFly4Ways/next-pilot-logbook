@@ -55,9 +55,15 @@ function groupCrewByInitial(
 
 interface CrewListProps {
   searchQuery: string;
+  onSelect?: (crew: Crew) => void;
+  selectedId?: string | null;
 }
 
-export function CrewList({ searchQuery }: CrewListProps) {
+export function CrewList({
+  searchQuery,
+  onSelect,
+  selectedId = null,
+}: CrewListProps) {
   const { preferences } = usePreferences();
   const nameDisplay = preferences.nameDisplay;
 
@@ -205,6 +211,8 @@ export function CrewList({ searchQuery }: CrewListProps) {
                   key={crew.id}
                   crew={crew}
                   nameDisplay={nameDisplay}
+                  onSelect={onSelect}
+                  isSelected={selectedId != null && crew.id === selectedId}
                 />
               ))}
             </PositionedGroup>

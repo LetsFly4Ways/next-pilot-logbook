@@ -1,0 +1,170 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+import { PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { LogList } from "@/components/pages/logs/list/list";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+
+import {
+  ChevronsUpDown,
+  CircleX,
+  ListFilter,
+  MonitorPlay,
+  PlaneTakeoff,
+  Plus,
+  Search,
+  X
+} from "lucide-react";
+
+export default function LogsPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [filters, setFilters] = useState({
+    showFlights: true,
+    showSimulators: true,
+  });
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  return (
+    <div className="flex flex-col">
+      <PageHeader title="Logs" showBackButton={false} isTopLevelPage={true} actionButton={
+        showSearch ? (
+          <div className="relative flex items-center gap-2">
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-8 w-48 md:w-64 pl-8 pr-8"
+                autoFocus
+              />
+              <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              {searchQuery && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-0 top-0 h-8 w-8 hover:bg-transparent cursor-pointer"
+                  onClick={() => setSearchQuery("")}
+                >
+                  <CircleX className="h-3.5 w-3.5" />
+                </Button>
+              )}
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+              onClick={() => {
+                setShowSearch(false);
+                setSearchQuery("");
+              }}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <div className="relative flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+              onClick={() => setShowSearch(true)}
+            >
+              <Search className="h-4 w-4" />
+            </Button>
+
+            {/* Filter Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+                >
+                  <ListFilter className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md" align="end" sideOffset={12}>
+                <DropdownMenuLabel>Show logs</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuCheckboxItem
+                  checked={filters.showFlights}
+                  onSelect={() =>
+                    setFilters((prev) => ({ ...prev, showFlights: !prev.showFlights }))
+                  }
+                >
+                  Flights
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={filters.showSimulators}
+                  onSelect={() =>
+                    setFilters((prev) => ({ ...prev, showSimulators: !prev.showSimulators }))
+                  }
+                >
+                  Simulators
+                </DropdownMenuCheckboxItem>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuLabel>Sort by date</DropdownMenuLabel>
+                <DropdownMenuItem
+                  onSelect={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                >
+                  <ChevronsUpDown className="h-4 w-4" />
+                  {sortOrder === "asc" ? "Oldest first" : "Newest first"}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-md" align="end" sideOffset={12}>
+                <DropdownMenuItem asChild>
+                  <Link href="/app/logs/flight/new" className="flex items-center gap-2 cursor-pointer">
+                    <PlaneTakeoff className="h-4 w-4 text-muted-foreground" />
+                    New Flight
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem asChild>
+                  <Link href="/app/logs/simulator/new" className="flex items-center gap-2 cursor-pointer">
+                    <MonitorPlay className="h-4 w-4 text-muted-foreground" />
+                    New Simulator Session
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )
+      } />
+
+      <div className="p-4 md:p-6">
+        <LogList searchQuery={searchQuery} filters={filters} sortOrder={sortOrder} />
+      </div>
+    </div>
+  )
+}

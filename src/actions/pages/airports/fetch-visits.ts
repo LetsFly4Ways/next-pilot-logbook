@@ -1,7 +1,7 @@
 "use server";
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
-import { Log } from "@/types/log";
+import { Log } from "@/types/logs";
 
 export interface AirportVisit {
   departures: number;
@@ -13,7 +13,7 @@ export interface AirportVisit {
  * Get count of departures and arrivals for a specific airport
  */
 export async function getAirportVisits(
-  icao: string
+  icao: string,
 ): Promise<AirportVisit | null> {
   try {
     const auth = await getAuthenticatedUser();
@@ -82,7 +82,7 @@ export async function getDeparturesFromAirport(icao: string): Promise<Log[]> {
       return [];
     }
 
-    return (data as Log[]) || [];
+    return data.map((log) => ({ ...log, _type: "flight" as const })) as Log[];
   } catch (error) {
     console.error("Error in getDeparturesFromAirport:", error);
     return [];
@@ -111,7 +111,7 @@ export async function getArrivalsToAirport(icao: string): Promise<Log[]> {
       return [];
     }
 
-    return (data as Log[]) || [];
+    return data.map((log) => ({ ...log, _type: "flight" as const })) as Log[];
   } catch (error) {
     console.error("Error in getArrivalsToAirport:", error);
     return [];

@@ -40,7 +40,7 @@ const tabs: TabItem[] = [
     label: "New",
     icon: Plus,
     action: "navigate",
-    path: "/app/flights/new",
+    path: "/app/logs/flight/new",
   },
   //   { id: "menu", label: "Menu", icon: Menu, action: "sidebar" },
 ];
@@ -78,10 +78,10 @@ export function MobileNavBar() {
   return (
     <>
       {/* Bottom Tab Bar - Only visible on mobile */}
-      <div className="fixed bottom-4 left-4 right-4 md:hidden z-50">
+      <div className="fixed bottom-3 left-4 right-4 md:hidden z-50">
         <div className="flex items-center gap-4">
-          <div className="bg-sidebar/40 backdrop-blur-xl border border-border rounded-3xl shadow-lg flex-3">
-            <div className="flex items-center justify-between py-2 px-1">
+          <div className="bg-sidebar/40 backdrop-blur-xl border border-border rounded-full shadow-lg flex-3">
+            <div className="flex items-center justify-between p-1">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive =
@@ -92,7 +92,7 @@ export function MobileNavBar() {
                     key={tab.id}
                     onClick={() => handleTabPress(tab)}
                     className={cn(
-                      "flex flex-col items-center justify-center min-w-0 flex-1 p-1 transition-colors duration-200",
+                      "flex flex-col items-center justify-center min-w-0 flex-1 px-1 py-1.5 transition-colors duration-200",
                       "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                       "active:scale-95 transition-transform"
                     )}
@@ -135,12 +135,12 @@ export function MobileNavBar() {
             </div>
           </div>
 
-          <div className="bg-sidebar/40 backdrop-blur-xl border border-border rounded-3xl shadow-lg flex-1">
+          <div className="bg-sidebar/40 backdrop-blur-xl border border-border rounded-full shadow-lg flex-1">
             <button
               key={"menu"}
               onClick={() => setOpenMobile(true)}
               className={cn(
-                "flex flex-col items-center justify-center min-w-0 w-full p-3 transition-colors duration-200",
+                "flex flex-col items-center justify-center min-w-0 w-full px-1 py-3 transition-colors duration-200",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 "active:scale-95 transition-transform"
               )}

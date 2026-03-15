@@ -1,13 +1,14 @@
 "use server";
 
 import { getAuthenticatedUser } from "@/actions/get-auth-user";
+import { formatCrewName, NameFormatPreference } from "@/lib/format-crew";
 import { Crew } from "@/types/crew";
 
 export interface FetchCrewParams {
   searchQuery?: string;
   page?: number;
   pageSize?: number;
-  sortBy?: "first-last" | "last-first";
+  sortBy?: NameFormatPreference;
 }
 
 export interface FetchCrewResult {
@@ -60,7 +61,7 @@ export async function fetchCrewMembers({
     // Add search filter if provided
     if (searchQuery.trim()) {
       query = query.or(
-        `first_name.ilike.%${searchQuery}%,last_name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%,company.ilike.%${searchQuery}%`
+        `first_name.ilike.%${searchQuery}%,last_name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%,company.ilike.%${searchQuery}%`,
       );
     }
 
@@ -105,7 +106,7 @@ export async function fetchCrewMembers({
  * Fetch a single crew member by ID
  */
 export async function fetchCrewMember(
-  crewId: string
+  crewId: string,
 ): Promise<{ crew: Crew | null; error?: string }> {
   try {
     const auth = await getAuthenticatedUser();
@@ -139,6 +140,71 @@ export async function fetchCrewMember(
     };
   } catch (error) {
     console.error("Unexpected error fetching crew member:", error);
+    return {
+      crew: null,
+      error: "An unexpected error occurred",
+    };
+  }
+}
+
+export interface FormattedCrewMember {
+  id: string | null;
+  fullName: string; // "John Doe"
+  companyId?: string; // optional badge value
+  displayName: string; // "John Doe | AC123"
+}
+
+export async function fetchAndFormatCrewMember(
+  crewId: string,
+  nameFormat: NameFormatPreference = "first-last",
+): Promise<{
+  crew: FormattedCrewMember | null;
+  error?: string;
+}> {
+  try {
+    const auth = await getAuthenticatedUser();
+
+    if (!auth) {
+      return { crew: null, error: "Authentication required" };
+    }
+
+    const { supabase, user } = auth;
+
+    const { data, error } = await supabase
+      .from("crew")
+      .select("*")
+      .eq("id", crewId)
+      .eq("user_id", user.id)
+      .single();
+
+    if (error || !data) {
+      console.error("Error fetching crew member:", error);
+      return {
+        crew: null,
+        error: error?.message ?? "Crew member not found",
+      };
+    }
+
+    const crew = data as Crew;
+
+    const fullName = formatCrewName(
+      crew.first_name,
+      crew.last_name,
+      nameFormat,
+    );
+
+    const formatted: FormattedCrewMember = {
+      id: crew.id,
+      fullName,
+      companyId: crew.company_id ?? undefined,
+      displayName: crew.company_id
+        ? `${fullName} • ${crew.company_id}`
+        : fullName,
+    };
+
+    return { crew: formatted };
+  } catch (err) {
+    console.error("Unexpected error fetching crew member:", err);
     return {
       crew: null,
       error: "An unexpected error occurred",

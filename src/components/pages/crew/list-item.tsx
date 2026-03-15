@@ -2,35 +2,54 @@ import { useRouter } from "next/navigation";
 
 import { Crew } from "@/types/crew";
 import { PositionedItem } from "@/components/ui/positioned-group";
-import { ChevronRight } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ListItemProps {
   crew: Crew;
   nameDisplay: "first-last" | "last-first";
+  onSelect?: (crew: Crew) => void;
+  isSelected?: boolean;
 }
 
-export default function CrewListItem({ crew, nameDisplay }: ListItemProps) {
+export default function CrewListItem({
+  crew,
+  nameDisplay,
+  onSelect,
+  isSelected = false,
+}: ListItemProps) {
   const router = useRouter();
 
-  // Format name based on preference
   const fullName =
     nameDisplay === "last-first"
       ? `${crew.last_name}, ${crew.first_name}`.trim()
       : `${crew.first_name} ${crew.last_name}`.trim();
 
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect(crew);
+    } else {
+      router.push(`/app/crew/${crew.id}`);
+    }
+  };
+
   return (
     <PositionedItem
       className="px-4 py-2 h-fit grid grid-cols-[1fr_auto] items-center gap-2 w-full cursor-pointer"
-      onClick={() => router.push(`/app/crew/${crew.id}`)}
+      onClick={handleClick}
     >
-      {/* LEFT COLUMN */}
       <div className="min-w-0">
         <span className="font-medium shrink-0">{fullName}</span>
       </div>
 
       {/* RIGHT COLUMN */}
-      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+      <div className="flex gap-2">
+        {isSelected && (
+          <Check className="w-4 h-4 shrink-0 text-blue-500 " />
+        )}
+
+        <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+      </div>
     </PositionedItem>
   );
 }
