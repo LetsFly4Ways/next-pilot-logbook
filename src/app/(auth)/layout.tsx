@@ -7,14 +7,14 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/assets/auth-background.png')" }}
+          style={{ backgroundImage: "url('/assets/auth-background.jpg')" }}
         />
         <div className="relative z-20 flex items-center text-lg font-medium">
           <span>NEXT Logbook</span>
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
-            <footer className="text-sm">© Copyright</footer>
+            <footer className="text-sm">© aubrey_vrb</footer>
           </blockquote>
         </div>
       </div>
