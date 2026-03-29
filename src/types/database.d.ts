@@ -450,7 +450,7 @@ export type Database = {
           hobbs_end?: number | null;
           hobbs_start?: number | null;
           id?: string;
-          instructor_id: string | null;
+          instructor_id?: string | null;
           instructor_is_self?: boolean;
           remarks?: string | null;
           session_minutes: number;
@@ -535,6 +535,10 @@ export type Database = {
       _set_auth_user_full_name: {
         Args: { first_name: string; last_name: string; user_uuid: string };
         Returns: undefined;
+      };
+      get_dashboard_data: {
+        Args: { p_filter?: string };
+        Returns: DashboardData;
       };
     };
     Enums: {

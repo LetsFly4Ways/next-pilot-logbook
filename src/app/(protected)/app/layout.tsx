@@ -52,7 +52,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <AuthProvider>
       <PreferencesProvider>
         <BannerTrailingContext.Provider value={{ setContent: setContentMemo }}>
-          <main className="w-screen h-screen">
+          <main className="w-full h-screen">
             <SidebarProvider>
               <TopBanner
                 leading={
@@ -69,7 +69,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
                 </Suspense>
                 <div className="flex-1 ml-0 h-calc(100vh-3rem)">
-                  <SidebarInset className="flex h-full flex-col overflow-auto mobile-bottom-spacing">
+                  <SidebarInset className="flex h-full flex-col overflow-y-auto overflow-x-hidden mobile-bottom-spacing">
                     {children}
                   </SidebarInset>
                 </div>
