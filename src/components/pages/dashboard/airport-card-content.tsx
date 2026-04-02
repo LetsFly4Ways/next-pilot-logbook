@@ -15,6 +15,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { AirportsMap } from "@/components/pages/dashboard/airport-map";
+import { Card } from "@/components/ui/card";
 
 // ── Types & Constants ─────────────────────────────────────────────────────────
 
@@ -30,12 +31,13 @@ interface CountryEntry {
 const CHART_COLORS = [
   "var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)",
   "var(--chart-5)", "var(--chart-6)", "var(--chart-7)", "var(--chart-8)",
+  "var(--chart-9)", "var(--chart-10)",
 ];
 const TOP_N = 10;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function getFlagEmoji(code: string): string {
+export function getFlagEmoji(code: string): string {
   if (!code || code.length !== 2) return "";
   return String.fromCodePoint(
     ...code.toUpperCase().split("").map((c) => 0x1f1e6 - 65 + c.charCodeAt(0))
@@ -73,7 +75,7 @@ export function AirportsCardContent({ airports, resolvedAirports, routes }: Dash
   const [tab, setTab] = useState<Tab>("airports");
 
   return (
-    <div className="bg-form rounded-lg border border-form-border p-5 flex flex-col gap-4 md:col-span-2">
+    <Card className="bg-form border-none shadow-sm p-4 flex flex-col gap-4 md:col-span-2">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold tracking-tight">Airports</h2>
@@ -103,7 +105,7 @@ export function AirportsCardContent({ airports, resolvedAirports, routes }: Dash
           <AirportsMap resolved={resolvedAirports} routes={routes} />
         </div>
       )}
-    </div>
+    </Card>
   );
 }
 

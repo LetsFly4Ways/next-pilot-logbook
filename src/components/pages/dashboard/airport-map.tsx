@@ -13,9 +13,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ControlButton, ControlGroup, Map as MapComponent, MapControls, MapMarker, MapRoute, MarkerContent } from "@/components/ui/map";
+import { ControlButton, ControlGroup, Map as MapComponent, MapControls, MapMarker, MapRoute, MarkerContent, MarkerPopup, MarkerTooltip } from "@/components/ui/map";
 
 import { Maximize2, Map as MapIcon, Route } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { getFlagEmoji } from "./airport-card-content";
 
 
 export function AirportsMap({ resolved, routes }: { resolved: ResolvedWithCount[]; routes: RouteEntry[] }) {
@@ -98,6 +101,22 @@ export function AirportsMap({ resolved, routes }: { resolved: ResolvedWithCount[
                 backgroundColor: frequencyColor(airport.count, maxCount),
               }}
             />
+            <MarkerTooltip>
+              <div className="text-xs font-medium">{airport.code}</div>
+            </MarkerTooltip>
+            <MarkerPopup>
+              <Link href={`/app/airports/${airport.code}`} className="border-none">
+                <div className="p-2 flex flex-col gap-2">
+                  <div className="text-sm font-semibold">
+                    {airport.code} - {getFlagEmoji(airport.countryCode)} {airport.countryName}
+                  </div>
+                  <Separator />
+                  <div className="text-sm">
+                    {airport.count} visits
+                  </div>
+                </div>
+              </Link>
+            </MarkerPopup>
           </MarkerContent>
         </MapMarker>
       ))}

@@ -1,5 +1,6 @@
-// ── Filter ────────────────────────────────────────────────────────────────────
+import { DistanceUnit } from "@/types/airports";
 
+// ── Filter ────────────────────────────────────────────────────────────────────
 export type DashboardFilter =
   | "all"
   | "rolling_12m"
@@ -8,7 +9,6 @@ export type DashboardFilter =
   | (string & {}); // 4-digit year
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
-
 export interface DashboardStatsData {
   // Log counts
   totalLogs: number;
@@ -101,7 +101,7 @@ export interface AircraftRegistrationEntry {
 
 export interface CrewEntry {
   id: string;
-  name: string;
+  name: string; // change to first & last name to format
   count: number;
   minutes: number;
 }
@@ -119,6 +119,22 @@ export interface HeatmapDay {
   minutes: number;
 }
 
+export interface LongestFlight {
+  minutes: number;
+  departure: string;
+  destination: string;
+  date: string;
+  distanceNm?: number; // computed in fetch.ts
+}
+
+export interface MostFrequentRoute {
+  departure: string;
+  destination: string;
+  count: number;
+  avgMinutes?: number;
+  distanceNm?: number; // computed in fetch.ts
+}
+
 export interface DashboardData {
   stats: DashboardStatsData;
   specialTimes: SpecialTimesData;
@@ -130,8 +146,13 @@ export interface DashboardData {
   allAircraftTypes: AircraftTypeEntry[];
   allAircraftRegistrations: AircraftRegistrationEntry[];
   topCrew: CrewEntry[];
+  totalCrew: number;
   topApproaches: ApproachEntry[];
+  longestFlight: LongestFlight | null;
+  mostFrequentRoute: MostFrequentRoute | null;
   heatmapData: HeatmapDay[];
+  distanceUnit: DistanceUnit;
+  nameDisplay: "first-last" | "last-first";
   availableYears: number[];
 }
 

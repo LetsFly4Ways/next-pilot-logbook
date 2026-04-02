@@ -1,6 +1,12 @@
+import { Suspense } from "react";
+
 import Dashboard from "@/components/pages/dashboard/dashboard";
 import CenterSpinner from "@/components/ui/center-spinner";
-import { Suspense } from "react";
+
+export const metadata = {
+  title: "Dashboard",
+  description: "Your experience at a glance: insights, trends, and stats from your flights.",
+};
 
 export default function Page() {
   return (

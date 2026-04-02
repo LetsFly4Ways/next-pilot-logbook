@@ -11,9 +11,10 @@ import { Users } from "lucide-react";
 
 interface Props {
   crew: CrewEntry[];
+  totalCrew: number;
 }
 
-export function TopCrewChart({ crew }: Props) {
+export function TopCrewChart({ crew, totalCrew }: Props) {
   // Sort by minutes descending, take top 10
   const sorted = React.useMemo(
     () => [...crew].sort((a, b) => b.minutes - a.minutes).slice(0, 10),
@@ -24,6 +25,7 @@ export function TopCrewChart({ crew }: Props) {
 
   return (
     <Card className="bg-form border-none shadow-sm p-4 flex flex-col gap-4">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold tracking-tight">Crew</h2>
         <Users className="w-4 h-4 text-muted-foreground" />
@@ -74,7 +76,7 @@ export function TopCrewChart({ crew }: Props) {
 
       <div className="flex w-full gap-1 justify-end shrink-0">
         <span className="text-sm font-medium tabular-nums ">
-          {crew.length}
+          {totalCrew}
         </span>
         <span className="text-sm text-muted-foreground">
           Crew
