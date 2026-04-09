@@ -88,7 +88,12 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## License
 
-[License information to be added]
+This project is source-available under a custom license. You are free to view,
+fork, and modify the code for personal or non-commercial use. **Only
+[LetsFly4Ways!](https://github.com/LetsFly4Ways) (or those with written
+consent) may distribute or sell this software as a paid product or service.**
+
+See [LICENSE.md](./LICENSE.md) for full details.
 
 ## Legal
 
