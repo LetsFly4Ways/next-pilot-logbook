@@ -15,8 +15,8 @@ import { TopCrewChart } from "@/components/pages/dashboard/crew-card";
 import { AirportsCard } from "@/components/pages/dashboard/airport-card";
 import JourneysCard from "@/components/pages/dashboard/journeys-card";
 import { DashboardFilter } from "@/types/statistics";
-import { FilterSelect } from "./filter-select";
-import { DashboardLoadingWrapper } from "./dashboard-loading-wrapper";
+import { FilterSelect } from "@/components/pages/dashboard/filter-select";
+import { DashboardLoadingWrapper } from "@/components/pages/dashboard/dashboard-loading-wrapper";
 
 
 export default async function Dashboard({ filter }: { filter: DashboardFilter }) {
