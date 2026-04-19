@@ -59,6 +59,8 @@ export interface MonthlyDataPoint {
   month: string; // "YYYY-MM"
   blockMinutes: number;
   airMinutes: number;
+  flightBlockMinutes: number;
+  simMinutes: number;
   flights: number;
   avgDepartureDelayMin: number;
   avgArrivalDelayMin: number;

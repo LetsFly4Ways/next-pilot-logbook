@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { formatTime } from "@/lib/time-utils";
@@ -37,9 +37,9 @@ const CHART_COLORS = [
 const TOP_N = 10;
 
 export function TopAircraftChart({ types, registrations }: Props) {
-  const [tab, setTab] = React.useState<"types" | "registrations">("registrations");
+  const [tab, setTab] = useState<"types" | "registrations">("registrations");
 
-  const allItems = React.useMemo(() => {
+  const allItems = useMemo(() => {
     const src = tab === "types" ? types : registrations;
     return [...src]
       .sort((a, b) => b.minutes - a.minutes)
@@ -65,7 +65,7 @@ export function TopAircraftChart({ types, registrations }: Props) {
       : []),
   ];
 
-  const chartConfig = React.useMemo((): ChartConfig => {
+  const chartConfig = useMemo((): ChartConfig => {
     const cfg: ChartConfig = { value: { label: "Time" } };
     chartData.forEach((item) => {
       cfg[item.key] = { label: item.label, color: item.fill };

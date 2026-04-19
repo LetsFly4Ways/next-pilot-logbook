@@ -7,13 +7,14 @@ import { DistanceUnit } from "@/types/airports";
 import { PageHeader } from "@/components/layout/page-header";
 import { ErrorContainer } from "@/components/ui/error-container";
 import { DashboardStats } from "@/components/pages/dashboard/stats";
+import ActivityTimeline from "@/components/pages/dashboard/timeline";
 import { MovementsCard } from "@/components/pages/dashboard/movements";
 import { TimesByFunctionChart } from "@/components/pages/dashboard/function-time";
-import { FlightHeatmap } from "@/components/pages/dashboard/heatmap";
 import { TopAircraftChart } from "@/components/pages/dashboard/aircraft-card";
 import { TopCrewChart } from "@/components/pages/dashboard/crew-card";
 import { AirportsCard } from "@/components/pages/dashboard/airport-card";
 import JourneysCard from "@/components/pages/dashboard/journeys-card";
+
 
 export default async function Dashboard() {
   const { data, error } = await getDashboardData();
@@ -72,11 +73,15 @@ export default async function Dashboard() {
 
         <div className="flex flex-col gap-3">
           <h2 className="text-xl font-bold">Experience</h2>
-          <FlightHeatmap
+          <ActivityTimeline data={data} />
+          {/* <FlightHeatmap
             data={data.heatmapData}
             availableYears={data.availableYears}
             selectedYear={2025}
           />
+
+          <TimeChart monthlyData={data.monthlyData} /> */}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <MovementsCard stats={data.stats} />
             <TimesByFunctionChart
