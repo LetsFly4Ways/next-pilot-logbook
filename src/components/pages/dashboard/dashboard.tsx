@@ -19,7 +19,13 @@ import { FilterSelect } from "@/components/pages/dashboard/filter-select";
 import { DashboardLoadingWrapper } from "@/components/pages/dashboard/dashboard-loading-wrapper";
 
 
-export default async function Dashboard({ filter }: { filter: DashboardFilter }) {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ filter?: string }>;
+}) {
+  const params = await searchParams;
+  const filter = (params.filter as DashboardFilter) || "all";
   const { data, error } = await getDashboardData(filter);
 
   const defaultUnit: DistanceUnit = (data.distanceUnit as DistanceUnit) ?? "nm";
@@ -109,10 +115,6 @@ export default async function Dashboard({ filter }: { filter: DashboardFilter })
               mostFrequentRoute={mostFrequentRoute}
               defaultUnit={defaultUnit}
             />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h2 className="text-xl font-bold">Mission Analytics</h2>
           </div>
         </div>
       </DashboardLoadingWrapper>
