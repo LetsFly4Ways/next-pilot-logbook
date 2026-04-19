@@ -607,6 +607,8 @@ type MapControlsProps = {
   className?: string;
   /** Callback with user coordinates when located */
   onLocate?: (coords: { longitude: number; latitude: number }) => void;
+  /** Child nodes for the controls container */
+  children?: React.ReactNode;
 };
 
 const positionClasses = {
@@ -616,7 +618,7 @@ const positionClasses = {
   "bottom-right": "bottom-10 right-2",
 };
 
-function ControlGroup({ children }: { children: React.ReactNode }) {
+export function ControlGroup({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden [&>button:not(:last-child)]:border-b [&>button:not(:last-child)]:border-border">
       {children}
@@ -624,16 +626,18 @@ function ControlGroup({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ControlButton({
+export function ControlButton({
   onClick,
   label,
   children,
   disabled = false,
+  className
 }: {
   onClick: () => void;
   label: string;
   children: React.ReactNode;
   disabled?: boolean;
+  className?: string;
 }) {
   return (
     <button
@@ -642,7 +646,8 @@ function ControlButton({
       type="button"
       className={cn(
         "flex items-center justify-center size-8 hover:bg-accent dark:hover:bg-accent/40 transition-colors",
-        disabled && "opacity-50 pointer-events-none cursor-not-allowed"
+        disabled && "opacity-50 pointer-events-none cursor-not-allowed",
+        className
       )}
       disabled={disabled}
     >
@@ -659,6 +664,7 @@ function MapControls({
   showFullscreen = false,
   className,
   onLocate,
+  children,
 }: MapControlsProps) {
   const { map } = useMap();
   const [waitingForLocation, setWaitingForLocation] = useState(false);
@@ -718,6 +724,8 @@ function MapControls({
         className
       )}
     >
+      {children}
+
       {showZoom && (
         <ControlGroup>
           <ControlButton onClick={handleZoomIn} label="Zoom in">

@@ -24,7 +24,7 @@ export default function NotFound() {
       <div className="px-4 pb-24 md:pb-8 flex flex-col gap-2 w-full max-w-sm mx-auto">
         <button
           onClick={() => router.back()}
-          className="flex items-center justify-center gap-2 w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
+          className="flex items-center justify-center gap-2 w-full h-11 rounded-xl bg-primary text-primary-foreground dark:bg-muted-foreground/30 text-sm font-medium hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           Go back

@@ -56,7 +56,7 @@ export function PageHeader({
       right: actionButton || undefined,
     });
     return () => setBannerContent(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [
     title,
     backHref,

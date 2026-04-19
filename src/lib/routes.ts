@@ -51,7 +51,7 @@ export const navigation: NavSection[] = [
     items: [
       {
         title: "Dashboard",
-        href: "/dashboard",
+        href: "/app/dashboard",
         icon: LayoutDashboard,
       },
       // {

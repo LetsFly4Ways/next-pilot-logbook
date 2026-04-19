@@ -49,7 +49,7 @@ export function FlightListItem({ flight, aircraft }: FlightListItemProps) {
         {/* ROW 2: Route */}
         <div className="flex items-center text-lg font-semibold">
           <span>{flight.departure_airport_code}</span>
-          <span className="mx-2 transform translate-y-[-1px]">»</span>
+          <span className="mx-2 transform -translate-y-px">»</span>
           <span>{flight.destination_airport_code}</span>
         </div>
 

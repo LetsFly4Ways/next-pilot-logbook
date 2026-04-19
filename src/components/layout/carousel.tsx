@@ -6,17 +6,20 @@ import {
   CarouselContent,
   CarouselItem,
   type CarouselApi,
+  type CarouselOptions,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
 interface CarouselWithDotsProps {
   items: React.ReactNode[];
   className?: string;
+  opts?: CarouselOptions;
 }
 
 export function CarouselWithDots({
   items,
   className,
+  opts
 }: CarouselWithDotsProps) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -33,7 +36,7 @@ export function CarouselWithDots({
 
   return (
     <div className={cn("flex flex-col w-full gap-8", className)}>
-      <Carousel setApi={setApi} className="w-full">
+      <Carousel setApi={setApi} className="w-full" opts={opts}>
         <CarouselContent>
           {items.map((item, index) => (
             <CarouselItem key={index} className="pl-4">
