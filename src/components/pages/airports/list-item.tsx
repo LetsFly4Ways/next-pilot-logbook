@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/navigation";
 
 import { Airport } from "@/types/airports";
@@ -14,7 +15,7 @@ interface ListItemProps {
   isSelected?: boolean;
 }
 
-export default function AirportListItem({
+function AirportListItem({
   airport,
   isFavorite = false,
   onSelect,
@@ -63,6 +64,17 @@ export default function AirportListItem({
     </PositionedItem>
   );
 }
+
+function areEqual(prevProps: ListItemProps, nextProps: ListItemProps) {
+  return (
+    prevProps.airport.icao === nextProps.airport.icao &&
+    prevProps.isFavorite === nextProps.isFavorite &&
+    prevProps.isSelected === nextProps.isSelected &&
+    prevProps.onSelect === nextProps.onSelect
+  );
+}
+
+export default React.memo(AirportListItem, areEqual);
 
 export function AirportItemSkeleton() {
   return (

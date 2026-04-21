@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { SortAirportBy } from "@/types/airports";
 
+import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
 import { PageHeader } from "@/components/layout/page-header";
 import { AirportsList } from "@/components/pages/airports/list";
 import { Button } from "@/components/ui/button";
@@ -23,10 +24,24 @@ import { Input } from "@/components/ui/input";
 import { CircleX, ListFilter, Search, X } from "lucide-react";
 
 export default function AirportsPage() {
+  const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortAirportBy>("country");
   const [showSearch, setShowSearch] = useState(false);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+
+  const setDebouncedSearchQuery = useDebouncedCallback(
+    (value: string) => {
+      setSearchQuery(value);
+    },
+    250,
+  );
+
+  const resetSearch = () => {
+    setSearchInput("");
+    setSearchQuery("");
+    setDebouncedSearchQuery("");
+  };
 
   return (
     <div className="flex flex-col">
@@ -44,18 +59,22 @@ export default function AirportsPage() {
                   <Input
                     type="text"
                     placeholder="Search..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={searchInput}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setSearchInput(value);
+                      setDebouncedSearchQuery(value);
+                    }}
                     className="h-8 w-48 md:w-64 pl-8 pr-8"
                     autoFocus
                   />
                   <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                  {searchQuery && (
+                  {searchInput && (
                     <Button
                       variant="ghost"
                       size="icon"
                       className="absolute right-0 top-0 h-8 w-8 hover:bg-transparent cursor-pointer"
-                      onClick={() => setSearchQuery("")}
+                      onClick={resetSearch}
                     >
                       <CircleX className="h-3.5 w-3.5" />
                     </Button>
@@ -67,7 +86,7 @@ export default function AirportsPage() {
                   className="text-primary-foreground font-medium hover:text-muted-foreground hover:bg-transparent w-8 h-8 cursor-pointer"
                   onClick={() => {
                     setShowSearch(false);
-                    setSearchQuery("");
+                    resetSearch();
                   }}
                 >
                   <X className="h-4 w-4" />

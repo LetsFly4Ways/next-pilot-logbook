@@ -44,18 +44,32 @@ export function AirportsList({
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch airports and favorites
+  // Load favorite airports once on mount
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadFavorites = async () => {
+      const favorites = await getFavoriteAirports();
+      if (isMounted) {
+        setFavoriteIcaos(favorites);
+      }
+    };
+
+    loadFavorites();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Fetch airports for the current search and sort state
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        // Fetch airports and favorites in parallel
-        const [airportsResult, favorites] = await Promise.all([
-          searchAndSortAirports(searchQuery, sortBy),
-          getFavoriteAirports(),
-        ]);
+        const airportsResult = await searchAndSortAirports(searchQuery, sortBy);
 
         if (!airportsResult.success) {
           setError(airportsResult.error || "Failed to load airports");
@@ -63,7 +77,6 @@ export function AirportsList({
         }
 
         setAirports(airportsResult.data);
-        setFavoriteIcaos(favorites);
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("An error occurred while loading airports");
@@ -154,7 +167,7 @@ export function AirportsList({
                 <Skeleton className="h-6 w-48 rounded-sm" />
               </div>
               <PositionedGroup>
-                {Array.from({ length: 10 }).map((_, index) => (
+                {Array.from({ length: 20 }).map((_, index) => (
                   <AirportItemSkeleton key={index} />
                 ))}
               </PositionedGroup>
@@ -206,7 +219,7 @@ export function AirportsList({
                             isSelected={
                               selectedIcao != null &&
                               airport.icao.toUpperCase() ===
-                                selectedIcao.toUpperCase()
+                              selectedIcao.toUpperCase()
                             }
                           />
                         ))}
