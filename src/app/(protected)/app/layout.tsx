@@ -50,24 +50,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthProvider>
-      <PreferencesProvider>
-        <BannerTrailingContext.Provider value={{ setContent: setContentMemo }}>
-          <main className="w-full h-screen">
-            <SidebarProvider>
-              <TopBanner
-                leading={
-                  <div className="flex items-center gap-2">
-                    <SidebarTrigger className="hidden md:inline-flex" />
-                  </div>
-                }
-                content={content}
-                className="fixed top-0 left-0 right-0 z-30"
-              />
+      <Suspense fallback={<div>Loading preferences...</div>}>
+        <PreferencesProvider>
+          <BannerTrailingContext.Provider value={{ setContent: setContentMemo }}>
+            <main className="w-full h-screen">
+              <SidebarProvider>
+                <TopBanner
+                  leading={
+                    <div className="flex items-center gap-2">
+                      <SidebarTrigger className="hidden md:inline-flex" />
+                    </div>
+                  }
+                  content={content}
+                  className="fixed top-0 left-0 right-0 z-30"
+                />
 
-              <div className="pt-12 flex w-full">
-                <Suspense fallback={<div className="w-64" />}>
-                  <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
-                </Suspense>
+                <div className="pt-12 flex w-full">
+                  <Suspense fallback={<div className="w-64" />}>
+                    <AppSidebar className="inset-y-12 h-calc(100vh-3rem)" />
+                  </Suspense>
                 <div className="flex-1 ml-0 h-calc(100vh-3rem)">
                   <SidebarInset className="flex h-full flex-col overflow-y-auto overflow-x-hidden mobile-bottom-spacing">
                     {children}
@@ -82,6 +83,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </main>
         </BannerTrailingContext.Provider>
       </PreferencesProvider>
+      </Suspense>
     </AuthProvider>
   );
 }

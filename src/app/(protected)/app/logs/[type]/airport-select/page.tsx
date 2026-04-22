@@ -1,11 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LogsPage() {
   const router = useRouter();
 
-  router.back();
+  useEffect(() => {
+    router.back();
+  }, [router]);
 
   // This component never renders anything
   return null;
