@@ -1,6 +1,11 @@
 import { Inter } from "next/font/google";
+
 import { siteConfig } from "@/config/site";
 import { settings } from "@/config/settings";
+
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import "@/styles/globals.css";
@@ -41,6 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+
       <body className={`${inter.className} overflow-x-hidden antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -49,6 +55,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

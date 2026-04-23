@@ -2,7 +2,11 @@ import { ContactConfig, SiteConfig } from "@/types";
 
 /* ==================== [> WEBSITE CONFIG <] ==================== */
 
-const baseUrl = "http://localhost:3000/";
+export const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000");
 
 export const siteConfig: SiteConfig = {
   name: "NEXT Pilot Logbook",
@@ -10,10 +14,10 @@ export const siteConfig: SiteConfig = {
   description: "More flying, less paperwork. ALl in the clouds.",
   keywords: [],
   url: {
-    base: baseUrl,
+    base: APP_URL,
     author: "https://github.com/letsfly4ways/next-pilot-logbook",
   },
-  ogImage: `${baseUrl}/og.jpg`,
+  ogImage: `${APP_URL}/og.jpg`,
 };
 
 export const contactConfig: ContactConfig = {

@@ -5,7 +5,7 @@ import { ResetFormSchema } from "@/types/auth/reset";
 import { createServerSupabaseClient } from "@/lib/supabase/server/server";
 
 export const resetPassword = async (
-  values: z.infer<typeof ResetFormSchema>
+  values: z.infer<typeof ResetFormSchema>,
 ) => {
   const validatedFields = ResetFormSchema.safeParse(values);
 
@@ -18,7 +18,11 @@ export const resetPassword = async (
   try {
     const supabase = await createServerSupabaseClient();
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/new-password`,
+      redirectTo: `${
+        process.env.NEXT_PUBLIC_APP_URL ||
+        `https://${process.env.VERCEL_URL}` ||
+        "http://localhost:3000"
+      }/new-password`,
     });
 
     if (error) {

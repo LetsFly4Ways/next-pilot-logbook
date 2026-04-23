@@ -5,7 +5,7 @@ import { VerificationEmailSchema } from "@/types/auth/verification-email";
 import { createServerSupabaseClient } from "@/lib/supabase/server/server";
 
 export const sendVerificationEmail = async (
-  values: z.infer<typeof VerificationEmailSchema>
+  values: z.infer<typeof VerificationEmailSchema>,
 ) => {
   const validatedFields = VerificationEmailSchema.safeParse(values);
 
@@ -20,7 +20,11 @@ export const sendVerificationEmail = async (
     const { error } = await supabase.auth.signInWithOtp({
       email: email,
       options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
+        emailRedirectTo: `${
+          process.env.NEXT_PUBLIC_APP_URL ||
+          `https://${process.env.VERCEL_URL}` ||
+          "http://localhost:3000"
+        }/login`,
       },
     });
 
@@ -32,7 +36,7 @@ export const sendVerificationEmail = async (
       success: "Verification email sent!",
     };
   } catch (error) {
-    console.error("Error resetting password:", error);
+    console.error("Error sending verification email:", error);
     return { error: "An unexpected error occurred" };
   }
 };
