@@ -2,11 +2,14 @@
 
 import { createServerSupabaseClient } from "@/lib/supabase/server/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-export const logout = async () => {
+export type LogoutResult = {
+  redirectTo: string;
+};
+
+export const logout = async (): Promise<LogoutResult> => {
   const supabase = await createServerSupabaseClient();
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
-  redirect("/");
+  return { redirectTo: "/" };
 };

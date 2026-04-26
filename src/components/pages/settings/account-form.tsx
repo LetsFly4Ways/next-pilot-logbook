@@ -94,16 +94,21 @@ export function AccountForm({ authUser, authLoading }: AccountFormProps) {
           </PositionedGroup>
         )}
 
-        < PositionedGroup >
+        <PositionedGroup>
           <PositionedItem
             className="p-3 text-center text-sm font-medium text-red-500 cursor-pointer"
-            onClick={() => logout()}
+            onClick={async () => {
+              const data = await logout();
+              if (data?.redirectTo) {
+                window.location.href = data.redirectTo;
+              }
+            }}
           >
             Log Out
           </PositionedItem>
         </PositionedGroup>
       </div>
-    </div >
+    </div>
   );
 }
 
