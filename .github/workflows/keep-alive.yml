@@ -2,8 +2,8 @@ name: Supabase Keep Alive
 
 on:
   schedule:
-    - cron: "0 12 */3 * *" # every 3 days at noon UTC
-  workflow_dispatch: # allow manual trigger
+    - cron: '0 12 */3 * *'
+  workflow_dispatch:
 
 jobs:
   ping:
@@ -11,10 +11,22 @@ jobs:
     steps:
       - name: Ping Supabase
         run: |
-          curl -sS --fail -X PATCH \
+          RESPONSE=$(curl -sS -w "\n%{http_code}" -X PATCH \
             "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?id=eq.1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Content-Type: application/json" \
-            -d '{"pinged_at": "'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}'
-          echo "Pinged at $(date -u)"
+            -d '{"pinged_at": "'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"}')
+
+          HTTP_BODY=$(echo "$RESPONSE" | head -n -1)
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
+
+          echo "Status: $HTTP_CODE"
+          echo "Response: $HTTP_BODY"
+
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -gt 299 ]; then
+            echo "❌ Failed with status $HTTP_CODE"
+            exit 1
+          fi
+
+          echo "✅ Pinged successfully at $(date -u)"
