@@ -43,7 +43,7 @@ export const login = async (values: z.infer<typeof LoginFormSchema>) => {
 
     return {
       success: "Logged in successfully",
-      redirectTo: "/app/",
+      redirectTo: "/app/logs",
     };
   } catch (error) {
     console.error("Error logging in:", error);
