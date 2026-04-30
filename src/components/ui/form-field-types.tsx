@@ -296,7 +296,7 @@ export function TimeInputField<T extends FieldValues>({
 								value={formatTime(field.value ?? 0, "HH:mm", { showZero: true })}
 								required={required}
 								className={cn(
-									"w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm",
+									"w-full h-fit py-0 border-none dark:bg-transparent focus-visible:border-none focus-visible:ring-0 shadow-none text-right text-sm [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none",
 									fieldState.error && "placeholder:text-destructive placeholder:font-normal"
 								)}
 								onChange={(e) => {

@@ -27,6 +27,7 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-skeleton: var(--skeleton);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -99,6 +100,8 @@
   /* Used in: Input, Checkbox, Switch, etc. */
   --ring: #b4b4b8;
   /* Used in: focus/outline for many components */
+  --skeleton: #dcdce1;
+  /* Used in: Skeleton loading components */
 
   /* Form */
   --form: #f2f2f7;
@@ -161,6 +164,7 @@
   --border: #3c3c3f;
   --input: #ffffff26;
   --ring: #8e8e93;
+  --skeleton: #3a3a3c;
 
   /* Charts */
   --chart-1: #38bdf8;
