@@ -253,39 +253,43 @@ export async function searchAirports(
   return searchAndSortAirports(query, "country");
 }
 
+const airportLookupCache = new Map<string, Airport>();
+let airportLookupInitialized = false;
+
+async function getAirportLookupMap(): Promise<Map<string, Airport>> {
+  if (airportLookupInitialized) {
+    return airportLookupCache;
+  }
+
+  const result = await fetchAirports();
+  if (!result.success) {
+    return airportLookupCache;
+  }
+
+  airportLookupCache.clear();
+  for (const airport of result.data) {
+    airportLookupCache.set(airport.icao.toLowerCase(), airport);
+  }
+
+  airportLookupInitialized = true;
+  return airportLookupCache;
+}
+
 /**
  * Get a single airport by ICAO code
  */
 export async function getAirportByIcao(icao: string): Promise<Result<Airport>> {
-  // "use cache";
-  // cacheLife("hours");
+  const lookup = await getAirportLookupMap();
 
-  const result = await fetchAirports();
-
-  if (!result.success) {
-    return { success: false, error: result.error };
-  }
-
-  try {
-    const airport = result.data.find(
-      (airport) => airport.icao.toLowerCase() === icao.toLowerCase(),
-    );
-
-    if (!airport) {
-      return {
-        success: false,
-        error: `Airport with ICAO code "${icao}" not found.`,
-      };
-    }
-
-    return { success: true, data: airport };
-  } catch (error) {
-    console.error("Failed to find airport:", error);
+  const airport = lookup.get(icao.toLowerCase());
+  if (!airport) {
     return {
       success: false,
-      error: "An error occurred while looking up the airport.",
+      error: `Airport with ICAO code "${icao}" not found.`,
     };
   }
+
+  return { success: true, data: airport };
 }
 
 /**
