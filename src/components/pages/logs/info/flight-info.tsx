@@ -10,6 +10,7 @@ import { FlightRecord } from "@/actions/pages/logs/fetch";
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { FlightLogInfoActions } from "@/components/pages/logs/info/log-info-actions";
 
 import { Check, X } from "lucide-react";
 
@@ -541,6 +542,11 @@ export default async function FlightLogInfo({ flight }: FlightLogInfoProps) {
             {formatDate(flight.updated_at, "long")}
           </span>
         </div>
+      </div>
+
+      <Separator className="w-full my-4" />
+      <div className="p-3">
+        <FlightLogInfoActions flight={flight} />
       </div>
     </div>
   )

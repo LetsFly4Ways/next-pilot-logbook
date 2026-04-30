@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { updateFlight } from "@/actions/pages/logs/flight/update";
 import { createFlight } from "@/actions/pages/logs/flight/create";
@@ -31,6 +31,10 @@ import {
   getDraftFromCookie,
   saveDraftToCookie,
 } from "@/components/pages/logs/form/flight-cookie-helper";
+import {
+  clearFlightFormPrefill,
+  readFlightFormPrefill,
+} from "@/components/pages/logs/form/prefill-storage";
 import {
   readFlightFormSelection,
   clearFlightFormSelection,
@@ -122,13 +126,26 @@ export default function FlightForm({
 }: FlightFormProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const hasInitializedForm = useRef(false);
+  const prefillRoute = !isEdit && searchParams.has("prefill");
 
   const form = useForm<FlightFormValues>({
     resolver: zodResolver(FlightFormSchema),
     defaultValues: emptyValues,
   });
+
+  useEffect(() => {
+    if (!prefillRoute || hasInitializedForm.current || isEdit) return;
+
+    const prefill = readFlightFormPrefill();
+    if (!prefill) return;
+
+    form.reset(prefill);
+    clearFlightFormPrefill();
+    hasInitializedForm.current = true;
+  }, [form, prefillRoute, isEdit]);
 
   // ------- Selection reader ------- //
   /**
@@ -543,6 +560,7 @@ export default function FlightForm({
       onDraftSave={saveDraftToCookie}
       onDraftClear={clearDraftCookie}
       shouldSaveDraft={shouldSaveDraft}
+      ignoreDraftRestore={prefillRoute}
     >
       <div className="space-y-8">
         {/* Basic Information (date, aircraft & flight number)*/}

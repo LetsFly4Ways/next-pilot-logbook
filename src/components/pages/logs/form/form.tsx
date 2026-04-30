@@ -23,6 +23,7 @@ interface BaseLogFormProps<TForm extends FieldValues> {
   onDraftSave: (data: TForm) => void;
   onDraftClear: () => void;
   shouldSaveDraft: (data: TForm) => boolean;
+  ignoreDraftRestore?: boolean;
   children: React.ReactNode;
 }
 
@@ -39,6 +40,7 @@ export default function LogForm<TForm extends FieldValues>({
   onDraftSave,
   onDraftClear,
   shouldSaveDraft,
+  ignoreDraftRestore = false,
   children
 }: BaseLogFormProps<TForm>) {
   const router = useRouter();
@@ -50,7 +52,7 @@ export default function LogForm<TForm extends FieldValues>({
 
   // Restore draft on mount (only once)
   useEffect(() => {
-    if (isEdit || restorePromptShownRef.current) return;
+    if (isEdit || restorePromptShownRef.current || ignoreDraftRestore) return;
     restorePromptShownRef.current = true;
 
     const draft = onDraftRestore();
@@ -69,7 +71,7 @@ export default function LogForm<TForm extends FieldValues>({
     } catch (e) {
       console.error(`Failed to parse ${draftName} draft:`, e);
     }
-  }, [isEdit, form, draftName, onDraftRestore, onDraftClear]);
+  }, [isEdit, form, draftName, onDraftRestore, onDraftClear, ignoreDraftRestore]);
 
   // Called by RHF when zodResolver passes.
   const handleValidSubmit = async (data: TForm) => {

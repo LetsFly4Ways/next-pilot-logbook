@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { SimulatorSessionRecord } from "@/actions/pages/logs/fetch";
 import { updateSimulatorSession } from "@/actions/pages/logs/simulator/update";
@@ -27,6 +27,10 @@ import {
   getDraftFromCookie,
   saveDraftToCookie
 } from "@/components/pages/logs/form/simulator-cookie-helper";
+import {
+  clearSimulatorFormPrefill,
+  readSimulatorFormPrefill,
+} from "@/components/pages/logs/form/prefill-storage";
 import {
   clearSimulatorFormSelection,
   readSimulatorFormSelection,
@@ -79,8 +83,10 @@ export default function SimulatorForm({
 }: SimulatorFormProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const hasInitializedForm = useRef(false);
+  const prefillRoute = !isEdit && searchParams.has("prefill");
 
   const form = useForm<SimulatorSessionFormValues>({
     resolver: zodResolver(SimulatorSessionFormSchema),
@@ -138,6 +144,17 @@ export default function SimulatorForm({
       clearTimeout(timeout);
     };
   }, [form]);
+
+  useEffect(() => {
+    if (!prefillRoute || hasInitializedForm.current || isEdit) return;
+
+    const prefill = readSimulatorFormPrefill();
+    if (!prefill) return;
+
+    form.reset(prefill);
+    clearSimulatorFormPrefill();
+    hasInitializedForm.current = true;
+  }, [form, prefillRoute, isEdit]);
 
   // ------- Initialize form (edit mode) ------- //
   // All display data is pre-resolved in SimulatorSessionRecord — no client fetches needed.
@@ -264,6 +281,7 @@ export default function SimulatorForm({
       onDraftSave={saveDraftToCookie}
       onDraftClear={clearDraftCookie}
       shouldSaveDraft={shouldSaveDraft}
+      ignoreDraftRestore={prefillRoute}
     >
       <div className="space-y-8">
         {/* Basic Information (date & simulator)*/}

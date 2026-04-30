@@ -10,6 +10,7 @@ import { formatTime } from "@/lib/time-utils";
 
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SimulatorLogInfoActions } from "@/components/pages/logs/info/log-info-actions";
 
 interface SimulatorLogInfoProps {
   session: SimulatorSessionRecord & { _type: "simulator" };
@@ -255,6 +256,11 @@ export default async function SimulatorLogInfo({ session }: SimulatorLogInfoProp
             {formatDate(session.updated_at, "long")}
           </span>
         </div>
+      </div>
+
+      <Separator className="w-full my-4" />
+      <div className="p-3">
+        <SimulatorLogInfoActions session={session} />
       </div>
     </div>
   )
