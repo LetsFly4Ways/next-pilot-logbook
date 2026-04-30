@@ -1,6 +1,8 @@
-import type { AirportEntry, RouteEntry } from "@/types/statistics";
-import { AirportsCardContent } from "./airport-card-content";
 import { getAirportCoordinates } from "@/actions/pages/airports/fetch";
+
+import type { AirportEntry, RouteEntry } from "@/types/statistics";
+
+import { AirportsCardContent } from "@/components/pages/dashboard/airport-card-content";
 
 export interface ResolvedAirport {
   icao: string;

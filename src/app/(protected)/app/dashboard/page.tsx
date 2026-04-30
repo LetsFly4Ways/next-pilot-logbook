@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import Dashboard from "@/components/pages/dashboard/dashboard";
-import CenterSpinner from "@/components/ui/center-spinner";
+import DashboardSkeleton from "@/components/pages/dashboard/dashboard-skeleton";
 
 export const metadata = {
   title: "Dashboard",
@@ -14,7 +14,7 @@ export default function Page({
   searchParams: Promise<{ filter?: string }>;
 }) {
   return (
-    <Suspense fallback={<CenterSpinner />}>
+    <Suspense fallback={<DashboardSkeleton />}>
       <Dashboard searchParams={searchParams} />
     </Suspense>
   );

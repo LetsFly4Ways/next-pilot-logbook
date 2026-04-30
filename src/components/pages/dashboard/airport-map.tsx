@@ -2,9 +2,11 @@
 
 import { useMemo, useState } from "react";
 
-import { RouteEntry } from "@/types/statistics";
-import type { ResolvedWithCount } from "@/components/pages/dashboard/airport-card";
+import Link from "next/link";
 
+import { RouteEntry } from "@/types/statistics";
+
+import type { ResolvedWithCount } from "@/components/pages/dashboard/airport-card";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,12 +16,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ControlButton, ControlGroup, Map as MapComponent, MapControls, MapMarker, MapRoute, MarkerContent, MarkerPopup, MarkerTooltip } from "@/components/ui/map";
+import { Separator } from "@/components/ui/separator";
+import { getFlagEmoji } from "@/components/pages/dashboard/airport-card-content";
 
 import { Maximize2, Map as MapIcon, Route } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
-import { getFlagEmoji } from "./airport-card-content";
-
 
 export function AirportsMap({ resolved, routes }: { resolved: ResolvedWithCount[]; routes: RouteEntry[] }) {
   const [showRoutes, setShowRoutes] = useState(false);
