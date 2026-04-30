@@ -29,6 +29,7 @@ export const metadata = {
   creator: siteConfig.author,
   icons: {
     icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -46,7 +47,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-
+      <link
+        rel="apple-touch-icon"
+        href="/apple-icon?<generated>"
+        type="image/<generated>"
+        sizes="<generated>"
+      />
       <body className={`${inter.className} overflow-x-hidden antialiased`}>
         <ThemeProvider
           attribute="class"
